@@ -57,22 +57,40 @@ def authorized(access_token):
 
 
 def add_to_org(user_login):
-    resource = 'teams/{}/memberships/{}'.format(GITHUB_TEAM_ID, user_login)
-    return github.put(resource, access_token=GITHUB_ADMIN_TOKEN)
+    """
+    Adds the GitHub user with the given login to the org and publicizes the
+    membership.
+    """
+    calls = [
+        'teams/%s/memberships/%s' % (GITHUB_TEAM_ID, user_login),
+        'orgs/%s/public_members/%s' % (GITHUB_ORG_ID, user_login),
+    ]
+    for call in calls:
+        github.put(call, access_token=GITHUB_ADMIN_TOKEN)
 
 
 def is_member(user_login):
-    resource = 'orgs/{}/members/{}'.format(GITHUB_ORG_ID, user_login)
+    """
+    Checks if the GitHub user with the given login is member of the org.
+    """
     try:
-        github.get(resource, access_token=GITHUB_ADMIN_TOKEN)
+        github.get(
+            'orgs/%s/members/%s' % (GITHUB_ORG_ID, user_login),
+            access_token=GITHUB_ADMIN_TOKEN,
+        )
         return True
     except GitHubError:
         return False
 
 
 def verified_emails():
-    return any([email for email in github.get('user/emails')
-                if email.get('verified', False)])
+    """
+    Checks if the authenticated GitHub user has any verified email addresses.
+    """
+    return any(
+        [email for email in github.get('user/emails')
+        if email.get('verified', False)],
+    )
 
 
 @app.errorhandler(403)
