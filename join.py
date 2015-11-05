@@ -148,7 +148,7 @@ def callback(access_token):
     return redirect(next_url)
 
 
-@app.route('finish')
+@app.route('/finish')
 def finish():
     user_login = session.get('user_login', None)
     if user_login:
