@@ -164,7 +164,7 @@ def finish(data, guid):
             member = data.get('member')
             if member:
                 try:
-                    publicize_membership(member['user_login'])
+                    publicize_membership(member['login'])
                 except GitHubError:
                     pass
     return 'ok'
