@@ -46,27 +46,24 @@ def token_getter():
     return g.user_access_token
 
 
-@app.route('/callback')
-@github.authorized_handler
-def authorized(access_token):
-    next_url = request.args.get('next') or url_for('index')
-    if access_token is None:
-        return redirect(next_url)
-    session['user_access_token'] = access_token
-    return redirect(next_url)
-
-
 def add_to_org(user_login):
     """
-    Adds the GitHub user with the given login to the org and publicizes the
-    membership.
+    Adds the GitHub user with the given login to the org.
     """
-    calls = [
+    github.put(
         'teams/%s/memberships/%s' % (GITHUB_TEAM_ID, user_login),
+        access_token=GITHUB_ADMIN_TOKEN
+    )
+
+
+def publicize_membership(user_login):
+    """
+    Publicizes the membership of the GitHub user with the given login.
+    """
+    github.put(
         'orgs/%s/public_members/%s' % (GITHUB_ORG_ID, user_login),
-    ]
-    for call in calls:
-        github.put(call, access_token=GITHUB_ADMIN_TOKEN)
+        access_token=GITHUB_ADMIN_TOKEN
+    )
 
 
 def is_member(user_login):
@@ -104,13 +101,15 @@ def error():
 
 
 @app.route('/')
-def index():
+def start():
     if g.user_access_token:
         user_login = github.get('user').get('login', None)
 
         # fail if something went wrong
         if user_login is None:
             abort(500)
+
+        session['user_login'] = user_login
 
         # deny permission if there are no verified emails
         if not verified_emails():
@@ -125,13 +124,39 @@ def index():
             except GitHubError:
                 pass
 
-        return render_template('index.html',
-                               next_url='https://github.com/jazzband',
-                               membership=membership,
-                               org_id=GITHUB_ORG_ID,
-                               is_member=user_is_member)
+        return render_template(
+            'index.html',
+            next_url='https://join.jazzband.co/finish',
+            membership=membership,
+            org_id=GITHUB_ORG_ID,
+            is_member=user_is_member,
+        )
     else:
         return github.authorize(scope=app.config['GITHUB_SCOPE'])
+
+
+@app.route('/callback')
+@github.authorized_handler
+def callback(access_token):
+    next_url = url_for('start')
+
+    if access_token is None:
+        session.clear()
+        return redirect(next_url)
+
+    session['user_access_token'] = access_token
+    return redirect(next_url)
+
+
+@app.router('finish')
+def finish():
+    user_login = session.get('user_login', None)
+    if user_login:
+        try:
+            publicize_membership(user_login)
+        except GitHubError:
+            pass
+    return redirect('https://github.com/jazzband')
 
 
 if __name__ == '__main__':
