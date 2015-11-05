@@ -17,7 +17,6 @@ GITHUB_ADMIN_TOKEN = config('GITHUB_ADMIN_TOKEN', '')
 SECRET_KEY = config('SECRET_KEY', 'dev key')
 DEBUG = config('DEBUG', False, cast=bool)
 HOOKSERVER_SECRET = config('HOOKSERVER_SECRET', 'hook secret')
-HOOKSERVER_NUM_PROXIES = config('HOOKSERVER_NUM_PROXIES', 0, cast=int) or None
 VALIDATE_IP = False
 
 SESSION_TYPE = 'redis'
@@ -28,11 +27,7 @@ SESSION_REDIS = redis.from_url(config('REDIS_URL', 'redis://127.0.0.1:6379/0'))
 PERMANENT_SESSION_LIFETIME = 60 * 60
 
 # setup flask
-app = HookServer(
-    __name__,
-    key=HOOKSERVER_SECRET,
-    num_proxies=HOOKSERVER_NUM_PROXIES,
-)
+app = HookServer(__name__, key=HOOKSERVER_SECRET)
 
 # load decoupled config variables
 app.config.from_object(__name__)
