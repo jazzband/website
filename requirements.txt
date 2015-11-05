@@ -2,7 +2,8 @@ cffi==1.3.0
 cryptography==1.1
 enum34==1.0.4
 Flask==0.10.1
-flask-hookserver==0.2.1
+#flask-hookserver==0.2.1
+https://github.com/jezdez/flask-hookserver/archive/validate-url-match-only.zip
 Flask-Session==0.2.2
 GitHub-Flask==3.1.0
 gunicorn==19.3.0

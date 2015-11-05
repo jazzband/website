@@ -93,14 +93,14 @@ def verified_emails():
     )
 
 
-# @app.errorhandler(403)
-# def forbidden(error):
-#     return render_template('forbidden.html')
+@app.errorhandler(403)
+def forbidden(error):
+    return render_template('forbidden.html')
 
 
-# @app.errorhandler(500)
-# def error(error):
-#     return render_template('error.html')
+@app.errorhandler(500)
+def error(error):
+    return render_template('error.html')
 
 
 @app.route('/')
