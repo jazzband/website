@@ -98,12 +98,12 @@ def verified_emails():
 
 
 @app.errorhandler(403)
-def forbidden():
+def forbidden(error):
     return render_template('forbidden.html')
 
 
 @app.errorhandler(500)
-def error():
+def error(error):
     return render_template('error.html')
 
 
