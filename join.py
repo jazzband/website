@@ -3,6 +3,7 @@ from flask import (Flask, request, g, session, redirect, url_for, abort,
                    render_template)
 from flask.ext.github import GitHub, GitHubError
 from flask.ext.session import Session
+from hookserver import HookServer
 import redis
 
 # Set these values in the .env file or env vars
@@ -15,6 +16,8 @@ GITHUB_ADMIN_TOKEN = config('GITHUB_ADMIN_TOKEN', '')
 
 SECRET_KEY = config('SECRET_KEY', 'dev key')
 DEBUG = config('DEBUG', False, cast=bool)
+HOOKSERVER_SECRET = config('HOOKSERVER_SECRET', 'hook secret')
+HOOKSERVER_NUM_PROXIES = config('HOOKSERVER_NUM_PROXIES', 0, cast=int)
 
 SESSION_TYPE = 'redis'
 SESSION_COOKIE_NAME = 'jazzhands'
@@ -24,7 +27,11 @@ SESSION_REDIS = redis.from_url(config('REDIS_URL', 'redis://127.0.0.1:6379/0'))
 PERMANENT_SESSION_LIFETIME = 60 * 60
 
 # setup flask
-app = Flask(__name__)
+app = HookServer(
+    __name__,
+    key=HOOKSERVER_SECRET,
+    num_proxies=HOOKSERVER_NUM_PROXIES,
+)
 
 # load decoupled config variables
 app.config.from_object(__name__)
@@ -109,8 +116,6 @@ def start():
         if user_login is None:
             abort(500)
 
-        session['user_login'] = user_login
-
         # deny permission if there are no verified emails
         if not verified_emails():
             abort(403)
@@ -126,7 +131,7 @@ def start():
 
         return render_template(
             'index.html',
-            next_url='https://join.jazzband.co/finish',
+            next_url='https://github.com/orgs/jazzband/dashboard',
             membership=membership,
             org_id=GITHUB_ORG_ID,
             is_member=user_is_member,
@@ -148,15 +153,25 @@ def callback(access_token):
     return redirect(next_url)
 
 
-@app.route('/finish')
-def finish():
-    user_login = session.get('user_login', None)
-    if user_login:
-        try:
-            publicize_membership(user_login)
-        except GitHubError:
-            pass
-    return redirect('https://github.com/jazzband')
+@app.hook('ping')
+def ping(data, guid):
+    return 'pong'
+
+
+@app.hook('membership')
+def finish(data, guid):
+    action = data.get('action')
+    scope = data.get('scope')
+    if action == 'added' and scope == 'team':
+        team = data.get('team')
+        if team and team['id'] == GITHUB_TEAM_ID:
+            member = data.get('member')
+            if member:
+                try:
+                    publicize_membership(member['user_login'])
+                except GitHubError:
+                    pass
+    return 'ok'
 
 
 if __name__ == '__main__':
