@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro|Contrail+One' rel='stylesheet' type='text/css'>
+    <style type="text/css">
+      body {
+        font-family: 'Source Sans Pro', sans-serif;
+        font-size: 1.4em;
+        font-weight: 300;
+        padding: 1em;
+        background-color: #ccc;
+        color: #444;
+      }
+      a {
+        color: #333;
+      }
+      h1.logo {
+        font-family: 'Contrail One';
+      }
+      h1.logo a {
+        border-bottom: none;
+      }
+      p.lead {
+        font-size: 1.2em;
+      }
+    </style>
+  </head>
+  <body>
+  <h1 class='logo'><a href="/" title="">Jazzband</a></h1>
+  {% block body %}{% endblock %}
+  </body>
+</html>

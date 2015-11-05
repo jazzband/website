@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block body %}
+  {% if is_member %}
+  <h2>You're already a member</h2>
+  <p class="lead">If you'd like to remove yourself from the organization see your <a href="https://github.com/settings/organizations">personal settings</a> over at GitHub.</p>
+  <p>Feel free to take a look at the <a href="https://jazzband.co/" title="Jazzband documentation">Jazzband documentation</a> for more info.</p>
+  {% else %}
+  <h2>You're all set</h2>
+  <p class="lead">You simply need to <a href="https://github.com/orgs/{{ org_id }}/invitation?return_to={{ next_url|escape }}">confirm your invitation to join the organization</a> on GitHub.</p>
+  <p>Once confirmed, you will have access to <a href="{{ next_url|escape }}">{{ next_url|escape }}</a>, the requested URL.</h2>
+  {% endif %}
+{% endblock %}
