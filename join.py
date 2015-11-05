@@ -166,7 +166,7 @@ def finish(data, guid):
                 try:
                     publicize_membership(member['login'])
                 except GitHubError:
-                    pass
+                    raise
     return 'ok'
 
 
