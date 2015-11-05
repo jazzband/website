@@ -17,7 +17,8 @@ GITHUB_ADMIN_TOKEN = config('GITHUB_ADMIN_TOKEN', '')
 SECRET_KEY = config('SECRET_KEY', 'dev key')
 DEBUG = config('DEBUG', False, cast=bool)
 HOOKSERVER_SECRET = config('HOOKSERVER_SECRET', 'hook secret')
-HOOKSERVER_NUM_PROXIES = config('HOOKSERVER_NUM_PROXIES', 0, cast=int)
+HOOKSERVER_NUM_PROXIES = config('HOOKSERVER_NUM_PROXIES', 0, cast=int) or None
+VALIDATE_IP = False
 
 SESSION_TYPE = 'redis'
 SESSION_COOKIE_NAME = 'jazzhands'
@@ -97,9 +98,9 @@ def verified_emails():
     )
 
 
-@app.errorhandler(403)
-def forbidden(error):
-    return render_template('forbidden.html')
+# @app.errorhandler(403)
+# def forbidden(error):
+#     return render_template('forbidden.html')
 
 
 # @app.errorhandler(500)
