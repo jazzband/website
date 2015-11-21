@@ -1,13 +1,24 @@
-{% extends "base.html" %}
+{% extends "layouts/default.html" %}
 
-{% block body %}
-  {% if is_member %}
-  <h2>You're already a member</h2>
-  <p class="lead">If you'd like to remove yourself from the organization see your <a href="https://github.com/settings/organizations">personal settings</a> over at GitHub.</p>
-  <p>Feel free to take a look at the <a href="https://jazzband.co/" title="Jazzband documentation">Jazzband documentation</a> for more info.</p>
-  {% else %}
-  <h2>You're all set</h2>
-  <p class="lead">You simply need to <a href="https://github.com/orgs/{{ org_id }}/invitation?return_to={{ next_url|escape }}">confirm your invitation to join the organization</a> on GitHub.</p>
-  <p>Once confirmed, you will have access to <a href="{{ next_url|escape }}">{{ next_url|escape }}</a>, the requested URL.</h2>
-  {% endif %}
+{% block content %}
+    <div class="c1">
+        <h2 class="center">We</h2>
+        <h2>are </h2>
+        <h2 class="center red">all</h2>
+        <h2> part <span style="float:right;">of</span> </h2>
+        <h2 class="right">the</h2>
+        <h2>band</h2>
+    </div>
+    <div class="tilted">
+        <div class="c2">
+            <h3>Jazzband is a cooperative experiment to reduce the stress of maintaining Open Source software alone.</h3>
+            <p >The goal of Jazzband is to offer relief by sharing responsiblity for open source work with other like minded people. It offers maintainers and contributors to play in the same band instead of being forced into “artist” and “audience” roles. </p>
+        </div>
+        <div class="c3">
+            <p >When you join Jazzband you will be automatically added as a member to the Jazzband GitHub organization. You will be granted a wide range of priviledges such as creating and editing repositories. </p><p>You can leave admin tasks to the <a href="{{ url_for('docs', path='releases') }}">roadies</a>, the people making sure the band can play when they want.</p><p>Once you are a memeber you can move a repo into the Jazzband organization if it matches <a href="#">the guidelines</a>, you can start working on an already <a href="{{ url_for('repos') }}">existing Jazzband repository</a> or do releases on PyPI for those packages that have auto releases configured with Travis CI.</p>
+        </div>
+    </div>
+    <div class="join">
+        <h2><a href="{{ url_for('join') }}">&rarr; <span>Join Jazzband</span></a> </h2>
+    </div>
 {% endblock %}

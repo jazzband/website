@@ -1,0 +1,14 @@
+{% extends "layouts/default.html" %}
+
+{% block content %}
+  {% if g.user_login and g.user_login|is_member %}
+  <h2>You're already a member</h2>
+  <p class="lead">If you'd like to remove yourself from the organization see your <a href="https://github.com/settings/organizations">personal settings</a> over at GitHub.</p>
+  <p>Feel free to take a look at the <a href="{{ url_for('docs') }}" title="Jazzband documentation">Jazzband documentation</a> for more info.</p>
+  <p>Alternatively take a look at the <a href="{{ url_for('repos') }}">member repos</a>.</p>
+  <a href="{{ url_for('logout') }}">Logout</a>
+  {% else %}
+  <h2>Please join Jazzband first</h2>
+  <a href="{{ url_for('join') }}">Click here to login with GitHub</a>
+  {% endif %}
+{% endblock %}

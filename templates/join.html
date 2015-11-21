@@ -1,0 +1,17 @@
+{% extends "layouts/default.html" %}
+
+{% block content %}
+  {% if has_verified_emails %}
+    {% if membership %}
+      <h2>You're all set</h2>
+      <p class="lead">You simply need to <a href="https://github.com/orgs/{{ org_id }}/invitation?return_to={{ next_url|escape }}">confirm your invitation to join the organization</a> on GitHub.</p>
+      <p>Once confirmed, you will have access to <a href="{{ next_url|escape }}">{{ next_url|escape }}</a>, the requested URL.</p>
+    {% else %}
+      <h2>Someting went wrong</h2>
+      <p class="lead">Please <a href="{{ url_for('join') }}">try again</a> joining Jazzband.</p>
+    {% endif %}
+  {% else %}
+    <h2>We found that you haven't verified any email addresses on GitHub yet.</h2>
+    <p class="lead">Please do so in your <a href="https://github.com/settings/emails" title="email settings">email settings</a> and then <a href="{{ url_for('join') }}">try again</a>.</p>
+  {% endif %}
+{% endblock %}

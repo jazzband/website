@@ -1,0 +1,12 @@
+Flask
+Flask-Assets
+Flask-Flatpages
+Flask-Session
+Flask-Script
+GitHub-Flask
+gunicorn
+python-decouple
+redis
+libsass
+pygments
+whitenoise
