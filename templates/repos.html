@@ -1,39 +1,33 @@
 {% extends "layouts/default.html" %}
 
-{% block title %}
-    Repos
-{% endblock %}
-
 {% block content %}
-    <p>
-        The Jazzband GitHub organization contains a bunch of repositories
-        already.
-    </p>
-    <p>
-        Here's is a list of the public ones:
-    </p>
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th class="numbers">Issues</th>
-                <th class="numbers">Forks</th>
-                <th class="numbers">Stargazers</th>
-                <th class="numbers">Watchers</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for repo in repos %}
-            <tr>
-                <td><a href="{{ repo.html_url }}" title="{{ repo.name }}">{{ repo.name }}</a></td>
-                <td>{{ repo.description }}</td>
-                <td class="numbers">{{ repo.open_issues_count }}</td>
-                <td class="numbers">{{ repo.forks_count }}</td>
-                <td class="numbers">{{ repo.stargazers_count }}</td>
-                <td class="numbers">{{ repo.watchers_count }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<div class="c4">
+  <h2>Repositories</h2>
+  <p>The Jazzband GitHub organization contains a bunch of repositories already.</p>
+  <p>Here's is a list of the public ones:</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th class="numbers">Issues</th>
+        <th class="numbers">Forks</th>
+        <th class="numbers">Stargazers</th>
+        <th class="numbers">Watchers</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for repo in repos %}
+      <tr>
+        <td><a href="{{ repo.html_url }}" title="{{ repo.name }}">{{ repo.name }}</a></td>
+        <td>{{ repo.description }}</td>
+        <td class="numbers">{{ repo.open_issues_count }}</td>
+        <td class="numbers">{{ repo.forks_count }}</td>
+        <td class="numbers">{{ repo.stargazers_count }}</td>
+        <td class="numbers">{{ repo.watchers_count }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 {% endblock %}

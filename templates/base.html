@@ -12,10 +12,22 @@
         {% assets "styles" %}<link href="{{ ASSET_URL }}" media="screen, projection" rel="stylesheet" type="text/css" />{% endassets %}
         <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,900,700|Contrail+One' rel='stylesheet' type='text/css'>
     </head>
-    <body>
+    <body class="{% block body_class %}{% endblock body_class %}">
     <!--[if lt IE 7]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    {% block body %}{% endblock %}
-    </body>
+    <div class="wrapper">
+        <a href="/" title="" class="logo"></a>
+        <a href="/" class="jazzband">
+            <span class="inner">
+                Jazz
+            </span>
+            Band
+        </a>
+        <div class="c1">
+            <h1> <span class="center">We</span><br />are <br /> <span class="center red">all</span><br /><span class="alignleft">part</span><span class="alignright"> of</span> <br /><span class="right">the</span><br />band</h1>
+        </div>
+        {% block body %}{% endblock %}
+    </div>
+</body>
 </html>

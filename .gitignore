@@ -1,3 +1,5 @@
 .env
 site/
 static/.webassets-cache
+static/css/styles.*.css
+venv/

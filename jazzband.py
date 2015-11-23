@@ -1,12 +1,30 @@
 from decouple import config
-from flask import (Flask, g, request, session, redirect, url_for, abort,
+from flask import (Flask, g, session, redirect, url_for, abort,
                    render_template)
 from flask.ext.assets import Environment as Assets, Bundle
 from flask.ext.github import GitHub, GitHubError
 from flask.ext.session import Session
 from flask_flatpages import FlatPages
+import markdown
+from markdown.extensions.toc import TocExtension
+from markdown.extensions.wikilinks import WikiLinkExtension
 import redis
 from whitenoise import WhiteNoise
+
+
+def smart_pygmented_markdown(text, flatpages=None, page=None):
+    """
+    Render Markdown text to HTML, similarly to Flask-Flatpages'
+    renderer, except we store the markdown instance on the page.
+    """
+    extensions = flatpages.config('markdown_extensions') if flatpages else []
+    if not extensions:
+        extensions = ['codehilite']
+    md = markdown.Markdown(extensions)
+    page.md = md
+    page.pages = flatpages
+    return md.convert(text)
+
 
 SECRET_KEY = config('SECRET_KEY', 'dev key')
 DEBUG = config('DEBUG', True, cast=bool)
@@ -15,21 +33,24 @@ FLATPAGES_ROOT = 'docs'
 FLATPAGES_EXTENSION = ['.md']
 FLATPAGES_MARKDOWN_EXTENSIONS = [
     'codehilite',
-    'headerid',
     'fenced_code',
     'footnotes',
+    'admonition',
     'tables',
     'abbr',
-    'wikilinks',
-    'toc',
+    'smarty',
+    WikiLinkExtension(base_url='/docs/', end_url='', html_class=''),
+    TocExtension(permalink=True),
 ]
+FLATPAGES_HTML_RENDERER = smart_pygmented_markdown
 
 # Set these values in the .env file or env vars
 GITHUB_CLIENT_ID = config('GITHUB_CLIENT_ID', '')
 GITHUB_CLIENT_SECRET = config('GITHUB_CLIENT_SECRET', '')
 GITHUB_ORG_ID = config('GITHUB_ORG_ID', 'jazzband')
 GITHUB_SCOPE = config('GITHUB_SCOPE', 'read:org,user:email')
-GITHUB_TEAM_ID = config('GITHUB_TEAM_ID', 0, cast=int)
+GITHUB_MEMBERS_TEAM_ID = config('GITHUB_MEMBERS_TEAM_ID', 0, cast=int)
+GITHUB_ROADIES_TEAM_ID = config('GITHUB_ROADIES_TEAM_ID', 0, cast=int)
 GITHUB_ADMIN_TOKEN = config('GITHUB_ADMIN_TOKEN', '')
 
 VALIDATE_IP = False
@@ -96,7 +117,14 @@ def add_to_org(user_login):
     Adds the GitHub user with the given login to the org.
     """
     return github.put(
-        'teams/%s/memberships/%s' % (GITHUB_TEAM_ID, user_login),
+        'teams/%s/memberships/%s' % (GITHUB_MEMBERS_TEAM_ID, user_login),
+        access_token=GITHUB_ADMIN_TOKEN
+    )
+
+
+def get_roadies():
+    return github.get(
+        'teams/%d/members' % GITHUB_ROADIES_TEAM_ID,
         access_token=GITHUB_ADMIN_TOKEN
     )
 
@@ -151,6 +179,11 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/security')
+def security():
+    return redirect('/docs/faq/#how-do-i-report-a-security-incident')
+
+
 @app.route('/account')
 def account():
     if not g.user_login:
@@ -165,7 +198,7 @@ def login():
         return github.authorize(scope=app.config['GITHUB_SCOPE'])
 
     if is_member(g.user_login):
-        url = url_for('account')
+        url = url_for('index')
     else:
         url = url_for('join')
     return redirect(url)
@@ -177,7 +210,7 @@ def join():
         return redirect(url_for('login'))
 
     if is_member(g.user_login):
-        return redirect(url_for('account'))
+        return redirect(url_for('index'))
 
     # deny permission if there are no verified emails
     has_verified_emails = verified_emails()
@@ -219,6 +252,11 @@ def repos():
         access_token=GITHUB_ADMIN_TOKEN,
     )
     return render_template('repos.html', repos=repos)
+
+
+@app.route('/roadies')
+def roadies():
+    return render_template('roadies.html', roadies=get_roadies())
 
 
 @app.route('/callback')

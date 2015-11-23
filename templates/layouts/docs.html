@@ -1,9 +1,26 @@
 {% extends "base.html" %}
 
+{% block body_class %}docs{% endblock body_class %}
+
 {% block body %}
-<header class="intro" >
-    <a href="/" title="" class="logo"></a>
-    <h1>{{ page.title }}</h1>
-    {{ page.html|safe }}
-</header>
+<div class="c4">
+{% if page.path == "index" %}
+  <h2>{{ page.title }}</h2>
+{% else %}
+  <h2><a href="{{ url_for('docs') }}" title="Docs">Docs</a> » {{ page.title|default(page.path|capitalize) }}</h2>
+{% endif %}
+  {{ page }}
+</div>
+<div class="join">
+{% if page.md.toc|striptags %}
+<h3>This page</h2>
+{{ page.md.toc|safe }}
+{% endif %}
+<h3>More info</h3>
+<ul>
+{% for other_page in page.pages|sort(attribute='path') if other_page.path not in [page.path, 'index']%}
+<li><a href="{{ url_for('docs', path=other_page.path) }}">{{ other_page.title|default(other_page.path|capitalize) }}</a></li>
+{% endfor %}
+</ul>
+</div>
 {% endblock body %}

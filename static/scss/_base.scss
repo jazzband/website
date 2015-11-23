@@ -1,20 +1,221 @@
 * {
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;}
+
+body {
+-webkit-hyphens: auto;
+   -moz-hyphens: auto;
+        hyphens: auto;}
 
 body, html {
-  background-image: url("../img/ricepaper2.png");
   background-color: $white;
   font-size: $base-font-size;
   line-height: $base-line-height;
   color: $black;
   font-family: $text;}
 
+.jazzband {
+  width: 100px;
+  height: 106px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: $red;
+  font-size: 1.86em;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-family: $headline;
+  padding: 0;
+  background-color: $white;
+  border: 2px solid $red;
+  text-decoration: none;
+  &:hover {
+    color: $red;}}
+
+.inner {
+    height: 53px;
+    display: block;
+    color: $white;
+    padding: 0;
+    background-color: $red;}
+
+h1 {
+  overflow: hidden;
+  font-size: $h1-font-size;
+  line-height: 1.1;
+  font-family: $headline;
+  font-weight: $ultra-bold;
+  text-transform: uppercase;
+  padding: 0;
+  margin: $margin;}
+
+h2 {
+  font-family: $headline;
+  font-weight: $ultra-bold;
+  font-size: $h2-font-size;
+  line-height: $line-height;
+  margin: $margin;
+  a {
+    color: $red;
+    text-decoration: none;
+    &:hover {
+      color: lighten($red, 10%);}
+    span {
+      text-decoration: underline;}}}
+
+h3 {
+  font-size: $h3-font-size;
+  line-height: $line-height;
+  font-weight: $semi-bold;
+  margin: $margin;}
+
+p {
+  font-size: $base-font-size;
+  margin-bottom: $base-font-size;}
+
+.small {
+  font-size: $small;}
+
+.center {
+  display: inline-block;
+  text-align: center;
+  width: 100%;}
+
+.alignleft {
+  float: left;}
+
+.alignright {
+  float: right;}
+
+.right {
+  display: inline-block;
+  text-align: right;
+  width: 100%;}
+
+.wrapper {
+  position: relative;
+  margin: 0 auto;
+  padding: $base-font-size; }
+
+.red {
+    color: $red;}
+
+ol, ul {
+  list-style-position: inside;
+  margin: $base-font-size 0;}
+
+ul {
+  list-style-type: square;}
+
+ol > li, ul > li {
+    margin-left: $base-font-size;}
+
+a {
+  color: $blue;
+  &.headerlink {
+    color: lighten($black, 40%);
+    text-decoration: none;
+    font-weight: $light;
+    &::before {
+      content: " ";
+    }
+    &:hover {
+      color: $blue;
+    }
+  }
+  &:hover {
+    color: lighten($blue, 10%); }
+}
+
+::selection {
+   background: $yellow;
+   color: $black;} Safari
+::-moz-selection {
+   background: $yellow;}
+
+.c1 {
+  width: 260px;
+  margin: 0 auto;}
+
+.join {
+  text-align: left;
+  max-width: 300px;}
+
+@media all and (max-width: 1023px) {
+  body.docs > .wrapper {
+    .c1 {
+      display: none;}
+    .c4 {
+      margin: 70px 0 0;
+    }
+  }
+}
+
+@media all and (min-width: 601px) and (max-width: 1023px) {
+  body{
+    -webkit-text-size-adjust: none;}
+  .wrapper {
+      max-width: 601px;
+      .c1, .c2, .c4 {
+        float: left;}
+      .c2 {
+        width: 300px;
+        padding: 110px 0 0 50px;}
+      .c3, .c2 {
+        text-align: left;
+      }
+      .join {
+        clear: left;}}
+  .tilted {
+    -moz-transform: rotate(5deg);
+    -ms-transform: rotate(5deg);
+    -o-transform: rotate(5deg);
+    -webkit-transform: rotate(5deg);}}
+
+@media all and (min-width: 1024px) {
+  body{
+    -webkit-text-size-adjust: none;}
+  .wrapper {
+      max-width: 960px;
+      h1 {
+       margin-top: 20px;}
+      .c1, .c2, .c3, .c4 {
+        float: left;}
+      .c2, .c3 {
+        width: 280px; }
+      .c2 {
+        margin: 40px 0 0 80px;
+        text-align: right;}
+      .c3 {
+        margin: 100px 0 0 20px;
+        text-align: left;}
+      .c4 {
+        margin: 55px 0 0 80px;
+        width: 560px;
+      }
+      .join {
+        position: absolute;
+        top: 530px;
+        }}
+  .tilted {
+    -moz-transform: rotate(5deg);
+    -ms-transform: rotate(5deg);
+    -o-transform: rotate(5deg);
+    -webkit-transform: rotate(5deg);}}
+
 table {
   width: 100%;}
 
 td, th {
   padding: 5px 10px;
-  text-align: left;}
+  text-align: left;
+  vertical-align: top;
+
+  &:first-child {
+    padding-left: 0;}}
+
 
 td.numbers, th.numbers {
   width: 10%;}
@@ -25,128 +226,3 @@ td.numbers {
 thead th {
   background: $white;
   border-color: $black;}
-
-@media only screen and (-webkit-min-device-pixel-ratio: 2)  {
-    body, html {
-        //fbackground-image: url(../img/ricepaper2_@2X.png);
-    }}
-
-h2 {
-  line-height: 0.3;
-  font-size: 50px;
-  font-family: $headline;
-  font-weight: $ultra-bold;
-  text-transform: uppercase;
-  padding: 0;
-  margin-right: 0;
-  &.center {
-    text-align: center;}
-  &.left {
-    text-align: left;}
-  &.right {
-    text-align: right;}
-  a {
-    color: $red;
-    text-decoration: none;
-    line-height: 1;
-    &:hover {
-      color: lighten($red, 10%);}
-    span {
-      text-decoration: underline;}}}
-
-h3 {
-  font-size: 22px;}
-
-p {
-    font-size: 18px; }
-
-.intro {
-  position: relative;
-  margin: 0 auto;
-  padding: 1em; }
-
-.logo {
-  background: url("../img/jazzband.svg") no-repeat;
-  background-size: 100px 107px;
-  height: 107px;
-  width: 100px;
-  @include image-2x("../img/jazzband@2x.png", 100px, 107px);
-  position: absolute;
-  top: 0px;
-  right: 0px;}
-
-.red {
-    color: $red;}
-
-ul {
-  list-style-type: square;}
-
-a {
-  color: $blue;
-  &:hover {
-    color: lighten($blue, 10%); }}
-
-.tilted {
-  -moz-transform: rotate(5deg);
-  -ms-transform: rotate(5deg);
-  -o-transform: rotate(5deg);
-  -webkit-transform: rotate(5deg);}
-
-::selection {
-   background: $yellow;
-   color: $black;} /* Safari */
-::-moz-selection {
-   background: $yellow;}  /* Firefox */
-
-.c1 {
-  width: 200px;
-  margin: 0 auto;
-  padding-bottom: 20px;}
-
-.c2, .c3 {
-  padding: 0 20px;}
-
-.join {
-  text-align: right;}
-
-@media all and (min-width: 601px) and (max-width: 1023px) {
-  body{
-    -webkit-text-size-adjust: none;}
-  .intro {
-      max-width: 601px;
-      .c1, .c2 {
-        float: left;}
-      .c1 {
-        width: 220px;}
-      .c2{
-        width: 340px; }
-      .c1 {
-        padding-right: 20px;}
-      .c2 {
-        padding-top: 50px;}
-      .c3, .c2 {
-        text-align: left;}
-      .join {
-        clear: left;}}}
-
-@media all and (min-width: 1024px) {
-  body{
-    -webkit-text-size-adjust: none;}
-  .intro {
-      max-width: 1024px;
-      h2 {
-        font-size: 70px;}
-      .c1, .c2, .c3 {
-        float: left;
-        width: 320px; }
-      .c1 {
-        padding-right: 50px;}
-      .c2 {
-        padding: 30px 10px 0 20px;
-        text-align: right;}
-      .c3 {
-        padding: 90px 0 0 30px;
-        text-align: left;}
-      .join {
-        position: absolute;
-        top: 500px;}}}

@@ -1,8 +1,7 @@
-
 /* COLORS  */
-$white: #DEDEDE;
-$black: #0F0F0F;
 $red: #BB381C;
+$white: #ededed;
+$black: #202020;
 
 $blue: #17679b;
 $yellow: #FFD900;
@@ -11,21 +10,22 @@ $yellow: #FFD900;
 $text: 'Source Sans Pro', sans-serif;
 $headline: 'Contrail One', sans-serif;
 
-/* TYPOGRAPHY  */
-//$base-font-size: 18px;
-//$base-line-height: 1.5;
-$base-font-size: 18px;
-$base-line-height: 1.5;
-$scale: 1.5;
-
 $light: 300;
 $semi-bold: 700;
 $ultra-bold: 900;
 
-$modular-base: 18px;
+// http://www.gridlover.net/app/, Font Size 17, Line Height 1.5 Scale Factor: 1.25 / Major Third
 
-// Modular Scale, Perfect Fifth based on 18 and 48
-// http://modularscale.com/scale/?px1=18&px2=48&ra1=1.5&ra2=0
+$base-font-size: 18px;//1.063em;
+$base-line-height: 1.5;
+
+$margin: 1.414em 0 0.5em;
+$line-height: $base-line-height;
+
+$h1-font-size: 3.815em;
+$h2-font-size: 1.563em;
+$h3-font-size: 1.25em;
+$small: 0.8em;
 
 @mixin image-2x($image, $width, $height) {
   @media (min--moz-device-pixel-ratio: 1.3),

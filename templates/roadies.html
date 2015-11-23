@@ -1,0 +1,25 @@
+{% extends "layouts/default.html" %}
+
+{% block content %}
+<div class="c4">
+  <h2>Roadies</h2>
+  <p>The Jazzband is supported by roadies who strive to make playing in the band as easy and simple as possible.</p>
+  <p>You can get in touch with the roadies by <a href="https://github.com/jazzband/roadies/issues/new" title="opening an issue">opening an issue</a> on GitHub.</p>
+  <table>
+    <tbody>
+      {% for roadie in roadies %}
+      <tr>
+        <td style="width:50px;">
+        {% if roadie.avatar_url %}
+          <img src="{{ roadie.avatar_url }}" alt="{{ roadie.login }}" width="40" />
+        {% endif %}
+        </td>
+        <td>
+          <a href="{{ roadie.html_url }}" title="{{ roadie.login }}">{{ roadie.login }}</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

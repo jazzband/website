@@ -1,0 +1,47 @@
+title: Docs
+published: 2010-12-22
+
+Here you’ll find some background info, a quick introduction how Jazzband works and some examples how to improve maintenance of your own projects using Jazzband’s techniques.
+
+### Introduction
+
+Jazzband was born out of the stress that maintaining a Open Source software library alone can become over time. As such it's aimed at projects that have only few maintainers and have not so far reached a point at which a broader community has taken over maintenance.
+
+Jazzband strives to enable broader collaboration between the users by bringing down the walls that prevent them to become contributors.
+
+Jazzband tries to foster participation by the community and shared responsibilty within its members. It helps keeping projects alive as well as finding new avenues of development. In short, it's cooperative coding.
+
+### Joining Jazzband
+
+When you join you will be...
+
+- automatically added to the Jazzband GitHub organization member team
+- granted a wide range of priviledges, e.g. creating and editing repositories
+
+After that you can go ahead and do many things like...
+
+- move repos following our [[guidelines]] into the Jazzband organization
+- start working on an already existing Jazzband [repository](/repos)
+- do [[releases]] on PyPI automatically via Travis CI
+- etc...
+
+You can **[join here](/join)**.
+
+### Conduct
+
+The Jazzband follows a [code of conduct](/docs/conduct) which includes
+respecting the opinions and previously made technical and communal decisions
+of project maintainers. We assume positive intent but be clear that we won't
+accept bullies and old farts that just want to push their ideas. Collaboration
+is key and compromises required in a Jazzband.
+
+### Contact
+
+Jazzband members and interested folk may want to check out the `#jazzband`
+IRC channel on Freenode (`irc.freenode.net`).
+
+Direct link to channel via [IRCCloud](https://www.irccloud.com/): [![#jazzband](https://www.irccloud.com/invite-svg?channel=%23jazzband&amp;hostname=irc.freenode.net&amp;port=6697&amp;ssl=1)](https://www.irccloud.com/invite?channel=%23jazzband&amp;hostname=irc.freenode.net&amp;port=6697&amp;ssl=1)
+
+You can also reach the [roadies](/roadies) via
+[GitHub issues](https://github.com/jazzband/roadies/issues) or email
+at `roadies@jazzband.co`.
