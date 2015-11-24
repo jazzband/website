@@ -11,7 +11,7 @@ body {
 code, pre {
   font-family: $code;
   font-weight: 400;
-  font-size: 0.95em;
+  font-size: $small;
 }
 
 body, html {
@@ -77,7 +77,7 @@ h3 {
   font-weight: $semi-bold;
   margin: $margin;}
 
-p {
+p, ul {
   font-size: $base-font-size;
   margin-bottom: $base-font-size;}
 
@@ -109,7 +109,7 @@ p {
     color: $red;}
 
 ol, ul {
-  margin: 0 $margin-bottom $margin-bottom;}
+  margin-left: $base-font-size;}
 
 ul {
   list-style-type: square;}
@@ -153,6 +153,7 @@ a {
       display: none;}
     .c4 {
       margin: 70px 0 0;
+
     }
   }
 }
@@ -188,20 +189,21 @@ a {
       .c1, .c2, .c3, .c4 {
         float: left;}
       .c2, .c3 {
-        width: 280px; }
+        width: 275px; }
       .c2 {
-        margin: 40px 0 0 80px;
+        margin: 50px 0 0 80px;
         text-align: right;}
       .c3 {
-        margin: 100px 0 0 20px;
+        margin: 122px 0 0 30px;
         text-align: left;}
       .c4 {
-        margin: 55px 0 0 80px;
+        margin: 50px 0 0 80px;
         width: 560px;
+        padding-bottom: 100px;
       }
       .join {
         position: absolute;
-        top: 530px;
+        top: 490px;
         }}
   .tilted {
     -moz-transform: rotate(5deg);

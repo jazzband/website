@@ -18,14 +18,13 @@ When you join you will be...
 - automatically added to the Jazzband GitHub organization
 - granted a wide range of priviledges, e.g. pushing to repositories
 
-After that you can go ahead and do many things like...
+After that you can go ahead and do things like...
 
-- move repos into the Jazzband organization ([[guidelines]] )
+- move repos that follow the [guidelines](/guidelines) into the Jazzband organization
 - start working on an already existing Jazzband [project](/projects)
 - do [[releases]] on PyPI automatically via Travis CI
-- etc...
 
-You can **[join here](/join)**.
+You can [join Jazzband](/join) here.
 
 ### Conduct
 
