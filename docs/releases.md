@@ -66,11 +66,15 @@ When tagging releases using Git you need to make sensible decisions about
 which version number you use.
 
 Jazzband follows the [semantic release versioning scheme][semver] in which
-"semantic" means "correct for when a computer see it" -- not "nice to read
-for a human". Don't hesitate to release 1.0. Or 2.0 or 41.0 for tat matter.
+"semantic" means "correct for when a computer sees it" -- not "nice to read
+for a human". Don't hesitate to release `1.0`, or `2.0` or `41.5.12` for
+that matter.
+
 If you'd like to make statements about the importance of your releases,
-chose a theme and attach a human readable release code name to your public
-announcments.
+attach a human readable release code name to your public announcments.
+Choose a theme that will allow you to pick one for every release, e.g.
+cat names. Or city names. Tree names. Color names. Anything that has lots
+of names.
 
 No:
 
@@ -83,13 +87,12 @@ Yes:
 [semver]: http://blog.versioneye.com/2014/01/16/semantic-versioning/
 [travis-cli]: https://github.com/travis-ci/travis.rb#installation
 
-Here's a quick primer for how to decide which version number
-to use:
+!!! note "How to decide for the version number?"
 
-Given a version number `BREAKING.FEATURE.FIX` increment...
+	Given a version number `BREAKING.FEATURE.FIX` increment...
 
-1. BREAKING when you make a backward-incompatible change to existing APIs
-2. FEATURE when you add a new feature without breaking backward-compatibility
-3. FIX when you fix a bug in a
+	1. `BREAKING` when you make a backward-incompatible change to existing APIs
+	2. `FEATURE` when you add a new feature without breaking backward-compatibility
+	3. `FIX` when you fix a bug in an existing feature
 
 [bff]: https://medium.com/javascript-scene/software-versions-are-broken-3d2dc0da0783

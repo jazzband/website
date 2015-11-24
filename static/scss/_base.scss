@@ -109,8 +109,7 @@ p {
     color: $red;}
 
 ol, ul {
-  list-style-position: inside;
-  margin: $base-font-size 0;}
+  margin: 0 $margin-bottom $margin-bottom;}
 
 ul {
   list-style-type: square;}
@@ -146,8 +145,7 @@ a {
   margin: 0 auto;}
 
 .join {
-  text-align: left;
-  max-width: 300px;}
+  text-align: left;}
 
 @media all and (max-width: 1023px) {
   body.docs > .wrapper {
@@ -232,3 +230,36 @@ td.numbers {
 thead th {
   background: $white;
   border-color: $black;}
+
+blockquote {
+  font-style: italic;
+  margin-left: 20px;
+}
+
+div.admonition, div.warning {
+  margin: 1em 0;
+  padding: 0 0 0.5em;
+  border: 2px solid $black;
+  p {
+    margin: 0.3em 1em;
+    &.admonition-title {
+      padding-top: 0.5em;
+      font-weight: bold;
+    }
+  }
+  pre, code {
+    margin: 0.4em 0;
+  }
+  ul, ol {
+    margin: 0.1em 0.5em 0.5em 1em;
+  }
+}
+
+div.warning {
+  border: 2px solid $red;
+  p {
+    &.admonition-title {
+      color: $red;
+    }
+  }
+}
