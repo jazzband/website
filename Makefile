@@ -1,8 +1,8 @@
-.PHONY: install uninstall clean run
+.PHONY: install uninstall clean run check
 
 VENV ?= venv
 PIP = $(VENV)/bin/pip
-MANAGE = $(ENV)/bin/python manage.py
+MANAGE = $(VENV)/bin/python manage.py
 
 install:
 	virtualenv $(VENV)
@@ -11,8 +11,11 @@ install:
 uninstall:
 	rm -rf $(VENV)
 
-run:
+run: check
 	$(MANAGE) runserver -h 0.0.0.0
 
 clean:
 	find . -name "*.pyc" -delete
+
+check:
+	@test -d $(VENV) || { echo "Couldn't find venv dir. Run make install first."; exit 1; }
