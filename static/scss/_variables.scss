@@ -9,6 +9,7 @@ $yellow: #FFD900;
 /* FONTS  */
 $text: 'Source Sans Pro', sans-serif;
 $headline: 'Contrail One', sans-serif;
+$code: 'Roboto Mono', monospace;
 
 $light: 300;
 $semi-bold: 700;
@@ -19,7 +20,9 @@ $ultra-bold: 900;
 $base-font-size: 18px;//1.063em;
 $base-line-height: 1.5;
 
-$margin: 1.414em 0 0.5em;
+$margin-top: 1.414em;
+$margin-bottom: 0.5em;
+$margin: $margin-top 0 $margin-bottom;
 $line-height: $base-line-height;
 
 $h1-font-size: 3.815em;

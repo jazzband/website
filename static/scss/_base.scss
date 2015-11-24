@@ -8,6 +8,12 @@ body {
    -moz-hyphens: auto;
         hyphens: auto;}
 
+code, pre {
+  font-family: $code;
+  font-weight: 400;
+  font-size: 0.95em;
+}
+
 body, html {
   background-color: $white;
   font-size: $base-font-size;
