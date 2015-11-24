@@ -11,17 +11,17 @@ Jazzband strives to enable broader collaboration between the users by bringing d
 
 Jazzband tries to foster participation by the community and shared responsibilty within its members. It helps keeping projects alive as well as finding new avenues of development. In short, it's cooperative coding.
 
-### Joining Jazzband
+### Joining
 
 When you join you will be...
 
-- automatically added to the Jazzband GitHub organization member team
-- granted a wide range of priviledges, e.g. creating and editing repositories
+- automatically added to the Jazzband GitHub organization
+- granted a wide range of priviledges, e.g. pushing to repositories
 
 After that you can go ahead and do many things like...
 
-- move repos following our [[guidelines]] into the Jazzband organization
-- start working on an already existing Jazzband [repository](/repos)
+- move repos into the Jazzband organization ([[guidelines]] )
+- start working on an already existing Jazzband [project](/projects)
 - do [[releases]] on PyPI automatically via Travis CI
 - etc...
 
