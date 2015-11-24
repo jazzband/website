@@ -245,13 +245,13 @@ def docs(path):
     return render_template(template, page=page)
 
 
-@app.route('/repos')
-def repos():
-    repos = github.get(
+@app.route('/projects')
+def projects():
+    projects = github.get(
         'orgs/%s/repos?type=public' % GITHUB_ORG_ID,
         access_token=GITHUB_ADMIN_TOKEN,
     )
-    return render_template('repos.html', repos=repos)
+    return render_template('projects.html', projects=projects)
 
 
 @app.route('/roadies')

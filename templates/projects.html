@@ -1,0 +1,33 @@
+{% extends "layouts/default.html" %}
+
+{% block content %}
+<div class="c4">
+  <h2>Projects</h2>
+  <p>The Jazzband GitHub organization contains a bunch of projects already.</p>
+  <p>Here's is a list of them:</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th class="numbers">Issues</th>
+        <th class="numbers">Forks</th>
+        <th class="numbers">Stargazers</th>
+        <th class="numbers">Watchers</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for project in projects %}
+      <tr>
+        <td><a href="{{ project.html_url }}" title="{{ project.name }}">{{ project.name }}</a></td>
+        <td>{{ project.description }}</td>
+        <td class="numbers">{{ project.open_issues_count }}</td>
+        <td class="numbers">{{ project.forks_count }}</td>
+        <td class="numbers">{{ project.stargazers_count }}</td>
+        <td class="numbers">{{ project.watchers_count }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
