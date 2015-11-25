@@ -112,10 +112,19 @@ ol, ul {
   margin-left: $base-font-size;}
 
 ul {
-  list-style-type: square;}
+  list-style-type: square;
+  &.navigation {
+    list-style-type: none;
+    margin-left: 0;
+    > li {
+      margin-left: 0;
+    }
+  }
+}
 
 ol > li, ul > li {
-    margin-left: $base-font-size;}
+  margin-left: $base-font-size;}
+
 
 a {
   color: $blue;

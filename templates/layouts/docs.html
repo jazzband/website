@@ -17,10 +17,17 @@
 {{ page.md.toc|safe }}
 {% endif %}
 <h3>More info</h3>
-<ul>
-{% for other_page in page.pages|sort(attribute='path') if other_page.path not in [page.path, 'index']%}
-<li><a href="{{ url_for('docs', path=other_page.path) }}">{{ other_page.title|default(other_page.path|capitalize) }}</a></li>
-{% endfor %}
+<ul class="navigation">
+	<li><a href="{{ url_for('roadies') }}">Roadies</a></li>
+	<li><a href="{{ url_for('projects') }}">Projects</a></li>
+	<li><a href="{{ url_for('docs') }}">Docs</a></li>
+	<li>
+		<ul>
+		{% for other_page in page.pages|sort(attribute='path') if other_page.path not in [page.path, 'index']%}
+		<li><a href="{{ url_for('docs', path=other_page.path) }}">{{ other_page.title|default(other_page.path|capitalize) }}</a></li>
+		{% endfor %}
+		</ul>
+	</li>
 </ul>
 </div>
 {% endblock body %}
