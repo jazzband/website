@@ -112,19 +112,10 @@ ol, ul {
   margin-left: $base-font-size;}
 
 ul {
-  list-style-type: square;
-  &.navigation {
-    list-style-type: none;
-    margin-left: 0;
-    > li {
-      margin-left: 0;
-    }
-  }
-}
+  list-style-type: square;}
 
 ol > li, ul > li {
-  margin-left: $base-font-size;}
-
+    margin-left: $base-font-size;}
 
 a {
   color: $blue;
@@ -221,19 +212,26 @@ a {
     -webkit-transform: rotate(5deg);}}
 
 table {
-  width: 100%;}
+  width: 100%;
+  border-collapse: collapse;
+}
+
+td, th {
+}
 
 td, th {
   padding: 5px 10px;
   text-align: left;
   vertical-align: top;
-
   &:first-child {
-    padding-left: 0;}}
+    padding-left: 0;
+    width: 20%;}}
 
+td.description {
+  width: 60%;}
 
 td.numbers, th.numbers {
-  width: 10%;}
+  width: 5%;}
 
 td.numbers {
   text-align: center;}

@@ -10,17 +10,17 @@
       <tr>
         <th>Name</th>
         <th>Description</th>
-        <th class="numbers">Issues</th>
-        <th class="numbers">Forks</th>
-        <th class="numbers">Stargazers</th>
-        <th class="numbers">Watchers</th>
+        <th class="numbers"><span class="mega-octicon octicon-issue-opened"></span></th>
+        <th class="numbers"><span class="mega-octicon octicon-repo-forked"></span></th>
+        <th class="numbers">  <span class="mega-octicon octicon-star"></span></th>
+        <th class="numbers"><span class="mega-octicon octicon-eye"></span></th>
       </tr>
     </thead>
     <tbody>
       {% for project in projects %}
       <tr>
         <td><a href="{{ project.html_url }}" title="{{ project.name }}">{{ project.name }}</a></td>
-        <td>{{ project.description }}</td>
+        <td class="description">{{ project.description }}</td>
         <td class="numbers">{{ project.open_issues_count }}</td>
         <td class="numbers">{{ project.forks_count }}</td>
         <td class="numbers">{{ project.stargazers_count }}</td>
