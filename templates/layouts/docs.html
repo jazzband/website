@@ -12,16 +12,15 @@
   {{ page }}
 </div>
 <div class="join">
-{% if page.md.toc|striptags %}
+<!-- {% if page.md.toc|striptags %}
 <h3>This page</h2>
 {{ page.md.toc|safe }}
-{% endif %}
-<h3>More info</h3>
+{% endif %} -->
+<h3>More info:</h3>
 <ul class="navigation">
 	<li><a href="{{ url_for('roadies') }}">Roadies</a></li>
 	<li><a href="{{ url_for('projects') }}">Projects</a></li>
-	<li><a href="{{ url_for('docs') }}">Docs</a></li>
-	<li>
+	<li><a href="{{ url_for('docs') }}">Docs</a>
 		<ul>
 		{% for other_page in page.pages|sort(attribute='path') if other_page.path not in [page.path, 'index']%}
 		<li><a href="{{ url_for('docs', path=other_page.path) }}">{{ other_page.title|default(other_page.path|capitalize) }}</a></li>

@@ -36,7 +36,7 @@ instead – especially if it's a breach of conduct following our
 
 Nothing.
 
-### How do I disable the email notifications for Jazzband repositories?
+### How do I disable email notifications for Jazzband repositories?
 
 You may want to modify your notification settings on GitHub in your
 [personal settings](https://github.com/settings/notifications).
