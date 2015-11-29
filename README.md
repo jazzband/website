@@ -7,6 +7,8 @@ few things with Sinatra.
 
 It also renders Markdown based documentation for the Jazzband.
 
+[![Requirements Status](https://requires.io/github/jazzband/site/requirements.svg?branch=master)](https://requires.io/github/jazzband/site/requirements/?branch=master)
+
 ## Installation
 
 Assuming you have a Python stack installed, run `make install`. This will
