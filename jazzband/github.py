@@ -6,7 +6,6 @@ class JazzbandGitHub(GitHub):
     def init_app(self, app):
         super(JazzbandGitHub, self).init_app(app)
         # fix inconsistency in the way app instances are stored
-        self.app = app
         self.member_team_id = app.config['GITHUB_MEMBERS_TEAM_ID']
         self.roadies_team_id = app.config['GITHUB_ROADIES_TEAM_ID']
         self.admin_access_token = app.config['GITHUB_ADMIN_TOKEN']
@@ -29,12 +28,14 @@ class JazzbandGitHub(GitHub):
         return self.get(
             'orgs/%s/repos?type=public' % self.org_id,
             access_token=self.admin_access_token,
+            all_pages=True,
         )
 
     def get_roadies(self):
         return self.get(
             'teams/%d/members' % self.roadies_team_id,
-            access_token=self.admin_access_token
+            all_pages=True,
+            access_token=self.admin_access_token,
         )
 
     def publicize_membership(self, user_login):
@@ -48,10 +49,12 @@ class JazzbandGitHub(GitHub):
 
     def has_verified_emails(self):
         """
-        Checks if the authenticated GitHub user has any verified email addresses.
+        Checks if the authenticated GitHub user has any verified email
+        addresses.
         """
         return any(
-            [email for email in self.get('user/emails')
+            [email
+            for email in self.get('user/emails', all_pages=True)
             if email.get('verified', False)],
         )
 
