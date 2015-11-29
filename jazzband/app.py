@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, session, g, abort
 
 
@@ -30,6 +31,10 @@ def create_app(settings_path):
 
     # load decoupled config variables
     app.config.from_object(settings_path)
+
+    if 'SENTRY_DSN' in os.environ:
+        from raven.contrib.flask import Sentry
+        sentry = Sentry(app)
 
     from whitenoise import WhiteNoise
     app.wsgi_app = WhiteNoise(

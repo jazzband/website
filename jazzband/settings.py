@@ -41,3 +41,5 @@ SESSION_USE_SIGNER = config('SESSION_USE_SIGNER', True, cast=bool)
 SESSION_REDIS = redis.from_url(config('REDIS_URL', 'redis://127.0.0.1:6379/0'))
 PERMANENT_SESSION_LIFETIME = 60 * 60
 LIBSASS_STYLE = 'compressed'
+
+SENTRY_USER_ATTRS = ['user_login']

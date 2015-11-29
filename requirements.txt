@@ -4,6 +4,7 @@
 #
 #    pip-compile requirements.in
 #
+blinker==1.4
 click==6.2                # via pip-tools
 first==2.0.1              # via pip-tools
 flask-assets==0.11
@@ -22,6 +23,7 @@ pip-tools==1.1.6
 pygments==2.0.2
 python-decouple==3.0
 pyyaml==3.11              # via flask-flatpages
+raven==5.8.1
 redis==2.10.5
 requests==2.8.1           # via github-flask
 six==1.10.0               # via libsass, pip-tools
