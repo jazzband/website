@@ -2,7 +2,11 @@
 from flask.ext.assets import ManageAssets
 from flask.ext.script import Manager
 
-from jazzband import app, assets
+from jazzband.app import create_app
+from jazzband.assets import assets
+
+
+app = create_app('jazzband.settings')
 
 manager = Manager(app)
 

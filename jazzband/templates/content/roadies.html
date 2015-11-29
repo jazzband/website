@@ -7,7 +7,7 @@
   <p>You can get in touch with the roadies by <a href="https://github.com/jazzband/roadies/issues/new" title="opening an issue">opening an issue</a> on GitHub.</p>
   <table>
     <tbody>
-      {% for roadie in roadies %}
+      {% for roadie in github.get_roadies() %}
       <tr>
         <td style="width:50px;">
         {% if roadie.avatar_url %}
@@ -22,7 +22,4 @@
     </tbody>
   </table>
 </div>
-
 {% endblock %}
-
-

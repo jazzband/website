@@ -8,11 +8,11 @@
       <p class="lead">Now you simply need to <a href="https://github.com/orgs/{{ org_id }}/invitation?return_to={{ next_url|escape }}" target="_blank">confirm your invitation</a> on GitHub to join the Jazzband.</p>
     {% else %}
       <h2>Uh uh, someting went wrong</h2>
-      <p class="lead">Please <a href="{{ url_for('join') }}">try again</a> joining the Jazzband.</p>
+      <p class="lead">Please <a href="{{ url_for('account.join') }}">try again</a> joining the Jazzband.</p>
     {% endif %}
   {% else %}
     <h2>We found that you haven't verified any email addresses on GitHub yet.</h2>
-    <p class="lead">Please do so in your <a href="https://github.com/settings/emails" title="email settings">email settings</a> and then <a href="{{ url_for('join') }}">try again</a>.</p>
+    <p class="lead">Please do so in your <a href="https://github.com/settings/emails" title="email settings">email settings</a> and then <a href="{{ url_for('account.join') }}">try again</a>.</p>
   {% endif %}
 </div>
 {% endblock %}

@@ -1,8 +1,9 @@
-.PHONY: install uninstall clean run check
+.PHONY: install uninstall clean run check update
 
 VENV ?= venv
-PIP = $(VENV)/bin/pip
-MANAGE = $(VENV)/bin/python manage.py
+BIN = $(VENV)/bin
+PIP = $(BIN)/pip
+MANAGE = $(BIN)/python manage.py
 
 install:
 	virtualenv $(VENV)
@@ -11,11 +12,17 @@ install:
 uninstall:
 	rm -rf $(VENV)
 
-run: check
+update: check
+	$(BIN)/pip-compile
+	$(BIN)/pip-sync
+
+run: check clean
 	$(MANAGE) runserver -h 0.0.0.0
 
 clean:
 	find . -name "*.pyc" -delete
+	rm -rf jazzband/static/.webassets-cache
+	rm -rf jazzband/static/css/styles.*.css
 
 check:
 	@test -d $(VENV) || { echo "Couldn't find venv dir. Run make install first."; exit 1; }

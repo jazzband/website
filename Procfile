@@ -1,1 +1,1 @@
-web: gunicorn jazzband:app --log-file=-
+web: gunicorn manage:app --log-file=-

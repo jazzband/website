@@ -1,5 +1,5 @@
 .env
 site/
-static/.webassets-cache
-static/css/styles.*.css
+jazzband/static/.webassets-cache
+jazzband/static/css/styles.*.css
 venv/

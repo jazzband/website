@@ -1,0 +1,22 @@
+{% extends "layouts/default.html" %}
+
+{% block content %}
+<div class="tilted">
+  <div class="c2">
+    <h3>Jazzband is a cooperative experiment to reduce the stress of maintaining Open Source software alone.</h3>
+    <p>The goal of Jazzband is to offer relief by sharing responsiblity for open source work with other like-minded people. It offers maintainers and contributors to play in the same band instead of being forced into “artist” and “audience” roles by the tools GitHub provides.</p>
+  </div>
+  <div class="c3">
+    <p>When you join Jazzband you will be automatically added as a member to its GitHub organization and granted a wide range of priviledges such as creating and editing repositories, pushing code, working on issues etc.</p><p>You can leave admin tasks to the <a href="{{ url_for('content.show', page='roadies') }}">roadies</a>, the people making sure the band can play when they want.</p><p>Once you are a memeber you can move a repo into the Jazzband organization if it matches <a href="{{ url_for('content.docs', path='guidelines') }}">the guidelines</a>, you can start working on already <a href="{{ url_for('content.show', page='projects') }}">existing Jazzband projects</a> and much more.</p>
+    <p>Take a look at the <a href="{{ url_for('content.docs') }}" title="Jazzband documentation">documentation</a> for more info.</p>
+  </div>
+</div>
+{% endblock %}
+
+{% block sub %}
+{% if g.user_login and g.user_login|is_member %}
+<h2>So are <span class="red">you</span>, {{ g.user_login }}!</h2>
+{% else%}
+<h2><a href="{{ url_for('account.join') }}">&rarr; <span>Join Jazzband</span></a> </h2>
+{% endif %}
+{% endblock sub %}

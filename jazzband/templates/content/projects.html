@@ -17,7 +17,7 @@
       </tr>
     </thead>
     <tbody>
-      {% for project in projects %}
+      {% for project in github.get_projects() %}
       <tr>
         <td><a href="{{ project.html_url }}" title="{{ project.name }}">{{ project.name }}</a></td>
         <td class="description">{{ project.description }}</td>

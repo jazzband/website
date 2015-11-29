@@ -10,7 +10,6 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         {% assets "styles" %}<link href="{{ ASSET_URL }}" media="screen, projection" rel="stylesheet" type="text/css" />{% endassets %}
-        <link rel="stylesheet" href="static/octicons/octicons.css">
         <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,900,700|Contrail+One|Roboto+Mono' rel='stylesheet' type='text/css'>
     </head>
     <body class="{% block body_class %}{% endblock body_class %}">
@@ -30,6 +29,27 @@
         </div>
 
         {% block body %}{% endblock %}
+
+        <div class="join">
+        {% block sub %}
+        {# {% if page.md.toc|striptags %}
+        <h3>This page</h2>
+        {{ page.md.toc|safe }}
+        {% endif %} #}
+        <h3>More info</h3>
+        <ul class="navigation">
+          <li><a href="{{ url_for('content.show', page='roadies') }}">Roadies</a></li>
+          <li><a href="{{ url_for('content.show', page='projects') }}">Projects</a></li>
+          <li><a href="{{ url_for('content.docs') }}">Docs</a>
+            <ul>
+            {% for other_page in pages|sort(attribute='path') if other_page.path != 'index' %}
+            <li><a href="{{ url_for('content.docs', path=other_page.path) }}">{{ other_page.title|default(other_page.path|capitalize) }}</a></li>
+            {% endfor %}
+            </ul>
+          </li>
+        </ul>
+        {% endblock sub %}
+        </div>
     </div>
 </body>
 </html>
