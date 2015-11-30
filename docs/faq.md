@@ -47,3 +47,24 @@ and watch individual projects manually instead.
 
 Alternatively you can also [ignore repositories](https://help.github.com/articles/unwatching-repositories/) and continue to receive notifications for the rest of your
 [watched repositories](https://github.com/watching).
+
+### Are you collecting any information on Jazzband.co?
+
+When joining the Jazzband (by visiting `https://jazzband.co/join`) you grant
+the site the permission to fetch your email address(es) from and the team
+and org membership status of your [GitHub] account. That data is only used to
+determine whether you're already a member and if required invite your GitHub
+account to the Jazzband GitHub organization.
+
+The site uses cookies that are required for this site to work correctly
+(e.g. session cookies). By visiting this site you're implicitely accepting
+these cookies.
+
+The site also uses [Piwik](https://piwik.org/) to learn more about its
+visitors. It respects the [Do Not Track] HTTP request header when sent by
+your browser and offers the ability to optionally opt-out here:
+
+<iframe class="admonition" style="height: 100%; width: 560px;" src="https://analytics.websushi.org/index.php?module=CoreAdminHome&action=optOut&language=en"></iframe>
+
+[Do Not Track]: http://donottrack.us/
+[GitHub]: https://github.com/

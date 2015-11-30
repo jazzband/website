@@ -2,6 +2,7 @@ from flask import abort, Blueprint, render_template, redirect
 from flask_flatpages import FlatPages
 from jinja2 import TemplateNotFound
 
+from ..assets import styles
 from ..github import github
 
 content = Blueprint('content', __name__)
@@ -37,3 +38,9 @@ def show(page):
         )
     except TemplateNotFound:
         abort(404)
+
+
+@content.route('/static/css/styles.css')
+def styles_css():
+    urls = styles.urls()
+    return redirect(urls[0])

@@ -21,7 +21,7 @@ body, html {
   color: $black;
   font-family: $text;}
 
-.jazzband {
+.logo {
   width: 100px;
   height: 106px;
   position: absolute;
@@ -249,7 +249,7 @@ blockquote {
   margin-left: 20px;
 }
 
-div.admonition, div.warning {
+.admonition, .warning {
   margin: 1em 0;
   padding: 0 0 0.5em;
   border: 2px solid $black;
@@ -268,7 +268,7 @@ div.admonition, div.warning {
   }
 }
 
-div.warning {
+.warning {
   border: 2px solid $red;
   p {
     &.admonition-title {
