@@ -11,6 +11,7 @@ class JazzbandGitHub(GitHub):
         self.admin_access_token = app.config['GITHUB_ADMIN_TOKEN']
         self.org_id = app.config['GITHUB_ORG_ID']
         self.scope = app.config['GITHUB_SCOPE']
+        self.banned_users = app.config['GITHUB_BANNED_USERS']
 
     def add_to_org(self, user_login):
         """
@@ -46,6 +47,12 @@ class JazzbandGitHub(GitHub):
             'orgs/%s/public_members/%s' % (self.org_id, user_login),
             access_token=self.admin_access_token
         )
+
+    def is_banned(self, user_login):
+        """
+        Returns whether or not the given user login has been banned.
+        """
+        return user_login in self.banned_users
 
     def has_verified_emails(self):
         """

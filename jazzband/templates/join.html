@@ -5,15 +5,19 @@
   {% if has_verified_emails %}
     {% if membership %}
       <h2>Almost done</h2>
-      <p class="lead">Now you simply need to <a href="https://github.com/orgs/{{ org_id }}/invitation?return_to={{ next_url|escape }}" target="_blank">confirm your invitation</a> on GitHub to join the Jazzband.</p>
+      <p>Now you simply need to <a href="https://github.com/orgs/{{ org_id }}/invitation?return_to={{ next_url|escape }}" target="_blank">confirm your invitation</a> on GitHub to join the Jazzband.</p>
       <p>You'll also get an email from GitHub with the link to confirm your invitation in case you can't click on the above link right now.</p>
     {% else %}
       <h2>Uh uh, someting went wrong</h2>
-      <p class="lead">Please <a href="{{ url_for('account.join') }}">try again</a> joining the Jazzband.</p>
+      <p>Please <a href="{{ url_for('account.join') }}">try again</a> joining the Jazzband.</p>
     {% endif %}
   {% else %}
-    <h2>We found that you haven't verified any email addresses on GitHub yet.</h2>
-    <p class="lead">Please do so in your <a href="https://github.com/settings/emails" title="email settings">email settings</a> and then <a href="{{ url_for('account.join') }}">try again</a>.</p>
+    {% if is_banned %}
+      <h2>You've been banned from Jazzband.</h2>
+    {% else %}
+      <h2>We found that you haven't verified any email addresses on GitHub yet.</h2>
+      <p>Please do so in your <a href="https://github.com/settings/emails" title="email settings">email settings</a> and then <a href="{{ url_for('account.join') }}">try again</a>.</p>
+    {% endif %}
   {% endif %}
 </div>
 {% endblock %}

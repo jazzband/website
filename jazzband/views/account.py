@@ -1,7 +1,6 @@
-from flask import Blueprint, render_template, redirect, g, url_for, session, abort
+from flask import Blueprint, render_template, redirect, g, url_for, session
 
 from ..github import github
-from .content import pages
 
 account = Blueprint('account', __name__)
 
@@ -26,6 +25,8 @@ def join():
     if github.is_member(g.user_login):
         return redirect(url_for('content.show', page='index'))
 
+    is_banned = github.is_banned(g.user_login)
+
     # deny permission if there are no verified emails
     has_verified_emails = github.has_verified_emails()
 
@@ -39,7 +40,7 @@ def join():
         membership=membership,
         org_id=github.org_id,
         has_verified_emails=has_verified_emails,
-        pages=pages,
+        is_banned=is_banned,
     )
 
 
