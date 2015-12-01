@@ -3,7 +3,6 @@ from flask_flatpages import FlatPages
 from jinja2 import TemplateNotFound
 
 from ..assets import styles
-from ..cache import cache, cache_or_not
 from ..github import github
 
 content = Blueprint('content', __name__)
@@ -22,7 +21,6 @@ def security():
 
 @content.route('/docs', defaults={'path': 'index'})
 @content.route('/docs/<path:path>')
-@cache.cached(60 * 60, unless=cache_or_not)
 def docs(path):
     page = pages.get_or_404(path)
     template = 'layouts/%s.html' % page.meta.get('layout', 'docs')
@@ -31,7 +29,6 @@ def docs(path):
 
 @content.route('/', defaults={'page': 'index'})
 @content.route('/<path:page>')
-@cache.cached(60 * 60, unless=cache_or_not)
 def show(page):
     try:
         return render_template(

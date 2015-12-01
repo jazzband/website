@@ -5,7 +5,7 @@
   {% if has_verified_emails %}
     {% if membership %}
       <h2>Almost done</h2>
-      <p>Now you simply need to <a href="https://github.com/orgs/{{ org_id }}/invitation?return_to={{ next_url|escape }}" target="_blank">confirm your invitation</a> on GitHub to join the Jazzband.</p>
+      <p>Now you need to <a href="https://github.com/orgs/{{ org_id }}/invitation?return_to={{ next_url|escape }}" target="_blank">confirm your invitation</a> on GitHub to join the Jazzband.</p>
       <p>You'll also get an email from GitHub with the link to confirm your invitation in case you can't click on the above link right now.</p>
     {% else %}
       <h2>Uh uh, someting went wrong</h2>

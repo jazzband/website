@@ -5,6 +5,25 @@ from ..github import github
 account = Blueprint('account', __name__)
 
 
+@account.route('/callback')
+@github.authorized_handler
+def callback(access_token):
+    next_url = url_for('account.join')
+
+    if access_token is None:
+        session.clear()
+        return redirect(next_url)
+
+    print "access_token", access_token
+    session['user_access_token'] = access_token
+    return redirect(next_url)
+
+
+@github.access_token_getter
+def token_getter():
+    return g.user_access_token
+
+
 @account.route('/login')
 def login():
     if not g.user_login:
@@ -20,6 +39,7 @@ def login():
 @account.route('/join')
 def join():
     if not g.user_login:
+        print 'redirecting'
         return redirect(url_for('account.login'))
 
     if github.is_member(g.user_login):

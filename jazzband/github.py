@@ -1,4 +1,7 @@
+from flask.ext.cache import Cache
 from flask.ext.github import GitHub, GitHubError
+
+cache = Cache()
 
 
 class JazzbandGitHub(GitHub):
@@ -25,6 +28,7 @@ class JazzbandGitHub(GitHub):
         except GitHubError:
             return None
 
+    @cache.memoize(timeout=60 * 15)
     def get_projects(self):
         return self.get(
             'orgs/%s/repos?type=public' % self.org_id,
@@ -32,6 +36,7 @@ class JazzbandGitHub(GitHub):
             all_pages=True,
         )
 
+    @cache.memoize(timeout=60 * 15)
     def get_roadies(self):
         return self.get(
             'teams/%d/members' % self.roadies_team_id,
