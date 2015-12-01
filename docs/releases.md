@@ -13,7 +13,7 @@ recommended to use the setuptools plugin [setuptools_scm] to do that.
 
 All you need to do is to modify your `setup.py`:
 
-```python
+```python hl_lines="5 6"
 from setuptools import setup
 # ...
 setup(
@@ -94,5 +94,3 @@ Yes:
 	1. `BREAKING` when you make a backward-incompatible change to existing APIs
 	2. `FEATURE` when you add a new feature without breaking backward-compatibility
 	3. `FIX` when you fix a bug in an existing feature
-
-[bff]: https://medium.com/javascript-scene/software-versions-are-broken-3d2dc0da0783

@@ -20,7 +20,7 @@ Examples of unacceptable behavior by participants include:
   addresses, without explicit permission
 * Other unethical or unprofessional conduct
 
-Jazzband roadies have the right and responsibility to remove, edit, or
+The Jazzband roadies have the right and responsibility to remove, edit, or
 reject comments, commits, code, wiki edits, issues, and other contributions
 that are not aligned to this Code of Conduct, or to ban temporarily or
 permanently any contributor for other behaviors that they deem inappropriate,

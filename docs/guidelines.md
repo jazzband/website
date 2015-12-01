@@ -1,1 +1,62 @@
 title: Guidelines
+
+When creating a new project or moving an existing one to the Jazzband
+there are some guidelines to follow. They exist to make sure that
+the Jazzband stays useful as a place to share responsibility for software
+maintenance when a number of projects are created at or moved to it.
+
+!!! warn "Please consider these guidelines carefully before deciding to transfer a repository to the Jazzband GitHub organization."
+
+    The Jazzband [roadies](/roadies) will enforce the guidelines and won't hesitate to remove projects from the GitHub organization if required.
+
+### Viability
+
+There is no place in the Jazzband for proofs of concept or projects that
+exist as one-off toys. The Jazzband expects projects to cover non-trivial
+functionalities and is not a code snippet hoster.
+
+Established projects with a history of outside contributions that seek more
+maintainers are best suited for transferal to the Jazzband.
+
+### Documentation
+
+Projects require prose documentation for end users **and** contributors.
+Inline code documentation is considered an indicator for a high quality of
+code and is also strongly recommended.
+
+Document as much as possible and don't rely on autodoc alone. Write like you're addressing yourself in a few years.
+
+### Tests
+
+Projects must have tests that are easy to run. Automatic testing based on
+contributions (e.g. Travis-CI) is also strongly encouraged. The test coverage
+requirement follows the "perfect is the enemy of the good" motto -- it's enough
+if the tests cover the core API of the project.
+
+Test as much as needed to make maintenance a breeze. Don't be dogmatic.
+
+### Conduct
+
+Projects are required to adopt and follow the Jazzband code of conduct.
+Please see the [Contributor Code of Conduct](/docs/conduct) for more
+information what that entails and how to report conduct violations.
+
+Adhering to the contributor code of conduct is key in keeping the Jazzband
+together.
+
+### Contributions
+
+Projects must to add a `CONTRIBUTING.md` file to their repository so it's
+automatically displayed when new issues and pull requests are created. It needs to contain this header:
+
+```markdown
+[![Jazzband](https://jazzband.co/static/img/jazzband.png)](https://jazzband.co/)
+
+This is a [Jazzband](https://jazzband.co/) project. By contributing you agree to abide by the [Contributor Code of Condut](https://jazzband.co/docs/conduct) and follow the [guidelines](https://jazzband.co/docs/guidelines).
+```
+
+See this website's [contributing guideline](https://github.com/jazzband/site/blob/master/CONTRIBUTING.md) for how it'd look like.
+
+Of course extending the contributing document with your project's contributing
+guide is highly encouraged, too. See GitHub's [documentation on contributing
+guidelines](https://help.github.com/articles/setting-guidelines-for-repository-contributors/) for more information.

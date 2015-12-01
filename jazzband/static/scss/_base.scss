@@ -12,6 +12,11 @@ code, pre {
   font-family: $code;
   font-weight: 400;
   font-size: $small;
+  white-space: pre-wrap;       /* css-3 */
+  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
 
 body, html {
@@ -77,7 +82,7 @@ h3 {
   font-weight: $semi-bold;
   margin: $margin;}
 
-p, ul {
+p, ul, div.codehilite {
   font-size: $base-font-size;
   margin-bottom: $base-font-size;}
 
