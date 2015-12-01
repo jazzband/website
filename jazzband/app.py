@@ -32,9 +32,13 @@ def create_app(settings_path):
     # load decoupled config variables
     app.config.from_object(settings_path)
 
+    # setup caching
+    from .cache import cache
+    cache.init_app(app)
+
     if 'SENTRY_DSN' in os.environ:
         from raven.contrib.flask import Sentry
-        sentry = Sentry(app)
+        Sentry(app)
 
     from whitenoise import WhiteNoise
     app.wsgi_app = WhiteNoise(

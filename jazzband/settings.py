@@ -8,6 +8,10 @@ from .renderer import smart_pygmented_markdown
 SECRET_KEY = config('SECRET_KEY', 'dev key')
 DEBUG = config('DEBUG', True, cast=bool)
 
+CACHE_TYPE = 'redis'
+CACHE_REDIS_URL = config('REDIS_URL', 'redis://127.0.0.1:6379/0')
+CACHE_KEY_PREFIX = config('HEROKU_SLUG_COMMIT', '')
+
 FLATPAGES_ROOT = '../docs'
 FLATPAGES_EXTENSION = ['.md']
 FLATPAGES_MARKDOWN_EXTENSIONS = [
@@ -39,7 +43,7 @@ SESSION_TYPE = 'redis'
 SESSION_COOKIE_NAME = 'jazzhands'
 SESSION_COOKIE_SECURE = not DEBUG
 SESSION_USE_SIGNER = config('SESSION_USE_SIGNER', True, cast=bool)
-SESSION_REDIS = redis.from_url(config('REDIS_URL', 'redis://127.0.0.1:6379/0'))
+SESSION_REDIS = redis.from_url(CACHE_REDIS_URL)
 PERMANENT_SESSION_LIFETIME = 60 * 60
 LIBSASS_STYLE = 'compressed'
 

@@ -1,6 +1,7 @@
 blinker
 Flask
 Flask-Assets
+Flask-Cache
 Flask-Flatpages
 Flask-Script
 Flask-Session
