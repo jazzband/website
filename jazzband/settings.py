@@ -1,5 +1,5 @@
 import redis
-from decouple import config
+from decouple import config, Csv
 from markdown.extensions.toc import TocExtension
 from markdown.extensions.wikilinks import WikiLinkExtension
 
@@ -31,6 +31,7 @@ GITHUB_SCOPE = config('GITHUB_SCOPE', 'read:org,user:email')
 GITHUB_MEMBERS_TEAM_ID = config('GITHUB_MEMBERS_TEAM_ID', 0, cast=int)
 GITHUB_ROADIES_TEAM_ID = config('GITHUB_ROADIES_TEAM_ID', 0, cast=int)
 GITHUB_ADMIN_TOKEN = config('GITHUB_ADMIN_TOKEN', '')
+GITHUB_BANNED_USERS = config('GITHUB_BANNED_USERS', '', cast=Csv())
 
 VALIDATE_IP = False
 
