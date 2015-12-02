@@ -46,18 +46,18 @@ def security():
     return redirect('/docs/faq/#how-do-i-report-a-security-incident')
 
 
-@etag
 @content.route('/docs', defaults={'path': 'index'})
 @content.route('/docs/<path:path>')
+@etag
 def docs(path):
     page = pages.get_or_404(path)
     template = 'layouts/%s.html' % page.meta.get('layout', 'docs')
     return render_template(template, page=page)
 
 
-@etag
 @content.route('/', defaults={'page': 'index'})
 @content.route('/<path:page>')
+@etag
 def show(page):
     try:
         return render_template(
