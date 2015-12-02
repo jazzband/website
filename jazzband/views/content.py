@@ -1,4 +1,7 @@
-from flask import abort, Blueprint, render_template, redirect
+from functools import wraps
+from hashlib import sha1
+from flask import (abort, Blueprint, render_template, redirect, request,
+                   current_app, g)
 from flask_flatpages import FlatPages
 from jinja2 import TemplateNotFound
 
@@ -7,6 +10,30 @@ from ..github import github
 
 content = Blueprint('content', __name__)
 pages = FlatPages()
+
+
+def generate_etag():
+    key = bytes(request.path +
+                current_app.config['CACHE_KEY_PREFIX'] +
+                getattr(g, 'user_login', ''))
+    return sha1(key).hexdigest()
+
+
+def etag(func):
+    """
+    Adds ETag headers
+    """
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        if current_app.debug:
+            return func(*args, **kwargs)
+        etag = generate_etag()
+        if request.if_none_match.contains(etag):
+            return current_app.response_class(status=304)
+        response = current_app.make_response(func(*args, **kwargs))
+        response.set_etag(etag)
+        return response
+    return wrapper
 
 
 @content.context_processor
@@ -21,6 +48,7 @@ def security():
 
 @content.route('/docs', defaults={'path': 'index'})
 @content.route('/docs/<path:path>')
+@etag
 def docs(path):
     page = pages.get_or_404(path)
     template = 'layouts/%s.html' % page.meta.get('layout', 'docs')
@@ -29,6 +57,7 @@ def docs(path):
 
 @content.route('/', defaults={'page': 'index'})
 @content.route('/<path:page>')
+@etag
 def show(page):
     try:
         return render_template(
