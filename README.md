@@ -1,10 +1,11 @@
-# Jazzband
+[![Jazzband](https://jazzband.co/static/img/jazzband.png)](https://jazzband.co/)
 
-This is a Flask app that renders https://jazzband.co.
+This is a [Jazzband](https://jazzband.co/) project. By contributing you
+agree to abide by the [Contributor Code of Condut](https://jazzband.co/docs/conduct)
+and follow the [guidelines](https://jazzband.co/docs/guidelines).
 
-It's mostly a copy of [add-to-org] since I couldn't figure out how to do a
-few things with Sinatra.
-
+This app renders https://jazzband.co. It's mostly a copy of [add-to-org]
+since I couldn't figure out how to do a few things with Sinatra.
 It also renders Markdown based documentation for the Jazzband.
 
 [![Requirements Status](https://requires.io/github/jazzband/site/requirements.svg?branch=master)](https://requires.io/github/jazzband/site/requirements/?branch=master)
