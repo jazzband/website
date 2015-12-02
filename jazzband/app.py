@@ -1,4 +1,5 @@
 import os
+import logging
 from flask import Flask, render_template, session, g, abort
 
 
@@ -23,7 +24,7 @@ def create_app(settings_path):
 
     if 'SENTRY_DSN' in os.environ:
         from raven.contrib.flask import Sentry
-        Sentry(app)
+        Sentry(app, logging=True, level=logging.DEBUG)
 
     from whitenoise import WhiteNoise
     app.wsgi_app = WhiteNoise(
@@ -51,9 +52,11 @@ def create_app(settings_path):
         g.user_access_token = session.get('user_access_token', None)
         user_login = session.get('user_login', None)
         if g.user_access_token and not user_login:
+            app.logger.debug('fetching user_login from github')
             user_login = github.get('user').get('login', None)
             if user_login is None:
                 abort(500)
+            app.logger.debug('setting user_login %s in session', user_login)
             session['user_login'] = user_login
         g.user_login = user_login
 
