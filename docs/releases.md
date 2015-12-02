@@ -1,47 +1,28 @@
 title: Releases
 published: 2010-12-22
 
-This explains how you can configure a Jazzband repository to be auto-released
-on PyPI whenever create a Git tag and push it to GitHub.
+This explains how you can configure a Jazzband repository to be
+auto-released on PyPI whenever create a Git tag and push it to GitHub.
 
 ### Packaging
 
-First we need to make sure your Python package is able to automatically
-deduct its version from Git tags, a feature that allows us to stop worrying
-about having to update version identifiers in the `setup.py` file. It's
-recommended to use the setuptools plugin [setuptools_scm] to do that.
+Since we're currently aiming at Python project primarily please
+make sure your project is able to be packaged as a Python package
+on PyPI. There is a great and extensive documentation in the
+[Python Packaging Guide][PyPUG] that should allow you to prepare
+your project accordingly.
 
-All you need to do is to modify your `setup.py`:
+We recommend using [setuptools_scm] for automatically deducting
+the version of the project package from Git -- but setting the
+version manually in the `setup.py` works just the same.
 
-```python hl_lines="5 6"
-from setuptools import setup
-# ...
-setup(
-	# ...
-	use_scm_version=True,
-	setup_requires=['setuptools_scm'],
-	# ...
-)
-```
-
-Please refer to the [setuptools_scm documentation][setuptools_scm] for more
-information how it works.
-
-In case you use [Sphinx] to document your project, use the following snippet
-in your documentation's `conf.py`:
-
-```python
-from setuptools_scm import get_version
-version = get_version()
-```
-
+[PyPUG]: https://packaging.python.org/en/latest/
 [setuptools_scm]: https://pypi.python.org/pypi/setuptools_scm
-[Sphinx]: http://sphinx-doc.org/
 
 ### Travis
 
 Next you will want to follow Travis-CI’s documentation for how to do
-[PyPI deployments](pypi-deploy).
+[PyPI deployments][pypi-deploy].
 
 [pypi-deploy]: https://docs.travis-ci.com/user/deployment/pypi/
 
@@ -58,9 +39,11 @@ In short:
 
 When you’re ready to do a release to PyPI simply make sure to prepare all
 the code you’d like just as before (e.g. update AUTHORS, CHANGELOG,
-documentation), commit the changes and tag them with `git tag`.
+documentation), commit the changes, tag them with `git tag` and push
+the code to GitHub with `git push --tags`. If all goes according to plan
+you'll see the release show up on PyPI automatically.
 
-### Versions
+### Versions and code names
 
 When tagging releases using Git you need to make sensible decisions about
 which version number you use.
@@ -68,9 +51,10 @@ which version number you use.
 Jazzband follows the [semantic release versioning scheme][semver] in which
 "semantic" means "correct for when a computer sees it" -- not "nice to read
 for a human". Don't hesitate to release `1.0`, or `2.0` or `41.5.12` for
-that matter.
+that matter. Do a `1.0` release as soon as your project is used in a real
+world application.
 
-If you'd like to make statements about the importance of your releases,
+If you'd like to make statements about the importance of your releases
 attach a human readable release code name to your public announcments.
 Choose a theme that will allow you to pick one for every release, e.g.
 cat names. Or city names. Tree names. Color names. Anything that has lots
