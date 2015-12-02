@@ -26,6 +26,10 @@ def create_app(settings_path):
         from raven.contrib.flask import Sentry
         Sentry(app, logging=True, level=logging.DEBUG)
 
+    if not app.debug:
+        from werkzeug.contrib.fixers import ProxyFix
+        app.wsgi_app = ProxyFix(app.wsgi_app)
+
     from whitenoise import WhiteNoise
     app.wsgi_app = WhiteNoise(
         app.wsgi_app,
