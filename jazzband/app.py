@@ -49,7 +49,6 @@ def create_app(settings_path):
     @app.before_request
     def before_request():
         g.user_access_token = session.get('user_access_token', None)
-        print "g.user_access_token", g.user_access_token
         user_login = session.get('user_login', None)
         if g.user_access_token and not user_login:
             user_login = github.get('user').get('login', None)

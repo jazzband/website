@@ -14,7 +14,6 @@ def callback(access_token):
         session.clear()
         return redirect(next_url)
 
-    print "access_token", access_token
     session['user_access_token'] = access_token
     return redirect(next_url)
 
@@ -39,7 +38,6 @@ def login():
 @account.route('/join')
 def join():
     if not g.user_login:
-        print 'redirecting'
         return redirect(url_for('account.login'))
 
     if github.is_member(g.user_login):
