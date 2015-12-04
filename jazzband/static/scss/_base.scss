@@ -137,6 +137,12 @@ a {
   }
   &:hover {
     color: lighten($blue, 10%); }
+  &.github {
+    text-decoration: none;
+    font-weight: $semi-bold;
+    font-size: $h3-font-size;
+    color: $black;
+  }
 }
 
 ::selection {
@@ -278,6 +284,49 @@ blockquote {
   p {
     &.admonition-title {
       color: $red;
+    }
+  }
+}
+
+.github-corner {
+  &:hover .octo-arm {
+    animation: octocat-wave 560ms ease-in-out;
+  }
+
+  & .octo-arm {
+    transform-origin: 130px 106px;
+  }
+
+  & svg {
+    fill: #151513;
+    color: $white;
+    position: absolute;
+    top: 0;
+    border: 0;
+    left: 0;
+    transform: scale(-1, 1);
+  }
+}
+
+@keyframes octocat-wave {
+  0%, 100% {
+    transform:rotate(0);
+  }
+  20%, 60% {
+    transform:rotate(-25deg);
+  }
+  40%, 80% {
+    transform:rotate(10deg);
+  }
+}
+
+@media (max-width:500px) {
+  .github-corner {
+    &:hover .octo-arm {
+      animation:none;
+    }
+    & .octo-arm {
+    animation:octocat-wave 560ms ease-in-out;
     }
   }
 }
