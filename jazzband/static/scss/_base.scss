@@ -232,18 +232,16 @@ table {
 }
 
 td, th {
-}
-
-td, th {
   padding: 5px 10px;
   text-align: left;
   vertical-align: top;
   &:first-child {
     padding-left: 0;
-    width: 20%;}}
+    width: 60%;}}
 
-th.name, td.name {
-  width: 60%;}
+td.description {
+  padding-bottom: 15px;
+}
 
 td.numbers, th.numbers {
   width: 5%;}
@@ -320,13 +318,13 @@ blockquote {
   }
 }
 
-@media (max-width:500px) {
+@media (max-width:601px) {
   .github-corner {
     &:hover .octo-arm {
-      animation:none;
+      animation: none;
     }
     & .octo-arm {
-    animation:octocat-wave 560ms ease-in-out;
+      animation: octocat-wave 560ms ease-in-out;
     }
   }
 }

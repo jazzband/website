@@ -7,7 +7,7 @@
   <table>
     <thead>
       <tr>
-        <th class="name">Project</th>
+        <th>Project</th>
         <th class="numbers"><span class="mega-octicon octicon-eye" title="Watchers"></span></th>
         <th class="numbers">  <span class="mega-octicon octicon-star" title="Stargazers"></span></th>
         <th class="numbers"><span class="mega-octicon octicon-repo-forked" title="Forks"></span></th>
@@ -17,14 +17,14 @@
     <tbody>
       {% for project in github.get_projects() %}
       <tr>
-        <td class="name"><a href="{{ project.html_url }}" title="{{ project.description }}">{{ project.name }}</a></td>
+        <td><a href="{{ project.html_url }}">{{ project.name }}</a></td>
         <td class="numbers">{{ project.subscribers_count }}</td>
         <td class="numbers">{{ project.stargazers_count }}</td>
         <td class="numbers">{{ project.forks_count }}</td>
         <td class="numbers">{{ project.open_issues_count }}</td>
       </tr>
       <tr>
-        <td colspan="5">{{ project.description }}</td>
+        <td class="description" colspan="5">{{ project.description }}</td>
       </tr>
       {% endfor %}
     </tbody>
