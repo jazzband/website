@@ -1,6 +1,7 @@
 import os
 import logging
-from flask import Flask, render_template, session, g, abort
+from flask import (Flask, render_template, session, g, abort,
+                   send_from_directory)
 
 
 def create_app(settings_path):
@@ -18,6 +19,15 @@ def create_app(settings_path):
     @app.errorhandler(500)
     def error(error):
         return render_template('error.html'), 500
+
+    @app.route('/favicon.ico')
+    def favicon():
+        filename = 'favicon.ico'
+        cache_timeout = app.get_send_file_max_age(filename)
+        return send_from_directory(os.path.join(app.static_folder, 'favicons'),
+                                   filename,
+                                   mimetype='image/vnd.microsoft.icon',
+                                   cache_timeout=cache_timeout)
 
     # load decoupled config variables
     app.config.from_object(settings_path)
