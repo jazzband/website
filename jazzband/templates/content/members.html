@@ -1,0 +1,24 @@
+{% extends "layouts/default.html" %}
+
+{% block content %}
+<div class="c4">
+  <h2>Members</h2>
+  <p>The following Jazzband members have volunteered to maintain the <a href="{{ url_for('content.show', page='projects') }}">Jazzband projects</a>.</p>
+  <table>
+    <tbody>
+      {% for member in github.get_members() %}
+      <tr>
+        <td style="width:50px;">
+        {% if member.avatar_url %}
+          <img src="{{ member.avatar_url }}" alt="{{ member.login }}" width="40" height="40" />
+        {% endif %}
+        </td>
+        <td>
+          <a href="{{ member.html_url }}" title="{{ member.login }}">{{ member.login }}</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

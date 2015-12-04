@@ -9,7 +9,7 @@ class JazzbandGitHub(GitHub):
     def init_app(self, app):
         super(JazzbandGitHub, self).init_app(app)
         # fix inconsistency in the way app instances are stored
-        self.member_team_id = app.config['GITHUB_MEMBERS_TEAM_ID']
+        self.members_team_id = app.config['GITHUB_MEMBERS_TEAM_ID']
         self.roadies_team_id = app.config['GITHUB_ROADIES_TEAM_ID']
         self.admin_access_token = app.config['GITHUB_ADMIN_TOKEN']
         self.org_id = app.config['GITHUB_ORG_ID']
@@ -22,7 +22,7 @@ class JazzbandGitHub(GitHub):
         """
         try:
             return self.put(
-                'teams/%s/memberships/%s' % (self.member_team_id, user_login),
+                'teams/%s/memberships/%s' % (self.members_team_id, user_login),
                 access_token=self.admin_access_token
             )
         except GitHubError:
@@ -40,6 +40,14 @@ class JazzbandGitHub(GitHub):
     def get_roadies(self):
         return self.get(
             'teams/%d/members' % self.roadies_team_id,
+            all_pages=True,
+            access_token=self.admin_access_token,
+        )
+
+    @cache.memoize(timeout=60 * 15)
+    def get_members(self):
+        return self.get(
+            'teams/%d/members' % self.members_team_id,
             all_pages=True,
             access_token=self.admin_access_token,
         )
