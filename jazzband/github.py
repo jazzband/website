@@ -30,11 +30,21 @@ class JazzbandGitHub(GitHub):
 
     @cache.memoize(timeout=60 * 15)
     def get_projects(self):
-        return self.get(
+        projects = self.get(
             'orgs/%s/repos?type=public' % self.org_id,
             access_token=self.admin_access_token,
             all_pages=True,
         )
+        projects_with_subscribers = []
+        for project in projects:
+            watchers = self.get(
+                'repos/jazzband/%s/subscribers' % project['name'],
+                access_token=self.admin_access_token,
+                all_pages=True,
+            )
+            project['subscribers_count'] = len(watchers)
+            projects_with_subscribers.append(project)
+        return projects_with_subscribers
 
     @cache.memoize(timeout=60 * 15)
     def get_roadies(self):
