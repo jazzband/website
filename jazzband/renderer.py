@@ -9,7 +9,7 @@ def smart_pygmented_markdown(text, flatpages=None, page=None):
     extensions = flatpages.config('markdown_extensions') if flatpages else []
     if not extensions:
         extensions = ['codehilite']
-    md = markdown.Markdown(extensions)
+    md = markdown.Markdown(extensions, output_format='html5')
     page.md = md
     page.pages = flatpages
     return md.convert(text)
