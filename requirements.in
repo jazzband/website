@@ -9,6 +9,7 @@ gunicorn
 libsass
 pip-tools
 pygments
+pygments-markdown-lexer
 python-decouple
 opbeat[flask]
 redis
