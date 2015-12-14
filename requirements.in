@@ -1,4 +1,3 @@
-blinker
 Flask
 Flask-Assets
 Flask-Cache
@@ -11,6 +10,6 @@ libsass
 pip-tools
 pygments
 python-decouple
-raven
+opbeat[flask]
 redis
 whitenoise
