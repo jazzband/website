@@ -53,7 +53,7 @@ It needs to contain this header:
 ```markdown
 [![Jazzband](https://jazzband.co/static/img/jazzband.svg)](https://jazzband.co/)
 
-This is a [Jazzband](https://jazzband.co/) project. By contributing you agree to abide by the [Contributor Code of Conduct](https://jazzband.co/docs/conduct) and follow the [guidelines](https://jazzband.co/docs/guidelines).
+This is a [Jazzband](https://jazzband.co/) project. By **contributing** you agree to abide by the [Contributor Code of Conduct](https://jazzband.co/docs/conduct) and follow the [guidelines](https://jazzband.co/docs/guidelines).
 ```
 
 See this website's [contributing guideline] for how it'd look like.
@@ -66,9 +66,7 @@ A [reStructuredText] version of the above Markdown paragraph is:
    :target: https://jazzband.co/
    :alt: Jazzband
 
-This is a `Jazzband <https://jazzband.co>`_ project. By contributing you
-agree to abide by the `Contributor Code of Conduct <https://jazzband.co/docs/conduct>`_
-and follow the `guidelines <https://jazzband.co/docs/guidelines>`_.
+This is a `Jazzband <https://jazzband.co>`_ project. By contributing you agree to abide by the `Contributor Code of Conduct <https://jazzband.co/docs/conduct>`_ and follow the `guidelines <https://jazzband.co/docs/guidelines>`_.
 ```
 
 [contributing guideline]: https://github.com/jazzband/site/blob/master/CONTRIBUTING.md
@@ -79,3 +77,21 @@ guide is highly encouraged, too. See GitHub's documentation on [contributing
 guidelines] for more information.
 
 [contributing guidelines]: https://help.github.com/articles/setting-guidelines-for-repository-contributors/
+
+You may also want to use Jazzband badges (following the [shields.io] spec) using the
+following URL: `https://jazzband.co/static/img/badge.svg`. It looks like this:
+![Jazzband](https://jazzband.co/static/img/badge.svg)
+
+Markdown:
+
+```markdown
+[![Jazzband](https://jazzband.co/static/img/badge.svg)](https://jazzband.co/)
+```
+
+reStructuredText:
+
+```rst
+.. image:: https://jazzband.co/static/img/badge.svg
+   :target: https://jazzband.co/
+   :alt: Jazzband
+```
