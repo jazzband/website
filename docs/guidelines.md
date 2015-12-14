@@ -47,16 +47,35 @@ together.
 ### Contributions
 
 Projects must to add a `CONTRIBUTING.md` file to their repository so it's
-automatically displayed when new issues and pull requests are created. It needs to contain this header:
+automatically displayed when new issues and pull requests are created.
+It needs to contain this header:
 
 ```markdown
-[![Jazzband](https://jazzband.co/static/img/jazzband.png)](https://jazzband.co/)
+[![Jazzband](https://jazzband.co/static/img/jazzband.svg)](https://jazzband.co/)
 
-This is a [Jazzband](https://jazzband.co/) project. By contributing you agree to abide by the [Contributor Code of Condut](https://jazzband.co/docs/conduct) and follow the [guidelines](https://jazzband.co/docs/guidelines).
+This is a [Jazzband](https://jazzband.co/) project. By contributing you agree to abide by the [Contributor Code of Conduct](https://jazzband.co/docs/conduct) and follow the [guidelines](https://jazzband.co/docs/guidelines).
 ```
 
-See this website's [contributing guideline](https://github.com/jazzband/site/blob/master/CONTRIBUTING.md) for how it'd look like.
+See this website's [contributing guideline] for how it'd look like.
+Feel free to add a similar paragraph to your `README.md`.
+
+A [reStructuredText] version of the above Markdown paragraph is:
+
+```rst
+.. image:: https://jazzband.co/static/img/jazzband.svg
+   :target: https://jazzband.co/
+   :alt: Jazzband
+
+This is a `Jazzband <https://jazzband.co>`_ project. By contributing you
+agree to abide by the `Contributor Code of Conduct <https://jazzband.co/docs/conduct>`_
+and follow the `guidelines <https://jazzband.co/docs/guidelines>`_.
+```
+
+[contributing guideline]: https://github.com/jazzband/site/blob/master/CONTRIBUTING.md
+[reStructuredText]: http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html
 
 Of course extending the contributing document with your project's contributing
-guide is highly encouraged, too. See GitHub's [documentation on contributing
-guidelines](https://help.github.com/articles/setting-guidelines-for-repository-contributors/) for more information.
+guide is highly encouraged, too. See GitHub's documentation on [contributing
+guidelines] for more information.
+
+[contributing guidelines]: https://help.github.com/articles/setting-guidelines-for-repository-contributors/

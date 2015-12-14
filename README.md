@@ -1,7 +1,7 @@
-[![Jazzband](https://jazzband.co/static/img/jazzband.png)](https://jazzband.co/)
+[![Jazzband](https://jazzband.co/static/img/jazzband.svg)](https://jazzband.co/)
 
 This is a [Jazzband](https://jazzband.co/) project. By contributing you
-agree to abide by the [Contributor Code of Condut](https://jazzband.co/docs/conduct)
+agree to abide by the [Contributor Code of Conduct](https://jazzband.co/docs/conduct)
 and follow the [guidelines](https://jazzband.co/docs/guidelines).
 
 This app renders https://jazzband.co. It's mostly a copy of [add-to-org]
