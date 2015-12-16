@@ -6,7 +6,7 @@
   <p>The following Jazzband members have volunteered to maintain the <a href="{{ url_for('content.show', page='projects') }}">Jazzband projects</a>.</p>
   <table>
     <tbody>
-      {% for member in github.get_members() %}
+      {% for member in github.get_members() if member.login != 'jazzband-bot' %}
       <tr>
         <td style="width:50px;">
         {% if member.avatar_url %}
