@@ -1,4 +1,6 @@
-from flask import Blueprint, render_template, redirect, g, url_for, session
+from urlparse import urlparse
+from flask import (Blueprint, render_template, redirect, g, url_for, session,
+                   request, current_app, flash)
 
 from ..github import github
 
@@ -35,12 +37,28 @@ def login():
     return redirect(url)
 
 
+def good_referrer():
+    """
+    In case no referrer is given return False immediatedly.
+    Otherwise this will look in the HOSTNAMES setting
+    """
+    if not request.referrer:
+        return False
+    parsed_referrer = urlparse(request.referrer)
+    return parsed_referrer.netloc in current_app.config['HOSTNAMES']
+
+
 @account.route('/join')
 def join():
+    if not good_referrer():
+        flash("Do you really want to join?")
+        return redirect(url_for('content.show', page='index'))
+
     if not g.user_login:
         return redirect(url_for('account.login'))
 
     if github.is_member(g.user_login):
+        flash("You've already joined Jazzband")
         return redirect(url_for('content.show', page='index'))
 
     is_banned = github.is_banned(g.user_login)
@@ -51,6 +69,8 @@ def join():
     membership = None
     if has_verified_emails:
         membership = github.add_to_org(g.user_login)
+        if membership:
+            flash("Jazzband has asked GitHub to send you an invitation")
 
     return render_template(
         'join.html',

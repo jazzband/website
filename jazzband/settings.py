@@ -8,6 +8,8 @@ from .renderer import smart_pygmented_markdown
 SECRET_KEY = config('SECRET_KEY', 'dev key')
 DEBUG = config('DEBUG', True, cast=bool)
 
+HOSTNAMES = config('HOSTNAMES', 'localhost:5000', cast=Csv())
+
 CACHE_TYPE = 'redis'
 CACHE_REDIS_URL = config('REDIS_URL', 'redis://127.0.0.1:6379/0')
 CACHE_KEY_PREFIX = config('HEROKU_SLUG_COMMIT', '')
