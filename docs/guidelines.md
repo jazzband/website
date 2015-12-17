@@ -46,7 +46,7 @@ together.
 
 ### Contributions
 
-Projects must to add a `CONTRIBUTING.md` file to their repository so it's
+Projects have to add a `CONTRIBUTING.md` file to their repository so it's
 automatically displayed when new issues and pull requests are created.
 It needs to contain this header:
 
