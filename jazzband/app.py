@@ -32,9 +32,9 @@ def create_app(settings_path):
     # load decoupled config variables
     app.config.from_object(settings_path)
 
-    if 'OPBEAT_SECRET_TOKEN' in os.environ:
-        from opbeat.contrib.flask import Opbeat
-        Opbeat(app, logging=True)
+    if 'SENTRY_DSN' in os.environ:
+        from raven.contrib.flask import Sentry
+        Sentry(app, logging=True, level=logging.DEBUG)
 
     if not app.debug:
         from werkzeug.contrib.fixers import ProxyFix
