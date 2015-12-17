@@ -30,7 +30,7 @@ When you join you will be...
 
 After that you can go ahead and do things like...
 
-- move repos that follow the [guidelines](/guidelines) into the Jazzband organization
+- move repos that follow the [guidelines](/docs/guidelines) into the Jazzband organization
 - start working on an already existing Jazzband [project](/projects)
 - do [[releases]] on PyPI automatically via Travis CI
 
