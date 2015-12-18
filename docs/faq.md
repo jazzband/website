@@ -47,7 +47,7 @@ conduct following our [code of conduct](/docs/conduct).
 
 ### What's in for the roadies?
 
-Nothing, if you mean monatary compensation. The roadies are volunteers
+Nothing, if you mean monetary compensation. The roadies are volunteers
 just like other contributors.
 
 ### How do I disable email notifications for Jazzband repositories?
