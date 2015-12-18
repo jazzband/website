@@ -74,7 +74,7 @@ to determine whether you're already a member and if required invite your GitHub
 account to the Jazzband GitHub organization.
 
 The site uses cookies that are required for this site to work correctly
-(e.g. session cookies). By visiting this site you're implicitely accepting
+(e.g. session cookies). By visiting this site you're implicitly accepting
 these cookies.
 
 The site also uses [Piwik](https://piwik.org/) to learn more about its
