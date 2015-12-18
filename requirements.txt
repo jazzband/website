@@ -17,7 +17,7 @@ github-flask==3.1.1
 gunicorn==19.4.1
 itsdangerous==0.24        # via flask
 jinja2==2.8               # via flask
-libsass==0.9.3
+libsass==0.10.0
 markdown==2.6.5           # via flask-flatpages
 markupsafe==0.23          # via jinja2
 opbeat[flask]==3.1.3
