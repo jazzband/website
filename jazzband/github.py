@@ -1,6 +1,5 @@
 from flask.ext.cache import Cache
-from flask.ext.github import (GitHub, GitHubError,
-                              is_json_response, is_valid_response)
+from flask.ext.github import GitHub, GitHubError
 
 cache = Cache()
 
@@ -101,47 +100,5 @@ class JazzbandGitHub(GitHub):
             return True
         except GitHubError:
             return False
-
-    def raw_request(self, method, url, access_token=None, **kwargs):
-        """
-        Makes a HTTP request and returns the raw
-        :class:`~requests.Response` object.
-
-        """
-        # Set ``Authorization`` header
-        kwargs.setdefault('headers', {})
-        if access_token is None:
-            access_token = self.get_access_token()
-        kwargs['headers'].setdefault('Authorization', 'token %s' % access_token)
-
-        return self.session.request(method, url, allow_redirects=True, **kwargs)
-
-    def request(self, method, resource, all_pages=False, **kwargs):
-        """
-        Makes a request to the given endpoint.
-        Keyword arguments are passed to the :meth:`~requests.request` method.
-        If the content type of the response is JSON, it will be decoded
-        automatically and a dictionary will be returned.
-        Otherwise the :class:`~requests.Response` object is returned.
-
-        """
-        response = self.raw_request(method, self.base_url + resource, **kwargs)
-
-        if not is_valid_response(response):
-            raise GitHubError(response)
-
-        if is_json_response(response):
-            result = response.json()
-            while all_pages and response.links.get('next'):
-                response = self.raw_request(method,
-                                            response.links['next']['url'],
-                                            **kwargs)
-                if not is_valid_response(response) or \
-                        not is_json_response(response):
-                    raise GitHubError(response)
-                result += response.json()
-            return result
-        else:
-            return response
 
 github = JazzbandGitHub()
