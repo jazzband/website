@@ -2,17 +2,17 @@ title: Releases
 published: 2010-12-22
 
 This explains how you can configure a Jazzband repository to be
-auto-released on PyPI whenever create a Git tag and push it to GitHub.
+auto-released on PyPI whenever you create a Git tag and push it to GitHub.
 
 ### Packaging
 
-Since we're currently aiming at Python project primarily please
+Since we're currently aiming at Python projects primarily please
 make sure your project is able to be packaged as a Python package
 on PyPI. There is a great and extensive documentation in the
 [Python Packaging Guide][PyPUG] that should allow you to prepare
 your project accordingly.
 
-We recommend using [setuptools_scm] for automatically deducting
+We recommend using [setuptools_scm] for automatically deducing
 the version of the project package from Git -- but setting the
 version manually in the `setup.py` works just the same.
 

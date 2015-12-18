@@ -1,5 +1,5 @@
 title: Docs
-published: 2010-12-22
+published: 2015-12-22
 
 Here you’ll find some background info, a quick introduction how
 Jazzband works and some examples how to improve maintenance of
@@ -8,12 +8,12 @@ your own projects using Jazzband’s techniques.
 ### Introduction
 
 Jazzband was born out of the stress of maintaining an Open Source project
-alone for a longer time. As such it's aimed at projects with only
+alone for a longer time. As such it's aimed at projects with only a
 few maintainers that have not achieved creating a community of maintainers
 yet.
 
 Jazzband strives to enable broader collaboration between the users by
-bringing down the walls that prevent them to become contributors.
+bringing down the walls that prevent them from becoming contributors.
 
 Jazzband tries to foster participation by the community and shared
 responsibilty within its membership. It helps keeping projects alive as
