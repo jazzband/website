@@ -16,7 +16,7 @@ exist as one-off toys. The Jazzband expects projects to cover non-trivial
 functionalities and is not a code snippet hoster.
 
 Established projects with a history of outside contributions that seek more
-maintainers are best suited for transferal to the Jazzband.
+maintainers are best suited for transfer to the Jazzband.
 
 ### Documentation
 
@@ -24,7 +24,8 @@ Projects require prose documentation for end users **and** contributors.
 Inline code documentation is considered an indicator for a high quality of
 code and is also strongly recommended.
 
-Document as much as possible and don't rely on autodoc alone. Write like you're addressing yourself in a few years.
+Document as much as possible and don't rely on autodoc alone. Write like you're
+ addressing yourself in a few years.
 
 ### Tests
 

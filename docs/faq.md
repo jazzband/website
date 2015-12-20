@@ -35,7 +35,7 @@ If you'd like to remove yourself from the Jazzband GitHub organization see
 your [personal settings](https://github.com/settings/organizations) over at
 GitHub.
 
-There you can see the GitHub organizations you're a member of easily
+There you can see the GitHub organizations you're a member of and easily
 leave the Jazzband by clicking on the "Leave" button next to it.
 
 ### What do I do when I see abuse happening on any Jazzband repo?
@@ -45,7 +45,7 @@ of urgency or discretion you may also want to write an email to
 `roadies@jazzband.co` instead – especially if it's a breach of
 conduct following our [code of conduct](/docs/conduct).
 
-### What's in for the roadies?
+### What's in it for the roadies?
 
 Nothing, if you mean monetary compensation. The roadies are volunteers
 just like other contributors.
@@ -68,7 +68,7 @@ notifications for the rest of your [watched repositories].
 ### Are you collecting any information on Jazzband.co?
 
 When joining the Jazzband (by visiting `https://jazzband.co/join`) you grant
-the site the permission to fetch your email address(es) from and the team and
+the site the permission to fetch your email address(es) and the team and
 organization membership status of your [GitHub] account. That data is only used
 to determine whether you're already a member and if required invite your GitHub
 account to the Jazzband GitHub organization.
