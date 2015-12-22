@@ -187,12 +187,7 @@ a {
         text-align: left;
       }
       .join {
-        clear: left;}}
-  .tilted {
-    -moz-transform: rotate(5deg);
-    -ms-transform: rotate(5deg);
-    -o-transform: rotate(5deg);
-    -webkit-transform: rotate(5deg);}}
+        clear: left;}}}
 
 @media all and (min-width: 1024px) {
   body{
@@ -219,12 +214,7 @@ a {
       .join {
         position: absolute;
         top: 490px;
-        }}
-  .tilted {
-    -moz-transform: rotate(5deg);
-    -ms-transform: rotate(5deg);
-    -o-transform: rotate(5deg);
-    -webkit-transform: rotate(5deg);}}
+        }}}
 
 table {
   width: 100%;
