@@ -1,5 +1,4 @@
 title: Releases
-published: 2010-12-22
 
 This explains how you can configure a Jazzband repository to be
 auto-released on PyPI whenever you create a Git tag and push it to GitHub.

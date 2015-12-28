@@ -12,6 +12,7 @@
         {% assets "styles" %}<link href="{{ ASSET_URL }}" media="screen, projection" rel="stylesheet" type="text/css" />{% endassets %}
         <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,900,700|Contrail+One|Roboto+Mono' rel='stylesheet' type='text/css'>
         {% include "includes/favicons.html" %}
+        <link rel="alternate" type="application/atom+xml" href="{{ url_for('content.news_feed', _external=True) }}" />
     </head>
     <body class="{% block body_class %}{% endblock body_class %}">
     <!--[if lt IE 7]>
@@ -42,10 +43,11 @@
           <li><a href="{{ url_for('content.show', page='members') }}">Members</a></li>
           <li><a href="{{ url_for('content.show', page='projects') }}">Projects</a></li>
           <li><a href="{{ url_for('content.show', page='roadies') }}">Roadies</a></li>
+          <li><a href="{{ url_for('content.news') }}">News</a>
           <li><a href="{{ url_for('content.docs') }}">Docs</a>
             <ul>
-            {% for other_page in pages|sort(attribute='path') if other_page.path != 'index' %}
-            <li><a href="{{ url_for('content.docs', path=other_page.path) }}">{{ other_page.title|default(other_page.path|capitalize) }}</a></li>
+            {% for doc in docs|sort(attribute='path') if doc.path != 'index' %}
+            <li><a href="{{ url_for('content.docs', path=doc.path) }}">{{ doc.title|default(doc.path|capitalize) }}</a></li>
             {% endfor %}
             </ul>
           </li>

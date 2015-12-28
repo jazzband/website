@@ -1,5 +1,4 @@
 title: Docs
-published: 2015-12-22
 
 Here you’ll find some background info, a quick introduction how
 Jazzband works and some examples how to improve maintenance of

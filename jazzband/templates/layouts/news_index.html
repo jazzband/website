@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block body_class %}news{% endblock body_class %}
+
+{% block body %}
+<div class="c4">
+{% if page.path == "index" %}
+  <h2>News</h2>
+{% else %}
+  <h2><a href="{{ url_for('content.news') }}" title="News">News</a> » {{ page.title|default(page.path|capitalize) }}</h2>
+{% endif %}
+ <ul>
+ {% for new in news if new.path != 'index' %}
+  <li>
+  <a href="{{ url_for('content.news', path=new.path) }}">{{ new.title }}</a>
+  {{ new.meta.date }}
+  <p>
+   {% if new.meta.summary %}
+    {{ new.meta.summary }}
+   {% else %}
+    {{ new.html|striptags|truncate(200) }}
+   {% endif %}
+  </p>
+  </li>
+ {% endfor %}
+ </ul>
+</div>
+{% endblock body %}

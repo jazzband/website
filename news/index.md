@@ -1,0 +1,1 @@
+layout: news_index

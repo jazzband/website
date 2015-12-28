@@ -1,5 +1,4 @@
 import os
-import logging
 from flask import (Flask, render_template, session, g, abort,
                    send_from_directory)
 
@@ -75,8 +74,12 @@ def create_app(settings_path):
         g.user_login = user_login
 
     # setup flatpages
-    from .views.content import pages
-    pages.init_app(app)
+    from .views.content import (docs_pages, news_pages,
+                                format_datetime, parse_datetime)
+    docs_pages.init_app(app)
+    news_pages.init_app(app)
+    app.template_filter('format_datetime')(format_datetime)
+    app.template_filter('parse_datetime')(parse_datetime)
 
     from .views.account import account
     from .views.content import content

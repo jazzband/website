@@ -1,3 +1,4 @@
+Babel
 Flask
 Flask-Assets
 Flask-Cache
@@ -10,6 +11,7 @@ libsass
 pip-tools
 pygments
 pygments-markdown-lexer
+python-dateutil
 python-decouple
 opbeat[flask]
 redis

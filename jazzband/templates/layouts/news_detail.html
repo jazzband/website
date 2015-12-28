@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block body_class %}news{% endblock body_class %}
+
+{% block body %}
+<div class="c4">
+{% if page.path == "index" %}
+  <h2>{{ page.title }}</h2>
+{% else %}
+  <h2><a href="{{ url_for('content.news') }}" title="News">News</a> » {{ page.title|default(page.path|capitalize) }}</h2>
+{% endif %}
+  {{ page }}
+  <p>
+    Written by {{ page.author }}{% if page.meta.published %} on {{ page.meta.published|format_datetime }}{% endif %}
+  </p>
+</div>
+{% endblock body %}
