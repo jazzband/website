@@ -5,10 +5,16 @@
 {% block body %}
 <div class="c4">
 {% if page.path == "index" %}
-  <h2>News</h2>
+  <h2>
+    News
+    <a rel="alternate" type="application/atom+xml" href="{{ url_for('content.news_feed', _external=True) }}">
+      <span class="mega-octicon octicon-rss"></span>
+    </a>
+  </h2>
 {% else %}
   <h2><a href="{{ url_for('content.news') }}" title="News">News</a> » {{ page.title|default(page.path|capitalize) }}</h2>
 {% endif %}
+{{ page }}
  <ul>
  {% for new in news if new.path != 'index' %}
   <li>

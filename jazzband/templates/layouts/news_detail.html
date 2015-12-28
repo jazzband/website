@@ -11,7 +11,7 @@
 {% endif %}
   {{ page }}
   <p>
-    Written by {{ page.author }}{% if page.meta.published %} on {{ page.meta.published|format_datetime }}{% endif %}
+    Written by {% if page.meta.author_link %}<a href="{{ page.meta.author_link }}">{% endif %}{{ page.author }}{% if page.meta.author_link %}</a>{% endif %}{% if page.meta.published %} on {{ page.meta.published|format_datetime }}{% endif %}
   </p>
 </div>
 {% endblock body %}

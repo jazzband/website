@@ -53,3 +53,8 @@ Direct link to channel via [IRCCloud](https://www.irccloud.com/): [![#jazzband](
 You can also reach the [roadies](/roadies) via
 [GitHub issues](https://github.com/jazzband/roadies/issues) or email
 at `roadies@jazzband.co`.
+
+See the [news section](/news) for some more detailed status reports and other
+news items from the roadies and members.
+
+Feel free to follow [Jazzband on Twitter](https://twitter.com/jazzbandco), too.

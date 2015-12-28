@@ -47,7 +47,7 @@ def docs(path):
     return render_template(template, page=page)
 
 
-@content.route('/news/feed.xml')
+@content.route('/news/feed')
 def news_feed():
     feed = AtomFeed('Jazzband News Feed',
                     feed_url=request.url,
