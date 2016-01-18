@@ -4,21 +4,15 @@
 <div class="c4">
   <h2>Members</h2>
   <p>The following Jazzband members have volunteered to maintain the <a href="{{ url_for('content.show', page='projects') }}">Jazzband projects</a>.</p>
-  <table>
-    <tbody>
-      {% for member in github.get_members() if member.login != 'jazzband-bot' %}
-      <tr>
-        <td style="width:50px;">
-        {% if member.avatar_url %}
-          <img src="{{ member.avatar_url }}" alt="{{ member.login }}" width="40" height="40" />
-        {% endif %}
-        </td>
-        <td>
-          <a href="{{ member.html_url }}" title="{{ member.login }}">{{ member.login }}</a>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+  <div class="grid">
+    {% for member in github.get_members() if member.login != 'jazzband-bot' %}
+    <div class="grid-cell">
+      {% if member.avatar_url %}
+        <a href="{{ member.html_url }}" title="{{ member.login }}"><img src="{{ member.avatar_url }}" alt="{{ member.login }}"/></a>
+      {% endif %}<br/>
+      <a href="{{ member.html_url }}" title="{{ member.login }}">{{ member.login }}</a>
+    </div>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}
