@@ -36,7 +36,7 @@ def format_datetime(value):
 
 @content.route('/security')
 def security():
-    return redirect('/docs/faq/#how-do-i-report-a-security-incident')
+    return redirect('/docs/faq#how-do-i-report-a-security-incident')
 
 
 @content.route('/docs', defaults={'path': 'index'})
