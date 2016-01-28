@@ -20,7 +20,7 @@ You can also reach the [roadies](/roadies) via
 [GitHub issues](https://github.com/jazzband/roadies/issues) or email
 at `roadies@jazzband.co`.
 
-!!! warn
+!!! warn "Project specific issues"
 
     The Jazzband [roadies](/roadies) are not responsible for individual
     project issues. Please see the appropriate [project repository](/projects)
