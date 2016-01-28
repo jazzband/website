@@ -65,6 +65,19 @@ notifications for the rest of your [watched repositories].
 [ignore repositories]: https://help.github.com/articles/unwatching-repositories/
 [watched repositories]: https://github.com/watching
 
+### Why am I not listed as an organization member on GitHub?
+
+By default GitHub will set your Jazzband organization membership as private
+and you have to change it to public if you'd like to be publicly shown
+as member of the organization on
+[github.com/jazzband](https://github.com/jazzband). You can fix it like this:
+
+- Login into GitHub
+- Head over to the
+  [organization's people site](https://github.com/orgs/jazzband/people)
+- Search for your nickname in the "Find a member..." field
+- Change the "Organization visibility" setting from "Private" to "Public"
+
 ### Are you collecting any information on Jazzband.co?
 
 When joining the Jazzband (by visiting `https://jazzband.co/join`) you grant
