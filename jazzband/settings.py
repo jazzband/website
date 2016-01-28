@@ -8,14 +8,14 @@ from .renderer import smart_pygmented_markdown
 SECRET_KEY = config('SECRET_KEY', 'dev key')
 DEBUG = config('DEBUG', True, cast=bool)
 
-HOSTNAMES = config('HOSTNAMES', 'localhost:5000', cast=Csv())
+HOSTNAMES = config('HOSTNAMES', 'localhost:5000,0.0.0.0:5000', cast=Csv())
 
 CACHE_TYPE = 'redis'
 CACHE_REDIS_URL = config('REDIS_URL', 'redis://127.0.0.1:6379/0')
 CACHE_KEY_PREFIX = config('HEROKU_SLUG_COMMIT', '')
 
-FLATPAGES_DOCS_ROOT = '../docs'
-FLATPAGES_DOCS_EXTENSION = FLATPAGES_NEWS_EXTENSION = ['.md']
+FLATPAGES_ABOUT_ROOT = '../docs/about'
+FLATPAGES_ABOUT_EXTENSION = FLATPAGES_NEWS_EXTENSION = ['.md']
 FLATPAGES_NEWS_MARKDOWN_EXTENSIONS = [
     'codehilite',
     'fenced_code',
@@ -24,16 +24,16 @@ FLATPAGES_NEWS_MARKDOWN_EXTENSIONS = [
     'tables',
     'abbr',
     'smarty',
-    WikiLinkExtension(base_url='/docs/', end_url='', html_class=''),
+    WikiLinkExtension(base_url='/about/', end_url='', html_class=''),
 ]
-FLATPAGES_DOCS_MARKDOWN_EXTENSIONS = FLATPAGES_NEWS_MARKDOWN_EXTENSIONS + [
+FLATPAGES_ABOUT_MARKDOWN_EXTENSIONS = FLATPAGES_NEWS_MARKDOWN_EXTENSIONS + [
     TocExtension(permalink=True),
 ]
 
-FLATPAGES_DOCS_HTML_RENDERER = FLATPAGES_NEWS_HTML_RENDERER = \
+FLATPAGES_ABOUT_HTML_RENDERER = FLATPAGES_NEWS_HTML_RENDERER = \
     smart_pygmented_markdown
 
-FLATPAGES_NEWS_ROOT = '../news'
+FLATPAGES_NEWS_ROOT = '../docs/news'
 
 # Set these values in the .env file or env vars
 GITHUB_CLIENT_ID = config('GITHUB_CLIENT_ID', '')

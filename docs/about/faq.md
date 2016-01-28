@@ -19,7 +19,7 @@ and failing sometimes. It'll be okay since we're not alone.
 
 ### Does the Jazzband have a code of conduct?
 
-Yes, the Jazzband follows a [Contributor Code of Conduct](/docs/conduct)
+Yes, the Jazzband follows a [Contributor Code of Conduct](/about/conduct)
 that was adopted from the [Contributor Covenant](http://contributor-covenant.org).
 Please refer to the conduct page for more information for how to report a
 breach of conduct.
@@ -43,7 +43,7 @@ leave the Jazzband by clicking on the "Leave" button next to it.
 Please open an issue for the [roadies](/roadies). If it's a matter
 of urgency or discretion you may also want to write an email to
 `roadies@jazzband.co` instead – especially if it's a breach of
-conduct following our [code of conduct](/docs/conduct).
+conduct following our [code of conduct](/about/conduct).
 
 ### What's in it for the roadies?
 

@@ -1,4 +1,4 @@
-title: Docs
+title: About
 
 Here you’ll find some background info, a quick introduction how
 Jazzband works and some examples how to improve maintenance of
@@ -29,7 +29,7 @@ When you join you will be...
 
 After that you can go ahead and do things like...
 
-- move repos that follow the [guidelines](/docs/guidelines) into the Jazzband organization
+- move repos that follow the [guidelines](/about/guidelines) into the Jazzband organization
 - start working on an already existing Jazzband [project](/projects)
 - do [[releases]] on PyPI automatically via Travis CI
 
@@ -37,24 +37,14 @@ You can [join Jazzband](/join) here.
 
 ### Conduct
 
-The Jazzband follows a [code of conduct](/docs/conduct) which includes
+The Jazzband follows a [code of conduct](/about/conduct) which includes
 respecting the opinions and previously made technical and communal decisions
 of project maintainers. We assume positive intent but be clear that we won't
 accept bullies and old farts that just want to push their ideas. Collaboration
 is key and compromises required in a Jazzband.
 
-### Contact
+### Support
 
-Jazzband members and interested folk may want to check out the `#jazzband`
-IRC channel on Freenode (`irc.freenode.net`).
-
-Direct link to channel via [IRCCloud](https://www.irccloud.com/): [![#jazzband](https://www.irccloud.com/invite-svg?channel=%23jazzband&amp;hostname=irc.freenode.net&amp;port=6697&amp;ssl=1)](https://www.irccloud.com/invite?channel=%23jazzband&amp;hostname=irc.freenode.net&amp;port=6697&amp;ssl=1)
-
-You can also reach the [roadies](/roadies) via
-[GitHub issues](https://github.com/jazzband/roadies/issues) or email
-at `roadies@jazzband.co`.
-
-See the [news section](/news) for some more detailed status reports and other
-news items from the roadies and members.
-
-Feel free to follow [Jazzband on Twitter](https://twitter.com/jazzbandco), too.
+Jazzband is graciously supported by [Opbeat](https://opbeat.com/)
+(performance and error monitoring) and
+[BrowserStack](https://www.browserstack.com) (browser and device testing).

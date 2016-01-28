@@ -74,9 +74,9 @@ def create_app(settings_path):
         g.user_login = user_login
 
     # setup flatpages
-    from .views.content import (docs_pages, news_pages,
+    from .views.content import (about_pages, news_pages,
                                 format_datetime, parse_datetime)
-    docs_pages.init_app(app)
+    about_pages.init_app(app)
     news_pages.init_app(app)
     app.template_filter('format_datetime')(format_datetime)
     app.template_filter('parse_datetime')(parse_datetime)

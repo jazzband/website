@@ -39,7 +39,7 @@ Test as much as needed to make maintenance a breeze. Don't be dogmatic.
 ### Conduct
 
 Projects are required to adopt and follow the Jazzband code of conduct.
-Please see the [Contributor Code of Conduct](/docs/conduct) for more
+Please see the [Contributor Code of Conduct](/about/conduct) for more
 information what that entails and how to report conduct violations.
 
 Adhering to the contributor code of conduct is key in keeping the Jazzband
@@ -54,7 +54,7 @@ It needs to contain this header:
 ```markdown
 [![Jazzband](https://jazzband.co/static/img/jazzband.svg)](https://jazzband.co/)
 
-This is a [Jazzband](https://jazzband.co/) project. By contributing you agree to abide by the [Contributor Code of Conduct](https://jazzband.co/docs/conduct) and follow the [guidelines](https://jazzband.co/docs/guidelines).
+This is a [Jazzband](https://jazzband.co/) project. By contributing you agree to abide by the [Contributor Code of Conduct](https://jazzband.co/about/conduct) and follow the [guidelines](https://jazzband.co/about/guidelines).
 ```
 
 See this website's [contributing guideline] for how it'd look like.
@@ -67,7 +67,7 @@ A [reStructuredText] version of the above Markdown paragraph is:
    :target: https://jazzband.co/
    :alt: Jazzband
 
-This is a `Jazzband <https://jazzband.co>`_ project. By contributing you agree to abide by the `Contributor Code of Conduct <https://jazzband.co/docs/conduct>`_ and follow the `guidelines <https://jazzband.co/docs/guidelines>`_.
+This is a `Jazzband <https://jazzband.co>`_ project. By contributing you agree to abide by the `Contributor Code of Conduct <https://jazzband.co/about/conduct>`_ and follow the `guidelines <https://jazzband.co/about/guidelines>`_.
 ```
 
 [contributing guideline]: https://github.com/jazzband/site/blob/master/CONTRIBUTING.md

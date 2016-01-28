@@ -44,10 +44,10 @@
           <li><a href="{{ url_for('content.show', page='projects') }}">Projects</a></li>
           <li><a href="{{ url_for('content.show', page='roadies') }}">Roadies</a></li>
           <li><a href="{{ url_for('content.news') }}">News</a>
-          <li><a href="{{ url_for('content.docs') }}">Docs</a>
+          <li><a href="{{ url_for('content.about') }}">About</a>
             <ul>
-            {% for doc in docs|sort(attribute='path') if doc.path != 'index' %}
-            <li><a href="{{ url_for('content.docs', path=doc.path) }}">{{ doc.title|default(doc.path|capitalize) }}</a></li>
+            {% for page in about|sort(attribute='path') if page.path != 'index' %}
+            <li><a href="{{ url_for('content.about', path=page.path) }}">{{ page.title|default(page.path|capitalize) }}</a></li>
             {% endfor %}
             </ul>
           </li>

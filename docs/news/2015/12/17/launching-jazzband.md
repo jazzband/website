@@ -26,11 +26,11 @@ Its purpose can most easily be characterized as _“relief”_:
 It normalizes the relationship between creators and consumers, between
 “core committers” and “end users”.
 
-There are a few [guidelines](/docs/guidelines) to follow before deciding to
+There are a few [guidelines](/about/guidelines) to follow before deciding to
 transfer existing projects to the Jazzband or creating a new one like agreeing
-to the Jazzband’s [code of conduct](/docs/conduct).
+to the Jazzband’s [code of conduct](/about/conduct).
 
-Some optional [features](/docs/releases) should also be considered to be used by
+Some optional [features](/about/releases) should also be considered to be used by
 the Jazzband [projects](/projects) to further improve the contribution workflow.
 
 I guess some band [members](/members) will want to take the lead singer role,
@@ -54,7 +54,8 @@ But hey, at least you shouldn’t feel bad about moving on to your next “band�
 Jazzband will have your back, just [join](https://jazzband.co/) and let's see
 where it brings us.
 
-Anyways, that’s all for now. Please do [read the docs](/docs) and the
-[FAQ](https://jazzband.co/docs/faq) in case you have more questions.
+Anyways, that’s all for now. Please feel free to learn more
+[about Jazzband](/about) and the see [FAQ](https://jazzband.co/about/faq)
+in case you have more questions.
 
 **We are all part of the band.**

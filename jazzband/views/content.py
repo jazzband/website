@@ -10,14 +10,14 @@ from ..assets import styles
 from ..github import github
 
 content = Blueprint('content', __name__)
-docs_pages = FlatPages(name='docs')
+about_pages = FlatPages(name='about')
 news_pages = FlatPages(name='news')
 
 
 @content.context_processor
 def pages_context_processor():
     return {
-        'docs': docs_pages,
+        'about': about_pages,
         'news': news_pages,
     }
 
@@ -36,14 +36,21 @@ def format_datetime(value):
 
 @content.route('/security')
 def security():
-    return redirect('/docs/faq#how-do-i-report-a-security-incident')
+    return redirect('/about/faq#how-do-i-report-a-security-incident')
 
 
 @content.route('/docs', defaults={'path': 'index'})
 @content.route('/docs/<path:path>')
 def docs(path):
-    page = docs_pages.get_or_404(path)
-    template = 'layouts/%s.html' % page.meta.get('layout', 'docs')
+    "Just a redirect from the old URL"
+    return redirect(url_for('content.about', path=path))
+
+
+@content.route('/about', defaults={'path': 'index'})
+@content.route('/about/<path:path>')
+def about(path):
+    page = about_pages.get_or_404(path)
+    template = 'layouts/%s.html' % page.meta.get('layout', 'about')
     return render_template(template, page=page)
 
 
@@ -84,7 +91,7 @@ def news(path):
 def show(page):
     try:
         template = 'content/%s.html' % page
-        return render_template(template, docs=docs_pages, github=github)
+        return render_template(template, pages=about_pages, github=github)
     except TemplateNotFound:
         abort(404)
 
