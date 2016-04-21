@@ -12,7 +12,9 @@
       Active
     {% else %}
       <strong>Inactive</strong>
-      To become a member <a href="{{ url_for('account.join') }}">please join</a>.
+      <p>
+        To become a member <a href="{{ url_for('account.join') }}">please join here</a>.
+      </p>
     {% endif %}
   </p>
   <h4>Account data</h4>
