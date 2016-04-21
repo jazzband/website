@@ -67,6 +67,8 @@ SQLALCHEMY_DATABASE_URI = config(
 )
 if 'HEROKU_APP_NAME' in os.environ:
     SQLALCHEMY_DATABASE_URI += '?sslmode=require'
+    VALIDATE_IP = config('GITHUB_VALIDATE_IP', True, cast=bool)
+    VALIDATE_SIGNATURE = config('GITHUB_VALIDATE_SIGNATURE', True, cast=bool)
 else:
     VALIDATE_IP = False
     VALIDATE_SIGNATURE = False
