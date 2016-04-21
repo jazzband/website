@@ -1,0 +1,35 @@
+{% extends "layouts/default.html" %}
+
+{% block content %}
+<div class="c4">
+  <h2><a href="{{ url_for('.index') }}" title="Projects">Projects</a> » {{ project.name }}</h2>
+  <p>
+    {{ project.description }}
+  </p>
+  <p>
+    More infos: <a href="{{ project.html_url }}">{{ project.html_url }}</a>
+  </p>
+  <table class="projects-detail">
+    <tr>
+      <td><span class="mega-octicon octicon-eye"></span></td>
+      <td>Watchers</td>
+      <td>{{ project.subscribers_count }}</td>
+    </tr>
+    <tr>
+      <td><span class="mega-octicon octicon-star"></span></td>
+      <td>Stargazers</td>
+      <td>{{ project.stargazers_count }}</td>
+    </tr>
+    <tr>
+      <td><span class="mega-octicon octicon-repo-forked"></span></td>
+      <td>Forks</td>
+      <td>{{ project.forks_count }}</td>
+    </tr>
+    <tr>
+      <td><span class="mega-octicon octicon-issue-opened"></span></td>
+      <td>Issues</td>
+      <td>{{ project.open_issues_count }}</td>
+    </tr>
+  </table>
+</div>
+{% endblock %}

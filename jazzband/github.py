@@ -1,7 +1,4 @@
-from flask.ext.cache import Cache
 from flask.ext.github import GitHub, GitHubError
-
-cache = Cache()
 
 
 class JazzbandGitHub(GitHub):
@@ -14,9 +11,8 @@ class JazzbandGitHub(GitHub):
         self.admin_access_token = app.config['GITHUB_ADMIN_TOKEN']
         self.org_id = app.config['GITHUB_ORG_ID']
         self.scope = app.config['GITHUB_SCOPE']
-        self.banned_users = app.config['GITHUB_BANNED_USERS']
 
-    def add_to_org(self, user_login):
+    def join_organization(self, user_login):
         """
         Adds the GitHub user with the given login to the org.
         """
@@ -28,7 +24,18 @@ class JazzbandGitHub(GitHub):
         except GitHubError:
             return None
 
-    @cache.memoize(timeout=60 * 15)
+    def leave_organization(self, user_login):
+        """
+        Remove the GitHub user with the given login from the org.
+        """
+        try:
+            return self.delete(
+                'orgs/%s/memberships/%s' % (self.org_id, user_login),
+                access_token=self.admin_access_token
+            )
+        except GitHubError:
+            return None
+
     def get_projects(self):
         projects = self.get(
             'orgs/%s/repos?type=public' % self.org_id,
@@ -46,7 +53,6 @@ class JazzbandGitHub(GitHub):
             projects_with_subscribers.append(project)
         return projects_with_subscribers
 
-    @cache.memoize(timeout=60 * 15)
     def get_roadies(self):
         return self.get(
             'teams/%d/members' % self.roadies_team_id,
@@ -54,13 +60,22 @@ class JazzbandGitHub(GitHub):
             access_token=self.admin_access_token,
         )
 
-    @cache.memoize(timeout=60 * 15)
     def get_members(self):
-        return self.get(
+        roadies_ids = set(roadie['id'] for roadie in github.get_roadies())
+        all_members = self.get(
             'teams/%d/members' % self.members_team_id,
             all_pages=True,
             access_token=self.admin_access_token,
         )
+        members = []
+        for member in all_members:
+            member['is_member'] = True
+            member['is_roadie'] = member['id'] in roadies_ids
+            members.append(member)
+        return members
+
+    def get_user(self, access_token=None):
+        return self.get('user', access_token=access_token)
 
     def publicize_membership(self, user_login):
         """
@@ -71,22 +86,19 @@ class JazzbandGitHub(GitHub):
             access_token=self.admin_access_token
         )
 
-    def is_banned(self, user_login):
+    def get_emails(self, access_token=None):
         """
-        Returns whether or not the given user login has been banned.
+        Gets the verified email addresses of the authenticated GitHub user.
         """
-        return user_login in self.banned_users
+        return self.get('user/emails', all_pages=True,
+                        access_token=access_token)
 
     def has_verified_emails(self):
         """
         Checks if the authenticated GitHub user has any verified email
         addresses.
         """
-        return any(
-            [email
-            for email in self.get('user/emails', all_pages=True)
-            if email.get('verified', False)],
-        )
+        return any(self.get_verified_emails())
 
     def is_member(self, user_login):
         """

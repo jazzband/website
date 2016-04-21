@@ -1,9 +1,12 @@
+import os
 import redis
 from decouple import config, Csv
 from markdown.extensions.toc import TocExtension
 from markdown.extensions.wikilinks import WikiLinkExtension
 
 from .renderer import smart_pygmented_markdown
+
+ROOT_DIR = os.path.dirname(__file__)
 
 SECRET_KEY = config('SECRET_KEY', 'dev key')
 DEBUG = config('DEBUG', True, cast=bool)
@@ -43,9 +46,7 @@ GITHUB_SCOPE = config('GITHUB_SCOPE', 'read:org,user:email')
 GITHUB_MEMBERS_TEAM_ID = config('GITHUB_MEMBERS_TEAM_ID', 0, cast=int)
 GITHUB_ROADIES_TEAM_ID = config('GITHUB_ROADIES_TEAM_ID', 0, cast=int)
 GITHUB_ADMIN_TOKEN = config('GITHUB_ADMIN_TOKEN', '')
-GITHUB_BANNED_USERS = config('GITHUB_BANNED_USERS', '', cast=Csv())
-
-VALIDATE_IP = False
+GITHUB_WEBHOOKS_KEY = config('GITHUB_WEBHOOKS_KEY', '')
 
 SESSION_TYPE = 'redis'
 SESSION_COOKIE_NAME = 'jazzband'
@@ -59,3 +60,15 @@ LIBSASS_STYLE = 'compressed'
 OPBEAT = {
     'HOSTNAME': 'jazzband.co',
 }
+
+SQLALCHEMY_DATABASE_URI = config(
+    'DATABASE_URL',
+    'postgres://jazzband:jazzband@localhost:5432/jazzband',
+)
+if 'HEROKU_APP_NAME' in os.environ:
+    SQLALCHEMY_DATABASE_URI += '?sslmode=require'
+else:
+    VALIDATE_IP = False
+    VALIDATE_SIGNATURE = False
+
+SQLALCHEMY_TRACK_MODIFICATIONS = False

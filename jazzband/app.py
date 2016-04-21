@@ -1,9 +1,8 @@
 import os
-from flask import (Flask, render_template, session, g, abort,
-                   send_from_directory)
+from flask import Flask, render_template, send_from_directory
 
 
-def create_app(settings_path):
+def create_app(config_path):
     # setup flask
     app = Flask('jazzband')
 
@@ -29,7 +28,19 @@ def create_app(settings_path):
                                    cache_timeout=cache_timeout)
 
     # load decoupled config variables
-    app.config.from_object(settings_path)
+    app.config.from_object(config_path)
+
+    from .models import db, User, Project, EmailAddress
+    db.init_app(app)
+
+    from flask_migrate import Migrate
+    Migrate(app, db)
+
+    from .admin import admin, JazzbandModelView
+    admin.init_app(app)
+    admin.add_view(JazzbandModelView(User, db.session))
+    admin.add_view(JazzbandModelView(Project, db.session))
+    admin.add_view(JazzbandModelView(EmailAddress, db.session))
 
     if 'OPBEAT_SECRET_TOKEN' in os.environ:
         from opbeat.contrib.flask import Opbeat
@@ -46,11 +57,12 @@ def create_app(settings_path):
         prefix=app.static_url_path,
     )
 
-    # setup github-flask and cache
-    from .github import github, cache
+    # setup github-flask
+    from .github import github
     github.init_app(app)
-    app.template_filter('is_member')(github.is_member)
-    cache.init_app(app)
+
+    from .hooks import hooks
+    hooks.init_app(app)
 
     # setup webassets
     from .assets import assets
@@ -60,30 +72,28 @@ def create_app(settings_path):
     from flask.ext.session import Session
     Session(app)
 
-    @app.before_request
-    def before_request():
-        g.user_access_token = session.get('user_access_token', None)
-        user_login = session.get('user_login', None)
-        if g.user_access_token and not user_login:
-            app.logger.debug('fetching user_login from github')
-            user_login = github.get('user').get('login', None)
-            if user_login is None:
-                abort(500)
-            app.logger.debug('setting user_login %s in session', user_login)
-            session['user_login'] = user_login
-        g.user_login = user_login
-
-    # setup flatpages
-    from .views.content import (about_pages, news_pages,
-                                format_datetime, parse_datetime)
+    from .content import about_pages, news_pages, content
     about_pages.init_app(app)
     news_pages.init_app(app)
-    app.template_filter('format_datetime')(format_datetime)
-    app.template_filter('parse_datetime')(parse_datetime)
-
-    from .views.account import account
-    from .views.content import content
-    app.register_blueprint(account)
     app.register_blueprint(content)
+
+    from .account import account, login_manager
+    app.register_blueprint(account)
+    login_manager.init_app(app)
+
+    from .members import members
+    app.register_blueprint(members)
+
+    from .projects import projects
+    app.register_blueprint(projects)
+
+    @app.context_processor
+    def app_context_processor():
+        return {
+            'about': about_pages,
+            'news': news_pages,
+            'User': User,
+            'Project': Project,
+        }
 
     return app

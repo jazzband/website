@@ -5,7 +5,7 @@ title: FAQ
 The purpose of the Jazzband is to help Open Source projects on GitHub
 share responsibility for software maintenance. It's essentially a GitHub
 organization that is open to everyone who is willing and able to maintain
-its projects. It was born out of neccesity of expanding the group of
+its projects. It was born out of necessity of expanding the group of
 maintainers of some projects whose original authors weren't able to
 effectively manage them when people volunteered to help out.
 
@@ -31,11 +31,25 @@ issue on GitHub or post details about the incident publicly.
 
 ### How do I leave the Jazzband again?
 
-If you'd like to remove yourself from the Jazzband GitHub organization see
-your [personal settings](https://github.com/settings/organizations) over at
-GitHub.
+Simply head to your [account dashboard](/account), click on "leave"
+(or directly [here](/account/leave)) and confirm that you want to leave by
+entering your GitHub username.
 
-There you can see the GitHub organizations you're a member of and easily
+You can re-join anytime, simply [login](/account/login) and then
+click on [join](/account/join) in the sidebar or on your
+[account dashboard](/account).
+
+!!! note "Data retention"
+
+    We retain some information about your previous membership to simplify the
+    ability to join again.
+
+    If you want to delete all Jazzband data about you that was fetched from the
+    GitHub API, please let the [roadies](/roadies) know.
+
+**Alternatively** you can remove yourself from the Jazzband GitHub organization
+on your [personal settings](https://github.com/settings/organizations) over at
+GitHub. There you can see the GitHub organizations you're a member of and easily
 leave the Jazzband by clicking on the "Leave" button next to it.
 
 ### What do I do when I see abuse happening on any Jazzband repo?
@@ -56,7 +70,7 @@ You may want to modify your notification settings on GitHub in your
 [personal settings](https://github.com/settings/notifications).
 
 Especially GitHub's feature **"Automatic watching"** can create lots of
-notifiation traffic in big GitHub organizations. Feel free to disable it
+notification traffic in big GitHub organizations. Feel free to disable it
 and watch individual projects manually instead.
 
 Alternatively you can also [ignore repositories] and continue to receive

@@ -1,0 +1,65 @@
+{% extends "layouts/default.html" %}
+
+{% block content %}
+<div class="c4">
+  <h2>Account</h2>
+  <h3>
+    Welcome to your Jazzband dashboard.
+  </h3>
+  <p>
+    Your current membership status:
+    {% if current_user.is_member %}Active{% else %}Inactive{% endif %}
+  </p>
+  <h4>Account data</h4>
+  <p>
+    Jazzband fetched some data about you from the
+    <a href="https://developer.github.com/v3/">GitHub API</a> to be able to
+    display the <a href="{{ url_for('members.index') }}">members list</a>.
+  </p>
+  <p>
+    For example your GitHub login is <i>{{ current_user.login }}</i>,
+    your GitHub account can be found <a href="{{ current_user.html_url }}">here</a>
+    and your Avatar image <a href="{{ current_user.avatar_url }}">here</a>.
+  </p>
+  <h4>Email addresses</h4>
+  <p>
+    The email addresses that were fetched from the GitHub API to make sure
+    there is at least one verified:
+    <ul>
+    {% for email in current_user.email_addresses.all() %}
+      <li>{{ email.email }}{% if email.primary %} (primary){% endif %}</li>
+    {% endfor %}
+  </ul>
+  </p>
+  <h4>What to do?</h4>
+  <p>
+    You may wonder what is there to do in the Jazzband. And that's a fair
+    question since this site doesn't provide much specific work to do by
+    itself.
+  </p>
+  <p>
+    All code work happens in our
+    <a href="https://github.com/jazzband">GitHub organization</a>. Feel free
+    to head over there to see a list of projects, or see the same data on the
+    <a href="{{ url_for('projects.index') }}">project index</a>.
+  </p>
+  <p>
+    You may also find the <a href="{{ url_for('members.index') }}">member list</a>
+    useful to start contributing.
+  </p>
+  <p>
+    Don't miss the <a href="{{ url_for('content.about', path='faq') }}">FAQ</a>
+    and <a href="{{ url_for('content.about', path='contact') }}">reach out</a>
+    to fellow Jazzband members if needed.
+  </p>
+  <h4>Other things to do here</h4>
+  <p>
+  {% if current_user.is_member %}
+    Do you want to <a href="{{ url_for('.leave') }}">leave</a> the Jazzband?
+  {% else %}
+    Do you want to <a href="{{ url_for('.join') }}">join again</a>?
+  {% endif %}
+    Or simply <a href="{{ url_for('.logout') }}">logout</a>?
+  </p>
+</div>
+{% endblock %}

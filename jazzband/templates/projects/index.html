@@ -3,21 +3,28 @@
 {% block content %}
 <div class="c4">
   <h2>Projects</h2>
-  <p>The Jazzband GitHub organization contains a bunch of projects already.</p>
-  <table>
+  <p>
+    The following {{ projects.count() }} Jazzband projects are maintained by the
+    <a href="{{ url_for('members.index') }}">Jazzband members</a>.
+    Want to move your project to the Jazzband? See the
+    <a href="{{ url_for('content.about', path='guidelines') }}">guidelines</a>.
+  </p>
+  <table class="projects-index">
     <thead>
       <tr>
         <th>Project</th>
+        {# <th class="numbers"><span class="mega-octicon octicon-package" title="Releases"></span></th>#}
         <th class="numbers"><span class="mega-octicon octicon-eye" title="Watchers"></span></th>
-        <th class="numbers">  <span class="mega-octicon octicon-star" title="Stargazers"></span></th>
+        <th class="numbers"><span class="mega-octicon octicon-star" title="Stargazers"></span></th>
         <th class="numbers"><span class="mega-octicon octicon-repo-forked" title="Forks"></span></th>
         <th class="numbers"><span class="mega-octicon octicon-issue-opened" title="Issues"></span></th>
       </tr>
     </thead>
     <tbody>
-      {% for project in github.get_projects() %}
+      {% for project in projects %}
       <tr>
-        <td><a href="{{ project.html_url }}">{{ project.name }}</a></td>
+        <td><a href="{{ url_for('projects.detail', name=project.name) }}">{{ project.name }}</a></td>
+        {# <td class="numbers">1</td>#}
         <td class="numbers">{{ project.subscribers_count }}</td>
         <td class="numbers">{{ project.stargazers_count }}</td>
         <td class="numbers">{{ project.forks_count }}</td>

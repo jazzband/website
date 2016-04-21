@@ -3,11 +3,18 @@
 {% block content %}
 <div class="c4">
   <h2>Roadies</h2>
-  <p>The Jazzband is supported by roadies who strive to make playing in the band as easy and simple as possible.</p>
-  <p>You can get in touch with the roadies by <a href="https://github.com/jazzband/roadies/issues/new" title="opening an issue">opening an issue</a> on GitHub.</p>
+  <p>
+    The Jazzband is supported by {{ roadies.count() }} roadies who strive to
+    make playing in the band as easy and simple as possible.
+  </p>
+  <p>
+    You can get in touch with the roadies by
+    <a href="https://github.com/jazzband/roadies/issues/new"
+       title="opening an issue">opening an issue</a> on GitHub.
+  </p>
 
   <div class="grid">
-    {% for roadie in github.get_roadies() %}
+    {% for roadie in roadies %}
     <div class="grid-cell">
       {% if roadie.avatar_url %}
         <a href="{{ roadie.html_url }}" title="{{ roadie.login }}"><img src="{{ roadie.avatar_url }}" alt="{{ roadie.login }}"/></a>
@@ -16,7 +23,5 @@
     </div>
     {% endfor %}
   </div>
-
-
 </div>
 {% endblock %}

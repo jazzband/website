@@ -3,9 +3,12 @@
 {% block content %}
 <div class="c4">
   <h2>Members</h2>
-  <p>The following Jazzband members have volunteered to maintain the <a href="{{ url_for('content.show', page='projects') }}">Jazzband projects</a>.</p>
+  <p>
+    The following {{ members.count() }} Jazzband members have volunteered to
+    maintain the <a href="{{ url_for('projects.index') }}">Jazzband projects</a>.
+  </p>
   <div class="grid">
-    {% for member in github.get_members() if member.login != 'jazzband-bot' %}
+    {% for member in members %}
     <div class="grid-cell">
       {% if member.avatar_url %}
         <a href="{{ member.html_url }}" title="{{ member.login }}"><img src="{{ member.avatar_url }}" alt="{{ member.login }}"/></a>

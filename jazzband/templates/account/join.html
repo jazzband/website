@@ -12,12 +12,8 @@
       <p>Please <a href="{{ url_for('account.join') }}">try again</a> joining the Jazzband.</p>
     {% endif %}
   {% else %}
-    {% if is_banned %}
-      <h2>You've been banned from Jazzband.</h2>
-    {% else %}
-      <h2>We found that you haven't verified any email addresses on GitHub yet.</h2>
-      <p>Please do so in your <a href="https://github.com/settings/emails" title="email settings">email settings</a> and then <a href="{{ url_for('account.join') }}">try again</a>.</p>
-    {% endif %}
+    <h2>We found that you haven't verified any email addresses on GitHub yet.</h2>
+    <p>Please do so in your <a href="https://github.com/settings/emails" title="email settings">email settings</a> and then <a href="{{ url_for('account.join') }}">try again</a>.</p>
   {% endif %}
 </div>
 {% endblock %}

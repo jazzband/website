@@ -25,7 +25,7 @@ In short, it's cooperative coding.
 When you join you will be...
 
 - automatically added to the Jazzband GitHub organization
-- granted a wide range of priviledges, e.g. pushing to repositories
+- granted a wide range of privileges, e.g. pushing to repositories
 
 After that you can go ahead and do things like...
 

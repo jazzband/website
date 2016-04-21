@@ -19,8 +19,7 @@
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <div class="wrapper">
-        <a href="/" title="" class="logo"></a>
-        <a href="/" class="logo">
+        <a href="{{ default_url() }}" class="logo">
             <span class="inner">
                 Jazz
             </span>
@@ -29,20 +28,40 @@
         <div class="c1">
             <h1> <span class="center">We</span><br />are <br /> <span class="center red">all</span><br /><span class="alignleft">part</span><span class="alignright"> of</span> <br /><span class="right">the</span><br />band</h1>
         </div>
-
         {% block body %}{% endblock %}
 
         <div class="join">
         {% block sub %}
+        {% if current_user.is_authenticated %}
+          {% if current_user.is_member %}
+          <h2>Just like <span class="red">you</span>, {{ current_user.login }}!</h2>
+          {% else %}
+          <h2>
+            <a href="{{ url_for('account.join') }}">
+              <span class="mega-octicon octicon-arrow-right"></span> Join now
+            </a>
+          </h2>
+          {% endif %}
+        <ul class="navigation">
+            <li><a href="{{ url_for('account.dashboard') }}">Account</a></li>
+            <li><a href="{{ url_for('account.logout') }}">Logout</a></li>
+        </ul>
+        {% else%}
+        <h2>
+          <a href="{{ url_for('account.login') }}">
+            <span class="mega-octicon octicon-mark-github"></span> Login to join
+          </a>
+        </h2>
+        {% endif %}
+
         {# {% if page.md.toc|striptags %}
         <h3>This page</h2>
         {{ page.md.toc|safe }}
         {% endif %} #}
-        <h3>More info</h3>
         <ul class="navigation">
-          <li><a href="{{ url_for('content.show', page='members') }}">Members</a></li>
-          <li><a href="{{ url_for('content.show', page='projects') }}">Projects</a></li>
-          <li><a href="{{ url_for('content.show', page='roadies') }}">Roadies</a></li>
+          <li><a href="{{ url_for('members.index') }}">Members</a></li>
+          <li><a href="{{ url_for('projects.index') }}">Projects</a></li>
+          <li><a href="{{ url_for('members.roadies') }}">Roadies</a></li>
           <li><a href="{{ url_for('content.news') }}">News</a>
           <li><a href="{{ url_for('content.about') }}">About</a>
             <ul>

@@ -1,35 +1,22 @@
 import babel.dates
-from dateutil import parser as dtparser
-from flask import abort, Blueprint, render_template, redirect, request, url_for
+from flask import Blueprint, render_template, redirect, request, url_for
 from flask_flatpages import FlatPages
-from jinja2 import TemplateNotFound
 from urlparse import urljoin
 from werkzeug.contrib.atom import AtomFeed
 
-from ..assets import styles
-from ..github import github
+from .assets import styles
+from .decorators import templated
 
 content = Blueprint('content', __name__)
 about_pages = FlatPages(name='about')
 news_pages = FlatPages(name='news')
 
 
-@content.context_processor
-def pages_context_processor():
-    return {
-        'about': about_pages,
-        'news': news_pages,
-    }
-
-
 def make_external(url):
     return urljoin(request.url_root, url)
 
 
-def parse_datetime(datetime):
-    return dtparser.parse(datetime)
-
-
+@content.app_template_filter()
 def format_datetime(value):
     return babel.dates.format_datetime(value)
 
@@ -86,14 +73,10 @@ def news(path):
     return render_template(template, page=page)
 
 
-@content.route('/', defaults={'page': 'index'})
-@content.route('/<path:page>')
-def show(page):
-    try:
-        template = 'content/%s.html' % page
-        return render_template(template, pages=about_pages, github=github)
-    except TemplateNotFound:
-        abort(404)
+@content.route('/')
+@templated()
+def index():
+    return {}
 
 
 @content.route('/static/css/styles.css')
