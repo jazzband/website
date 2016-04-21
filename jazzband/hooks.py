@@ -24,3 +24,4 @@ def membership(data, guid):
     elif data['action'] == 'removed':
         member.is_member = False
         db.session.commit()
+    return "Thanks"
