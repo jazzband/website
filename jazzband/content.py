@@ -21,6 +21,11 @@ def format_datetime(value):
     return babel.dates.format_datetime(value)
 
 
+@content.route('/join')
+def join():
+    return redirect(url_for('account.join'))
+
+
 @content.route('/security')
 def security():
     return redirect('/about/faq#how-do-i-report-a-security-incident')

@@ -33,7 +33,7 @@ After that you can go ahead and do things like...
 - start working on an already existing Jazzband [project](/projects)
 - do [[releases]] on PyPI automatically via Travis CI
 
-You can [join Jazzband](/join) here.
+You can [login here](/account/login) to join Jazzband.
 
 ### Conduct
 

@@ -8,7 +8,7 @@
   </h3>
   <p>
     Your current membership status:
-    {% if current_user.is_member %}Active{% else %}Inactive{% endif %}
+    <strong>{% if current_user.is_member %}Active{% else %}Inactive{% endif %}</strong>
   </p>
   <h4>Account data</h4>
   <p>
