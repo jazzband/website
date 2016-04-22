@@ -5,7 +5,7 @@ from urlparse import urljoin
 from werkzeug.contrib.atom import AtomFeed
 
 from .assets import styles
-from .decorators import templated
+from .decorators import http_cache, templated
 
 content = Blueprint('content', __name__)
 about_pages = FlatPages(name='about')
@@ -72,6 +72,7 @@ def news_feed():
 
 @content.route('/news', defaults={'path': 'index'})
 @content.route('/news/<path:path>')
+@http_cache()
 def news(path):
     page = news_pages.get_or_404(path)
     template = 'layouts/%s.html' % page.meta.get('layout', 'news_detail')
@@ -79,6 +80,7 @@ def news(path):
 
 
 @content.route('/')
+@http_cache()
 @templated()
 def index():
     return {}

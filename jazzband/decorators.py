@@ -1,5 +1,8 @@
 from functools import wraps
-from flask import request, render_template
+from flask import make_response, request, render_template
+from flask.ext.login import current_user
+
+from .utils import patch_http_cache_headers
 
 
 def templated(template=None):
@@ -11,8 +14,7 @@ def templated(template=None):
         def decorated_function(*args, **kwargs):
             template_name = template
             if template_name is None:
-                template_name = request.endpoint \
-                    .replace('.', '/') + '.html'
+                template_name = request.endpoint.replace('.', '/') + '.html'
             ctx = f(*args, **kwargs)
             if ctx is None:
                 ctx = {}
@@ -20,4 +22,36 @@ def templated(template=None):
                 return ctx
             return render_template(template_name, **ctx)
         return decorated_function
+    return decorator
+
+
+def http_cache(timeout=None):
+    """
+    Add Flask cache response headers based on timeout in seconds.
+
+    If timeout is None, caching will be disabled.
+    Otherwise, caching headers are set to expire in now + timeout seconds
+
+    If round_to_minute is True, then it will always expire at the start of a
+    minute (seconds = 0)
+
+    Example usage:
+
+    @app.route('/map')
+    @cache_headers(timeout=60)
+    def index():
+      return render_template('index.html')
+
+    Originally from https://gist.github.com/glenrobertson/954da3acec84606885f5
+    """
+    def decorator(f):
+        @wraps(f)
+        def decorated_function(*args, **kwargs):
+            response = make_response(f(*args, **kwargs))
+            if current_user.is_authenticated:
+                return response
+            else:
+                return patch_http_cache_headers(response, timeout)
+        return decorated_function
+
     return decorator

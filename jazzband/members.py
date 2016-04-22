@@ -1,12 +1,13 @@
 from flask import Blueprint
 
-from .decorators import templated
+from .decorators import http_cache, templated
 from .models import User
 
 members = Blueprint('members', __name__)
 
 
 @members.route('/members')
+@http_cache()
 @templated()
 def index():
     members = User.query.filter_by(
@@ -23,6 +24,7 @@ def index():
 
 
 @members.route('/roadies')
+@http_cache()
 @templated()
 def roadies():
     roadies = User.query.filter_by(
