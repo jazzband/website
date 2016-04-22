@@ -3,6 +3,7 @@ Flask
 Flask-Admin
 Flask-Assets
 Flask-Cache
+Flask-Compress
 Flask-Flatpages
 Flask-Hookserver
 Flask-Login

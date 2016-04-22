@@ -72,6 +72,9 @@ def create_app(config_path):
     from flask.ext.session import Session
     Session(app)
 
+    from flask.ext.compress import Compress
+    Compress(app)
+
     from .content import about_pages, news_pages, content
     about_pages.init_app(app)
     news_pages.init_app(app)
