@@ -99,4 +99,9 @@ def create_app(config_path):
             'Project': Project,
         }
 
+    @app.after_request
+    def add_vary_header(response):
+        response.vary.add('Cookie')
+        response.headers['Jazzband'] = "We're all part of the band"
+
     return app
