@@ -59,6 +59,12 @@ class Helpers(object):
             return instance, True
 
 
+managers = db.Table('managers',
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
+    db.Column('project_id', db.Integer, db.ForeignKey('projects.id')),
+)
+
+
 class Project(db.Model, Helpers, Syncable):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False, index=True)
@@ -69,6 +75,8 @@ class Project(db.Model, Helpers, Syncable):
     forks_count = db.Column(db.SmallInteger, default=0, nullable=False)
     open_issues_count = db.Column(db.SmallInteger, default=0, nullable=False)
     is_active = db.Column(db.Boolean, default=True, nullable=False, index=True)
+    managers = db.relationship('User', secondary=managers,
+                               backref=db.backref('projects', lazy='dynamic'))
 
     created_at = db.Column(db.DateTime, nullable=True)
     updated_at = db.Column(db.DateTime, nullable=True)
