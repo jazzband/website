@@ -114,7 +114,7 @@ class User(db.Model, Helpers, Syncable, UserMixin):
 
     def check_verified_emails(self):
         return (self.email_addresses.filter_by(verified=True)
-                                    .scalar() is not None)
+                                    .one_or_none() is not None)
 
 
 class EmailAddress(db.Model, Helpers, Syncable):
