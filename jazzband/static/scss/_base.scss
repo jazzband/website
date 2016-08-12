@@ -193,6 +193,7 @@ a {
 .join {
     text-align: left;
     max-width: 300px;
+    z-index: 2;
 }
 @media all and (max-width: 1023px) {
     body.about > .wrapper {
