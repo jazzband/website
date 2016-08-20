@@ -16,8 +16,6 @@ Python dependencies.
 
 Run `make run` to run the development server.
 
-[add-to-org]: https://github.com/benbalter/add-to-org
-
 ## License
 
 The content of this project is licensed under the
@@ -25,5 +23,5 @@ The content of this project is licensed under the
 the underlying source code used to format and display that content is licensed
 under the MIT license.
 
-[Attribution-NonCommercial-ShareAlike 4.0 International]: \
-  https://creativecommons.org/licenses/by-nc-sa/4.0/
+[add-to-org]: https://github.com/benbalter/add-to-org
+[Attribution-NonCommercial-ShareAlike 4.0 International]: https://creativecommons.org/licenses/by-nc-sa/4.0/
