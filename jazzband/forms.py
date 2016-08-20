@@ -1,4 +1,4 @@
-from flask.ext.login import current_user
+from flask_login import current_user
 from wtforms import Form, StringField, validators, ValidationError
 
 

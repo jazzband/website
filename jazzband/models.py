@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from flask_sqlalchemy import SQLAlchemy
-from flask.ext.login import UserMixin
+from flask_login import UserMixin
 
 from .github import github
 from .utils import sub_dict
@@ -113,7 +113,7 @@ class User(db.Model, Helpers, Syncable, UserMixin):
         return not self.is_banned
 
     def check_verified_emails(self):
-        # User can have multiple emails, 
+        # User can have multiple emails,
         # we just want to ensure he has at least one:
         # see https://github.com/jazzband/website/issues/8 for more.
         return (self.email_addresses.filter_by(verified=True)

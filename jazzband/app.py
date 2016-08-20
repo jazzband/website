@@ -1,108 +1,121 @@
 import os
 from flask import Flask, render_template, send_from_directory
 
+from flask_compress import Compress
+from flask_migrate import Migrate
+from flask_session import Session
+from werkzeug.contrib.fixers import ProxyFix
+from whitenoise import WhiteNoise
 
-def create_app(config_path):
-    # setup flask
-    app = Flask('jazzband')
+from . import commands
+from .account import account, login_manager
+from .admin import admin, JazzbandModelView
+from .assets import assets
+from .content import about_pages, news_pages, content
+from .github import github
+from .hooks import hooks
+from .members import members
+from .models import db, User, Project, EmailAddress
+from .projects import projects
 
-    @app.errorhandler(404)
-    def page_not_found(e):
-        return render_template('error.html'), 404
 
-    @app.errorhandler(403)
-    def forbidden(error):
-        return render_template('forbidden.html'), 403
+# setup flask
+app = Flask('jazzband')
+# load decoupled config variables
+app.config.from_object('jazzband.config')
 
-    @app.errorhandler(500)
-    def error(error):
-        return render_template('error.html'), 500
 
-    @app.route('/favicon.ico')
-    def favicon():
-        filename = 'favicon.ico'
-        cache_timeout = app.get_send_file_max_age(filename)
-        return send_from_directory(os.path.join(app.static_folder, 'favicons'),
-                                   filename,
-                                   mimetype='image/vnd.microsoft.icon',
-                                   cache_timeout=cache_timeout)
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('error.html'), 404
 
-    # load decoupled config variables
-    app.config.from_object(config_path)
 
-    from .models import db, User, Project, EmailAddress
-    db.init_app(app)
+@app.errorhandler(403)
+def forbidden(error):
+    return render_template('forbidden.html'), 403
 
-    from flask_migrate import Migrate
-    Migrate(app, db)
 
-    from .admin import admin, JazzbandModelView
-    admin.init_app(app)
-    admin.add_view(JazzbandModelView(User, db.session))
-    admin.add_view(JazzbandModelView(Project, db.session))
-    admin.add_view(JazzbandModelView(EmailAddress, db.session))
+@app.errorhandler(500)
+def error(error):
+    return render_template('error.html'), 500
 
-    if 'OPBEAT_SECRET_TOKEN' in os.environ:
-        from opbeat.contrib.flask import Opbeat
-        Opbeat(app, logging=True)
 
-    if not app.debug:
-        from werkzeug.contrib.fixers import ProxyFix
-        app.wsgi_app = ProxyFix(app.wsgi_app)
+@app.route('/favicon.ico')
+def favicon():
+    filename = 'favicon.ico'
+    cache_timeout = app.get_send_file_max_age(filename)
+    return send_from_directory(os.path.join(app.static_folder, 'favicons'),
+                               filename,
+                               mimetype='image/vnd.microsoft.icon',
+                               cache_timeout=cache_timeout)
 
-    from whitenoise import WhiteNoise
-    app.wsgi_app = WhiteNoise(
-        app.wsgi_app,
-        root=app.static_folder,
-        prefix=app.static_url_path,
-    )
 
-    # setup github-flask
-    from .github import github
-    github.init_app(app)
+@app.context_processor
+def app_context_processor():
+    return {
+        'about': about_pages,
+        'news': news_pages,
+        'User': User,
+        'Project': Project,
+    }
 
-    from .hooks import hooks
-    hooks.init_app(app)
 
-    # setup webassets
-    from .assets import assets
-    assets.init_app(app)
+@app.after_request
+def add_vary_header(response):
+    response.vary.add('Cookie')
+    response.headers['Jazzband'] = "We're all part of the band"
+    return response
 
-    # setup session store
-    from flask.ext.session import Session
-    Session(app)
 
-    from flask.ext.compress import Compress
-    Compress(app)
+@app.cli.group()
+def sync():
+    "Sync Jazzband data"
+sync.command()(commands.projects)
+sync.command()(commands.members)
 
-    from .content import about_pages, news_pages, content
-    about_pages.init_app(app)
-    news_pages.init_app(app)
-    app.register_blueprint(content)
 
-    from .account import account, login_manager
-    app.register_blueprint(account)
-    login_manager.init_app(app)
+db.init_app(app)
 
-    from .members import members
-    app.register_blueprint(members)
+Migrate(app, db)
 
-    from .projects import projects
-    app.register_blueprint(projects)
+admin.init_app(app)
+admin.add_view(JazzbandModelView(User, db.session))
+admin.add_view(JazzbandModelView(Project, db.session))
+admin.add_view(JazzbandModelView(EmailAddress, db.session))
 
-    @app.context_processor
-    def app_context_processor():
-        return {
-            'about': about_pages,
-            'news': news_pages,
-            'User': User,
-            'Project': Project,
-        }
+if 'OPBEAT_SECRET_TOKEN' in os.environ:
+    from opbeat.contrib.flask import Opbeat
+    Opbeat(app, logging=True)
 
-    @app.after_request
-    def add_vary_header(response):
-        response.vary.add('Cookie')
-        response.headers['Jazzband'] = "We're all part of the band"
-        return response
+if 'HEROKU_APP_NAME' in os.environ:
+    app.wsgi_app = ProxyFix(app.wsgi_app)
 
-    return app
+app.wsgi_app = WhiteNoise(
+    app.wsgi_app,
+    root=app.static_folder,
+    prefix=app.static_url_path,
+)
+
+# setup github-flask
+github.init_app(app)
+
+hooks.init_app(app)
+
+# setup webassets
+assets.init_app(app)
+
+# setup session store
+Session(app)
+
+Compress(app)
+
+about_pages.init_app(app)
+news_pages.init_app(app)
+app.register_blueprint(content)
+
+app.register_blueprint(account)
+login_manager.init_app(app)
+
+app.register_blueprint(members)
+
+app.register_blueprint(projects)

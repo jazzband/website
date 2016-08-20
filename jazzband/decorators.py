@@ -1,6 +1,6 @@
 from functools import wraps
 from flask import make_response, request, render_template
-from flask.ext.login import current_user
+from flask_login import current_user
 
 from .utils import patch_http_cache_headers
 

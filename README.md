@@ -9,7 +9,7 @@ It also renders Markdown based documentation for the Jazzband.
 ## Installation
 
 Assuming you have a Python stack installed, run `make install`. This will
-create a virtualenv in the folder of you checkout and install all required
+create a virtualenv in the folder of your checkout and install all required
 Python dependencies.
 
 ## Running
@@ -17,3 +17,13 @@ Python dependencies.
 Run `make run` to run the development server.
 
 [add-to-org]: https://github.com/benbalter/add-to-org
+
+## License
+
+The content of this project is licensed under the
+[Attribution-NonCommercial-ShareAlike 4.0 International] license, and
+the underlying source code used to format and display that content is licensed
+under the MIT license.
+
+[Attribution-NonCommercial-ShareAlike 4.0 International]: \
+  https://creativecommons.org/licenses/by-nc-sa/4.0/

@@ -3,7 +3,7 @@
 VENV ?= venv
 BIN = $(VENV)/bin
 PIP = $(BIN)/pip
-MANAGE = $(BIN)/python manage.py
+FLASK = $(BIN)/flask
 
 install:
 	virtualenv $(VENV)
@@ -13,11 +13,11 @@ uninstall:
 	rm -rf $(VENV)
 
 update: check
-	$(BIN)/pip-compile
-	$(BIN)/pip-sync
+	$(BIN)/pip-compile -o requirements.txt requirements.in
+	$(BIN)/pip-sync requirements.txt
 
 run: check clean
-	$(MANAGE) runserver -h 0.0.0.0
+	$(FLASK) run -h 0.0.0.0
 
 clean:
 	find . -name "*.pyc" -delete

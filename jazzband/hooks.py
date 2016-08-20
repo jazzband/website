@@ -1,4 +1,4 @@
-from flask.ext.hookserver import Hooks
+from flask_hookserver import Hooks
 
 from .models import db, User
 
@@ -24,4 +24,4 @@ def membership(data, guid):
     elif data['action'] == 'removed':
         member.is_member = False
         db.session.commit()
-    return "Thanks"
+    return 'Thanks'

@@ -1,6 +1,6 @@
 from flask import Blueprint, redirect, url_for, flash, request
-from flask.ext.login import (LoginManager, current_user,
-                             login_user, logout_user, login_required)
+from flask_login import (LoginManager, current_user,
+                         login_user, logout_user, login_required)
 
 from .decorators import templated
 from .forms import LeaveForm

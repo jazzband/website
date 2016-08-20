@@ -1,6 +1,6 @@
 # coding: utf-8
 from __future__ import absolute_import, print_function
-from flask.ext.assets import Environment, Bundle
+from flask_assets import Environment, Bundle
 from webassets.filter import Filter, register_filter
 
 

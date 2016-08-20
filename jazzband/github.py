@@ -1,4 +1,4 @@
-from flask.ext.github import GitHub, GitHubError
+from flask_github import GitHub, GitHubError
 
 
 class JazzbandGitHub(GitHub):
