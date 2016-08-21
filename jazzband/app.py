@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, abort, render_template, send_from_directory
 
 from flask_compress import Compress
 from flask_migrate import Migrate
@@ -48,6 +48,23 @@ def favicon():
                                filename,
                                mimetype='image/vnd.microsoft.icon',
                                cache_timeout=cache_timeout)
+
+
+def find_key(token):
+    if token == os.environ.get("ACME_TOKEN"):
+        return os.environ.get("ACME_KEY")
+    for name, value in os.environ.items():
+        if value == token and name.startswith("ACME_TOKEN_"):
+            number = name.replace("ACME_TOKEN_", "")
+            return os.environ.get("ACME_KEY_{}".format(number))
+
+
+@app.route("/.well-known/acme-challenge/<token>")
+def acme(token):
+    key = find_key(token)
+    if key is None:
+        abort(404)
+    return key
 
 
 @app.context_processor
