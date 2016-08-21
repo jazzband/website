@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, redirect
 
 from .decorators import http_cache, templated
 from .models import User
@@ -37,3 +37,8 @@ def roadies():
     return {
         'roadies': roadies,
     }
+
+
+@members.route('/roadies/issue')
+def roadies_issue():
+    return redirect('https://github.com/jazzband/roadies/issues/new')
