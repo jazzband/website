@@ -44,6 +44,7 @@ def member(data, guid):
         'title': render_template('hooks/transfer-title.txt', **data),
         'body': render_template('hooks/transfer-body.txt', **data),
         'labels': ['transfer'],
+        'assignees': [repo['sender']['login']] if 'sender' in repo else [],
     }
 
     response = github.post(
