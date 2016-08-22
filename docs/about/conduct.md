@@ -1,3 +1,5 @@
+title: Code of Conduct
+
 ## Contributor Code of Conduct
 
 As contributors and maintainers of the Jazzband projects, and in the interest

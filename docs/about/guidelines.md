@@ -45,7 +45,7 @@ information what that entails and how to report conduct violations.
 Adhering to the contributor code of conduct is key in keeping the Jazzband
 together.
 
-### Contributions
+### Contributing Guidelines
 
 Projects have to add a `CONTRIBUTING.md` file to their repository so it's
 automatically displayed when new issues and pull requests are created.
@@ -78,6 +78,8 @@ guide is highly encouraged, too. See GitHub's documentation on [contributing
 guidelines] for more information.
 
 [contributing guidelines]: https://help.github.com/articles/setting-guidelines-for-repository-contributors/
+
+### Badges
 
 You may also want to use Jazzband badges (following the [shields.io] spec) using the
 following URL: `https://jazzband.co/static/img/badge.svg`. It looks like this:
