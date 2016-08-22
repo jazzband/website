@@ -1,7 +1,5 @@
 title: Code of Conduct
 
-## Contributor Code of Conduct
-
 As contributors and maintainers of the Jazzband projects, and in the interest
 of fostering an open and welcoming community, we pledge to respect all people
 who contribute through reporting issues, posting feature requests, updating
