@@ -48,3 +48,4 @@ Feel free to ping a [Jazzband roadie](https://jazzband.co/roadies) if you have a
       <dd>{{ repository.has_pages }}</dd>
   </dl>
 </details>
+{%- endif -%}
