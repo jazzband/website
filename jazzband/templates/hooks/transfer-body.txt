@@ -7,47 +7,45 @@ The goal of this issue is to make sure the project adheres to the [Jazzband guid
 Feel free to ping a [Jazzband roadie](https://jazzband.co/roadies) if you have any question.
 
 {% if repository %}
-<details>
-  <summary>GitHub project details</summary>
-  <table>
-    <tr>
-      <th>Description</th>
-      <td>{{ repository.description }}</td>
-    </tr>
-    <tr>
-      <th>Homepage</th>
-      <td>{{ repository.homepage }}</td>
-    </tr>
-    <tr>
-      <th>Stargazers</th>
-      <td>{{ repository.stargazers_count }}</td>
-    </tr>
-    <tr>
-      <th>Open issues</th>
-      <td>{{ repository.open_issues_count }}</td>
-    </tr>
-    <tr>
-      <th>Forks</th>
-      <td>{{ repository.forks_count }}</td>
-    </tr>
-    <tr>
-      <th>Default branch</th>
-      <td>{{ repository.default_branch }}</td>
-    </tr>
-    <tr>
-      <th>Is a fork</th>
-      <td>{{ repository.fork }}</td>
-    </tr>
-    <tr>
-      <th>Has Wiki</th>
-      <td>{{ repository.has_wiki }}</td>
-    </tr>
-    <tr>
-      <th>Has Pages</th>
-      <td>{{ repository.has_pages }}</td>
-    </tr>
-  </table>
-</details>
+<table>
+  <caption>GitHub project details</caption>
+  <tr>
+    <td>Description</td>
+    <td>{{ repository.description }}</td>
+  </tr>
+  <tr>
+    <td>Homepage</td>
+    <td>{{ repository.homepage }}</td>
+  </tr>
+  <tr>
+    <td>Stargazers</td>
+    <td>{{ repository.stargazers_count }}</td>
+  </tr>
+  <tr>
+    <td>Open issues</td>
+    <td>{{ repository.open_issues_count }}</td>
+  </tr>
+  <tr>
+    <td>Forks</td>
+    <td>{{ repository.forks_count }}</td>
+  </tr>
+  <tr>
+    <td>Default branch</td>
+    <td>{{ repository.default_branch }}</td>
+  </tr>
+  <tr>
+    <td>Is a fork</td>
+    <td>{{ repository.fork }}</td>
+  </tr>
+  <tr>
+    <td>Has Wiki</td>
+    <td>{{ repository.has_wiki }}</td>
+  </tr>
+  <tr>
+    <td>Has Pages</td>
+    <td>{{ repository.has_pages }}</td>
+  </tr>
+</table>
 {% endif %}
 
 ## TODOs
