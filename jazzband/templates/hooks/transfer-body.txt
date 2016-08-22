@@ -1,4 +1,4 @@
-This issue tracks the transfer of the GitHub project {{ repository.name }} ({{ repository.html_url }}){% if sender %} that was initiated by: @{{ sender.login }}{% endif %}
+This issue tracks the transfer of the GitHub project [{{ repository.name }}]({{ repository.html_url }}){% if sender %} that was initiated by: @{{ sender.login }}{% endif %}
 
 Please review the TODO list below carefully and adapt it to the project if needed.
 
