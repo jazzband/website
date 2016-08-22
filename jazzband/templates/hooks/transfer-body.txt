@@ -9,26 +9,44 @@ Feel free to ping a [Jazzband roadie](https://jazzband.co/roadies) if you have a
 {% if repository %}
 <details>
   <summary>GitHub project details</summary>
-  <dl>
-      <dt>Description</dt>
-      <dd>{{ repository.description }}</dd>
-      <dt>Homepage</dt>
-      <dd>{{ repository.homepage }}</dd>
-      <dt>Stargazers</dt>
-      <dd>{{ repository.stargazers_count }}</dd>
-      <dt>Open issues</dt>
-      <dd>{{ repository.open_issues_count }}</dd>
-      <dt>Forks</dt>
-      <dd>{{ repository.forks_count }}</dd>
-      <dt>Default branch</dt>
-      <dd>{{ repository.default_branch }}</dd>
-      <dt>Is a fork</dt>
-      <dd>{{ repository.fork }}</dd>
-      <dt>Has Wiki</dt>
-      <dd>{{ repository.has_wiki }}</dd>
-      <dt>Has Pages</dt>
-      <dd>{{ repository.has_pages }}</dd>
-  </dl>
+  <table>
+    <tr>
+      <th>Description</th>
+      <td>{{ repository.description }}</td>
+    </tr>
+    <tr>
+      <th>Homepage</th>
+      <td>{{ repository.homepage }}</td>
+    </tr>
+    <tr>
+      <th>Stargazers</th>
+      <td>{{ repository.stargazers_count }}</td>
+    </tr>
+    <tr>
+      <th>Open issues</th>
+      <td>{{ repository.open_issues_count }}</td>
+    </tr>
+    <tr>
+      <th>Forks</th>
+      <td>{{ repository.forks_count }}</td>
+    </tr>
+    <tr>
+      <th>Default branch</th>
+      <td>{{ repository.default_branch }}</td>
+    </tr>
+    <tr>
+      <th>Is a fork</th>
+      <td>{{ repository.fork }}</td>
+    </tr>
+    <tr>
+      <th>Has Wiki</th>
+      <td>{{ repository.has_wiki }}</td>
+    </tr>
+    <tr>
+      <th>Has Pages</th>
+      <td>{{ repository.has_pages }}</td>
+    </tr>
+  </table>
 </details>
 {% endif %}
 
