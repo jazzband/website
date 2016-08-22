@@ -1,5 +1,7 @@
+from flask import render_template
 from flask_hookserver import Hooks
 
+from .github import github
 from .models import db, User
 
 
@@ -25,3 +27,27 @@ def membership(data, guid):
         member.is_member = False
         db.session.commit()
     return 'Thanks'
+
+
+@hooks.hook('member')
+def member(data, guid):
+    # if no action was given or it was about removing a member
+    if data.get('action') != 'added':
+        return
+
+    # if there is no repo data
+    repo = data.get('repository')
+    if repo is None:
+        return
+
+    data = {
+        'title': render_template('hooks/transfer-title.txt', **data),
+        'body': render_template('hooks/transfer-body.txt', **data),
+        'labels': ['transfer'],
+    }
+
+    return github.post(
+        'repos/jazzband/roadies/issues',
+        data,
+        access_token=github.admin_access_token,
+    )
