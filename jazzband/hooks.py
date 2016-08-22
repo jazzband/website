@@ -46,8 +46,9 @@ def member(data, guid):
         'labels': ['transfer'],
     }
 
-    return github.post(
+    response = github.post(
         'repos/jazzband/roadies/issues',
         data,
         access_token=github.admin_access_token,
     )
+    return 'Thanks'
