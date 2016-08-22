@@ -41,9 +41,9 @@ def member(data, guid):
         return
 
     data = {
-        'title': render_template('hooks/transfer-title.txt', **data),
-        'body': render_template('hooks/transfer-body.txt', **data),
-        'labels': ['transfer'],
+        'title': render_template('hooks/project-title.txt', **data),
+        'body': render_template('hooks/project-body.txt', **data),
+        'labels': ['review'],
         'assignees': [repo['sender']['login']] if 'sender' in repo else [],
     }
 
