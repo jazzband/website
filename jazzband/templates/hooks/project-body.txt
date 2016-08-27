@@ -1,10 +1,12 @@
-This issue tracks the review of the GitHub project [{{ repository.name }}]({{ repository.html_url }}){% if sender %} that was initiated by @{{ sender.login }}{% endif %}
+This issue tracks the implementation of the [Jazzband guidelines](https://jazzband.co/about/guidelines) for the project [{{ repository.name }}]({{ repository.html_url }})
 
-See the TODO list below for common tasks to work on. The goal of this review is to make sure the project adheres to the [Jazzband guidelines](https://jazzband.co/about/guidelines) after it has been transferred to the Jazzband GitHub organization or was newly created.
+{% if sender %}It was initiated by @{{ sender.login }} who was automatically assigned in addition to the [Jazzband roadies](https://jazzband.co/roadies).{% endif %}
+
+See the [TODO list](#todos) below for the generally required tasks, but feel free to update it in case the project requires it.
 
 Feel free to ping a [Jazzband roadie](https://jazzband.co/roadies) if you have any question.
 
-## TODOs
+## TODOs<a name="todos"></a>
 
 - [ ] Fix all links in the docs (and README file etc) from old to new repo
 - [ ] Add the [Jazzband badge](https://jazzband.co/about/guidelines#badges) to the `README` file

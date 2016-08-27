@@ -40,14 +40,25 @@ def member(data, guid):
     if repo is None:
         return
 
+    # get list of roadies and set them as the default assignees
+    roadies = User.query.filter_by(
+        is_member=True,
+        is_banned=False,
+        is_roadie=True,
+    )
+    assignees = [roadie.login for roadie in roadies]
+    # add sender of the hook as well if given
+    if 'sender' in data:
+        assignees.append(data['sender']['login'])
+
     data = {
         'title': render_template('hooks/project-title.txt', **data),
         'body': render_template('hooks/project-body.txt', **data),
-        'labels': ['review'],
-        'assignees': [repo['sender']['login']] if 'sender' in repo else [],
+        'labels': ['guidelines', 'review'],
+        'assignees': assignees,
     }
 
-    response = github.post(
+    github.post(
         'repos/jazzband/roadies/issues',
         data,
         access_token=github.admin_access_token,

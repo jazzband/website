@@ -1,1 +1,1 @@
-Review project {{ repository.name }}
+Implement Jazzband guidelines for project {{ repository.name }}
