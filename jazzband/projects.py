@@ -1,4 +1,5 @@
 from flask import Blueprint
+from sqlalchemy.sql.expression import func
 
 from .decorators import http_cache, templated
 from .models import Project
@@ -10,7 +11,14 @@ projects = Blueprint('projects', __name__, url_prefix='/projects')
 @http_cache()
 @templated()
 def index():
-    projects = Project.query.filter_by(is_active=True).order_by(Project.name)
+    projects = Project.query.filter_by(
+        is_active=True,
+    ).filter(
+        Project.name != 'website',
+        Project.name != 'roadies'
+    ).order_by(
+        func.random()
+    )
     return {'projects': projects}
 
 

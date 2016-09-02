@@ -1,4 +1,5 @@
 from flask import Blueprint, redirect
+from  sqlalchemy.sql.expression import func
 
 from .decorators import http_cache, templated
 from .models import User
@@ -16,7 +17,7 @@ def index():
     ).filter(
         User.login != 'jazzband-bot'
     ).order_by(
-        User.login
+        func.random()
     )
     return {
         'members': members,
