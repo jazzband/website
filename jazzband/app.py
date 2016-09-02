@@ -86,7 +86,6 @@ Talisman(
     app,
     force_https=IS_HEROKU,
     force_file_save=True,
-    strict_transport_security_include_subdomains=False,
     content_security_policy={
         # Fonts from fonts.google.com
         'font-src': '\'self\' themes.googleusercontent.com *.gstatic.com',
