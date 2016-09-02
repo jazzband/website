@@ -1,5 +1,5 @@
 import os
-from flask import Flask, abort, render_template, send_from_directory
+from flask import Flask, abort, render_template
 
 from flask_compress import Compress
 from flask_migrate import Migrate
@@ -18,6 +18,7 @@ from .members import members
 from .models import db, User, Project, EmailAddress
 from .projects import projects
 
+IS_HEROKU = 'HEROKU_APP_NAME' in os.environ
 
 # setup flask
 app = Flask('jazzband')
@@ -38,16 +39,6 @@ def forbidden(error):
 @app.errorhandler(500)
 def error(error):
     return render_template('error.html'), 500
-
-
-@app.route('/favicon.ico')
-def favicon():
-    filename = 'favicon.ico'
-    cache_timeout = app.get_send_file_max_age(filename)
-    return send_from_directory(os.path.join(app.static_folder, 'favicons'),
-                               filename,
-                               mimetype='image/vnd.microsoft.icon',
-                               cache_timeout=cache_timeout)
 
 
 def find_key(token):

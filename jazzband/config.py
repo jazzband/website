@@ -77,3 +77,6 @@ else:
     VALIDATE_SIGNATURE = False
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+CSP_REPORT_URI = config('CSP_REPORT_URI', None)
+CSP_REPORT_ONLY = config('CSP_REPORT_ONLY', False, cast=bool)

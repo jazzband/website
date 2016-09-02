@@ -1,5 +1,6 @@
+from urlparse import urljoin
 from time import time
-from flask import current_app
+from flask import current_app, request
 
 
 def sub_dict(map, keys):
@@ -24,3 +25,7 @@ def patch_http_cache_headers(response, timeout=None):
         response.cache_control.proxy_revalidate = True
         response.expires = -1
     return response
+
+
+def full_url(url):
+    return urljoin(request.url_root, url)

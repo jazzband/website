@@ -1,19 +1,17 @@
+import os
 import babel.dates
-from flask import Blueprint, render_template, redirect, request, url_for
+from flask import (Blueprint, current_app, render_template, redirect, request,
+                   url_for, send_from_directory, safe_join)
 from flask_flatpages import FlatPages
-from urlparse import urljoin
 from werkzeug.contrib.atom import AtomFeed
 
 from .assets import styles
 from .decorators import http_cache, templated
+from .utils import full_url
 
 content = Blueprint('content', __name__)
 about_pages = FlatPages(name='about')
 news_pages = FlatPages(name='news')
-
-
-def make_external(url):
-    return urljoin(request.url_root, url)
 
 
 @content.app_template_filter()
@@ -64,7 +62,7 @@ def news_feed():
                  summary=summary,
                  summary_type='text',
                  author=page.meta.get('author', None),
-                 url=make_external(url_for('content.news', path=page.path)),
+                 url=full_url(url_for('content.news', path=page.path)),
                  updated=updated,
                  published=published)
     return feed.get_response()
@@ -90,3 +88,14 @@ def index():
 def styles_css():
     urls = styles.urls()
     return redirect(urls[0])
+
+
+@content.route('/favicon.ico')
+def favicon():
+    filename = 'favicon.ico'
+    cache_timeout = current_app.get_send_file_max_age(filename)
+    favicon_path = safe_join(current_app.static_folder, 'favicons')
+    return send_from_directory(favicon_path,
+                               filename,
+                               mimetype='image/vnd.microsoft.icon',
+                               cache_timeout=cache_timeout)
