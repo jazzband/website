@@ -22,5 +22,6 @@ pygments-markdown-lexer
 python-decouple
 opbeat[flask]
 redis
+-e git+https://github.com/GoogleCloudPlatform/flask-talisman@1dac22d3c90078154ae72fa030a2f7a6d9705ff6#egg=talisman
 whitenoise
 wtforms

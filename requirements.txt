@@ -4,6 +4,7 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
+-e git+https://github.com/GoogleCloudPlatform/flask-talisman@1dac22d3c90078154ae72fa030a2f7a6d9705ff6#egg=talisman
 alembic==0.8.7            # via flask-migrate
 Babel==2.3.4
 blinker==1.4              # via opbeat
@@ -53,7 +54,7 @@ requests[security]==2.11.1  # via flask-hookserver, github-flask
 six==1.10.0               # via cryptography, libsass, pip-tools, pyopenssl
 SQLAlchemy==1.0.14        # via alembic, flask-sqlalchemy
 webassets==0.12.0         # via flask-assets
-Werkzeug==0.11.10         # via flask, flask-hookserver
+Werkzeug==0.11.10         # via flask, flask-hookserver, flask-wtf
 whitenoise==3.2.1
 wtforms==2.1
 

@@ -4,6 +4,7 @@ from flask import Flask, abort, render_template
 from flask_compress import Compress
 from flask_migrate import Migrate
 from flask_session import Session
+from talisman import Talisman
 from werkzeug.contrib.fixers import ProxyFix
 from whitenoise import WhiteNoise
 
@@ -81,6 +82,27 @@ def sync():
 sync.command()(commands.projects)
 sync.command()(commands.members)
 
+Talisman(
+    app,
+    force_https=IS_HEROKU,
+    force_file_save=True,
+    strict_transport_security_include_subdomains=False,
+    content_security_policy={
+        # Fonts from fonts.google.com
+        'font-src': '\'self\' themes.googleusercontent.com *.gstatic.com',
+        # <iframe> based embedding for Maps and Youtube.
+        'frame-src': '\'self\' www.google.com analytics.websushi.org',
+        # Assorted Google-hosted Libraries/APIs.
+        'script-src': '\'self\' ajax.googleapis.com analytics.websushi.org',
+        # Used by generated code from http://www.google.com/fonts
+        'style-src': '\'self\' ajax.googleapis.com fonts.googleapis.com '
+                     '*.gstatic.com',
+        'img-src': '*',
+        'default-src': '\'self\' *.gstatic.com',
+    },
+    content_security_policy_report_only=app.config['CSP_REPORT_ONLY'],
+    content_security_policy_report_uri=app.config['CSP_REPORT_URI'],
+)
 
 db.init_app(app)
 
