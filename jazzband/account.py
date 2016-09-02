@@ -113,8 +113,8 @@ def leave():
     if not current_user.is_member:
         return redirect(next_url)
 
-    form = LeaveForm(request.form)
-    if request.method == 'POST' and form.validate():
+    form = LeaveForm()
+    if form.validate_on_submit():
         response = github.leave_organization(current_user.login)
         if response is None:
             flash('Leaving the organization failed. '

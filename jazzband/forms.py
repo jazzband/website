@@ -1,5 +1,6 @@
 from flask_login import current_user
-from wtforms import Form, StringField, validators, ValidationError
+from flask_wtf import Form
+from wtforms import StringField, validators, ValidationError
 
 
 class LeaveForm(Form):

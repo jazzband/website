@@ -20,6 +20,7 @@
       If you really want to leave the Jazzband, please confirm with your GitHub login below.
   </p>
   <form action="" method="post">
+    {{ form.hidden_tag() }}
     <dl>
       {{ render_field(form.login) }}
     </dl>
