@@ -96,7 +96,7 @@ Talisman(
         'script-src': '\'self\' ajax.googleapis.com analytics.websushi.org',
         # Used by generated code from http://www.google.com/fonts
         'style-src': '\'self\' ajax.googleapis.com fonts.googleapis.com '
-                     '*.gstatic.com',
+                     '*.gstatic.com unsafe-inline',
         'img-src': '*',
         'default-src': '\'self\' *.gstatic.com',
     },
