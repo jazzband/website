@@ -18,4 +18,8 @@
     {% endfor %}
   </div>
 </div>
+<script src="{{ url_for('static', filename='js/blazy.min.js') }}"></script>
+<script type="text/javascript">
+  var bLazy = new Blazy({});
+</script>
 {% endblock %}
