@@ -98,7 +98,7 @@ Talisman(
         # Used by generated code from http://www.google.com/fonts
         'style-src': "'self' ajax.googleapis.com fonts.googleapis.com "
                      "*.gstatic.com 'unsafe-inline'",
-        'img-src': "*",
+        'img-src': "* data:",
         'default-src': "'self' *.gstatic.com",
     },
     content_security_policy_report_only=app.config['CSP_REPORT_ONLY'],
