@@ -38,7 +38,7 @@ def http_cache(timeout=None):
     Example usage:
 
     @app.route('/map')
-    @cache_headers(timeout=60)
+    @http_cache(timeout=60)
     def index():
       return render_template('index.html')
 

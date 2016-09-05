@@ -3,7 +3,8 @@ from flask import Flask, abort, render_template
 
 from flask_compress import Compress
 from flask_migrate import Migrate
-from flask_session import Session
+from flask_kvsession import KVSessionExtension
+from simplekv.memory.redisstore import RedisStore
 from talisman import Talisman
 from werkzeug.contrib.fixers import ProxyFix
 from whitenoise import WhiteNoise
@@ -134,7 +135,8 @@ hooks.init_app(app)
 assets.init_app(app)
 
 # setup session store
-Session(app)
+session_store = RedisStore(app.config['REDIS'])
+KVSessionExtension(session_store, app)
 
 Compress(app)
 

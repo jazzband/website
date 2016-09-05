@@ -2,14 +2,13 @@ Babel
 Flask
 Flask-Admin
 Flask-Assets
-Flask-Cache
 Flask-Compress
 Flask-Flatpages
 Flask-Hookserver
+Flask-KVSession
 Flask-Login
 Flask-Migrate
 Flask-Script
-Flask-Session
 Flask-SQLAlchemy
 Flask-WTF
 GitHub-Flask

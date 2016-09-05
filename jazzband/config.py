@@ -1,3 +1,4 @@
+from datetime import timedelta
 import os
 import redis
 from decouple import config, Csv
@@ -13,9 +14,8 @@ DEBUG = config('DEBUG', True, cast=bool)
 
 HOSTNAMES = config('HOSTNAMES', 'localhost:5000,0.0.0.0:5000', cast=Csv())
 
-CACHE_TYPE = 'redis'
-CACHE_REDIS_URL = config('REDIS_URL', 'redis://127.0.0.1:6379/0')
-CACHE_KEY_PREFIX = config('HEROKU_SLUG_COMMIT', '')
+REDIS_URL = config('REDIS_URL', 'redis://127.0.0.1:6379/0')
+REDIS = redis.StrictRedis.from_url(REDIS_URL)
 
 # how many seconds to set the expires and max_age headers
 HTTP_CACHE_TIMEOUT = config('HTTP_CACHE_TIMEOUT', 60 * 60, cast=int)
@@ -51,13 +51,12 @@ GITHUB_ROADIES_TEAM_ID = config('GITHUB_ROADIES_TEAM_ID', 0, cast=int)
 GITHUB_ADMIN_TOKEN = config('GITHUB_ADMIN_TOKEN', '')
 GITHUB_WEBHOOKS_KEY = config('GITHUB_WEBHOOKS_KEY', '')
 
-SESSION_TYPE = 'redis'
-SESSION_COOKIE_NAME = 'jazzband'
+SESSION_COOKIE_NAME = 'session'
+SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SECURE = not DEBUG
-SESSION_USE_SIGNER = config('SESSION_USE_SIGNER', True, cast=bool)
 SESSION_REFRESH_EACH_REQUEST = False
-SESSION_REDIS = redis.from_url(CACHE_REDIS_URL)
-PERMANENT_SESSION_LIFETIME = 60 * 24 * 14
+PERMANENT_SESSION_LIFETIME = timedelta(days=14)
+
 LIBSASS_STYLE = 'compressed'
 
 OPBEAT = {
