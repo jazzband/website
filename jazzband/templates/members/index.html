@@ -11,7 +11,7 @@
     {% for member in members %}
     <div class="grid-cell">
       {% if member.avatar_url %}
-        <a href="{{ member.html_url }}" title="{{ member.login }}"><img src="{{ member.avatar_url }}" alt="{{ member.login }}"/></a>
+        <a href="{{ member.html_url }}" title="{{ member.login }}"><img class="b-lazy" data-src="{{ member.avatar_url }}" alt="{{ member.login }}"/></a>
       {% endif %}<br/>
       <a href="{{ member.html_url }}" title="{{ member.login }}">{{ member.login }}</a>
     </div>
