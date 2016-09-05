@@ -89,16 +89,17 @@ Talisman(
     force_file_save=True,
     content_security_policy={
         # Fonts from fonts.google.com
-        'font-src': '\'self\' themes.googleusercontent.com *.gstatic.com',
+        'font-src': "'self' themes.googleusercontent.com *.gstatic.com",
         # <iframe> based embedding for Maps and Youtube.
-        'frame-src': '\'self\' www.google.com analytics.websushi.org',
+        'child-src': "'self' www.google.com analytics.websushi.org",
         # Assorted Google-hosted Libraries/APIs.
-        'script-src': '\'self\' ajax.googleapis.com analytics.websushi.org',
+        'script-src': "'self' ajax.googleapis.com analytics.websushi.org "
+                      "'unsafe-inline'",
         # Used by generated code from http://www.google.com/fonts
-        'style-src': '\'self\' ajax.googleapis.com fonts.googleapis.com '
-                     '*.gstatic.com \'unsafe-inline\'',
-        'img-src': '*',
-        'default-src': '\'self\' *.gstatic.com',
+        'style-src': "'self' ajax.googleapis.com fonts.googleapis.com "
+                     "*.gstatic.com 'unsafe-inline'",
+        'img-src': "*",
+        'default-src': "'self' *.gstatic.com",
     },
     content_security_policy_report_only=app.config['CSP_REPORT_ONLY'],
     content_security_policy_report_uri=app.config['CSP_REPORT_URI'],
