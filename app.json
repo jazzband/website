@@ -1,0 +1,71 @@
+{
+  "name": "jazzband",
+  "description": "",
+  "scripts": {
+  },
+  "env": {
+    "CSP_REPORT_ONLY": "true",
+    "CSP_REPORT_URI": {
+      "required": true
+    },
+    "DEBUG": "false",
+    "FLASK_APP": "jazzband/app.py",
+    "GITHUB_ADMIN_TOKEN": {
+      "required": true
+    },
+    "GITHUB_CLIENT_ID": {
+      "required": true
+    },
+    "GITHUB_CLIENT_SECRET": {
+      "required": true
+    },
+    "GITHUB_MEMBERS_TEAM_ID": {
+      "required": true
+    },
+    "GITHUB_ORG_ID": {
+      "required": true
+    },
+    "GITHUB_ROADIES_TEAM_ID": {
+      "required": true
+    },
+    "GITHUB_VALIDATE_IP": {
+      "required": true
+    },
+    "GITHUB_WEBHOOKS_KEY": {
+      "required": true
+    },
+    "HOSTNAMES": {
+      "required": true
+    },
+    "OPBEAT_APP_ID": {
+      "required": true
+    },
+    "OPBEAT_ORGANIZATION_ID": {
+      "required": true
+    },
+    "OPBEAT_SECRET_TOKEN": {
+      "required": true
+    },
+    "SECRET_KEY": {
+      "generator": "secret"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+    "autobus",
+    "librato",
+    "papertrail",
+    "heroku-postgresql",
+    "heroku-redis",
+    "scheduler"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ]
+}
