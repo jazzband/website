@@ -13,11 +13,26 @@ ROOT_DIR = os.path.dirname(__file__)
 
 SECRET_KEY = config('SECRET_KEY', 'dev key')
 DEBUG = config('DEBUG', True, cast=bool)
+SERVER_NAME = config('SERVER_NAME', 'localhost:5000')
 
 HOSTNAMES = config('HOSTNAMES', 'localhost:5000,0.0.0.0:5000', cast=Csv())
-
-REDIS_URL = config('REDIS_URL', 'redis://127.0.0.1:6379/0')
+REDIS_URL = config('REDIS_URL', 'redis://redis:6379/0')
 REDIS = redis.StrictRedis.from_url(REDIS_URL)
+
+CELERY_BROKER_URL = CELERY_RESULT_BACKEND = REDIS_URL
+CELERY_IMPORTS = [
+    'jazzband.members.tasks',
+]
+
+MAIL_DEFAULT_SENDER = config(
+    'MAIL_DEFAULT_SENDER',
+    'Jazzband <roadies@jazzband.co>'
+)
+MAIL_PASSWORD = config('MAIL_PASSWORD')
+MAIL_PORT = config('MAIL_PORT', 587, cast=int)
+MAIL_SERVER = config('MAIL_SERVER', 'localhost')
+MAIL_USERNAME = config('MAIL_USERNAME', '')
+MAIL_USE_TLS = config('MAIL_USE_TLS', False, cast=bool)
 
 # how many seconds to set the expires and max_age headers
 HTTP_CACHE_TIMEOUT = config('HTTP_CACHE_TIMEOUT', 60 * 60, cast=int)
@@ -65,10 +80,8 @@ OPBEAT = {
     'HOSTNAME': 'jazzband.co',
 }
 
-SQLALCHEMY_DATABASE_URI = config(
-    'DATABASE_URL',
-    'postgres://jazzband:jazzband@localhost:5432/jazzband',
-)
+SQLALCHEMY_DATABASE_URI = config('DATABASE_URL',
+                                 'postgres://postgres@db/postgres')
 if IS_PRODUCTION:
     SQLALCHEMY_DATABASE_URI += '?sslmode=require'
     VALIDATE_IP = config('GITHUB_VALIDATE_IP', True, cast=bool)
@@ -87,3 +100,7 @@ if 'GIT_REV' in os.environ:
     SENTRY_CONFIG = {
         'release': os.environ['GIT_REV'],
     }
+
+UPLOAD_ROOT = '/app/uploads'
+
+MAX_CONTENT_LENGTH = 60 * 1024 * 1024  # 60M

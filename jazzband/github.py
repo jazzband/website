@@ -61,6 +61,7 @@ class JazzbandGitHub(GitHub):
         )
 
     def get_members(self):
+        without_2fa_ids = set(user['id'] for user in self.get_without_2fa())
         roadies_ids = set(roadie['id'] for roadie in github.get_roadies())
         all_members = self.get(
             'teams/%d/members' % self.members_team_id,
@@ -71,6 +72,7 @@ class JazzbandGitHub(GitHub):
         for member in all_members:
             member['is_member'] = True
             member['is_roadie'] = member['id'] in roadies_ids
+            member['has_2fa'] = member['id'] not in without_2fa_ids
             members.append(member)
         return members
 
@@ -93,12 +95,15 @@ class JazzbandGitHub(GitHub):
         return self.get('user/emails', all_pages=True,
                         access_token=access_token)
 
-    def has_verified_emails(self):
+    def get_without_2fa(self):
         """
-        Checks if the authenticated GitHub user has any verified email
-        addresses.
+        Gets the organization members without Two Factor Auth enabled.
         """
-        return any(self.get_verified_emails())
+        return self.get(
+            'orgs/%s/members?filter=2fa_disabled' % self.org_id,
+            all_pages=True,
+            access_token=self.admin_access_token,
+        )
 
     def is_member(self, user_login):
         """
@@ -112,5 +117,6 @@ class JazzbandGitHub(GitHub):
             return True
         except GitHubError:
             return False
+
 
 github = JazzbandGitHub()

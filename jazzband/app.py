@@ -1,6 +1,6 @@
-import os
 from flask import Flask, render_template
 
+from flask_celeryext import create_celery_app
 from flask_compress import Compress
 from flask_migrate import Migrate
 from flask_kvsession import KVSessionExtension
@@ -9,21 +9,29 @@ from simplekv.memory.redisstore import RedisStore
 from werkzeug.contrib.fixers import ProxyFix
 from whitenoise import WhiteNoise
 
-from . import commands
+from . import admin
 from .account import account, login_manager
-from .admin import admin, JazzbandModelView
 from .assets import assets
 from .content import about_pages, news_pages, content
+from .errors import sentry
 from .github import github
 from .hooks import hooks
-from .members import members
-from .models import db, User, Project, EmailAddress
-from .projects import projects
+from .email import mail
+from .models import db
+from .members.commands import sync_members
+from .members.views import members
+from .members.models import User
+from .projects.commands import sync_projects
+from .projects.models import Project
+from .projects.views import projects
+
 
 # setup flask
 app = Flask('jazzband')
 # load decoupled config variables
 app.config.from_object('jazzband.config')
+
+celery = create_celery_app(app)
 
 
 @app.errorhandler(404)
@@ -63,26 +71,19 @@ def sync():
     "Sync Jazzband data"
 
 
-sync.command()(commands.projects)
-sync.command()(commands.members)
+sync.command('projects')(sync_projects)
+sync.command('members')(sync_members)
 
 Talisman(
     app,
     force_https=app.config['IS_PRODUCTION'],
     force_file_save=True,
     content_security_policy={
-        # Fonts from fonts.google.com
-        'font-src': "'self' themes.googleusercontent.com *.gstatic.com",
-        # <iframe> based embedding for Maps and Youtube.
-        'child-src': "'self' www.google.com analytics.websushi.org",
-        # Assorted Google-hosted Libraries/APIs.
-        'script-src': "'self' ajax.googleapis.com analytics.websushi.org "
-                      "'unsafe-inline'",
-        # Used by generated code from http://www.google.com/fonts
-        'style-src': "'self' ajax.googleapis.com fonts.googleapis.com "
-                     "*.gstatic.com 'unsafe-inline'",
+        'font-src': "'self'",
+        'child-src': "'self' analytics.websushi.org",
+        'script-src': "'self' analytics.websushi.org 'unsafe-inline'",
+        'style-src': "'self' 'unsafe-inline'",
         'img-src': "* data:",
-        'default-src': "'self' *.gstatic.com",
     },
     content_security_policy_report_only=app.config['CSP_REPORT_ONLY'],
     content_security_policy_report_uri=app.config['CSP_REPORT_URI'],
@@ -92,14 +93,9 @@ db.init_app(app)
 
 Migrate(app, db)
 
-admin.init_app(app)
-admin.add_view(JazzbandModelView(User, db.session))
-admin.add_view(JazzbandModelView(Project, db.session))
-admin.add_view(JazzbandModelView(EmailAddress, db.session))
+admin.init_admin(app)
 
-if 'SENTRY_DSN' in os.environ:
-    from raven.contrib.flask import Sentry
-    sentry = Sentry(app, logging=True)
+sentry.init_app(app)
 
 if app.config['IS_PRODUCTION']:
     app.wsgi_app = ProxyFix(app.wsgi_app)
@@ -109,6 +105,8 @@ app.wsgi_app = WhiteNoise(
     root=app.static_folder,
     prefix=app.static_url_path,
 )
+
+mail.init_app(app)
 
 # setup github-flask
 github.init_app(app)

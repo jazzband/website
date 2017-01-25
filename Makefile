@@ -1,28 +1,40 @@
-.PHONY: install uninstall clean run check update
+.PHONY: bash build clean compile db-migrate db-upgrade redis-cli run shell start stop sync
 
-VENV ?= venv
-BIN = $(VENV)/bin
-PIP = $(BIN)/pip
-FLASK = $(BIN)/flask
+bash:
+	docker-compose run web bash
 
-install:
-	virtualenv $(VENV)
-	$(PIP) install -U -r requirements.txt pip
+build:
+	docker-compose build --pull
 
-uninstall:
-	rm -rf $(VENV)
-
-update: check
-	$(BIN)/pip-compile -o requirements.txt requirements.in
-	$(BIN)/pip-sync requirements.txt
-
-run: check clean
-	$(FLASK) run -h 0.0.0.0
-
-clean:
+clean: stop
+	docker-compose rm -f
 	find . -name "*.pyc" -delete
 	rm -rf jazzband/static/.webassets-cache
 	rm -rf jazzband/static/css/styles.*.css
 
-check:
-	@test -d $(VENV) || { echo "Couldn't find venv dir. Run make install first."; exit 1; }
+compile:
+	docker-compose run web pip-compile -U -o requirements.txt requirements.in
+
+db-migrate:
+	docker-compose run web flask db migrate
+
+db-upgrade:
+	docker-compose run web flask db upgrade
+
+redis-cli:
+	docker-compose run redis redis-cli -h redis
+
+run:
+	docker-compose up
+
+shell:
+	docker-compose run web flask shell
+
+start:
+	docker-compose up -d
+
+stop:
+	docker-compose stop
+
+sync: compile
+	docker-compose run web pip-sync requirements.txt

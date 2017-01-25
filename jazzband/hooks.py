@@ -2,7 +2,8 @@ from flask import render_template
 from flask_hookserver import Hooks
 
 from .github import github
-from .models import db, User
+from .models import db
+from .members.models import User
 
 
 hooks = Hooks()
@@ -51,13 +52,25 @@ def member(data, guid):
     if 'sender' in data:
         assignees.append(data['sender']['login'])
 
+    issue_title = render_template('hooks/project-title.txt', **data)
+    issue_body = render_template('hooks/project-body.txt', **data)
+
+    issues = github.get(
+        'repos/jazzband/roadies/issues',
+        access_token=github.admin_access_token,
+    )
+    # if there is already an issue with that title, escape
+    if issue_title in [issue['title'] for issue in issues]:
+        return
+
     data = {
-        'title': render_template('hooks/project-title.txt', **data),
-        'body': render_template('hooks/project-body.txt', **data),
+        'title': issue_title,
+        'body': issue_body,
         'labels': ['guidelines', 'review'],
         'assignees': assignees,
     }
 
+    # create a new issue
     github.post(
         'repos/jazzband/roadies/issues',
         data,

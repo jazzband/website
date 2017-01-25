@@ -4,11 +4,7 @@
 
 {% block body %}
 <div class="c4">
-{% if page.path == "index" %}
   <h2>{{ page.title }}</h2>
-{% else %}
-  <h2><a href="{{ url_for('content.about') }}" title="About">About</a> » {{ page.title|default(page.path|capitalize) }}</h2>
-{% endif %}
   {{ page }}
 </div>
 {% endblock body %}

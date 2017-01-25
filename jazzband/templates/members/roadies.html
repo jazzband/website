@@ -1,5 +1,7 @@
 {% extends "layouts/default.html" %}
 
+{% import "macros.html" as macros %}
+
 {% block content %}
 <div class="c4">
   <h2>Roadies</h2>
@@ -9,19 +11,17 @@
   </p>
   <p>
     You can get in touch with the roadies by
-    <a href="https://github.com/jazzband/roadies/issues/new"
-       title="opening an issue">opening an issue</a> on GitHub.
+    <a href="/roadies/issue?labels=question" title="opening an issue">opening an issue</a>
+    on GitHub.
   </p>
 
   <div class="grid">
     {% for roadie in roadies %}
     <div class="grid-cell">
-      {% if roadie.avatar_url %}
-        <a href="{{ roadie.html_url }}" title="{{ roadie.login }}"><img src="{{ roadie.avatar_url }}" alt="{{ roadie.login }}"/></a>
-      {% endif %}<br/>
-      <a href="{{ roadie.html_url }}" title="{{ roadie.login }}">{{ roadie.login }}</a>
+      {{ macros.avatar_cell(roadie) }}
     </div>
     {% endfor %}
   </div>
 </div>
+{{ macros.avatar_js() }}
 {% endblock %}

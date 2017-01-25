@@ -1,4 +1,4 @@
-from urlparse import urljoin
+from urllib.parse import urljoin
 from time import time
 from flask import current_app, request
 

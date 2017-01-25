@@ -1,0 +1,76 @@
+Hi there,
+
+The Jazzband project "{{ project.name }}" you're a member of has received
+a new project upload and requires your review.
+
+Please go the following URL to review the upload:
+
+    {{ url_for('projects.uploads', name=project.name) }}
+
+Once reviewed please decide if you'd like to release it to PyPI or delete
+it (e.g. in case it was a malicious release via an unwanted contribution).
+
+Please check the recent commits in the project's repository to corrolate
+the upload to the code changes:
+
+    {{ project.html_url }}
+
+
+UPLOAD METADATA
+
+Here is some more information about the upload:
+
+ID: {{ upload.id }}
+
+Version: {{ upload.version }}
+
+Filename: {{ upload.filename }}
+
+File size: {{ upload.size|filesizeformat }}
+
+Uploaded at: {{ upload.uploaded_at }}
+
+MD5 digest: {{ upload.md5_digest }}
+
+SHA256 digest: {{ upload.sha256_digest }}
+
+Blake2 256 digest: {{ upload.blake2_256_digest }}
+
+
+FORM DATA
+
+More information about the upload can be found in the form data which
+was uploaded together with the upload file (e.g. via distutils or twine):
+
+    {{ url_for('projects.formdata', name=project.name, upload_id=upload.id, _external=True) }}
+
+
+NEXT ACTIONS
+
+To release the upload go to (you'll have to confirm it):
+
+    {{ url_for('projects.release', name=project.name, upload_id=upload.id, _external=True) }}
+
+
+To delete the upload go to (you'll have to confirm it):
+
+    {{ url_for('projects.delete', name=project.name, upload_id=upload.id, _external=True) }}
+
+
+SECURITY INCIDENTS
+
+In case you suspect a security issue don't hesitate to contact us
+immediately via email at:
+
+    security@jazzband.co
+
+
+NEED HELP
+
+If you need any other help please file a ticket with the roadies here:
+
+    https://jazzband.co/roadies/issue?labels=pypi
+
+Or contact them in any other way:
+
+    https://jazzband.co/about/contact

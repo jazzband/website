@@ -4,33 +4,51 @@
 <div class="c4">
   <h2>Account</h2>
   <h3>
-    Welcome to your Jazzband dashboard.
+    Welcome to your Jazzband account dashboard.
   </h3>
+  {% if not current_user.is_member %}
+  <div class="admonition">
+    <p class="admonition-title">
+      You're currently an inactive member
+    </p>
+    <p>
+      To become an active member <a href="{{ url_for('account.join') }}">please join</a>
+      the Jazzband GitHub organization. For security reasons GitHub will ask you to
+      confirm the invitation to the Jazzband GitHub organization.
+    </p>
+  </div>
+  {% endif %}
   <p>
-    Your current membership status:
-    {% if current_user.is_member %}
-      Active
-    {% else %}
-      <strong>Inactive</strong>
-      <p>
-        To become a member <a href="{{ url_for('account.join') }}">please join here</a>.
-      </p>
-    {% endif %}
-  </p>
-  <h4>Account data</h4>
-  <p>
-    Jazzband fetched some data about you from the
+    We fetched some data about you from the
     <a href="https://developer.github.com/v3/">GitHub API</a> to be able to
     display the <a href="{{ url_for('members.index') }}">members list</a>.
   </p>
   <p>
-    For example your GitHub login is <i>{{ current_user.login }}</i>,
+    For example your GitHub login is <b>{{ current_user.login }}</b>,
     your GitHub account can be found <a href="{{ current_user.html_url }}">here</a>
     and your Avatar image <a href="{{ current_user.avatar_url }}">here</a>.
   </p>
+{#}  <h4>Projects</h4>
+  <p>
+    {% if current_user.projects_memberships.scalar() %}
+    The project(s) you're a member of. If you are a project lead
+    in one of them you can do releases to PyPI as well.
+    <ul>
+      {% for project_membership in current_user.projects_memberships %}
+        <li>
+          <a href="{{ url_for('projects.detail', name=project_membership.project.name) }}">{{ project_membership.project.name }}</a>
+          {% if project_membership.is_lead %} (lead){% endif %}</li>
+      {% endfor %}
+    </ul>      
+  {% else %}
+    You haven't joined any project so far, do you <a href="{{ url_for('projects.index') }}">want to do that now</a>?
+    If not, that's okay, you're still part of the band.
+  {% endif %}
+  </p>
+#}
   <h4>Email addresses</h4>
   <p>
-    The email addresses that were fetched from the GitHub API to make sure
+    The email addresses that we fetched using the GitHub API to make sure
     there is at least one verified:
     <ul>
     {% for email in current_user.email_addresses.all() %}
@@ -38,11 +56,11 @@
     {% endfor %}
   </ul>
   </p>
-  <h4>What to do?</h4>
+  <h4>What's next?</h4>
   <p>
-    You may wonder what is there to do in the Jazzband. And that's a fair
-    question since this site doesn't provide much specific work to do by
-    itself.
+    You may be wondering what you can do as member of the Jazzband.
+    And that's a fair question since this site doesn't provide much
+    specific work to do by itself.
   </p>
   <p>
     All code work happens in our

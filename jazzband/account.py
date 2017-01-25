@@ -1,15 +1,31 @@
-from flask import Blueprint, redirect, url_for, flash, request
+from flask import Blueprint, redirect, url_for, flash
 from flask_login import (LoginManager, current_user,
                          login_user, logout_user, login_required)
+from flask_wtf import FlaskForm
+from wtforms import StringField, validators, ValidationError
 
 from .decorators import templated
-from .forms import LeaveForm
 from .github import github
-from .models import db, User, update_user_email_addresses
+from .members.tasks import sync_user_email_addresses
+from .members.models import db, User
 
 login_manager = LoginManager()
 login_manager.login_view = 'account.login'
 account = Blueprint('account', __name__, url_prefix='/account')
+
+
+class LeaveForm(FlaskForm):
+    login = StringField(
+        'Your GitHub Login',
+        validators=[
+            validators.DataRequired(),
+        ]
+    )
+
+    def validate_login(self, field):
+        if field.data != current_user.login:
+            raise ValidationError(
+                "Sorry, but that GitHub login doesn't match our records.")
 
 
 @login_manager.user_loader
@@ -65,12 +81,12 @@ def callback(access_token):
         db.session.commit()
 
     # fetch the current set of email addresses from GitHub
-    update_user_email_addresses(user)
+    sync_user_email_addresses.delay(user.id)
 
     # remember the user_id for the next request
     login_user(user)
-
     # then redirect to the account dashboard
+    flash("You've successfully logged in.")
     return redirect(url_for('account.dashboard'))
 
 
@@ -88,14 +104,18 @@ def join():
         flash("You're already a member of Jazzband")
         return redirect(next_url)
 
-    update_user_email_addresses(current_user)
-    has_verified_emails = current_user.check_verified_emails()
+    has_verified_emails = current_user.has_verified_emails()
+    # in case the user doesn't have verified emails, let's check again
+    # the async task may not have run yet
+    if not has_verified_emails:
+        sync_user_email_addresses(current_user)
+        has_verified_emails = current_user.has_verified_emails()
 
     membership = None
     if has_verified_emails:
         membership = github.join_organization(current_user.login)
         if membership:
-            flash("Jazzband has asked GitHub to send you an invitation")
+            flash("To join please confirm the invitation from GitHub.")
 
     return {
         'next_url': 'https://github.com/jazzband/roadies/wiki/Welcome',
@@ -132,4 +152,5 @@ def leave():
 @account.route('/logout')
 def logout():
     logout_user()
+    flash("You've successfully logged out.")
     return redirect(default_url())

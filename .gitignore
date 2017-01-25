@@ -4,3 +4,8 @@ jazzband/static/css/styles.*.css
 venv/
 .eggs
 *.egg-info
+.cache
+node_modules
+.bash_history
+.python_history
+uploads/

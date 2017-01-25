@@ -1,14 +1,18 @@
 {% extends "layouts/default.html" %}
 
+{% import "macros.html" as macros %}
+
 {% block content %}
 <div class="c4">
   <h2><a href="{{ url_for('.index') }}" title="Projects">Projects</a> » {{ project.name }}</h2>
   <p>
     {{ project.description }}
   </p>
+  {% if project.html_url %}
   <p>
     More infos: <a href="{{ project.html_url }}">{{ project.html_url }}</a>
   </p>
+  {% endif %}
   <table class="projects-detail">
     <tr>
       <td><span class="mega-octicon octicon-eye"></span></td>
@@ -31,5 +35,36 @@
       <td>{{ project.open_issues_count }}</td>
     </tr>
   </table>
-</div>
+  {% if project.is_member and uploads %}
+  <h3>Uploads</h3>
+  <p>
+    There are currently
+    <b>{{ uploads.count() }} uploads</b> for {{ project.name }}, with
+    <b>{{ uploads.filter_by(released_at=None).count() }} unreleased</b>.
+  </p>
+  <p>
+    Please see the
+    <a href="{{ url_for('.uploads', name=project.name) }}">uploads overview</a>
+    for more details and the ability to either delete or release them to
+    <a href="https://pypi.org/">PyPI</a>.
+  </p>
+  <p>
+    Please refer to the documentation for more information about how the release process works.
+  </p>
+  {% endif %}
+  {# <h3>Members</h3>
+  {% if project.membership.scalar() %}
+  <div class="grid">
+    {% for member in project.membership %}
+    <div class="grid-cell">
+      {{ macros.avatar_cell(member.user) }}
+    </div>
+    {% endfor %}
+    {{ macros.avatar_js() }}
+  </div>
+  {% else %}
+    There are no members of this project yet.
+  {% endif %}
+  #}
+  </div>
 {% endblock %}

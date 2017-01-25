@@ -4,37 +4,35 @@
 <div class="tilted">
   <div class="c2">
     <h3>
-      Jazzband is a cooperative experiment to reduce the stress of
-      maintaining Open Source software alone.
+      Jazzband is a collaborative community to share the
+      responsibility of maintaining Python-based projects.
     </h3>
     <p>
-      The goal of the Jazzband is to offer relief by sharing responsibility
-      for open source work with other like-minded people. It offers
-      maintainers and contributors the ability to play in the same band
-      instead of being forced into “artist” and “audience” roles by the
-      tools GitHub provides.
+      It gives maintainers and contributors the ability to
+      “play in the same band” instead of being forced into
+      “artist” and “audience” roles.
+    </p>
+    <p>
+      When you join Jazzband you will become a
+      <a href="{{ url_for('members.index') }}">member</a> of its
+      <a href="https://github.com/jazzband">GitHub organization</a> and
+      granted a wide range of privileges there such as pushing code
+      to repositories, triaging issues, merging pull requests, etc.
     </p>
   </div>
   <div class="c3">
     <p>
-      When you join Jazzband you will be automatically added as a
-      <a href="{{ url_for('members.index') }}">member</a> to its
-      <a href="https://github.com/jazzband">GitHub organization</a> and
-      granted a wide range of privileges such as creating and editing
-      repositories, pushing code, working on issues etc.
-    </p>
-    <p>
-      You can leave admin tasks to the
+      You can leave administrative tasks to the
       <a href="{{ url_for('members.roadies') }}">roadies</a>, the people
       making sure the band can play when they want.
     </p>
     <p>
-      Once you are a member you can move a repo into the Jazzband
-      organization if it matches
-      <a href="{{ url_for('content.about', path='guidelines') }}">the guidelines</a>,
-      you can start working on
-      <a href="{{ url_for('projects.index') }}">existing Jazzband projects</a>
-      and much more.
+      Once you are a member you can transfer an existing repo to the Jazzband
+      organization as long as you follow the
+      <a href="{{ url_for('content.about', path='guidelines') }}">guidelines</a>.
+      There are also many existing Jazzband
+      <a href="{{ url_for('projects.index') }}">projects</a>
+      which you can start contributing directly.
     </p>
     <p>
       Learn more <a href="{{ url_for('content.about') }}">about Jazzband</a>

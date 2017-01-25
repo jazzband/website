@@ -2,17 +2,17 @@
 $red: #BB381C;
 $white: #ededed;
 $black: #202020;
-
 $blue: #17679b;
-$yellow: #FFD900;
 
 /* FONTS  */
 $text: 'Source Sans Pro', sans-serif;
 $headline: 'Contrail One', sans-serif;
-$code: 'Roboto Mono', monospace;
+$code: 'Fira Mono', monospace;
 
 $light: 300;
-$semi-bold: 700;
+$regular: 400;
+$semi-bold: 600;
+$bold: 700;
 $ultra-bold: 900;
 
 // http://www.gridlover.net/app/, Font Size 18, Line Height 1.5 Scale Factor: 1.25 / Major Third
@@ -28,6 +28,7 @@ $line-height: $base-line-height;
 $h1-font-size: 3.815em;
 $h2-font-size: 1.953em; //1.563em;
 $h3-font-size: 1.25em;
+$h4-font-size: 1.1em;
 $small: 0.8em;
 
 // @mixin image-2x($image, $width, $height) {

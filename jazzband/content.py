@@ -1,4 +1,3 @@
-import os
 import babel.dates
 from flask import (Blueprint, current_app, render_template, redirect, request,
                    url_for, send_from_directory, safe_join)

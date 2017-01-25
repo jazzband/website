@@ -3,10 +3,10 @@ tags: django, oss, python
 published: 2015-12-17T10:27:00+01:00
 author: Jannis Leidel
 author_link: https://twitter.com/jezdez
-summary: We are all part of the band. Jazzband is a cooperative experiment to
+summary: We are all part of this. Jazzband is a cooperative experiment to
          reduce the stress of maintaining Open Source software projects.
 
-### We are all part of the band.
+### We are all part of this.
 
 [Jazzband](https://jazzband.co/) is a cooperative experiment to reduce the
 stress of maintaining Open Source software projects. It aims at lowering the

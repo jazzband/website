@@ -1,8 +1,11 @@
 Babel
+delegator.py
 Flask
 Flask-Admin
 Flask-Assets
+Flask-CeleryExt
 Flask-Compress
+Flask-Mail
 Flask-Flatpages
 Flask-Hookserver
 Flask-KVSession
@@ -14,6 +17,7 @@ flask-talisman
 Flask-WTF
 GitHub-Flask
 gunicorn
+Honcho
 libsass
 pip-tools
 psycopg2
@@ -22,5 +26,9 @@ pygments-markdown-lexer
 python-decouple
 raven[flask]
 redis
+sqlalchemy>=0.9
+sqlalchemy-utils
+twine
 whitenoise
 wtforms
+packaging

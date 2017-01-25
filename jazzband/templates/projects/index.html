@@ -1,5 +1,11 @@
 {% extends "layouts/default.html" %}
 
+{% set this_url = url_for('projects.index') %}
+
+{%- macro sorter_link(sorter, current_sorter, current_order, icon) -%}
+<a href="{{ this_url }}?sorter={{ sorter }}{% if current_order != DEFAULT_ORDER and sorter != 'random' and not initial_sorting and sorter == current_sorter %}&order={{ DEFAULT_ORDER }}{% endif %}" title="Sort by {{ sorter }}"{% if sorter == current_sorter %} class="red"{% endif %}><span class="mega-octicon octicon-{{ icon }}"></span></a>
+{%- endmacro -%}
+
 {% block content %}
 <div class="c4">
   <h2>Projects</h2>
@@ -12,26 +18,42 @@
   <table class="projects-index">
     <thead>
       <tr>
-        <th>Project</th>
-        {# <th class="numbers"><span class="mega-octicon octicon-package" title="Releases"></span></th>#}
-        <th class="numbers"><span class="mega-octicon octicon-eye" title="Watchers"></span></th>
-        <th class="numbers"><span class="mega-octicon octicon-star" title="Stargazers"></span></th>
-        <th class="numbers"><span class="mega-octicon octicon-repo-forked" title="Forks"></span></th>
-        <th class="numbers"><span class="mega-octicon octicon-issue-opened" title="Issues"></span></th>
+        <th>
+          {{ sorter_link('name', sorter, order, 'repo') }}
+        </th>
+          <th class="numbers">
+          {{ sorter_link('random', sorter, order, 'squirrel') }}
+        </th>
+        <th class="numbers">
+          {{ sorter_link('uploads', sorter, order, 'package') }}
+        </th>
+        <th class="numbers">
+          {{ sorter_link('watchers', sorter, order, 'eye') }}
+        </th>
+        <th class="numbers">
+          {{ sorter_link('stargazers', sorter, order, 'star') }}
+        </th>
+        <th class="numbers">
+          {{ sorter_link('forks', sorter, order, 'repo-forked') }}
+        </th>
+        <th class="numbers">
+           {{ sorter_link('issues', sorter, order, 'issue-opened') }}
+        </th>
       </tr>
     </thead>
     <tbody>
       {% for project in projects %}
       <tr>
-        <td><a href="{{ url_for('projects.detail', name=project.name) }}">{{ project.name }}</a></td>
-        {# <td class="numbers">1</td>#}
+        <td><a href="{{ url_for('projects.detail', name=project.normalized_name) }}">{{ project.name }}</a></td>
+        <td class="numbers"></td>
+        <td class="numbers">{{ project.uploads_count or '' }}</td>
         <td class="numbers">{{ project.subscribers_count }}</td>
         <td class="numbers">{{ project.stargazers_count }}</td>
         <td class="numbers">{{ project.forks_count }}</td>
         <td class="numbers">{{ project.open_issues_count }}</td>
       </tr>
       <tr>
-        <td class="description" colspan="5">{{ project.description }}</td>
+        <td class="description" colspan="6">{{ project.description }}</td>
       </tr>
       {% endfor %}
     </tbody>

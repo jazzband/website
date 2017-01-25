@@ -13,7 +13,7 @@ In that sense it's hoped that opening the contribution process will lower
 the barrier of entry for new contributors and reduce the stress that comes
 with receiving commit access to a project by spreading it to a bigger group.
 
-"We are all part of the band" means that we share the responsibilties of
+**"We are all part of this"** means that we share the responsibilties of
 open source software development, including dreaming big, acting positively
 and failing sometimes. It'll be okay since we're not alone.
 
@@ -28,6 +28,10 @@ breach of conduct.
 
 Simply, send an email to `security@jazzband.co`. Please don't open an
 issue on GitHub or post details about the incident publicly.
+
+### How do releases to the Python Package Index work?
+
+Please refer to the separate [releases](/about/releases) page.
 
 ### How do I leave the Jazzband again?
 
@@ -94,11 +98,11 @@ as member of the organization on
 
 ### Are you collecting any information on Jazzband.co?
 
-When joining the Jazzband (by visiting `https://jazzband.co/join`) you grant
-the site the permission to fetch your email address(es) and the team and
-organization membership status of your [GitHub] account. That data is only used
-to determine whether you're already a member and if required invite your GitHub
-account to the Jazzband GitHub organization.
+When joining the Jazzband (by clicking on the join link in the sidebar)
+you grant the site the permission to fetch your email address(es) and the
+team and organization membership status of your [GitHub] account.
+That data is only used to determine whether you're already a member and
+if required invite your GitHub account to the Jazzband GitHub organization.
 
 The site uses cookies that are required for this site to work correctly
 (e.g. session cookies). By visiting this site you're implicitly accepting
@@ -108,7 +112,7 @@ The site also uses [Piwik](https://piwik.org/) to learn more about its
 visitors. It respects the [Do Not Track] HTTP request header when sent by
 your browser and offers the ability to optionally opt-out here:
 
-<iframe class="admonition" style="height: 100%; width: 560px;" src="https://analytics.websushi.org/index.php?module=CoreAdminHome&action=optOut&language=en"></iframe>
+<iframe class="optout" src="https://analytics.websushi.org/index.php?module=CoreAdminHome&action=optOut&language=en"></iframe>
 
 [Do Not Track]: http://donottrack.us/
 [GitHub]: https://github.com/

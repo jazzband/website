@@ -8,13 +8,24 @@ body {
     -moz-hyphens: auto;
     hyphens: auto;
 }
+body,
+html {
+    background-color: $white;
+    font-size: $base-font-size;
+    font-weight: $light;
+    line-height: $base-line-height;
+    color: $black;
+    font-family: $text;
+}
+b, strong {
+    font-weight: $semi-bold;
+}
 code,
 pre {
     font-family: $code;
-    font-weight: 400;
     font-size: $small;
     background-color: #fff;
-    padding: 1px 4px;
+    padding: 3px 4px 2px;
     white-space: pre-wrap;
     /* css-3 */
     white-space: -moz-pre-wrap;
@@ -28,15 +39,6 @@ pre {
 }
 div.codehilite pre {
     padding: 4px 6px;
-}
-
-body,
-html {
-    background-color: $white;
-    font-size: $base-font-size;
-    line-height: $base-line-height;
-    color: $black;
-    font-family: $text;
 }
 button,
 input {
@@ -56,7 +58,76 @@ ul {
             color: $red;
         }
     }
+    &.navigation {
+        padding: 1.5em 0 0;
+        column-count: 2;
+        column-gap: 1.4em;
+        margin: 0 0 0 0.5em;
+        color: $red;
+        font-size: 0.80em;
+        font-weight: $semi-bold;
+        text-transform: uppercase;
+        -webkit-hyphens: none;
+        -moz-hyphens: none;
+        hyphens: none;
+        li {
+            list-style: decimal-leading-zero;
+            a {
+                color: $black;
+                text-decoration: none;
+                font-weight: $semi-bold;
+                text-transform: uppercase;
+                &.red {
+                  color: $red;
+                    &:hover {
+                        color: lighten($red, 10%);
+                    }
+                }
+                &:hover {
+                    color: lighten($black, 20%);
+                }
+            }
+        }
+    }
 }
+@media all and (max-width: 1023px) {
+    .toc {
+        display: none;
+    }
+}
+@media all and (min-width: 1024px) {
+    .toc {
+        margin: 1em 0;
+        padding: 0.1em 0 0.2em;
+        background-color: #fff;
+        ul, ol {
+            margin: 0.4em 1em 0.4em 0.5em;
+            column-count: 2;
+            column-gap: 1.4em;
+            color: lighten($black, 30%);
+            font-size: 0.85em;
+            font-weight: $semi-bold;
+            li {
+                margin-bottom: 0.1em;
+                list-style: disc;
+                a {
+                    color: $black;
+                    text-decoration: none;
+                    &.red {
+                        color: $red;
+                        &:hover {
+                            color: lighten($red, 10%);
+                        }
+                    }
+                    &:hover {
+                        color: lighten($black, 20%);
+                    }
+                }
+            }
+        }
+    }
+}
+
 .logo {
     width: 100px;
     height: 106px;
@@ -67,7 +138,6 @@ ul {
     font-size: 1.86em;
     text-align: center;
     text-transform: uppercase;
-    font-weight: 400;
     font-family: $headline;
     padding: 0;
     background-color: $white;
@@ -89,14 +159,12 @@ h1 {
     font-size: $h1-font-size;
     line-height: 1.1;
     font-family: $headline;
-    font-weight: $ultra-bold;
     text-transform: uppercase;
     padding: 0;
     margin: 0.75em 0;
 }
 h2 {
     font-family: $headline;
-    font-weight: $ultra-bold;
     font-size: $h2-font-size;
     line-height: $line-height;
     margin: $margin;
@@ -113,6 +181,12 @@ h2 {
 }
 h3 {
     font-size: $h3-font-size;
+    line-height: $line-height;
+    font-weight: $semi-bold;
+    margin: $margin;
+}
+h4 {
+    font-size: $h4-font-size;
     line-height: $line-height;
     font-weight: $semi-bold;
     margin: $margin;
@@ -164,6 +238,8 @@ ul > li {
 }
 a {
     color: $blue;
+    text-decoration: none;
+    font-weight: $regular;
     &.headerlink {
         color: lighten($black, 40%);
         text-decoration: none;
@@ -186,23 +262,24 @@ a {
     }
 }
 ::selection {
-    background: $yellow;
-    color: $black;
+    background: $red;
+    color: $white;
 }
 ::-moz-selection {
-    background: $yellow;
+    background: $red;
+    color: $white;
 }
 .c1 {
     width: 260px;
     margin: 0 auto;
 }
-.join {
+.sidebar {
     text-align: left;
     max-width: 300px;
     z-index: 2;
 }
 @media all and (max-width: 1023px) {
-    body.about > .wrapper {
+    body > .wrapper {
         .c1 {
             display: none;
         }
@@ -232,7 +309,10 @@ a {
         .c3 {
             text-align: left;
         }
-        .join {
+        .c4 {
+            margin-top: 70px;
+        }
+        .sidebar {
             clear: left;
         }
     }
@@ -275,9 +355,9 @@ a {
             width: 560px;
             padding-bottom: 100px;
         }
-        .join {
+        .sidebar {
             position: absolute;
-            top: 490px;
+            top: 430px;
         }
     }
     .tilted {
@@ -297,6 +377,9 @@ th {
     text-align: left;
     vertical-align: top;
 }
+th {
+    font-weight: $semi-bold;
+}
 table.projects-index {
     td,
     th {
@@ -306,6 +389,13 @@ table.projects-index {
         }
         .description {
             padding-bottom: 15px;
+        }
+        a {
+            &.red {
+                &:hover {
+                    color: lighten($red, 10%);
+                }
+            }
         }
     }
 }
@@ -337,7 +427,7 @@ blockquote {
 .warning {
     margin: 1em 0;
     padding: 0 0 0.5em;
-    border: 2px solid $black;
+    background-color: white;
     p {
         margin: 0.3em 1em;
         &.admonition-title {
@@ -422,4 +512,37 @@ blockquote {
         text-align: center;
         line-height: 1.0;
     }
+}
+
+dl.upload-info {
+    dt, dd  {
+        display: inline-block;
+        vertical-align: top;
+        margin: 0;
+    }
+    dt {
+        width: 72%;
+        margin: 0 0 0.5em;
+    }
+
+    dd {
+        font-weight: $regular;
+        width: 27%;
+        margin: 0 0 0.5em;
+    }
+}
+
+@media all and (max-width: 600px) {
+    dl.upload-info {
+        dt, dd {
+            width: 100%;
+        }
+    }
+}
+
+iframe.optout {
+    border: 0;
+    background: white;
+    height: 100%;
+    width: 100%;
 }
