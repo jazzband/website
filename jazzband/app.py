@@ -1,11 +1,11 @@
 import os
-from flask import Flask, abort, render_template
+from flask import Flask, render_template
 
 from flask_compress import Compress
 from flask_migrate import Migrate
 from flask_kvsession import KVSessionExtension
+from flask_talisman import Talisman
 from simplekv.memory.redisstore import RedisStore
-from talisman import Talisman
 from werkzeug.contrib.fixers import ProxyFix
 from whitenoise import WhiteNoise
 
@@ -20,7 +20,7 @@ from .members import members
 from .models import db, User, Project, EmailAddress
 from .projects import projects
 
-IS_HEROKU = 'HEROKU_APP_NAME' in os.environ
+IS_PRODUCTION = 'PRODUCTION' in os.environ
 
 # setup flask
 app = Flask('jazzband')
@@ -43,23 +43,6 @@ def error(error):
     return render_template('error.html'), 500
 
 
-def find_key(token):
-    if token == os.environ.get("ACME_TOKEN"):
-        return os.environ.get("ACME_KEY")
-    for name, value in os.environ.items():
-        if value == token and name.startswith("ACME_TOKEN_"):
-            number = name.replace("ACME_TOKEN_", "")
-            return os.environ.get("ACME_KEY_{}".format(number))
-
-
-@app.route("/.well-known/acme-challenge/<token>")
-def acme(token):
-    key = find_key(token)
-    if key is None:
-        abort(404)
-    return key
-
-
 @app.context_processor
 def app_context_processor():
     return {
@@ -80,12 +63,14 @@ def add_vary_header(response):
 @app.cli.group()
 def sync():
     "Sync Jazzband data"
+
+
 sync.command()(commands.projects)
 sync.command()(commands.members)
 
 Talisman(
     app,
-    force_https=IS_HEROKU,
+    force_https=IS_PRODUCTION,
     force_file_save=True,
     content_security_policy={
         # Fonts from fonts.google.com
@@ -114,11 +99,11 @@ admin.add_view(JazzbandModelView(User, db.session))
 admin.add_view(JazzbandModelView(Project, db.session))
 admin.add_view(JazzbandModelView(EmailAddress, db.session))
 
-if 'OPBEAT_SECRET_TOKEN' in os.environ:
-    from opbeat.contrib.flask import Opbeat
-    Opbeat(app, logging=True)
+if 'SENTRY_DSN' in os.environ:
+    from raven.contrib.flask import Sentry
+    sentry = Sentry(app, logging=True)
 
-if 'HEROKU_APP_NAME' in os.environ:
+if IS_PRODUCTION:
     app.wsgi_app = ProxyFix(app.wsgi_app)
 
 app.wsgi_app = WhiteNoise(

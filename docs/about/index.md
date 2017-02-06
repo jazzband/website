@@ -45,6 +45,5 @@ is key and compromises required in a Jazzband.
 
 ### Support
 
-Jazzband is graciously supported by [Opbeat](https://opbeat.com/)
-(performance and error monitoring) and
+Jazzband is graciously supported by
 [BrowserStack](https://www.browserstack.com) (browser and device testing).
