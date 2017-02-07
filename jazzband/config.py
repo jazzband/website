@@ -82,8 +82,8 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 CSP_REPORT_URI = config('CSP_REPORT_URI', None)
 CSP_REPORT_ONLY = config('CSP_REPORT_ONLY', False, cast=bool)
 
+SENTRY_USER_ATTRS = ['id', 'login', 'is_banned', 'is_member']
 if 'GIT_REV' in os.environ:
     SENTRY_CONFIG = {
         'release': os.environ['GIT_REV'],
     }
-    SENTRY_USER_ATTRS = ['id', 'login', 'is_banned', 'is_member']
