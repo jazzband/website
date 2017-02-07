@@ -20,8 +20,6 @@ from .members import members
 from .models import db, User, Project, EmailAddress
 from .projects import projects
 
-IS_PRODUCTION = 'PRODUCTION' in os.environ
-
 # setup flask
 app = Flask('jazzband')
 # load decoupled config variables
@@ -70,7 +68,7 @@ sync.command()(commands.members)
 
 Talisman(
     app,
-    force_https=IS_PRODUCTION,
+    force_https=app.config.IS_PRODUCTION,
     force_file_save=True,
     content_security_policy={
         # Fonts from fonts.google.com
@@ -103,7 +101,7 @@ if 'SENTRY_DSN' in os.environ:
     from raven.contrib.flask import Sentry
     sentry = Sentry(app, logging=True)
 
-if IS_PRODUCTION:
+if app.config.IS_PRODUCTION:
     app.wsgi_app = ProxyFix(app.wsgi_app)
 
 app.wsgi_app = WhiteNoise(

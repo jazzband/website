@@ -1,5 +1,5 @@
 from flask import Blueprint, redirect
-from  sqlalchemy.sql.expression import func
+from sqlalchemy.sql.expression import func
 
 from .decorators import http_cache, templated
 from .models import User

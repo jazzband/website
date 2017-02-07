@@ -7,6 +7,8 @@ from markdown.extensions.wikilinks import WikiLinkExtension
 
 from .renderer import smart_pygmented_markdown
 
+IS_PRODUCTION = 'PRODUCTION' in os.environ
+
 ROOT_DIR = os.path.dirname(__file__)
 
 SECRET_KEY = config('SECRET_KEY', 'dev key')
@@ -67,7 +69,7 @@ SQLALCHEMY_DATABASE_URI = config(
     'DATABASE_URL',
     'postgres://jazzband:jazzband@localhost:5432/jazzband',
 )
-if 'HEROKU_APP_NAME' in os.environ:
+if IS_PRODUCTION:
     SQLALCHEMY_DATABASE_URI += '?sslmode=require'
     VALIDATE_IP = config('GITHUB_VALIDATE_IP', True, cast=bool)
     VALIDATE_SIGNATURE = config('GITHUB_VALIDATE_SIGNATURE', True, cast=bool)
@@ -79,3 +81,9 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 CSP_REPORT_URI = config('CSP_REPORT_URI', None)
 CSP_REPORT_ONLY = config('CSP_REPORT_ONLY', False, cast=bool)
+
+if 'GIT_REV' in os.environ:
+    SENTRY_CONFIG = {
+        'release': os.environ['GIT_REV'],
+    }
+    SENTRY_USER_ATTRS = ['id', 'login', 'is_banned', 'is_member']
