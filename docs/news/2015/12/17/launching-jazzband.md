@@ -1,4 +1,4 @@
-title: Lauching Jazzband
+title: Launching Jazzband
 tags: django, oss, python
 published: 2015-12-17T10:27:00+01:00
 author: Jannis Leidel
