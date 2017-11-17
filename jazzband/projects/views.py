@@ -171,7 +171,7 @@ class UploadsView(UploadsBaseView):
 
         for lead_member in lead_members:
 
-            primary_email = recipient.email_addresses.filter(
+            primary_email = lead_member.email_addresses.filter(
                 EmailAddress.primary == True,
                 EmailAddress.verified == True,
             ).first()

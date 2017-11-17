@@ -1,0 +1,80 @@
+{% extends "layouts/default.html" %}
+
+{% block content %}
+<div class="c4">
+  <h2>
+    <a href="{{ url_for('.index') }}" title="Projects">Projects</a> »
+    <a href="{{ url_for('.detail', name=project.name) }}">{{ project.name }}</a> »
+    <a href="{{ url_for('.uploads', name=project.name) }}">Uploads</a>
+  </h2>
+  <p>
+    {{ upload.project.description }}
+  </p>
+  {% if upload.project.html_url %}
+  <p>
+    More infos:
+    <a href="{{ upload.project.html_url }}">{{ upload.project.html_url }}</a>
+  </p>
+  {% endif %}
+
+  {% if project.is_member and upload %}
+    {% if upload %}
+    <dl class="upload-info">
+    <dd>Version</dd>
+    <dt>{{ upload.version }}</dt>
+    {{ macros.upload_info(upload) }}
+    </dl>
+
+    <h2>Release to PyPI</h2>
+
+    {% if release_form.global_errors %}
+    <ul class=errors>
+      {% for error in release_form.global_errors %}
+      <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if twine_run %}
+    <div class="admonition">
+      <p class="admonition-title">Standard output</p>
+      <p>{{ twine_run.out }}</p>
+    </div>
+    <div class="admonition">
+      <p class="admonition-title">Standard error</p>
+      <p>{{ twine_run.err }}</p>
+    </div>
+    {% endif %}
+
+    <div class="admonition">
+      <p class="admonition-title">
+      A note about releasing to PyPI
+      </p>
+      <p>
+        You are about to release <code>{{ upload.filename }}</code> to
+        <a href="https://pypi.python.org/pypi">PyPI</a>.
+      </p>
+      <p>
+        Please make sure that you've confirmed the contents of the file
+        with all due skill, care and diligence before releasing it to the
+        public.
+      </p>
+      <p>
+        <b>Releasing the upload can only be reverted by the roadies!</b>
+      </p>
+      <p>
+        <i>Please approve the file by entering the project name below.</i>
+      </p>
+    </div>
+    <form action="" method="POST">
+      {{ release_form.csrf_token }}
+      <dl>
+        {{ macros.render_field(release_form.project_name) }}
+      </dl>
+      {{ release_form.submit }}
+      <a href="{{ url_for('.uploads', name=project.name) }}">back to uploads</a>
+    </form>
+    {% endif %}
+  {% endif %}
+</div>
+{% endblock %}

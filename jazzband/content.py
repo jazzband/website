@@ -56,7 +56,7 @@ def news_feed():
         updated = page.meta.get('updated', published)
         summary = page.meta.get('summary', None)
         feed.add(title=page.meta['title'],
-                 content=unicode(page.html),
+                 content=str(page.html),
                  content_type='html',
                  summary=summary,
                  summary_type='text',

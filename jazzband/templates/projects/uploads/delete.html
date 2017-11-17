@@ -1,0 +1,64 @@
+{% extends "layouts/default.html" %}
+
+{% block content %}
+<div class="c4">
+  <h2>
+    <a href="{{ url_for('.index') }}" title="Projects">Projects</a> »
+    <a href="{{ url_for('.detail', name=project.name) }}">{{ project.name }}</a> »
+    <a href="{{ url_for('.uploads', name=project.name) }}">Uploads</a>
+  </h2>
+  <p>
+    {{ upload.project.description }}
+  </p>
+  {% if upload.project.html_url %}
+  <p>
+    More infos:
+    <a href="{{ upload.project.html_url }}">{{ upload.project.html_url }}</a>
+  </p>
+  {% endif %}
+
+  {% if project.is_member and upload %}
+    {% if upload %}
+    <dl class="upload-info">
+    <dd>Version</dd>
+    <dt>{{ upload.version }}</dt>
+    {{ macros.upload_info(upload) }}
+    </dl>
+
+    <h2>Delete upload</h2>
+    <div class="admonition">
+      <p class="admonition-title">
+      A note about deleting an upload
+      </p>
+      <p>
+        You are about to delete <code>{{ upload.filename }}</code>
+        from this site.
+      </p>
+      <p>
+        This means, you won't be able to release the upload to
+        <a href="https://pypi.python.org/pypi">PyPI</a>
+        anymore and will have to manually trigger a CI build
+        to re-upload the file.
+      </p>
+      <p>
+        Deleting the upload won't affect any other releases on PyPI.
+      </p>
+      <p>
+          <b>Deleting the upload can't be reverted!</b>
+      </p>
+      <p>
+        <i>Please approve the deletion by entering the project name below.</i>
+      </p>
+    </div>
+    <form action="" method="POST">
+      {{ delete_form.csrf_token }}
+      <dl>
+        {{ macros.render_field(delete_form.project_name) }}
+      </dl>
+      {{ delete_form.submit }}
+      <a href="{{ url_for('.uploads', name=project.name) }}">back to uploads</a>
+    </form>
+    {% endif %}
+  {% endif %}
+</div>
+{% endblock %}
