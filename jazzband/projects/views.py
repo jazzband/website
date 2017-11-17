@@ -352,7 +352,7 @@ class UploadsView(UploadsBaseView):
             # write to database
             upload.save()
 
-        # self.send_notifications(upload)
+        self.send_notifications(upload)
         return 'OK'
 
 
