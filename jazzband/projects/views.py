@@ -193,7 +193,7 @@ class UploadsView(UploadsBaseView):
                 upload=upload,
             )
         )
-        message.send()
+        mail.send(message)
 
     def get(self, name):
         return {
