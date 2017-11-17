@@ -189,7 +189,6 @@ class UploadsView(UploadsBaseView):
             bcc=list(User.roadies()),
             body=render_template(
                 'projects/mails/project_upload_notification.txt',
-                recipient=recipient,
                 project=self.project,
                 upload=upload,
             )
