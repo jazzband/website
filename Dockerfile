@@ -38,3 +38,5 @@ USER 10001
 WORKDIR /app
 
 COPY . /app/
+
+RUN chown -R 10001:10001 /app
