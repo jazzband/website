@@ -8,9 +8,6 @@ services:
   redis:
     image: redis:latest
 
-  wait:
-    image: aanand/wait
-
   app:
     build: .
     # pass those two into the environment
@@ -32,7 +29,6 @@ services:
     ports:
       - "5000:5000"
     links:
-      - wait
       - db
       - redis
 
@@ -41,6 +37,5 @@ services:
       service: app
     command: honcho start -f Procfile.dev worker
     links:
-      - wait
       - db
       - redis
