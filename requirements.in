@@ -19,6 +19,7 @@ GitHub-Flask
 gunicorn
 Honcho
 libsass
+packaging
 pip-tools
 psycopg2
 pygments
@@ -29,6 +30,6 @@ redis
 sqlalchemy>=0.9
 sqlalchemy-utils
 twine
+uwsgi
 whitenoise
 wtforms
-packaging
