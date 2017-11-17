@@ -1,5 +1,4 @@
 # coding: utf-8
-from __future__ import absolute_import, print_function
 from flask_assets import Environment, Bundle
 from webassets.filter import Filter, register_filter
 
@@ -68,9 +67,10 @@ class FixedLibSass(Filter):
             )
         )
 
+
 register_filter(FixedLibSass)
 
-assets = Environment()
+assets = Environment(cache=False)
 
 styles = Bundle(
     'scss/styles.scss',
