@@ -1,3 +1,4 @@
+import sys
 from flask import Flask, render_template
 
 from flask_celeryext import create_celery_app
@@ -64,6 +65,31 @@ def add_vary_header(response):
     response.vary.add('Cookie')
     response.headers['Jazzband'] = "We're all part of the band"
     return response
+
+
+@app.cli.group()
+def check():
+    "Checks some backends"
+
+
+@check.command()
+def postgres():
+    "Checks database connection"
+    try:
+        db.session.execute('SELECT 1')
+    except Exception:
+        sys.exit(1)
+
+
+@check.command()
+def redis():
+    "Checks database connection"
+    try:
+        response = app.config['REDIS'].ping()
+    except Exception:
+        response = None
+    if not response:
+        sys.exit(1)
 
 
 @app.cli.group()
