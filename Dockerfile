@@ -33,10 +33,10 @@ RUN set -x \
     && pip install --no-cache-dir -r /tmp/requirements.txt \
     && find /usr/local -type f -name '*.pyc' -name '*.pyo' -delete
 
-USER 10001
-
-WORKDIR /app
-
 COPY . /app/
 
 RUN chown -R 10001:10001 /app
+
+USER 10001
+
+WORKDIR /app
