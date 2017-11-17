@@ -70,7 +70,7 @@ class FixedLibSass(Filter):
 
 register_filter(FixedLibSass)
 
-assets = Environment(cache=False)
+assets = Environment()
 
 styles = Bundle(
     'scss/styles.scss',
