@@ -169,7 +169,7 @@ class UploadsView(UploadsBaseView):
 
         recipients = []
 
-        for lead_member in lead_members:
+        for lead_member in lead_members + list(User.roadies()):
 
             primary_email = lead_member.email_addresses.filter(
                 EmailAddress.primary == True,
@@ -186,7 +186,6 @@ class UploadsView(UploadsBaseView):
                 f'[Jazzband] Project {self.project.name} received a new upload'
             ),
             recipients=recipients,
-            bcc=list(User.roadies()),
             body=render_template(
                 'projects/mails/project_upload_notification.txt',
                 project=self.project,
