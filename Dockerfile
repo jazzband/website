@@ -30,9 +30,8 @@ RUN pip install -U pip
 COPY requirements.txt /tmp/
 
 RUN set -x \
-    && pip install -r /tmp/requirements.txt \
-    && find /usr/local -type f -name '*.pyc' -name '*.pyo' -delete \
-    && rm -rf ~/.cache/
+    && pip install --no-cache-dir -r /tmp/requirements.txt \
+    && find /usr/local -type f -name '*.pyc' -name '*.pyo' -delete
 
 USER 10001
 
