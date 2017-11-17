@@ -182,9 +182,7 @@ class UploadsView(UploadsBaseView):
             recipients.append(primary_email.email)
 
         message = Message(
-            subject=(
-                f'[Jazzband] Project {self.project.name} received a new upload'
-            ),
+            subject=f'Project {self.project.name} received a new upload',
             recipients=recipients,
             body=render_template(
                 'projects/mails/project_upload_notification.txt',
