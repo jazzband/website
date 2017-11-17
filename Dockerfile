@@ -33,12 +33,6 @@ RUN set -x \
     && pip install --no-cache-dir -r /tmp/requirements.txt \
     && find /usr/local -type f -name '*.pyc' -name '*.pyo' -delete
 
-ENV TINI_VERSION v0.16.1
-ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
-ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini.asc /tini.asc
-RUN gpg --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 595E85A6B1B4779EA4DAAEC70B588DFF0527A9B7 \
-    && gpg --verify /tini.asc
-
 COPY . /app/
 
 RUN chown -R 10001:10001 /app
@@ -47,4 +41,4 @@ USER 10001
 
 WORKDIR /app
 
-ENTRYPOINT ["/tini", "--", "/app/docker-entrypoint.sh"]
+ENTRYPOINT ["/app/docker-entrypoint.sh", "--"]
