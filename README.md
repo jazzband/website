@@ -1,20 +1,17 @@
-This app renders https://jazzband.co. It's mostly a copy of [add-to-org]
-since I couldn't figure out how to do a few things with Sinatra.
-It also renders Markdown based documentation for the Jazzband.
-
-[![Requirements Status](https://requires.io/github/jazzband/website/requirements.svg?branch=master)](https://requires.io/github/jazzband/website/requirements/?branch=master)
+This app renders https://jazzband.co.
 
 [![Jazzband](https://jazzband.co/static/img/badge.svg)](https://jazzband.co/)
 
+[![Updates](https://pyup.io/repos/github/jazzband/website/shield.svg)](https://pyup.io/repos/github/jazzband/website/)
+
 ## Installation
 
-Assuming you have a Python stack installed, run `make install`. This will
-create a virtualenv in the folder of your checkout and install all required
-Python dependencies.
+Install Docker. Run `make build`. This will create a set of Docker
+containers with all backends and dependencies.
 
 ## Running
 
-Run `make run` to run the development server.
+Run `make run` to run the development server and worker.
 
 ## License
 
