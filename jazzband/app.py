@@ -110,7 +110,7 @@ Talisman(
         'script-src': "'self' analytics.websushi.org",
         'style-src': "'self' 'unsafe-inline'",
         'img-src': "* data:",
-        'object-src': 'none',
+        'object-src': "'none'",
     },
     content_security_policy_report_only=app.config['CSP_REPORT_ONLY'],
     content_security_policy_report_uri=app.config['CSP_REPORT_URI'],
