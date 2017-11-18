@@ -12,12 +12,14 @@ class User(db.Model, Helpers, Syncable, UserMixin):
     is_member = db.Column(
         db.Boolean,
         server_default=expression.false(),
+        default=False,
         nullable=False,
         index=True,
     )
     is_roadie = db.Column(
         db.Boolean,
         server_default=expression.false(),
+        default=False,
         nullable=False,
         index=True,
     )
