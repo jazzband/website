@@ -26,11 +26,7 @@
 
 {% macro avatar_js() %}
 <script src="{{ url_for('static', filename='js/blazy.min.js') }}"></script>
-<script type="text/javascript">
-    ; (function () {
-        var bLazy = new Blazy();
-    })();
-</script>
+<script src="{{ url_for('static', filename='js/lazy.js') }}"></script>
 {% endmacro %}
 
 

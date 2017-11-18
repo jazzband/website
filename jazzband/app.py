@@ -107,9 +107,10 @@ Talisman(
     content_security_policy={
         'font-src': "'self'",
         'child-src': "'self' analytics.websushi.org",
-        'script-src': "'self' analytics.websushi.org 'unsafe-inline'",
+        'script-src': "'self' analytics.websushi.org",
         'style-src': "'self' 'unsafe-inline'",
         'img-src': "* data:",
+        'object-src': 'none',
     },
     content_security_policy_report_only=app.config['CSP_REPORT_ONLY'],
     content_security_policy_report_uri=app.config['CSP_REPORT_URI'],
