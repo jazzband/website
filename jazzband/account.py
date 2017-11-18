@@ -104,12 +104,12 @@ def join():
         flash("You're already a member of Jazzband")
         return redirect(next_url)
 
-    has_verified_emails = current_user.has_verified_emails()
+    has_verified_emails = current_user.has_verified_emails
     # in case the user doesn't have verified emails, let's check again
     # the async task may not have run yet
     if not has_verified_emails:
         sync_user_email_addresses(current_user)
-        has_verified_emails = current_user.has_verified_emails()
+        has_verified_emails = current_user.has_verified_emails
 
     membership = None
     if has_verified_emails:
