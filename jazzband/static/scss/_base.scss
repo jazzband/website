@@ -286,7 +286,7 @@ a {
     }
 }
 @media all and (max-width: 600px) {
-    .c4 {
+    .c2, .c4 {
         margin-top: 130px;
     }
 }
@@ -303,7 +303,10 @@ a {
         }
         .c2 {
             width: 300px;
-            padding: 110px 0 0 50px;
+            padding: 30px 20px 0 50px;
+        }
+        .c3 {
+            padding: 122px 0 0 50px;
         }
         .c2,
         .c3 {
@@ -343,6 +346,7 @@ a {
             width: 275px;
         }
         .c2 {
+            padding: 0 0 0 10px;
             margin: 50px 0 0 80px;
             text-align: right;
         }
