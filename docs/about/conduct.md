@@ -1,4 +1,5 @@
 title: Code of Conduct
+navigation: Conduct
 
 As contributors and maintainers of the Jazzband projects, and in the interest
 of fostering an open and welcoming community, we pledge to respect all people
