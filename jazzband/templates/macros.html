@@ -37,9 +37,7 @@
 
 {% macro upload_info(upload) %}
 <dd>File name</dd>
-<dt><a href="{{ url_for('.download', name=upload.project.name, upload_id=upload.id) }}" title="Download file">{{ upload.filename }}</a> {% if not upload.released_at -%}
-<a href="{{ url_for('.delete', name=upload.project.name, upload_id=upload.id) }}" title="Delete release">Delete</a>
-{%- endif -%}
+<dt>{{ upload.filename }}
 </dt>
 <dd>File size</dd>
 <dt>{{ upload.size|filesizeformat }}</dt>
@@ -47,11 +45,7 @@
 <dt>{{ upload.uploaded_at }}</dt>
 <dd>Released at</dd>
 <dt>
-  {% if upload.released_at %}
-    {{ upload.released_at }}
-  {% else %}
-    <a href="{{ url_for('.release', name=upload.project.name, upload_id=upload.id) }}">Release to PyPI</a>
-  {% endif %}
+  {{ upload.released_at|default('n/a', true) }}
 </dt>
 <dd>MD5 digest</dd>
 <dt><pre>{{ upload.md5_digest }}</pre></dt>
@@ -59,9 +53,17 @@
 <dt><pre>{{ upload.sha256_digest }}</pre></dt>
 <dd>Blake2 256 digest</dd>
 <dt><pre>{{ upload.blake2_256_digest }}</pre></dt>
-<dd>Form data</dd>
+<dd>User agent</dd>
+<dt><pre>{{ upload.user_agent }}</pre></dt>
+<dd>Remote address</dd>
+<dt><pre>{{ upload.remote_addr }}</pre></dt>
+<dd>Actions</dd>
 <dt>
-  <a href="{{ url_for('projects.formdata', name=upload.project.name, upload_id=upload.id) }}" title="All submitted data submitted during the upload as JSON">View as JSON</a>
+  <a href="{{ url_for('projects.formdata', name=upload.project.name, upload_id=upload.id) }}" title="View submitted formdata as JSON">Metadata</a>
+  <a href="{{ url_for('.download', name=upload.project.name, upload_id=upload.id) }}" title="Download uploaded file">Download</a> {% if not upload.released_at -%}
+  <a href="{{ url_for('.release', name=upload.project.name, upload_id=upload.id) }}" title="Release to PyPI">Release</a>
+  <a href="{{ url_for('.delete', name=upload.project.name, upload_id=upload.id) }}" title="Delete release">Delete</a>
+  {%- endif %}
 </dt>
 
 {% endmacro %}

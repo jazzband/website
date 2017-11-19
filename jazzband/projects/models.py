@@ -8,6 +8,7 @@ from sqlalchemy import func, orm
 from sqlalchemy.dialects.postgresql import UUID, JSONB
 from sqlalchemy_utils import aggregated
 
+from ..auth import current_user_is_roadie
 from ..models import Helpers, Syncable, db
 
 
@@ -52,8 +53,15 @@ class Project(db.Model, Helpers, Syncable):
         return db.func.count('1')
 
     @property
-    def is_member(self):
-        return current_user.id in self.member_ids
+    def current_user_is_member(self):
+        if not current_user:
+            return False
+        elif not current_user.is_authenticated:
+            return False
+        elif current_user_is_roadie():
+            return True
+        else:
+            return current_user.id in self.member_ids
 
     @property
     def member_ids(self):
@@ -121,6 +129,8 @@ class ProjectUpload(db.Model, Helpers):
     uploaded_at = db.Column(db.DateTime, default=datetime.utcnow)
     released_at = db.Column(db.DateTime, nullable=True)
     form_data = db.Column(JSONB)
+    user_agent = db.Column(db.Text)
+    remote_addr = db.Column(db.Text)
 
     __tablename__ = 'project_uploads'
     __table_args__ = (
@@ -140,7 +150,7 @@ class ProjectUpload(db.Model, Helpers):
         return self.full_path + '.asc'
 
     def __str__(self):
-        return self.path
+        return self.filename
 
     def __repr__(self):
         return '<ProjectUpload %s (%s)>' % (self.filename, self.id)

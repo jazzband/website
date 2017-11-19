@@ -76,10 +76,6 @@ PERMANENT_SESSION_LIFETIME = timedelta(days=14)
 
 LIBSASS_STYLE = 'compressed'
 
-OPBEAT = {
-    'HOSTNAME': 'jazzband.co',
-}
-
 SQLALCHEMY_DATABASE_URI = config('DATABASE_URL',
                                  'postgres://postgres@db/postgres')
 if IS_PRODUCTION:
@@ -111,5 +107,7 @@ if 'GIT_REV' in os.environ:
     }
 
 UPLOAD_ROOT = '/app/uploads'
+UPLOAD_ENABLED = config('UPLOAD_ENABLED', True, cast=bool)
+RELEASE_ENABLED = config('RELEASE_ENABLED', True, cast=bool)
 
 MAX_CONTENT_LENGTH = 60 * 1024 * 1024  # 60M

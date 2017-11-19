@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 
 if 'SENTRY_DSN' in os.environ:
     from raven.contrib.flask import Sentry
-    sentry = Sentry(logging=True)
+    sentry = Sentry(logging=True, logging_level=logging.INFO)
 else:
     class FakeSentry:
         def init_app(self, *args, **kwargs):

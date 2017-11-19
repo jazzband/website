@@ -34,8 +34,13 @@
       <td>Issues</td>
       <td>{{ project.open_issues_count }}</td>
     </tr>
+    <tr>
+      <td><span class="mega-octicon octicon-package"></span></td>
+      <td>Uploads</td>
+      <td>{{ project.uploads_count }}</td>
+    </tr>
   </table>
-  {% if project.is_member and uploads %}
+  {% if project.current_user_is_member and uploads %}
   <h3>Uploads</h3>
   <p>
     There are currently
@@ -43,14 +48,34 @@
     <b>{{ uploads.filter_by(released_at=None).count() }} unreleased</b>.
   </p>
   <p>
-    Please see the
-    <a href="{{ url_for('.uploads', name=project.name) }}">uploads overview</a>
-    for more details and the ability to either delete or release them to
+    Please see the uploads overview below for more details and the
+    ability to either delete or release them to
     <a href="https://pypi.org/">PyPI</a>.
   </p>
+  <div class="admonition">
+    <p class="admonition-title">How do releases work?</p>
+    <p>
+      Please refer to the
+      <a href="/about/releases">releases documentation</a> for more information about the release process. If you have any question, please file a
+      <a href="/roadies/issue?labels=pypi">new issue for the roadies
+      </a> with the label "PyPI" or
+      <a href="/about/contact">contact</a>
+      us directly.
+    </p>
+  </div>
   <p>
-    Please refer to the documentation for more information about how the release process works.
+    In case of a security issue please refer to the
+    <a href="/security">security documentation</a>.
   </p>
+  {% for upload in uploads %} {% if loop.changed(upload.version) %}
+  <h3>{{ upload.version }}</h3>
+  {% endif %}
+  <dl class="upload-info">
+    {{ macros.upload_info(upload) }}
+  </dl>
+  {% else %}
+  <p>Not uplods found for this project.</p>
+  {% endfor %}
   {% endif %}
   {# <h3>Members</h3>
   {% if project.membership.scalar() %}

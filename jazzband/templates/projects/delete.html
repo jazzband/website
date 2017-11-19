@@ -5,7 +5,7 @@
   <h2>
     <a href="{{ url_for('.index') }}" title="Projects">Projects</a> »
     <a href="{{ url_for('.detail', name=project.name) }}">{{ project.name }}</a> »
-    <a href="{{ url_for('.uploads', name=project.name) }}">Uploads</a>
+    Delete upload
   </h2>
   <p>
     {{ upload.project.description }}
@@ -17,7 +17,7 @@
   </p>
   {% endif %}
 
-  {% if project.is_member and upload %}
+  {% if project.current_user_is_member and upload %}
     {% if upload %}
     <dl class="upload-info">
     <dd>Version</dd>
@@ -25,7 +25,6 @@
     {{ macros.upload_info(upload) }}
     </dl>
 
-    <h2>Delete upload</h2>
     <div class="admonition">
       <p class="admonition-title">
       A note about deleting an upload
@@ -43,7 +42,7 @@
       <p>
         Deleting the upload won't affect any other releases on PyPI.
       </p>
-      <p>
+      <p class="red">
           <b>Deleting the upload can't be reverted!</b>
       </p>
       <p>
@@ -56,7 +55,7 @@
         {{ macros.render_field(delete_form.project_name) }}
       </dl>
       {{ delete_form.submit }}
-      <a href="{{ url_for('.uploads', name=project.name) }}">back to uploads</a>
+      <a href="{{ url_for('.detail', name=project.name) }}">back</a>
     </form>
     {% endif %}
   {% endif %}

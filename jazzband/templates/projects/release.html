@@ -5,7 +5,7 @@
   <h2>
     <a href="{{ url_for('.index') }}" title="Projects">Projects</a> »
     <a href="{{ url_for('.detail', name=project.name) }}">{{ project.name }}</a> »
-    <a href="{{ url_for('.uploads', name=project.name) }}">Uploads</a>
+    Release upload
   </h2>
   <p>
     {{ upload.project.description }}
@@ -17,15 +17,13 @@
   </p>
   {% endif %}
 
-  {% if project.is_member and upload %}
+  {% if project.current_user_is_member and upload %}
     {% if upload %}
     <dl class="upload-info">
     <dd>Version</dd>
     <dt>{{ upload.version }}</dt>
     {{ macros.upload_info(upload) }}
     </dl>
-
-    <h2>Release to PyPI</h2>
 
     {% if release_form.global_errors %}
     <ul class=errors>
@@ -59,7 +57,7 @@
         with all due skill, care and diligence before releasing it to the
         public.
       </p>
-      <p>
+      <p class="red">
         <b>Releasing the upload can only be reverted by the roadies!</b>
       </p>
       <p>
@@ -72,7 +70,7 @@
         {{ macros.render_field(release_form.project_name) }}
       </dl>
       {{ release_form.submit }}
-      <a href="{{ url_for('.uploads', name=project.name) }}">back to uploads</a>
+      <a href="{{ url_for('.detail', name=project.name) }}">back</a>
     </form>
     {% endif %}
   {% endif %}
