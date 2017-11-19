@@ -3,7 +3,7 @@ Hi there,
 The Jazzband project "{{ project.name }}" has received a new upload
 and requires your review.
 
-Please go the following URL to review the upload:
+Please go to the following URL to review the upload:
 
 {{ url_for('projects.uploads', name=project.name, _external=True) }}
 
