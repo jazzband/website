@@ -3,7 +3,7 @@ Hi there,
 The Jazzband project "{{ project.name }}" has received a new upload
 and requires your review.
 
-Please go the following URL to review the upload:
+Please go to the following URL to review the upload:
 
 {{ url_for('projects.uploads', name=project.name, _external=True) }}
 
@@ -20,19 +20,12 @@ corrolate the upload to the code changes:
 UPLOAD METADATA
 
 ID: {{ upload.id }}
-
 Version: {{ upload.version }}
-
 Filename: {{ upload.filename }}
-
 File size: {{ upload.size|filesizeformat }}
-
 Uploaded at: {{ upload.uploaded_at }}
-
 MD5 digest: {{ upload.md5_digest }}
-
 SHA256 digest: {{ upload.sha256_digest }}
-
 Blake2 256 digest: {{ upload.blake2_256_digest }}
 
 
