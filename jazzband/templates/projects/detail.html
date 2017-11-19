@@ -36,11 +36,13 @@
       <td>Issues</td>
       <td>{{ project.open_issues_count }}</td>
     </tr>
+    {% if project.uploads_count %}
     <tr>
       <td><span class="mega-octicon octicon-package"></span></td>
       <td>Uploads</td>
       <td>{{ project.uploads_count }}</td>
     </tr>
+    {% endif %}
   </table>
   {% if project.current_user_is_member and uploads %}
   <h3>Uploads</h3>
@@ -76,7 +78,7 @@
     {{ macros.upload_info(upload) }}
   </dl>
   {% else %}
-  <p>Not uplods found for this project.</p>
+  <p>No uplods found for this project.</p>
   {% endfor %}
   {% endif %}
   {# <h3>Members</h3>
