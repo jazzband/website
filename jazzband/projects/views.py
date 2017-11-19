@@ -66,11 +66,9 @@ def index():
     if order == DEFAULT_ORDER:
         criterion = desc(criterion)
 
-    projects = Project.query.filter_by(
-        is_active=True,
-    ).filter(
-        Project.name != 'website',
-        Project.name != 'roadies'
+    projects = Project.query.filter(
+        Project.is_active.is_(True),
+        ~Project.name.in_(['website', 'roadies']),
     ).order_by(
         criterion
     )
@@ -89,7 +87,10 @@ class ProjectMixin(object):
         name = kwargs.get('name')
         if not name:
             abort(404)
-        self.project = Project.query.filter_by(name=name).first_or_404()
+        self.project = Project.query.filter(
+            Project.is_active.is_(True),
+            Project.name == name,
+        ).first_or_404()
         return super().dispatch_request(*args, **kwargs)
 
 
@@ -325,7 +326,10 @@ class UploadActionView(MethodView):
     decorators = [login_required]
 
     def dispatch_request(self, *args, **kwargs):
-        projects = Project.query.filter(Project.name == kwargs.get('name'))
+        projects = Project.query.filter(
+            Project.is_active.is_(True),
+            Project.name == kwargs.get('name'),
+        )
         if not current_user_is_roadie():
             projects = projects.filter(
                 Project.membership.any(is_lead=True),
