@@ -5,7 +5,6 @@ from flask_celeryext import create_celery_app
 from flask_compress import Compress
 from flask_migrate import Migrate
 from flask_kvsession import KVSessionExtension
-from flask_talisman import Talisman
 from simplekv.memory.redisstore import RedisStore
 from werkzeug.contrib.fixers import ProxyFix
 from whitenoise import WhiteNoise
@@ -16,6 +15,7 @@ from .assets import assets
 from .content import about_pages, news_pages, content
 from .errors import sentry
 from .github import github
+from .headers import talisman
 from .hooks import hooks
 from .email import mail
 from .models import db
@@ -100,18 +100,11 @@ def sync():
 sync.command('projects')(sync_projects)
 sync.command('members')(sync_members)
 
-Talisman(
+talisman.init_app(
     app,
     force_https=app.config['IS_PRODUCTION'],
     force_file_save=True,
-    content_security_policy={
-        'font-src': "'self'",
-        'child-src': "'self' analytics.websushi.org",
-        'script-src': "'self' analytics.websushi.org",
-        'style-src': "'self' 'unsafe-inline'",
-        'img-src': "* data:",
-        'object-src': "'none'",
-    },
+    content_security_policy=app.config['CSP_RULES'],
     content_security_policy_report_only=app.config['CSP_REPORT_ONLY'],
     content_security_policy_report_uri=app.config['CSP_REPORT_URI'],
 )

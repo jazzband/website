@@ -94,6 +94,15 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 CSP_REPORT_URI = config('CSP_REPORT_URI', None)
 CSP_REPORT_ONLY = config('CSP_REPORT_ONLY', False, cast=bool)
+CSP_RULES = {
+    'default-src': "'self'",
+    'font-src': "'self'",
+    'frame-src': "'self' analytics.websushi.org",
+    'script-src': "'self' analytics.websushi.org",
+    'style-src': "'self' 'unsafe-inline'",
+    'img-src': "* data:",
+    'object-src': "'none'",
+}
 
 SENTRY_USER_ATTRS = ['id', 'login', 'is_banned', 'is_member']
 if 'GIT_REV' in os.environ:

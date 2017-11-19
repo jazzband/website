@@ -1,19 +1,23 @@
 from flask import redirect, url_for, request
 from flask_admin import Admin
-from flask_admin.contrib import rediscli, sqla
-from flask_admin.contrib.fileadmin import FileAdmin
+from flask_admin.contrib import sqla
 
 from .auth import current_user_is_roadie
+from .headers import talisman
 from .models import db
 from .members.models import User, EmailAddress
 from .projects.models import (Project, ProjectCredential, ProjectUpload,
                               ProjectMembership)
 
 
-admin = Admin(name='jazzband', template_mode='bootstrap3')
-
-
 class JazzbandModelView(sqla.ModelView):
+
+    def _handle_view(self, name, **kwargs):
+        """
+        Disable CSP for the admin.
+        """
+        talisman.local_options.content_security_policy = None
+        return super()._handle_view(name, **kwargs)
 
     def is_accessible(self):
         return current_user_is_roadie()
@@ -46,7 +50,7 @@ class ProjectUploadAdmin(JazzbandModelView):
 
 
 def init_admin(app):
-    admin.init_app(app)
+    admin = Admin(app, name='jazzband', template_mode='bootstrap3')
 
     admin.add_view(UserAdmin(User, db.session))
     admin.add_view(EmailAddressAdmin(EmailAddress, db.session))
