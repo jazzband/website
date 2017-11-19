@@ -19,10 +19,10 @@ function wait_for_check {(
 )}
 
 # first wait for the database
-wait_for_check redis & wait_for_check postgres
+# wait_for_check redis & wait_for_check postgres
 
 # then run the database migrations
-flask db upgrade
+# flask db upgrade
 
 # then build the assets
 flask assets build
