@@ -108,7 +108,7 @@ def join():
     # in case the user doesn't have verified emails, let's check again
     # the async task may not have run yet
     if not has_verified_emails:
-        sync_user_email_addresses(current_user)
+        sync_user_email_addresses(current_user.id)
         has_verified_emails = current_user.has_verified_emails
 
     membership = None
