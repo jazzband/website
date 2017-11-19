@@ -53,7 +53,7 @@
         <td class="numbers">{{ project.open_issues_count }}</td>
       </tr>
       <tr>
-        <td class="description" colspan="6">{{ project.description }}</td>
+        <td class="description" colspan="6">{{ project.description|default('', true) }}</td>
       </tr>
       {% endfor %}
     </tbody>

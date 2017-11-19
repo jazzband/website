@@ -5,9 +5,11 @@
 {% block content %}
 <div class="c4">
   <h2><a href="{{ url_for('.index') }}" title="Projects">Projects</a> » {{ project.name }}</h2>
+  {% if project.description %}
   <p>
     {{ project.description }}
   </p>
+  {% endif %}
   {% if project.html_url %}
   <p>
     More infos: <a href="{{ project.html_url }}">{{ project.html_url }}</a>
