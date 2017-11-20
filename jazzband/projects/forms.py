@@ -132,7 +132,7 @@ class TwoFactorAuthValidation:
     submit = SubmitField()
 
     def validate_submit(self, field):
-        if current_user.has_2fa:
+        if not current_user.has_2fa:
             raise ValidationError(
                 'Sorry, but to release the upload you need to have '
                 'Two Factor Auth (2FA) enabled on GitHub.'
