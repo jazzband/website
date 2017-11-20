@@ -69,6 +69,13 @@
       <dl>
         {{ macros.render_field(release_form.project_name) }}
       </dl>
+      {% if release_form.submit.errors %}
+      <ul class=errors>
+        {% for error in release_form.submit.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
       {{ release_form.submit }}
       <a href="{{ url_for('.detail', name=project.name) }}">back</a>
     </form>

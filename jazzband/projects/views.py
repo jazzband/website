@@ -81,7 +81,7 @@ def index():
     }
 
 
-class ProjectMixin(object):
+class ProjectMixin:
 
     def dispatch_request(self, *args, **kwargs):
         name = kwargs.get('name')
@@ -468,15 +468,6 @@ class UploadReleaseView(UploadActionView):
             flash(message)
             logging.info(message)
 
-        if not current_user.has_2fa:
-            message = (
-                f"To release {self.upload.filename} you need to have "
-                f"Two Factor Auth (2FA) enabled on GitHub."
-            )
-            flash(message)
-            logger.error(message)
-            return self.redirect_to_project()
-
         if self.upload.released_at:
             flash(
                 f"The upload {self.upload.filename} has already been released "
@@ -570,17 +561,6 @@ class UploadDeleteView(UploadActionView):
         }
 
     def post(self, name, upload_id):
-        if not current_user.has_2fa:
-            message = (
-                f"To delete {self.upload} you need to have "
-                f"Two Factor Auth (2FA) enabled on GitHub."
-            )
-            flash(message)
-            logger.error(message, extra={
-                'stack': True,
-            })
-            return self.redirect_to_project()
-
         if self.upload.released_at:
             message = (
                 f"The upload {self.upload} has already been "

@@ -7,7 +7,7 @@ from .utils import sub_dict
 db = SQLAlchemy()
 
 
-class Syncable(object):
+class Syncable:
     synced_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
 
     @classmethod
@@ -34,7 +34,7 @@ def timestamp_before_update(mapper, connection, target):
     target.synced_at = datetime.utcnow()
 
 
-class Helpers(object):
+class Helpers:
 
     @classmethod
     def update_or_create(cls, defaults=None, commit=True, **kwargs):

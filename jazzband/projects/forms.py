@@ -1,4 +1,5 @@
 import re
+from flask_login import current_user
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 from packaging import version
@@ -127,7 +128,18 @@ class ProjectNameForm(FlaskForm):
             )
 
 
-class ReleaseForm(ProjectNameForm):
+class TwoFactorAuthValidation:
+    submit = SubmitField()
+
+    def validate_submit(self, field):
+        if current_user.has_2fa:
+            raise ValidationError(
+                'Sorry, but to release the upload you need to have '
+                'Two Factor Auth (2FA) enabled on GitHub.'
+            )
+
+
+class ReleaseForm(TwoFactorAuthValidation, ProjectNameForm):
     submit = SubmitField('Release')
 
     def __init__(self, *args, **kwargs):
@@ -138,5 +150,5 @@ class ReleaseForm(ProjectNameForm):
         self.global_errors.extend(messages)
 
 
-class DeleteForm(ProjectNameForm):
+class DeleteForm(TwoFactorAuthValidation, ProjectNameForm):
     submit = SubmitField('Delete')
