@@ -408,14 +408,14 @@ class UploadReleaseView(UploadActionView):
 
             if release_files:
                 for release_file in release_files:
-                    release_fiename = release_file.get('filename', None)
+                    release_filename = release_file.get('filename', None)
                     if release_filename is None:
                         error = 'No file found in PyPI validation response.'
                         logger.error(error, extra={
                             'stack': True,
                         })
 
-                    if release_fiename == self.upload.filename:
+                    if release_filename == self.upload.filename:
                         digests = release_file.get('digests', {})
                         if digests:
                             md5_digest = digests.get('md5', None)
