@@ -1,14 +1,11 @@
 Hi there,
 
 The Jazzband project "{{ project.name }}" has received a new upload and requires your review.
-
 {% if lead_members|count > 1 -%}
 For coordination purposes here are the lead project members that have received this email:
 {% for lead_member in lead_members %}
 - {{ lead_member.login }}
-{%- endfor -%}
-{%- endif %}
-
+{% endfor %}{% endif %}
 Please go to the following URL to review the upload:
 
 {{ url_for('projects.detail', name=project.name, _external=True) }}
