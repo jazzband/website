@@ -76,23 +76,18 @@ class ProjectCredential(db.Model, Helpers):
     id = db.Column(db.Integer, primary_key=True)
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))
     is_active = db.Column(db.Boolean, default=True, nullable=False, index=True)
-    username = db.Column(UUID(as_uuid=True), default=uuid4)
-    password = db.Column(UUID(as_uuid=True), default=uuid4)
+    key = db.Column(UUID(as_uuid=True), default=uuid4)
 
     __tablename__ = 'project_credentials'
     __table_args__ = (
-        db.Index('release_username_password_is_active_idx',
-                 'username', 'password', 'is_active'),
+        db.Index('release_key_is_active_idx', 'key', 'is_active'),
     )
 
     def __str__(self):
-        return self.username.hex
+        return self.key.hex
 
     def __repr__(self):
-        return (
-            '<ProjectCredential %s: %s (active: %s)>' %
-            (self.id, self.username, self.is_active)
-        )
+        return f'<ProjectCredential {self.id} (active: {self.is_active})>'
 
 
 class ProjectMembership(db.Model, Helpers):

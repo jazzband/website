@@ -126,10 +126,11 @@ class UploadView(ProjectMixin, MethodView):
         # the upload killswitch
         if not current_app.config['UPLOAD_ENABLED']:
             return False
+        if request.authorization.username != 'jazzband':
+            return False
         return self.project.credentials.filter_by(
             is_active=True,
-            username=request.authorization.username,
-            password=request.authorization.password,
+            key=request.authorization.password,
         ).scalar()
 
     def send_notifications(self, upload):
@@ -138,7 +139,6 @@ class UploadView(ProjectMixin, MethodView):
         ).filter(
             ProjectMembership.is_lead == True,
             User.is_member == True,
-            User.has_2fa == True,
             User.is_banned == False,
         )
         lead_members = [membership.user for membership in lead_memberships]
@@ -164,6 +164,7 @@ class UploadView(ProjectMixin, MethodView):
                 'projects/mails/project_upload_notification.txt',
                 project=self.project,
                 upload=upload,
+                lead_members=lead_members,
             )
         )
         mail.send(message)
