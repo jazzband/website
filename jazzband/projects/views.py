@@ -15,6 +15,7 @@ from flask import (abort, Blueprint, current_app, flash, jsonify,
 from flask.views import MethodView
 from flask_login import current_user, login_required
 from flask_mail import Message
+from packaging.version import parse as parse_version
 from requests.exceptions import HTTPError
 from sqlalchemy import desc
 from sqlalchemy.orm import joinedload
@@ -102,11 +103,16 @@ class DetailView(ProjectMixin, MethodView):
     decorators = [templated()]
 
     def get(self, name):
+        uploads = self.project.uploads.order_by(
+            ProjectUpload.version.desc()
+        )
+        versions = set()
+        for upload in uploads:
+            versions.add(upload.version)
         return {
             'project': self.project,
-            'uploads': self.project.uploads.order_by(
-                ProjectUpload.version.desc()
-            ),
+            'uploads': uploads,
+            'versions': sorted(versions, key=parse_version, reverse=True),
         }
 
 

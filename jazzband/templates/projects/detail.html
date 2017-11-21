@@ -68,11 +68,21 @@
     </p>
   </div>
   <p>
-    In case of a security issue please refer to the
-    <a href="/security">security documentation</a>.
+    In case of a security issue please refer to the <a href="/security">security documentation</a>.
+  </p>
+  <h3>Versions</h3>
+  <p>
+    {% if versions|count > 1 %}
+    There are currently {{ versions|count }} versions:
+    {% else %}
+    There is currently only one version:
+    {% endif %}
+    {% for version in versions %}
+    <a href="#{{ version }}">{{ version }}</a>{% if not loop.last %}, {% endif %}
+    {% endfor %}
   </p>
   {% for upload in uploads %} {% if loop.changed(upload.version) %}
-  <h3>{{ upload.version }}</h3>
+  <h4 id="{{ upload.version }}">{{ upload.version }} <a class="headerlink" name=#{{ upload.version }}" href="#v{{ upload.version }}" title="Permanent link">¶</a></h4>
   {% set version_upload_count= uploads.filter_by(version=upload.version).count() %}
   {% if version_upload_count > 1 %}
   <div class="admonition">
