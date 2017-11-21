@@ -92,7 +92,7 @@ CSP_REPORT_URI = config('CSP_REPORT_URI', None)
 CSP_REPORT_ONLY = config('CSP_REPORT_ONLY', False, cast=bool)
 CSP_RULES = {
     'default-src': "'self'",
-    'font-src': "'self'",
+    'font-src': "'self' data:",
     'frame-src': "'self' analytics.websushi.org",
     'script-src': "'self' analytics.websushi.org",
     'style-src': "'self' 'unsafe-inline'",
