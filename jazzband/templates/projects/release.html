@@ -60,10 +60,10 @@
       <p class="red">
         <b>Releasing the upload can only be reverted by the roadies!</b>
       </p>
-      <p>
-        <i>Please approve the file by entering the project name below.</i>
-      </p>
     </div>
+    <p>
+      Please confirm releasing the upload <b>{{ upload.filename }}</b> to PyPI by entering the project name below.
+    </p>
     <form action="" method="POST">
       {{ release_form.csrf_token }}
       <dl>

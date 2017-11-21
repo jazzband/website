@@ -192,8 +192,9 @@ h4 {
     margin: $margin;
 }
 div.codehilite,
-dl,
 p,
+dl,
+ol,
 ul {
     font-size: $base-font-size;
     margin-bottom: $base-font-size;
@@ -427,6 +428,35 @@ blockquote {
     font-style: italic;
     margin-left: 20px;
 }
+
+dl.upload-info {
+    background-color: white;
+    padding: 0.6em 1em 0;
+    dt, dd  {
+        display: inline-block;
+        vertical-align: top;
+        margin: 0 0 0.6em;
+    }
+    dt {
+        width: 72%;
+        a {
+            margin-right: 6px;
+        }
+    }
+    dd {
+        font-weight: $regular;
+        width: 27%;
+    }
+}
+
+@media all and (max-width: 600px) {
+    dl.upload-info {
+        dt, dd {
+            width: 100%;
+        }
+    }
+}
+
 .admonition,
 .warning {
     margin: 1em 0;
@@ -515,32 +545,6 @@ blockquote {
         margin: 14px 14px 14px 0px;
         text-align: center;
         line-height: 1.0;
-    }
-}
-
-dl.upload-info {
-    dt, dd  {
-        display: inline-block;
-        vertical-align: top;
-        margin: 0;
-    }
-    dt {
-        width: 72%;
-        margin: 0 0 0.5em;
-    }
-
-    dd {
-        font-weight: $regular;
-        width: 27%;
-        margin: 0 0 0.5em;
-    }
-}
-
-@media all and (max-width: 600px) {
-    dl.upload-info {
-        dt, dd {
-            width: 100%;
-        }
     }
 }
 

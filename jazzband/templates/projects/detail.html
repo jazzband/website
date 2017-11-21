@@ -73,6 +73,13 @@
   </p>
   {% for upload in uploads %} {% if loop.changed(upload.version) %}
   <h3>{{ upload.version }}</h3>
+  {% set version_upload_count= uploads.filter_by(version=upload.version).count() %}
+  {% if version_upload_count > 1 %}
+  <div class="admonition">
+    <p class="admonition-title">Multiple uploads for version {{ upload.version }} found!</p>
+    <p>Please make sure you <b>release all uploads individually</b> below.</p>
+  </div>
+  {% endif %}
   {% endif %}
   <dl class="upload-info">
     {{ macros.upload_info(upload) }}

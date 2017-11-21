@@ -44,7 +44,7 @@
 <dt>{{ upload.uploaded_at }}</dt>
 <dd>Released at</dd>
 <dt>
-  {{ upload.released_at|default('n/a', true) }}
+  {{ upload.released_at|default('unreleased', true) }}
 </dt>
 <dd>MD5 digest</dd>
 <dt><pre>{{ upload.md5_digest }}</pre></dt>
@@ -56,12 +56,12 @@
 <dt><pre>{{ upload.user_agent }}</pre></dt>
 <dd>Remote address</dd>
 <dt><pre>{{ upload.remote_addr }}</pre></dt>
-<dd>Actions</dd>
+<dd></dd>
 <dt>
-  <a href="{{ url_for('projects.formdata', name=upload.project.name, upload_id=upload.id) }}" title="View submitted formdata as JSON">Metadata</a>
-  <a href="{{ url_for('.download', name=upload.project.name, upload_id=upload.id) }}" title="Download uploaded file">Download</a> {% if not upload.released_at -%}
-  <a href="{{ url_for('.release', name=upload.project.name, upload_id=upload.id) }}" title="Release to PyPI">Release</a>
-  <a href="{{ url_for('.delete', name=upload.project.name, upload_id=upload.id) }}" title="Delete release">Delete</a>
+  <a href="{{ url_for('projects.formdata', name=upload.project.name, upload_id=upload.id) }}" title="View submitted formdata as JSON"><span class="octicon octicon-info"></span> Metadata</a>
+  <a href="{{ url_for('.download', name=upload.project.name, upload_id=upload.id) }}" title="Download uploaded file"><span class="octicon octicon-desktop-download"></span> Download</a> {% if not upload.released_at -%}
+  <a href="{{ url_for('.release', name=upload.project.name, upload_id=upload.id) }}" title="Release to PyPI"><span class="octicon octicon-cloud-upload"></span> Release</a>
+  <a href="{{ url_for('.delete', name=upload.project.name, upload_id=upload.id) }}" title="Delete release"><span class="octicon octicon-trashcan"></span> Delete</a>
   {%- endif %}
 </dt>
 

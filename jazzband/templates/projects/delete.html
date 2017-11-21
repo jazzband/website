@@ -49,6 +49,9 @@
         <i>Please approve the deletion by entering the project name below.</i>
       </p>
     </div>
+    <p>
+      Please confirm deleting the upload <b>{{ upload.filename }}</b> by entering the project name below.
+    </p>
     <form action="" method="POST">
       {{ delete_form.csrf_token }}
       <dl>
