@@ -44,7 +44,11 @@
 <dt>{{ upload.uploaded_at }}</dt>
 <dd>Released at</dd>
 <dt>
-  {{ upload.released_at|default('unreleased', true) }}
+  {% if upload.released_at %}
+    {{ upload.released_at }}
+  {% else %}
+    <b class="red">unreleased</b>
+  {% endif %}
 </dt>
 <dd>MD5 digest</dd>
 <dt><pre>{{ upload.md5_digest }}</pre></dt>
