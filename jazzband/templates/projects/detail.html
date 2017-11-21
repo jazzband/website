@@ -82,7 +82,7 @@
     {% endfor %}
   </p>
   {% for upload in uploads %} {% if loop.changed(upload.version) %}
-  <h4 id="{{ upload.version }}">{{ upload.version }} <a class="headerlink" name=#{{ upload.version }}" href="#v{{ upload.version }}" title="Permanent link">¶</a></h4>
+  <h4 id="{{ upload.version }}">{{ upload.version }} <a class="headerlink" href="#{{ upload.version }}" title="Permanent link">¶</a></h4>
   {% set version_upload_count= uploads.filter_by(version=upload.version).count() %}
   {% if version_upload_count > 1 %}
   <div class="admonition">
