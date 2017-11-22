@@ -125,7 +125,7 @@ class UploadView(ProjectMixin, MethodView):
 
     def check_authentication(self):
         """
-        Authenticate a request using a Redis lookup.
+        Authenticate a request using a database lookup.
         """
         if request.authorization is None:
             return False

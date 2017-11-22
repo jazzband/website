@@ -11,6 +11,7 @@ Flask-Hookserver
 Flask-KVSession
 Flask-Login
 Flask-Migrate
+Flask-Redis
 Flask-Script
 Flask-SQLAlchemy
 flask-talisman

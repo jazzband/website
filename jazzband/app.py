@@ -5,6 +5,7 @@ from flask_celeryext import create_celery_app
 from flask_compress import Compress
 from flask_migrate import Migrate
 from flask_kvsession import KVSessionExtension
+from flask_redis import FlaskRedis
 from simplekv.memory.redisstore import RedisStore
 from werkzeug.contrib.fixers import ProxyFix
 from whitenoise import WhiteNoise
@@ -34,6 +35,7 @@ app.config.from_object('jazzband.config')
 
 celery = create_celery_app(app)
 
+redis = FlaskRedis(app)
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -85,7 +87,7 @@ def postgres():
 def redis():
     "Checks database connection"
     try:
-        response = app.config['REDIS'].ping()
+        response = redis.ping()
     except Exception:
         response = None
     if not response:
@@ -137,7 +139,7 @@ hooks.init_app(app)
 assets.init_app(app)
 
 # setup session store
-session_store = RedisStore(app.config['REDIS'])
+session_store = RedisStore(redis)
 KVSessionExtension(session_store, app)
 
 Compress(app)

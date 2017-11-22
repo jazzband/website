@@ -28,6 +28,7 @@ flask-kvsession==0.6.2
 flask-login==0.4.0
 flask-mail==0.9.1
 flask-migrate==2.1.1
+flask-redis==0.3.0
 flask-script==2.0.6
 flask-sqlalchemy==2.3.2
 flask-talisman==0.4.0
