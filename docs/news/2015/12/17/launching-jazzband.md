@@ -58,4 +58,4 @@ Anyways, that’s all for now. Please feel free to learn more
 [about Jazzband](/about) and the see [FAQ](https://jazzband.co/about/faq)
 in case you have more questions.
 
-**We are all part of the band.**
+**We are all part of this.**

@@ -1,16 +1,14 @@
-import sys
 from flask import Flask, render_template
 
 from flask_celeryext import create_celery_app
 from flask_compress import Compress
 from flask_migrate import Migrate
 from flask_kvsession import KVSessionExtension
-from flask_redis import FlaskRedis
 from simplekv.memory.redisstore import RedisStore
 from werkzeug.contrib.fixers import ProxyFix
 from whitenoise import WhiteNoise
 
-from . import admin
+from . import admin, cli
 from .account import account, login_manager
 from .assets import assets
 from .content import about_pages, news_pages, content
@@ -19,11 +17,9 @@ from .github import github
 from .headers import talisman
 from .hooks import hooks
 from .email import mail
-from .models import db
-from .members.commands import sync_members
+from .models import db, redis
 from .members.views import members
 from .members.models import User
-from .projects.commands import sync_projects
 from .projects.models import Project
 from .projects.views import projects
 
@@ -35,7 +31,6 @@ app.config.from_object('jazzband.config')
 
 celery = create_celery_app(app)
 
-redis = FlaskRedis(app)
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -65,42 +60,9 @@ def app_context_processor():
 @app.after_request
 def add_vary_header(response):
     response.vary.add('Cookie')
-    response.headers['Jazzband'] = "We're all part of the band"
+    response.headers['Jazzband'] = "We're all part of this."
     return response
 
-
-@app.cli.group()
-def check():
-    "Checks some backends"
-
-
-@check.command()
-def postgres():
-    "Checks database connection"
-    try:
-        db.session.execute('SELECT 1')
-    except Exception:
-        sys.exit(1)
-
-
-@check.command()
-def redis():
-    "Checks database connection"
-    try:
-        response = redis.ping()
-    except Exception:
-        response = None
-    if not response:
-        sys.exit(1)
-
-
-@app.cli.group()
-def sync():
-    "Sync Jazzband data"
-
-
-sync.command('projects')(sync_projects)
-sync.command('members')(sync_members)
 
 talisman.init_app(
     app,
@@ -113,9 +75,13 @@ talisman.init_app(
 
 db.init_app(app)
 
+redis.init_app(app)
+
 Migrate(app, db)
 
-admin.init_admin(app)
+admin.init_app(app)
+
+cli.init_app(app)
 
 sentry.init_app(app)
 

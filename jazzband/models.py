@@ -1,10 +1,13 @@
 from datetime import datetime
 
 from flask_sqlalchemy import SQLAlchemy
+from flask_redis import FlaskRedis
 
 from .utils import sub_dict
 
 db = SQLAlchemy()
+
+redis = FlaskRedis()
 
 
 class Syncable:

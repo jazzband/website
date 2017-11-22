@@ -49,7 +49,7 @@ class ProjectUploadAdmin(JazzbandModelView):
     column_filters = ('uploaded_at', 'released_at')
 
 
-def init_admin(app):
+def init_app(app):
     admin = Admin(app, name='jazzband', template_mode='bootstrap3')
 
     admin.add_view(UserAdmin(User, db.session))

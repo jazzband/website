@@ -1,7 +1,12 @@
+import click
+from flask.cli import with_appcontext
+
 from ..github import github
 from .models import db, User, EmailAddress
 
 
+@click.command('members')
+@with_appcontext
 def sync_members():
     "Syncs members"
     members_data = github.get_members()
@@ -17,8 +22,11 @@ def sync_members():
         db.session.commit()
 
 
+@click.command('emails')
+@click.argument('user_id', metavar='<user_id>')
+@with_appcontext
 def sync_user_email_addresses(user_id):
-    "fetch all the email addresses for the user with the given access token"
+    "Sync email addresses for user"
     user = User.query.filter_by(id=user_id).first()
     email_addresses = []
     if user.access_token:

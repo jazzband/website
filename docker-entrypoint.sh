@@ -19,7 +19,7 @@ function wait_for_check {(
 )}
 
 # first wait for the database
-wait_for_check redis & wait_for_check postgres
+wait_for_check redis & wait_for_check db
 
 # then run the database migrations
 flask db upgrade
