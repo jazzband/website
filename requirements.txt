@@ -53,7 +53,7 @@ ptyprocess==0.5.2         # via pexpect
 pycparser==2.18           # via cffi
 pygments-markdown-lexer==0.1.0.dev39
 pygments==2.2.0
-pyopenssl==17.3.0         # via requests
+pyopenssl==17.4.0         # via requests
 pyparsing==2.2.0          # via packaging
 python-dateutil==2.6.1    # via alembic
 python-decouple==3.1
