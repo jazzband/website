@@ -15,7 +15,7 @@ certifi==2017.11.5        # via requests
 cffi==1.11.2              # via cryptography
 chardet==3.0.4            # via requests
 click==6.7                # via flask, pip-tools
-cryptography==2.1.3       # via pyopenssl, requests
+cryptography==2.1.4       # via pyopenssl, requests
 delegator.py==0.0.13
 first==2.0.1              # via pip-tools
 flask-admin==1.5.0
