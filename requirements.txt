@@ -43,7 +43,7 @@ jinja2==2.10              # via flask
 kombu==4.1.0              # via celery
 libsass==0.13.4
 mako==1.0.7               # via alembic
-markdown==2.6.9           # via flask-flatpages
+markdown==2.6.10           # via flask-flatpages
 markupsafe==1.0           # via jinja2, mako
 packaging==16.8
 pexpect==4.3.0            # via delegator.py
