@@ -1,6 +1,6 @@
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 from time import time
-from flask import current_app, request
+from flask import current_app, request, url_for
 
 
 def sub_dict(map, keys):
@@ -29,3 +29,10 @@ def patch_http_cache_headers(response, timeout=None):
 
 def full_url(url):
     return urljoin(request.url_root, url)
+
+
+def is_safe_url(target):
+    ref_url = urlparse(request.host_url)
+    test_url = urlparse(urljoin(request.host_url, target))
+    return (test_url.scheme in ('http', 'https') and
+            ref_url.netloc == test_url.netloc)

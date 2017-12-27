@@ -1,16 +1,15 @@
 from flask import Flask, render_template
 
-from flask_celeryext import create_celery_app
 from flask_compress import Compress
 from flask_migrate import Migrate
 from flask_kvsession import KVSessionExtension
 from simplekv.memory.redisstore import RedisStore
 from werkzeug.contrib.fixers import ProxyFix
 from whitenoise import WhiteNoise
-
 from . import admin, cli
 from .account import account, login_manager
 from .assets import assets
+from .celery import celery_ext
 from .content import about_pages, news_pages, content
 from .errors import sentry
 from .github import github
@@ -28,8 +27,6 @@ from .projects.views import projects
 app = Flask('jazzband')
 # load decoupled config variables
 app.config.from_object('jazzband.config')
-
-celery = create_celery_app(app)
 
 
 @app.errorhandler(404)
@@ -75,15 +72,18 @@ talisman.init_app(
 
 db.init_app(app)
 
+migrate = Migrate(app, db)
+
 redis.init_app(app)
 
-Migrate(app, db)
+sentry.init_app(app)
+
+celery_ext.init_app(app)
+celery = celery_ext.celery
 
 admin.init_app(app)
 
 cli.init_app(app)
-
-sentry.init_app(app)
 
 if app.config['IS_PRODUCTION']:
     app.wsgi_app = ProxyFix(app.wsgi_app)

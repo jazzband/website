@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, url_for, flash
+from flask import Blueprint, flash, redirect, session, url_for, abort, request
 from flask_login import (LoginManager, current_user,
                          login_user, logout_user, login_required)
 from flask_wtf import FlaskForm
@@ -8,6 +8,8 @@ from .decorators import templated
 from .github import github
 from .members.tasks import sync_user_email_addresses
 from .members.models import db, User
+from .utils import is_safe_url
+
 
 login_manager = LoginManager()
 login_manager.login_view = 'account.login'
@@ -51,14 +53,30 @@ def dashboard():
     return {}
 
 
+def next_url():
+    next = request.args.get('next', None)
+    if next and not is_safe_url(next):
+        abort(400)
+    return next
+
+
+def next_or_dashboard():
+    next = session.get('next')
+    # is_safe_url should check if the url is safe for redirects.
+    # See http://flask.pocoo.org/snippets/62/ for an example.
+    if next and not is_safe_url(next) or next == url_for('account.login'):
+        abort(400)
+    return redirect(next or url_for('account.dashboard'))
+
+
 @account.route('/login')
 def login():
     if current_user.is_authenticated:
-        next_url = url_for('account.dashboard')
-        return redirect(next_url)
-
-    # default fallback is to initiate the GitHub auth workflow
-    return github.authorize(scope=github.scope)
+        return next_or_dashboard()
+    else:
+        session['next'] = next_url()
+        # default fallback is to initiate the GitHub auth workflow
+        return github.authorize(scope=github.scope)
 
 
 @account.route('/callback')
@@ -87,7 +105,7 @@ def callback(access_token):
     login_user(user)
     # then redirect to the account dashboard
     flash("You've successfully logged in.")
-    return redirect(url_for('account.dashboard'))
+    return next_or_dashboard()
 
 
 @account.route('/join')
@@ -153,4 +171,5 @@ def leave():
 def logout():
     logout_user()
     flash("You've successfully logged out.")
-    return redirect(default_url())
+    next = next_url() or default_url()
+    return redirect(next)

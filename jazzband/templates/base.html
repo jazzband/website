@@ -52,7 +52,7 @@
           {% endfor %}
           {% if current_user.is_authenticated %}
           <li>{{ macros.navigation_link(url_for('account.dashboard'), 'Account') }}</li>
-          <li>{{ macros.navigation_link(url_for('account.logout'), 'Logout') }}</li>
+          <li>{{ macros.navigation_link(url_for('account.logout') + '?next=' + request.path, 'Logout') }}</li>
           {% else%}
           <li>{{ macros.navigation_link(url_for('account.login') + '?next=' + request.path, 'Login') }}</li>
           {% endif %}

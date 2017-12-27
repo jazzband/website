@@ -5,7 +5,7 @@ from flask.cli import with_appcontext
 
 from .models import db, redis
 from .members.commands import sync_members, sync_user_email_addresses
-from .projects.commands import sync_projects
+from .projects.commands import sync_projects, send_new_upload_notifications
 
 
 @click.command('db')
@@ -35,15 +35,21 @@ def check_redis():
 def init_app(app):
 
     @app.cli.group()
-    def sync():
-        "Sync Jazzband data"
+    def check():
+        "Checks some backends."
 
     @app.cli.group()
-    def check():
-        "Checks some backends"
+    def send():
+        "Send notifications."
+
+    @app.cli.group()
+    def sync():
+        "Sync Jazzband data."
 
     check.add_command(check_db)
     check.add_command(check_redis)
+
+    send.add_command(send_new_upload_notifications)
 
     sync.add_command(sync_members)
     sync.add_command(sync_user_email_addresses)
