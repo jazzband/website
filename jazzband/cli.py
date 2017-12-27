@@ -4,7 +4,7 @@ import click
 from flask.cli import with_appcontext
 
 from .models import db, redis
-from .members.commands import sync_members, sync_user_email_addresses
+from .members.commands import sync_members
 from .projects.commands import sync_projects
 
 
@@ -46,5 +46,4 @@ def init_app(app):
     check.add_command(check_redis)
 
     sync.add_command(sync_members)
-    sync.add_command(sync_user_email_addresses)
     sync.add_command(sync_projects)
