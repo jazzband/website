@@ -16,3 +16,4 @@ def sync_user_email_addresses(user_id):
             email_addresses.append(email_item)
         EmailAddress.sync(email_addresses, key='email')
     return email_addresses
+
