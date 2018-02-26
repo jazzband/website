@@ -72,7 +72,7 @@ sqlalchemy==1.1.15
 tqdm==4.19.4              # via twine
 twine==1.9.1
 urllib3==1.22             # via requests
-uwsgi==2.0.15
+uwsgi==2.0.17
 vine==1.1.4               # via amqp
 webassets==0.12.1         # via flask-assets
 werkzeug==0.12.2          # via flask, flask-hookserver, flask-kvsession
