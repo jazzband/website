@@ -15,12 +15,12 @@ certifi==2017.11.5        # via requests
 cffi==1.11.2              # via cryptography
 chardet==3.0.4            # via requests
 click==6.7                # via flask, pip-tools
-cryptography==2.1.3       # via pyopenssl, requests
+cryptography==2.2.2       # via pyopenssl, requests
 delegator.py==0.0.13
 first==2.0.1              # via pip-tools
 flask-admin==1.5.0
 flask-assets==0.12
-flask-celeryext==0.3.0
+flask-celeryext==0.3.1
 flask-compress==1.4.0
 flask-flatpages==0.6
 flask-hookserver==1.1.0
@@ -47,7 +47,7 @@ markdown==2.6.9           # via flask-flatpages
 markupsafe==1.0           # via jinja2, mako
 packaging==16.8
 pexpect==4.3.0            # via delegator.py
-pip-tools==1.10.2
+pip-tools==1.11.0
 pkginfo==1.4.1            # via twine
 psycopg2==2.7.3.2
 ptyprocess==0.5.2         # via pexpect
@@ -70,7 +70,7 @@ six==1.11.0               # via cryptography, flask-kvsession, flask-talisman, l
 sqlalchemy-utils==0.32.21
 sqlalchemy==1.1.15
 tqdm==4.19.9              # via twine
-twine==1.9.1
+twine==1.11.0
 urllib3==1.22             # via requests
 uwsgi==2.0.15
 vine==1.1.4               # via amqp
