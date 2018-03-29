@@ -108,7 +108,7 @@ The site uses cookies that are required for this site to work correctly
 (e.g. session cookies). By visiting this site you're implicitly accepting
 these cookies.
 
-The site also uses [Piwik](https://piwik.org/) to learn more about its
+The site also uses [Matomo](https://matomo.org/) to learn more about its
 visitors. It respects the [Do Not Track] HTTP request header when sent by
 your browser and offers the ability to optionally opt-out here:
 
