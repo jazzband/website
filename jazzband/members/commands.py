@@ -23,7 +23,7 @@ def sync_members():
 
 
 @click.command('emails')
-@click.argument('user_id', metavar='<user_id>')
+@click.argument('user_id', metavar='<user_id>', nargs=1)
 @with_appcontext
 def sync_user_email_addresses(user_id):
     "Sync email addresses for user"
