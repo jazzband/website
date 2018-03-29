@@ -20,7 +20,7 @@ delegator.py==0.0.13
 first==2.0.1              # via pip-tools
 flask-admin==1.5.0
 flask-assets==0.12
-flask-celeryext==0.3.0
+flask-celeryext==0.3.1
 flask-compress==1.4.0
 flask-flatpages==0.6
 flask-hookserver==1.1.0
