@@ -67,7 +67,7 @@ requests-toolbelt==0.8.0  # via twine
 requests[security]==2.18.4  # via flask-hookserver, github-flask, requests-toolbelt, twine
 simplekv==0.11.8          # via flask-kvsession
 six==1.11.0               # via cryptography, flask-kvsession, flask-talisman, libsass, packaging, pip-tools, pyopenssl, python-dateutil, sqlalchemy-utils
-sqlalchemy-utils==0.33.1
+sqlalchemy-utils==0.33.2
 sqlalchemy==1.2.5
 tqdm==4.19.9              # via twine
 twine==1.11.0
