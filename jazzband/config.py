@@ -1,6 +1,5 @@
 from datetime import timedelta
 import os
-import redis
 from decouple import config, Csv
 from markdown.extensions.toc import TocExtension
 from markdown.extensions.wikilinks import WikiLinkExtension

@@ -72,6 +72,6 @@
 {% endmacro %}
 
 
-{%- macro navigation_link(path, name) -%}
-<a href="{{ path }}" {% if path==request.path %} class="red" {% endif %}>{{ name }}</a>
+{%- macro navigation_link(path, name, blue=False) -%}
+<a href="{{ path }}" {% if blue %} class="blue" {% elif path==request.path %} class="red" {% endif %}>{{ name }}</a>
 {%- endmacro -%}

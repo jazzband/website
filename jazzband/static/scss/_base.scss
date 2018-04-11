@@ -77,6 +77,12 @@ ul {
                 text-decoration: none;
                 font-weight: $semi-bold;
                 text-transform: uppercase;
+                &.blue {
+                    color: $blue;
+                    &:hover {
+                        color: lighten($blue, 10%);
+                    }
+                }
                 &.red {
                   color: $red;
                     &:hover {
