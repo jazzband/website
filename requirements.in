@@ -22,9 +22,8 @@ Honcho
 libsass
 packaging
 pip-tools
-psycopg2
+psycopg2-binary
 pygments
-pygments-markdown-lexer
 python-decouple
 raven[flask]
 redis

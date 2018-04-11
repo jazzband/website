@@ -41,18 +41,17 @@ idna==2.6                 # via cryptography, requests
 itsdangerous==0.24        # via flask, flask-kvsession
 jinja2==2.10              # via flask
 kombu==4.1.0              # via celery
-libsass==0.13.4
+libsass==0.14.2
 mako==1.0.7               # via alembic
-markdown==2.6.11           # via flask-flatpages
+markdown==2.6.11          # via flask-flatpages
 markupsafe==1.0           # via jinja2, mako
 packaging==17.1
 pexpect==4.4.0            # via delegator.py
 pip-tools==1.11.0
 pkginfo==1.4.2            # via twine
-psycopg2==2.7.3.2
+psycopg2-binary==2.7.4
 ptyprocess==0.5.2         # via pexpect
 pycparser==2.18           # via cffi
-pygments-markdown-lexer==0.1.0.dev39
 pygments==2.2.0
 pyopenssl==17.5.0         # via requests
 pyparsing==2.2.0          # via packaging

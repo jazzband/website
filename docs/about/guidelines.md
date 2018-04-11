@@ -51,7 +51,7 @@ Projects have to add a `CONTRIBUTING.md` file to their repository so it's
 automatically displayed when new issues and pull requests are created.
 It needs to contain this header:
 
-```markdown
+```md
 [![Jazzband](https://jazzband.co/static/img/jazzband.svg)](https://jazzband.co/)
 
 This is a [Jazzband](https://jazzband.co/) project. By contributing you agree to abide by the [Contributor Code of Conduct](https://jazzband.co/about/conduct) and follow the [guidelines](https://jazzband.co/about/guidelines).
@@ -87,7 +87,7 @@ following URL: `https://jazzband.co/static/img/badge.svg`. It looks like this:
 
 Markdown:
 
-```markdown
+```md
 [![Jazzband](https://jazzband.co/static/img/badge.svg)](https://jazzband.co/)
 ```
 
