@@ -2,10 +2,11 @@ import babel.dates
 from flask import (Blueprint, current_app, render_template, redirect, request,
                    url_for, send_from_directory, safe_join)
 from flask_flatpages import FlatPages
+from flask_login import current_user
 from werkzeug.contrib.atom import AtomFeed
 
 from .assets import styles
-from .decorators import http_cache, templated
+from .decorators import templated
 from .utils import full_url
 
 content = Blueprint('content', __name__)
@@ -25,7 +26,7 @@ def join():
 
 @content.route('/security')
 def security():
-    return redirect('/about/faq#how-do-i-report-a-security-incident')
+    return redirect('/about/contact#security')
 
 
 @content.route('/docs', defaults={'path': 'index'})
@@ -69,7 +70,6 @@ def news_feed():
 
 @content.route('/news', defaults={'path': 'index'})
 @content.route('/news/<path:path>')
-@http_cache()
 def news(path):
     page = news_pages.get_or_404(path)
     template = 'layouts/%s.html' % page.meta.get('layout', 'news_detail')
@@ -77,9 +77,10 @@ def news(path):
 
 
 @content.route('/')
-@http_cache()
 @templated()
 def index():
+    if current_user.is_authenticated and current_user.is_member:
+        return redirect(url_for('account.dashboard'))
     return {}
 
 

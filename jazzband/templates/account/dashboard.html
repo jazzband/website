@@ -2,19 +2,28 @@
 
 {% block content %}
 <div class="c4">
-  <h2>Account</h2>
+  <h2>Account dashboard</h2>
   <h3>
-    Welcome to your Jazzband account dashboard.
+    Your Jazzband account at a glance
   </h3>
   {% if not current_user.is_member %}
   <div class="admonition">
     <p class="admonition-title">
-      You're currently an inactive member
+      One more step to become a full Jazzband member
     </p>
     <p>
-      To become an active member <a href="{{ url_for('account.join') }}">please join</a>
-      the Jazzband GitHub organization. For security reasons GitHub will ask you to
-      confirm the invitation to the Jazzband GitHub organization.
+      You've successfully logged in using GitHub but haven't become
+      a member of the
+      <a href="https://github.com/jazzband">Jazzband GitHub organization</a>
+      just yet.
+    </p>
+    <p>
+      Please allow us first to send you an invitation via email to join our
+      GitHub organization and then – as a security precaution – follow the
+      instructions in the email from GitHub to confirm the invitation.
+    </p>
+    <p>
+      <a href="{{ url_for('account.join') }}">Send invitation to join now</a>
     </p>
   </div>
   {% endif %}
@@ -39,7 +48,7 @@
           <a href="{{ url_for('projects.detail', name=project_membership.project.name) }}">{{ project_membership.project.name }}</a>
           {% if project_membership.is_lead %} (lead){% endif %}</li>
       {% endfor %}
-    </ul>      
+    </ul>
   {% else %}
     You haven't joined any project so far, do you <a href="{{ url_for('projects.index') }}">want to do that now</a>?
     If not, that's okay, you're still part of the band.
@@ -48,8 +57,8 @@
 #}
   <h4>Email addresses</h4>
   <p>
-    The email addresses that we fetched using the GitHub API to make sure
-    there is at least one verified:
+    Here are the email addresses we fetched using the GitHub API to make sure
+    you have verified at least one:
     <ul>
     {% for email in current_user.email_addresses.all() %}
       <li>{{ email.email }}{% if email.primary %} (primary){% endif %}</li>
@@ -70,19 +79,20 @@
   </p>
   <p>
     You may also find the <a href="{{ url_for('members.index') }}">member list</a>
-    useful to start contributing.
+    and <a href="{{ url_for('members.index') }}">roadies list</a> useful.
   </p>
   <p>
-    Don't miss the <a href="{{ url_for('content.about', path='faq') }}">FAQ</a>
-    and <a href="{{ url_for('content.about', path='contact') }}">reach out</a>
+    Don't miss the <a href="{{ url_for('content.about', path='faq') }}">FAQ</a>,
+    <a href="{{ url_for('content.news') }}">news section</a> and please
+    <a href="{{ url_for('content.about', path='contact') }}">reach out</a>
     to fellow Jazzband members if needed.
   </p>
   <h4>Other things to do here</h4>
   <p>
   {% if current_user.is_member %}
-    Do you want to <a href="{{ url_for('.leave') }}">leave</a> the Jazzband?
+    Do you want to <a href="{{ url_for('.leave') }}">leave the Jazzband</a>?
   {% else %}
-    Do you want to <a href="{{ url_for('.join') }}">join again</a>?
+    Do you want to <a href="{{ url_for('.join') }}">join the Jazzband again</a>?
   {% endif %}
     Or simply <a href="{{ url_for('.logout') }}">logout</a>?
   </p>

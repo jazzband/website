@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, url_for, flash
+from flask import Blueprint, redirect, session, url_for, flash
 from flask_login import (LoginManager, current_user,
                          login_user, logout_user, login_required)
 from flask_wtf import FlaskForm
@@ -8,6 +8,7 @@ from .decorators import templated
 from .github import github
 from .members.tasks import sync_user_email_addresses
 from .members.models import db, User
+from .utils import get_redirect_target
 
 login_manager = LoginManager()
 login_manager.login_view = 'account.login'
@@ -53,9 +54,12 @@ def dashboard():
 
 @account.route('/login')
 def login():
+    next_url = get_redirect_target('account.dashboard')
     if current_user.is_authenticated:
-        next_url = url_for('account.dashboard')
         return redirect(next_url)
+
+    # Set the next URL in the session to be checked in the account callback
+    session['next_url'] = next_url
 
     # default fallback is to initiate the GitHub auth workflow
     return github.authorize(scope=github.scope)
@@ -87,7 +91,13 @@ def callback(access_token):
     login_user(user)
     # then redirect to the account dashboard
     flash("You've successfully logged in.")
-    return redirect(url_for('account.dashboard'))
+
+    # Check for the next URL using the session first and then fallback
+    next_url = (
+        session.get('next_url') or
+        get_redirect_target('account.dashboard')
+    )
+    return redirect(next_url)
 
 
 @account.route('/join')
@@ -131,6 +141,7 @@ def join():
 def leave():
     next_url = default_url()
     if not current_user.is_member:
+        flash("You're not a member of Jazzband at the moment.")
         return redirect(next_url)
 
     form = LeaveForm()

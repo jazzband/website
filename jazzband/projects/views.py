@@ -23,7 +23,7 @@ from sqlalchemy.sql.expression import func
 from werkzeug import secure_filename
 
 from ..auth import current_user_is_roadie
-from ..decorators import http_cache, templated
+from ..decorators import templated
 from ..members.models import User, EmailAddress
 from ..email import mail
 from ..exceptions import eject
@@ -53,7 +53,6 @@ DEFAULT_ORDER = 'desc'
 
 
 @projects.route('')
-@http_cache()
 @templated()
 def index():
     sorter = request.args.get('sorter', None)

@@ -17,6 +17,11 @@ with receiving commit access to a project by spreading it to a bigger group.
 open source software development, including dreaming big, acting positively
 and failing sometimes. It'll be okay since we're not alone.
 
+### How do I join the Jazzband?
+
+First [login with GitHub](/account/login) and then follow the instructions
+on your [account dashboard](/account).
+
 ### Does the Jazzband have a code of conduct?
 
 Yes, the Jazzband follows a [Contributor Code of Conduct](/about/conduct)
@@ -26,8 +31,7 @@ breach of conduct.
 
 ### How do I report a security incident?
 
-Simply, send an email to `security@jazzband.co`. Please don't open an
-issue on GitHub or post details about the incident publicly.
+See the [contact page](/about/contact#security).
 
 ### How do releases to the Python Package Index work?
 
@@ -40,8 +44,7 @@ Simply head to your [account dashboard](/account), click on "leave"
 entering your GitHub username.
 
 You can re-join anytime, simply [login](/account/login) and then
-click on [join](/account/join) in the sidebar or on your
-[account dashboard](/account).
+click on the "Send invitation" link on your [account dashboard](/account).
 
 !!! note "Data retention"
 
@@ -98,9 +101,10 @@ as member of the organization on
 
 ### Are you collecting any information on Jazzband.co?
 
-When joining the Jazzband (by clicking on the join link in the sidebar)
-you grant the site the permission to fetch your email address(es) and the
-team and organization membership status of your [GitHub] account.
+When logging into the Jazzband site you grant the site the permission to
+fetch your email address(es) and the team and organization membership status
+of your [GitHub] account.
+
 That data is only used to determine whether you're already a member and
 if required invite your GitHub account to the Jazzband GitHub organization.
 
