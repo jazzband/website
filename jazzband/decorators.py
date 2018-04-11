@@ -32,9 +32,6 @@ def http_cache(timeout=None):
     If timeout is None, caching will be disabled.
     Otherwise, caching headers are set to expire in now + timeout seconds
 
-    If round_to_minute is True, then it will always expire at the start of a
-    minute (seconds = 0)
-
     Example usage:
 
     @app.route('/map')

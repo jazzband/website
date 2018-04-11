@@ -1,14 +1,13 @@
 from flask import Blueprint, redirect, request
 from sqlalchemy.sql.expression import func
 
-from ..decorators import http_cache, templated
+from ..decorators import templated
 from .models import User
 
 members = Blueprint('members', __name__)
 
 
 @members.route('/members')
-@http_cache()
 @templated()
 def index():
     return {
@@ -17,7 +16,6 @@ def index():
 
 
 @members.route('/roadies')
-@http_cache()
 @templated()
 def roadies():
     return {
