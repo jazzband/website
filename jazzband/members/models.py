@@ -80,7 +80,10 @@ class User(db.Model, Helpers, Syncable, UserMixin):
         # we just want to ensure he has at least one:
         # see https://github.com/jazzband/website/issues/8 for more.
         return (
-            self.email_addresses.filter_by(verified=True).first() is not None
+            EmailAddress.query.filter_by(
+                user_id=self.id,
+                verified=True,
+            ).first() is not None
         )
 
 
