@@ -79,7 +79,7 @@ def news(path):
 @content.route('/')
 @templated()
 def index():
-    if current_user.is_authenticated and current_user.is_member:
+    if current_user.is_authenticated:
         return redirect(url_for('account.dashboard'))
     return {}
 
