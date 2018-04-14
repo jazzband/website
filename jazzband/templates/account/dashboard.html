@@ -9,7 +9,7 @@
   {% if not current_user.is_member %}
   <div class="admonition">
     <p class="admonition-title">
-      One more step to become a full Jazzband member
+      One more step needed to become a full Jazzband member:
     </p>
     <p>
       You've successfully logged in using GitHub but haven't become
@@ -20,7 +20,7 @@
     <p>
       Please allow us first to send you an invitation via email to join our
       GitHub organization and then – as a security precaution – follow the
-      instructions in the email from GitHub to confirm the invitation.
+      instructions in the email from GitHub to accept the invitation.
     </p>
     <p>
       <a href="{{ url_for('account.join') }}">Send invitation to join now</a>

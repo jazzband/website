@@ -125,7 +125,7 @@ def join():
     if has_verified_emails:
         membership = github.join_organization(current_user.login)
         if membership:
-            flash("To join please confirm the invitation from GitHub.")
+            flash("To join please accept the invitation from GitHub.")
 
     return {
         'next_url': 'https://github.com/jazzband/roadies/wiki/Welcome',
