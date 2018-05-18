@@ -91,8 +91,8 @@ CSP_REPORT_ONLY = config('CSP_REPORT_ONLY', False, cast=bool)
 CSP_RULES = {
     'default-src': "'self'",
     'font-src': "'self' data:",
-    'frame-src': "'self' analytics.websushi.org",
-    'script-src': "'self' analytics.websushi.org",
+    'frame-src': "'self'",
+    'script-src': "'self'",
     'style-src': "'self' 'unsafe-inline'",
     'img-src': "* data:",
     'object-src': "'none'",
