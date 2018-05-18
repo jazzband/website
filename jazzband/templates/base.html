@@ -51,9 +51,12 @@
           <li>{{ macros.navigation_link(url_for('content.about', path=page.path), page.meta.navigation or page.title or page.path) }}</li>
           {% endfor %}
           {% if current_user.is_authenticated %}
+          {% if current_user.is_roadie %}
+          <li>{{ macros.navigation_link(url_for('admin.index'), 'Admin') }}</li>
+          {% endif %}
           <li>{{ macros.navigation_link(url_for('account.logout'), 'Logout', blue=True) }}</li>
           {% else%}
-          <li>{{ macros.navigation_link(url_for('account.login') + '?next=' + request.path, 'Login/join', blue=True) }}</li>
+          <li>{{ macros.navigation_link(url_for('account.login') + '?next=' + request.path, 'Login & join', blue=True) }}</li>
           {% endif %}
         </ul>
 
