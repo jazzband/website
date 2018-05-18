@@ -30,6 +30,13 @@ class User(db.Model, Helpers, Syncable, UserMixin):
         nullable=False,
         index=True,
     )
+    is_restricted = db.Column(
+        db.Boolean,
+        server_default=expression.false(),
+        default=False,
+        nullable=False,
+        index=True,
+    )
     has_2fa = db.Column(
         db.Boolean,
         default=False,
@@ -67,6 +74,7 @@ class User(db.Model, Helpers, Syncable, UserMixin):
         return cls.query.filter(
             cls.is_member == True,
             cls.is_banned == False,
+            cls.is_restricted == False,
             cls.login != 'jazzband-bot',
         )
 
