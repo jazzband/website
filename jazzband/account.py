@@ -173,6 +173,10 @@ def join():
         flash("You've been banned from Jazzband")
         logout_user(current_user)
         return redirect(next_url)
+    elif current_user.is_restricted:
+        flash("Your account is currently restricted")
+        logout_user(current_user)
+        return redirect(next_url)
     elif current_user.is_member:
         flash("You're already a member of Jazzband")
         return redirect(next_url)
