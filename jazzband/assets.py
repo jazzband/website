@@ -11,7 +11,7 @@ class FixedLibSass(Filter):
 
     Converts `Sass <http://sass-lang.com/>`_ markup to real CSS.
 
-    Requires the ``libsass`` package (https://pypi.python.org/pypi/libsass)::
+    Requires the ``libsass`` package (https://pypi.org/project/libsass/)::
 
         pip install libsass
 

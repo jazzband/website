@@ -9,3 +9,4 @@ node_modules
 .bash_history
 .python_history
 /uploads/
+.local/

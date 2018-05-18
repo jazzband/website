@@ -43,7 +43,7 @@ In the following paragraphs we'll explain how you can configure a
 Jazzband project to be semi-automatically released to PyPI whenever
 a new Git tag is pushed to its repository.
 
-[PyPI]: https://pypi.python.org/
+[PyPI]: https://pypi.org/
 [Travis-CI]: https://travis-ci.org/
 [roadies]: /roadies
 [Code of Conduct]: /about/conduct
@@ -61,7 +61,7 @@ the version of the project package from Git -- but setting the
 version manually in the `setup.py` works just the same.
 
 [PyPUG]: https://packaging.python.org/en/latest/
-[setuptools_scm]: https://pypi.python.org/pypi/setuptools_scm
+[setuptools_scm]: https://pypi.org/project/setuptools_scm/
 
 ### Travis
 
