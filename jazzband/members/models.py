@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask_login import UserMixin
 from sqlalchemy.sql import expression
 
@@ -9,6 +11,8 @@ class User(db.Model, Helpers, Syncable, UserMixin):
     login = db.Column(db.String(39), unique=True, nullable=False, index=True)
     avatar_url = db.Column(db.String(255))
     html_url = db.Column(db.String(255))
+    joined_at = db.Column(db.DateTime, default=datetime.utcnow)
+    left_at = db.Column(db.DateTime, nullable=True)
     is_member = db.Column(
         db.Boolean,
         server_default=expression.false(),
@@ -36,6 +40,34 @@ class User(db.Model, Helpers, Syncable, UserMixin):
         default=False,
         nullable=False,
         index=True,
+    )
+    consented_at = db.Column(
+        db.DateTime,
+        nullable=True,
+    )
+    profile_consent = db.Column(
+        db.Boolean,
+        server_default=expression.false(),
+        default=False,
+        nullable=False,
+    )
+    org_consent = db.Column(
+        db.Boolean,
+        server_default=expression.false(),
+        default=False,
+        nullable=False,
+    )
+    cookies_consent = db.Column(
+        db.Boolean,
+        server_default=expression.false(),
+        default=False,
+        nullable=False,
+    )
+    age_consent = db.Column(
+        db.Boolean,
+        server_default=expression.false(),
+        default=False,
+        nullable=False,
     )
     has_2fa = db.Column(
         db.Boolean,

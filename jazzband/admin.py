@@ -29,7 +29,20 @@ class JazzbandModelView(sqla.ModelView):
 
 class UserAdmin(JazzbandModelView):
     column_searchable_list = ('login',)
-    column_filters = ('is_member', 'is_roadie', 'is_banned', 'has_2fa')
+    column_filters = (
+        'is_member',
+        'is_roadie',
+        'is_banned',
+        'is_restricted',
+        'has_2fa',
+        'joined_at',
+        'left_at',
+        'consented_at',
+        'profile_consent',
+        'org_consent',
+        'cookies_consent',
+        'age_consent',
+    )
     inline_models = (EmailAddress, ProjectMembership)
 
 

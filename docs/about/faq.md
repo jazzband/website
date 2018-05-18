@@ -29,13 +29,35 @@ that was adopted from the [Contributor Covenant](http://contributor-covenant.org
 Please refer to the conduct page for more information for how to report a
 breach of conduct.
 
+### How do I report abuse or other incidents?
+
+Write an email to `roadies@jazzband.co` – especially if it's a breach of
+conduct following our [code of conduct](/about/conduct).
+
 ### How do I report a security incident?
 
 See the [contact page](/about/contact#security).
 
-### How do releases to the Python Package Index work?
+### Are you proccessing or storing any personal data on the Jazzband website?
 
-Please refer to the separate [releases](/about/releases) page.
+When logging into the Jazzband site you consent to fetching your profile
+data, email address(es) and the team and organization membership status
+of your [GitHub] account.
+
+That data is used to determine whether you're already a member,
+invite you to the Jazzband GitHub organization if required, check
+if you have a verified email address, show you in the members list
+and other neccesary uses.
+
+The site uses cookies that are required for this site to work correctly
+(e.g. session cookies) but doesn't include any 3rd party cookies.
+
+[GitHub]: https://github.com/
+
+### Can I withdraw my consent to processing or storing any data about me?
+
+Of course, it's your data! Please get in touch with the [roadies](/roadies)
+to do that.
 
 ### How do I leave the Jazzband again?
 
@@ -57,19 +79,29 @@ click on the "Send invitation" link on your [account dashboard](/account).
 **Alternatively** you can remove yourself from the Jazzband GitHub organization
 on your [personal settings](https://github.com/settings/organizations) over at
 GitHub. There you can see the GitHub organizations you're a member of and easily
-leave the Jazzband by clicking on the "Leave" button next to it.
+leave the Jazzband by clicking on the "Leave" button next to it. See the note
+about data retention above, too.
 
-### What do I do when I see abuse happening on any Jazzband repo?
+### How can I edit my profile data (e.g. name)?
 
-Please open an issue for the [roadies](/roadies). If it's a matter
-of urgency or discretion you may also want to write an email to
-`roadies@jazzband.co` instead – especially if it's a breach of
-conduct following our [code of conduct](/about/conduct).
+The profile data we store is regularly fetched from the GitHub profile
+API and kept up-to-date with it. If you'd like to change any data
+please update it over at GitHub to be changed on the Jazzband site as well.
+
+### How can I export all data that is stored about me?
+
+In case you'd like to export all data that is stored about you, please
+contact the [roadies](/roadies) or create a
+[public GitHub issue](/roadies/issue) and we'll send it to you.
+
+### How do releases to the Python Package Index work?
+
+Please refer to the separate [releases](/about/releases) page.
 
 ### What's in it for the roadies?
 
 Nothing, if you mean monetary compensation. The roadies are volunteers
-just like other contributors.
+just like other contributors and members.
 
 ### How do I disable email notifications for Jazzband repositories?
 
@@ -98,25 +130,3 @@ as member of the organization on
   [organization's people site](https://github.com/orgs/jazzband/people)
 - Search for your nickname in the "Find a member..." field
 - Change the "Organization visibility" setting from "Private" to "Public"
-
-### Are you collecting any information on Jazzband.co?
-
-When logging into the Jazzband site you grant the site the permission to
-fetch your email address(es) and the team and organization membership status
-of your [GitHub] account.
-
-That data is only used to determine whether you're already a member and
-if required invite your GitHub account to the Jazzband GitHub organization.
-
-The site uses cookies that are required for this site to work correctly
-(e.g. session cookies). By visiting this site you're implicitly accepting
-these cookies.
-
-The site also uses [Matomo](https://matomo.org/) to learn more about its
-visitors. It respects the [Do Not Track] HTTP request header when sent by
-your browser and offers the ability to optionally opt-out here:
-
-<iframe class="optout" src="https://analytics.websushi.org/index.php?module=CoreAdminHome&action=optOut&language=en"></iframe>
-
-[Do Not Track]: http://donottrack.us/
-[GitHub]: https://github.com/

@@ -1,0 +1,40 @@
+{% extends "layouts/default.html" %}
+
+{% import 'macros.html' as macros %}
+
+{% block content %}
+<div class="c4">
+  <h2>Consent to login</h2>
+  <p>
+    Please confirm your consent below to continue logging in.
+  </p>
+  <div class="admonition">
+    <p class="admonition-title">
+      Note
+    </p>
+    <p>
+      Once you've submitted the form below successfully we'll fetch profile
+      data, email address(es) and the team and organization membership
+      status of your GitHub account via GitHub's API.
+    </p>
+    <p>
+      The data is neccessary for maintaining your Jazzband membership.
+      You'll be able to revoke your consent at any time later.
+    </p>
+    <p>
+      Further instructions will be shown on your personalized account dashboard.
+    </p>
+  </p>
+  </div>
+  <form action="" method="post">
+    {{ form.hidden_tag() }}
+    <dl>
+      {{ macros.render_field(form.profile) }}
+      {{ macros.render_field(form.org) }}
+      {{ macros.render_field(form.cookies) }}
+      {{ macros.render_field(form.age) }}
+    </dl>
+    <button type="submit">Confirm</button> or <a href="/">back</a>
+  </form>
+</div>
+{% endblock %}

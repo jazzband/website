@@ -1,8 +1,11 @@
+from datetime import datetime
+
 from flask import Blueprint, redirect, session, url_for, flash
 from flask_login import (LoginManager, current_user,
                          login_user, logout_user, login_required)
 from flask_wtf import FlaskForm
-from wtforms import StringField, validators, ValidationError
+from wtforms import validators, ValidationError
+from wtforms.fields import BooleanField, HiddenField, StringField
 
 from .decorators import templated
 from .github import github
@@ -27,6 +30,48 @@ class LeaveForm(FlaskForm):
         if field.data != current_user.login:
             raise ValidationError(
                 "Sorry, but that GitHub login doesn't match our records.")
+
+
+CONSENT_ERROR_MESSAGE = 'Your consent is required to continue.'
+
+
+class ConsentForm(FlaskForm):
+    access_token = HiddenField(
+        'GitHub access token',
+        validators=[
+            validators.DataRequired(),
+        ],
+    )
+    profile = BooleanField(
+        'I consent to fetching, processing and storing my profile '
+        'data which is fetched from the GitHub API.',
+        validators=[
+            validators.DataRequired(CONSENT_ERROR_MESSAGE),
+        ],
+    )
+    org = BooleanField(
+        'I consent to fetching, processing and storing my GitHub '
+        'organiztion membership data which is fetched from the '
+        'GitHub API.',
+        validators=[
+            validators.DataRequired(CONSENT_ERROR_MESSAGE),
+        ],
+    )
+    cookies = BooleanField(
+        'I consent to using browser cookies for identifying me for '
+        'account features such as logging in and content personalizations '
+        'such as rendering my account dashboard.',
+        validators=[
+            validators.DataRequired(CONSENT_ERROR_MESSAGE),
+        ],
+    )
+    age = BooleanField(
+        'I\'m at least 16 years old or – if not – have permission by a '
+        'parent (or legal guardian) to proceed.',
+        validators=[
+            validators.DataRequired(CONSENT_ERROR_MESSAGE),
+        ],
+    )
 
 
 @login_manager.user_loader
@@ -65,39 +110,57 @@ def login():
     return github.authorize(scope=github.scope)
 
 
-@account.route('/callback')
+@account.route('/callback', methods=['GET', 'POST'])
+@templated()
 @github.authorized_handler
 def callback(access_token):
+    form = ConsentForm(access_token=access_token)
     # first get the profile data for the user with the given access token
-    user_data = github.get_user(access_token=access_token)
+    user_data = github.get_user(access_token=access_token or form.access_token.data)
 
     # and see if the user is already in our database
     user = User.query.filter_by(id=user_data['id']).first()
 
-    # if not, sync the data from GitHub with our database
-    if user is None:
-        user_data['access_token'] = access_token
-        results = User.sync([user_data])
-        user, created = results[0]
-    else:
-        # if it can be found, update the access token
-        user.access_token = access_token
+    # on POST of the consent form
+    if form.validate_on_submit():
+        utc_now = datetime.utcnow()
+
+        # if not, sync the data from GitHub with our database
+        if user is None:
+            results = User.sync([user_data])
+            user, created = results[0]
+            user.joined_at = utc_now
+
+        # update a bunch of things
+        user.access_token = form.access_token.data
+
+        if not user.consented_at:
+            user.consented_at = utc_now
+            user.profile_consent = True
+            user.org_consent = True
+            user.cookies_consent = True
+            user.age_consent = True
         db.session.commit()
 
-    # fetch the current set of email addresses from GitHub
-    sync_user_email_addresses.delay(user.id)
+    # we'll show the form either if there is no user yet,
+    # or if the user hasn't given consent yet
+    if user is None or not user.consented_at:
+        return {'form': form}
+    else:
+        # fetch the current set of email addresses from GitHub
+        sync_user_email_addresses.delay(user.id)
 
-    # remember the user_id for the next request
-    login_user(user)
-    # then redirect to the account dashboard
-    flash("You've successfully logged in.")
+        # remember the user_id for the next request
+        login_user(user)
+        # then redirect to the account dashboard
+        flash("You've successfully logged in.")
 
-    # Check for the next URL using the session first and then fallback
-    next_url = (
-        session.get('next_url') or
-        get_redirect_target('account.dashboard')
-    )
-    return redirect(next_url)
+        # Check for the next URL using the session first and then fallback
+        next_url = (
+            session.get('next_url') or
+            get_redirect_target('account.dashboard')
+        )
+        return redirect(next_url)
 
 
 @account.route('/join')
@@ -151,6 +214,7 @@ def leave():
             flash('Leaving the organization failed. '
                   'Please try again or open a ticket for the roadies.')
         else:
+            current_user.left_at = datetime.utcnow()
             current_user.is_member = False
             db.session.commit()
             logout_user()
