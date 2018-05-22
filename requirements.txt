@@ -68,7 +68,7 @@ simplekv==0.11.8          # via flask-kvsession
 six==1.11.0               # via cryptography, flask-kvsession, flask-talisman, libsass, packaging, pip-tools, pyopenssl, python-dateutil, sqlalchemy-utils
 sqlalchemy-utils==0.33.3
 sqlalchemy==1.2.7
-tqdm==4.23.3              # via twine
+tqdm==4.23.4              # via twine
 twine==1.11.0
 urllib3==1.22             # via requests
 uwsgi==2.0.17
