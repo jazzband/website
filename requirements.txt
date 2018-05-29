@@ -46,7 +46,7 @@ mako==1.0.7               # via alembic
 markdown==2.6.11          # via flask-flatpages
 markupsafe==1.0           # via jinja2, mako
 packaging==17.1
-pexpect==4.5.0            # via delegator.py
+pexpect==4.6.0            # via delegator.py
 pip-tools==1.11.0
 pkginfo==1.4.2            # via twine
 psycopg2-binary==2.7.4
