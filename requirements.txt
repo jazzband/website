@@ -49,7 +49,7 @@ packaging==17.1
 pexpect==4.5.0            # via delegator.py
 pip-tools==1.11.0
 pkginfo==1.4.2            # via twine
-psycopg2-binary==2.7.4
+psycopg2-binary==2.7.5
 ptyprocess==0.5.2         # via pexpect
 pycparser==2.18           # via cffi
 pygments==2.2.0
