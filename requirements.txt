@@ -8,7 +8,7 @@ alembic==0.9.9            # via flask-migrate
 amqp==2.2.2               # via kombu
 asn1crypto==0.24.0        # via cryptography
 babel==2.5.3
-billiard==3.5.0.3         # via celery
+billiard==3.5.0.4         # via celery
 blinker==1.4              # via flask-mail, raven
 celery==4.1.0             # via flask-celeryext
 certifi==2018.4.16        # via requests
