@@ -75,5 +75,5 @@ uwsgi==2.0.17
 vine==1.1.4               # via amqp
 webassets==0.12.1         # via flask-assets
 werkzeug==0.14.1          # via flask, flask-hookserver, flask-kvsession
-whitenoise==3.3.1
+whitenoise==4.0
 wtforms==2.1
