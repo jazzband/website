@@ -50,7 +50,7 @@ pexpect==4.5.0            # via delegator.py
 pip-tools==1.11.0
 pkginfo==1.4.2            # via twine
 psycopg2-binary==2.7.4
-ptyprocess==0.5.2         # via pexpect
+ptyprocess==0.6.0         # via pexpect
 pycparser==2.18           # via cffi
 pygments==2.2.0
 pyopenssl==18.0.0         # via requests
