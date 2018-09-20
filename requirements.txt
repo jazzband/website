@@ -41,7 +41,7 @@ idna==2.7                 # via cryptography, requests
 itsdangerous==0.24        # via flask, flask-kvsession
 jinja2==2.10              # via flask
 kombu==4.2.1              # via celery
-libsass==0.14.5
+libsass==0.15.0
 mako==1.0.7               # via alembic
 markdown==2.6.11          # via flask-flatpages
 markupsafe==1.0           # via jinja2, mako
