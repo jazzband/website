@@ -51,7 +51,7 @@ pip-tools==2.0.2
 pkginfo==1.4.2            # via twine
 psycopg2-binary==2.7.5
 ptyprocess==0.5.2         # via pexpect
-pycparser==2.18           # via cffi
+pycparser==2.19           # via cffi
 pygments==2.2.0
 pyopenssl==18.0.0         # via requests
 pyparsing==2.2.1          # via packaging
