@@ -31,5 +31,5 @@ sqlalchemy>=0.9
 sqlalchemy-utils
 twine
 uwsgi
-whitenoise
+whitenoise[brotli]
 wtforms

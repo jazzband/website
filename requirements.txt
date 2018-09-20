@@ -10,6 +10,7 @@ asn1crypto==0.24.0        # via cryptography
 babel==2.6.0
 billiard==3.5.0.4         # via celery
 blinker==1.4              # via flask-mail, raven
+brotli==1.0.4             # via whitenoise
 celery==4.2.1             # via flask-celeryext
 certifi==2018.8.24        # via requests
 cffi==1.11.5              # via cryptography
@@ -35,7 +36,7 @@ flask-talisman==0.5.1
 flask-wtf==0.14.2
 flask==1.0.2
 github-flask==3.2.0
-gunicorn==19.8.1
+gunicorn==19.9.0
 honcho==1.0.1
 idna==2.7                 # via cryptography, requests
 itsdangerous==0.24        # via flask, flask-kvsession
@@ -64,16 +65,16 @@ raven[flask]==6.9.0
 redis==2.10.6
 requests-toolbelt==0.8.0  # via twine
 requests[security]==2.19.1  # via flask-hookserver, github-flask, requests-toolbelt, twine
-simplekv==0.11.10          # via flask-kvsession
+simplekv==0.11.10         # via flask-kvsession
 six==1.11.0               # via cryptography, flask-kvsession, flask-talisman, libsass, packaging, pip-tools, pyopenssl, python-dateutil, sqlalchemy-utils
-sqlalchemy-utils==0.33.3
+sqlalchemy-utils==0.33.5
 sqlalchemy==1.2.12
-tqdm==4.23.3              # via twine
+tqdm==4.26.0              # via twine
 twine==1.11.0
-urllib3==1.22             # via requests
+urllib3==1.23             # via requests
 uwsgi==2.0.17.1
 vine==1.1.4               # via amqp
 webassets==0.12.1         # via flask-assets
 werkzeug==0.14.1          # via flask, flask-hookserver, flask-kvsession
-whitenoise==4.1
+whitenoise[brotli]==4.1
 wtforms==2.2.1
