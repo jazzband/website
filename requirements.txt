@@ -63,7 +63,7 @@ pyyaml==3.13              # via flask-flatpages
 raven[flask]==6.8.0
 redis==2.10.6
 requests-toolbelt==0.8.0  # via twine
-requests[security]==2.18.4  # via flask-hookserver, github-flask, requests-toolbelt, twine
+requests[security]==2.19.1  # via flask-hookserver, github-flask, requests-toolbelt, twine
 simplekv==0.11.8          # via flask-kvsession
 six==1.11.0               # via cryptography, flask-kvsession, flask-talisman, libsass, packaging, pip-tools, pyopenssl, python-dateutil, sqlalchemy-utils
 sqlalchemy-utils==0.33.3
