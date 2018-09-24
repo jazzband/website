@@ -10,7 +10,7 @@ asn1crypto==0.24.0        # via cryptography
 babel==2.6.0
 billiard==3.5.0.4         # via celery
 blinker==1.4              # via flask-mail, raven
-brotli==1.0.4             # via whitenoise
+brotli==1.0.6             # via whitenoise
 celery==4.2.1             # via flask-celeryext
 certifi==2018.8.24        # via requests
 cffi==1.11.5              # via cryptography
