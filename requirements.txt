@@ -12,7 +12,7 @@ billiard==3.5.0.4         # via celery
 blinker==1.4              # via flask-mail, raven
 brotli==1.0.4             # via whitenoise
 celery==4.2.1             # via flask-celeryext
-certifi==2018.8.24        # via requests
+certifi==2018.10.15        # via requests
 cffi==1.11.5              # via cryptography
 chardet==3.0.4            # via requests
 click==6.7                # via flask, pip-tools
