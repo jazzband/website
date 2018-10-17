@@ -12,12 +12,18 @@ from .projects.models import (Project, ProjectCredential, ProjectUpload,
 
 class JazzbandModelView(sqla.ModelView):
 
-    def _handle_view(self, name, **kwargs):
+    def _run_view(self, fn, *args, **kwargs):
         """
-        Disable CSP for the admin.
+            This method will run actual view function.
+            While it is similar to _handle_view, can be used to change
+            arguments that are passed to the view.
+            :param fn:
+                View function
+            :param kwargs:
+                Arguments
         """
-        talisman.local_options.content_security_policy = None
-        return super()._handle_view(name, **kwargs)
+        decorator = talisman(content_security_policy=None)
+        return decorator(fn(self, *args, **kwargs))
 
     def is_accessible(self):
         return current_user_is_roadie()
