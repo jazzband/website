@@ -70,7 +70,7 @@ six==1.11.0               # via cryptography, flask-kvsession, flask-talisman, l
 sqlalchemy-utils==0.33.6
 sqlalchemy==1.2.12
 tqdm==4.26.0              # via twine
-twine==1.11.0
+twine==1.12.1
 urllib3==1.24             # via requests
 uwsgi==2.0.17.1
 vine==1.1.4               # via amqp
