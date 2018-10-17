@@ -17,6 +17,7 @@ Feel free to ping a [Jazzband roadie](https://jazzband.co/roadies) if you have a
 - [ ] Add `jazzband-bot` as maintainer to the [Read the Docs](https://readthedocs.org/) project (URL: `https://readthedocs.org/dashboard/<PROJECTNAME>/users/`)
 - [ ] Fix project URL in [GitHub project]({{ repository.html_url }}) description
 - [ ] Review project if other services are used and port them to Jazzband
+- [ ] Decide who is project lead for the project (if at all) and setup CI for it if needed
 
 {% if repository %}
 ## Project details
