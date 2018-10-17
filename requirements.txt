@@ -12,7 +12,7 @@ billiard==3.5.0.4         # via celery
 blinker==1.4              # via flask-mail, raven
 brotli==1.0.4             # via whitenoise
 celery==4.2.1             # via flask-celeryext
-certifi==2018.8.24        # via requests
+certifi==2018.10.15        # via requests
 cffi==1.11.5              # via cryptography
 chardet==3.0.4            # via requests
 click==6.7                # via flask, pip-tools
@@ -32,7 +32,7 @@ flask-migrate==2.2.1
 flask-redis==0.3.0
 flask-script==2.0.6
 flask-sqlalchemy==2.3.2
-flask-talisman==0.5.1
+flask-talisman==0.6.0
 flask-wtf==0.14.2
 flask==1.0.2
 github-flask==3.2.0
@@ -67,11 +67,11 @@ requests-toolbelt==0.8.0  # via twine
 requests[security]==2.19.1  # via flask-hookserver, github-flask, requests-toolbelt, twine
 simplekv==0.11.10         # via flask-kvsession
 six==1.11.0               # via cryptography, flask-kvsession, flask-talisman, libsass, packaging, pip-tools, pyopenssl, python-dateutil, sqlalchemy-utils
-sqlalchemy-utils==0.33.5
+sqlalchemy-utils==0.33.6
 sqlalchemy==1.2.12
 tqdm==4.26.0              # via twine
 twine==1.12.1
-urllib3==1.23             # via requests
+urllib3==1.24             # via requests
 uwsgi==2.0.17.1
 vine==1.1.4               # via amqp
 webassets==0.12.1         # via flask-assets
