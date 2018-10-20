@@ -23,7 +23,7 @@ flask-admin==1.5.2
 flask-assets==0.12
 flask-celeryext==0.3.1
 flask-compress==1.4.0
-flask-flatpages==0.6
+flask-flatpages==0.6.1
 flask-hookserver==1.1.0
 flask-kvsession==0.6.2
 flask-login==0.4.1
