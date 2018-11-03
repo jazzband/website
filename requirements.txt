@@ -15,7 +15,7 @@ celery==4.2.1             # via flask-celeryext
 certifi==2018.10.15        # via requests
 cffi==1.11.5              # via cryptography
 chardet==3.0.4            # via requests
-click==6.7                # via flask, pip-tools
+click==7.0                # via flask, pip-tools
 cryptography==2.3.1       # via pyopenssl, requests
 delegator.py==0.1.1
 first==2.0.1              # via pip-tools
