@@ -4,7 +4,7 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
-alembic==1.0.0            # via flask-migrate
+alembic==1.0.2            # via flask-migrate
 amqp==2.3.2               # via kombu
 asn1crypto==0.24.0        # via cryptography
 babel==2.6.0
@@ -15,7 +15,7 @@ celery==4.2.1             # via flask-celeryext
 certifi==2018.10.15        # via requests
 cffi==1.11.5              # via cryptography
 chardet==3.0.4            # via requests
-click==6.7                # via flask, pip-tools
+click==7.0                # via flask, pip-tools
 cryptography==2.3.1       # via pyopenssl, requests
 delegator.py==0.1.1
 first==2.0.1              # via pip-tools
@@ -28,7 +28,7 @@ flask-hookserver==1.1.0
 flask-kvsession==0.6.2
 flask-login==0.4.1
 flask-mail==0.9.1
-flask-migrate==2.2.1
+flask-migrate==2.3.0
 flask-redis==0.3.0
 flask-script==2.0.6
 flask-sqlalchemy==2.3.2
@@ -39,39 +39,39 @@ github-flask==3.2.0
 gunicorn==19.9.0
 honcho==1.0.1
 idna==2.7                 # via cryptography, requests
-itsdangerous==0.24        # via flask, flask-kvsession
+itsdangerous==1.1.0        # via flask, flask-kvsession
 jinja2==2.10              # via flask
 kombu==4.2.1              # via celery
-libsass==0.15.0
+libsass==0.15.1
 mako==1.0.7               # via alembic
 markdown==2.6.11          # via flask-flatpages
 markupsafe==1.0           # via jinja2, mako
-packaging==17.1
+packaging==18.0
 pexpect==4.6.0            # via delegator.py
-pip-tools==2.0.2
+pip-tools==3.1.0
 pkginfo==1.4.2            # via twine
 psycopg2-binary==2.7.5
 ptyprocess==0.6.0         # via pexpect
 pycparser==2.19           # via cffi
 pygments==2.2.0
 pyopenssl==18.0.0         # via requests
-pyparsing==2.2.1          # via packaging
+pyparsing==2.3.0          # via packaging
 python-dateutil==2.7.5    # via alembic
 python-decouple==3.1
 python-editor==1.0.3      # via alembic
-pytz==2018.5              # via babel, celery
+pytz==2018.7              # via babel, celery
 pyyaml==3.13              # via flask-flatpages
 raven[flask]==6.9.0
 redis==2.10.6
 requests-toolbelt==0.8.0  # via twine
-requests[security]==2.19.1  # via flask-hookserver, github-flask, requests-toolbelt, twine
+requests[security]==2.20.0  # via flask-hookserver, github-flask, requests-toolbelt, twine
 simplekv==0.11.10         # via flask-kvsession
 six==1.11.0               # via cryptography, flask-kvsession, flask-talisman, libsass, packaging, pip-tools, pyopenssl, python-dateutil, sqlalchemy-utils
 sqlalchemy-utils==0.33.6
-sqlalchemy==1.2.12
-tqdm==4.26.0              # via twine
+sqlalchemy==1.2.13
+tqdm==4.28.1              # via twine
 twine==1.12.1
-urllib3==1.23             # via requests
+urllib3==1.24.1             # via requests
 uwsgi==2.0.17.1
 vine==1.1.4               # via amqp
 webassets==0.12.1         # via flask-assets
