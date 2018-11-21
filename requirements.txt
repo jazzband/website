@@ -79,5 +79,5 @@ vine==1.1.4               # via amqp
 webassets==0.12.1         # via flask-assets
 webencodings==0.5.1       # via bleach
 werkzeug==0.14.1          # via flask, flask-hookserver, flask-kvsession
-whitenoise[brotli]==4.1
+whitenoise[brotli]==4.1.2
 wtforms==2.2.1
