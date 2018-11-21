@@ -70,7 +70,7 @@ requests[security]==2.20.0  # via flask-hookserver, github-flask, requests-toolb
 simplekv==0.11.11         # via flask-kvsession
 six==1.11.0               # via bleach, cryptography, flask-kvsession, flask-talisman, libsass, packaging, pip-tools, pyopenssl, python-dateutil, readme-renderer, sqlalchemy-utils
 sqlalchemy-utils==0.33.8
-sqlalchemy==1.2.13
+sqlalchemy==1.2.14
 tqdm==4.28.1              # via twine
 twine==1.12.1
 urllib3==1.24.1           # via requests
