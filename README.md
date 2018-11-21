@@ -2,7 +2,7 @@ This app renders https://jazzband.co.
 
 [![Jazzband](https://jazzband.co/static/img/badge.svg)](https://jazzband.co/)
 
-[![Updates](https://pyup.io/repos/github/jazzband/website/shield.svg)](https://pyup.io/repos/github/jazzband/website/)
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=jazzband/website)](https://dependabot.com)
 
 ## Installation
 
