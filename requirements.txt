@@ -9,16 +9,17 @@ amqp==2.3.2               # via kombu
 asn1crypto==0.24.0        # via cryptography
 babel==2.6.0
 billiard==3.5.0.4         # via celery
+bleach==3.0.2             # via readme-renderer
 blinker==1.4              # via flask-mail, raven
 brotli==1.0.7             # via whitenoise
 celery==4.2.1             # via flask-celeryext
-certifi==2018.10.15        # via requests
+certifi==2018.10.15       # via requests
 cffi==1.11.5              # via cryptography
 chardet==3.0.4            # via requests
 click==7.0                # via flask, pip-tools
 cryptography==2.3.1       # via pyopenssl, requests
 delegator.py==0.1.1
-first==2.0.1              # via pip-tools
+docutils==0.14            # via readme-renderer
 flask-admin==1.5.2
 flask-assets==0.12
 flask-celeryext==0.3.1
@@ -39,7 +40,7 @@ github-flask==3.2.0
 gunicorn==19.9.0
 honcho==1.0.1
 idna==2.7                 # via cryptography, requests
-itsdangerous==1.1.0        # via flask, flask-kvsession
+itsdangerous==1.1.0       # via flask, flask-kvsession
 jinja2==2.10              # via flask
 kombu==4.2.1              # via celery
 libsass==0.15.1
@@ -50,7 +51,7 @@ packaging==18.0
 pexpect==4.6.0            # via delegator.py
 pip-tools==3.1.0
 pkginfo==1.4.2            # via twine
-psycopg2-binary==2.7.5
+psycopg2-binary==2.7.6.1
 ptyprocess==0.6.0         # via pexpect
 pycparser==2.19           # via cffi
 pygments==2.2.0
@@ -62,19 +63,21 @@ python-editor==1.0.3      # via alembic
 pytz==2018.7              # via babel, celery
 pyyaml==3.13              # via flask-flatpages
 raven[flask]==6.9.0
+readme-renderer==24.0     # via twine
 redis==2.10.6
 requests-toolbelt==0.8.0  # via twine
 requests[security]==2.20.0  # via flask-hookserver, github-flask, requests-toolbelt, twine
 simplekv==0.11.11         # via flask-kvsession
-six==1.11.0               # via cryptography, flask-kvsession, flask-talisman, libsass, packaging, pip-tools, pyopenssl, python-dateutil, sqlalchemy-utils
+six==1.11.0               # via bleach, cryptography, flask-kvsession, flask-talisman, libsass, packaging, pip-tools, pyopenssl, python-dateutil, readme-renderer, sqlalchemy-utils
 sqlalchemy-utils==0.33.6
 sqlalchemy==1.2.13
 tqdm==4.28.1              # via twine
 twine==1.12.1
-urllib3==1.24.1             # via requests
+urllib3==1.24.1           # via requests
 uwsgi==2.0.17.1
 vine==1.1.4               # via amqp
 webassets==0.12.1         # via flask-assets
+webencodings==0.5.1       # via bleach
 werkzeug==0.14.1          # via flask, flask-hookserver, flask-kvsession
 whitenoise[brotli]==4.1
 wtforms==2.2.1
