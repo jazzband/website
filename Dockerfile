@@ -43,12 +43,12 @@ RUN set -x \
 
 COPY . /app/
 
+COPY --from=npm /tmp/node_modules /app/node_modules/
+
 RUN chown -R 10001:10001 /app
 
 USER 10001
 
 WORKDIR /app
-
-COPY --from=npm /tmp/node_modules .
 
 ENTRYPOINT ["/app/docker-entrypoint.sh", "--"]
