@@ -7,8 +7,8 @@
 {% if page.path == "index" %}
   <h2>
     News
-    <a rel="alternate" type="application/atom+xml" href="{{ url_for('content.news_feed', _external=True) }}">
-      <span class="mega-octicon octicon-rss"></span>
+    <a rel="alternate" type="application/atom+xml" href="{{ url_for('content.news_feed', _external=True) }}" title="Atom feed">
+      <i class="fas fa-rss fa-xs"></i>
     </a>
   </h2>
 {% else %}

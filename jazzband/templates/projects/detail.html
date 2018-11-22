@@ -17,28 +17,28 @@
   {% endif %}
   <table class="projects-detail">
     <tr>
-      <td><span class="mega-octicon octicon-eye"></span></td>
+      <td><i class="far fa-eye"></i></td>
       <td>Watchers</td>
       <td>{{ project.subscribers_count }}</td>
     </tr>
     <tr>
-      <td><span class="mega-octicon octicon-star"></span></td>
+      <td><i class="fas fa-star"></i></td>
       <td>Stargazers</td>
       <td>{{ project.stargazers_count }}</td>
     </tr>
     <tr>
-      <td><span class="mega-octicon octicon-repo-forked"></span></td>
+      <td><i class="fas fa-code-branch"></i></td>
       <td>Forks</td>
       <td>{{ project.forks_count }}</td>
     </tr>
     <tr>
-      <td><span class="mega-octicon octicon-issue-opened"></span></td>
+      <td><i class="fas fa-bug"></i></td>
       <td>Issues</td>
       <td>{{ project.open_issues_count }}</td>
     </tr>
     {% if project.uploads_count %}
     <tr>
-      <td><span class="mega-octicon octicon-package"></span></td>
+      <td><i class="fas fa-archive"></i></td>
       <td>Uploads</td>
       <td>{{ project.uploads_count }}</td>
     </tr>

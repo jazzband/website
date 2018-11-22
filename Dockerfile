@@ -1,3 +1,11 @@
+FROM node as npm
+
+COPY package.json package-lock.json /tmp/
+
+WORKDIR /tmp
+
+RUN npm install
+
 FROM python:3.6
 
 ENV PYTHONUNBUFFERED 1 \
@@ -40,5 +48,7 @@ RUN chown -R 10001:10001 /app
 USER 10001
 
 WORKDIR /app
+
+COPY --from=npm /tmp/node_modules .
 
 ENTRYPOINT ["/app/docker-entrypoint.sh", "--"]

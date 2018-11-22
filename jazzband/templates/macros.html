@@ -67,10 +67,10 @@
 <dt><pre>{{ upload.remote_addr }}</pre></dt>
 <dd></dd>
 <dt>
-  <a href="{{ url_for('projects.formdata', name=upload.project.name, upload_id=upload.id) }}" title="View submitted formdata as JSON"><span class="octicon octicon-info"></span> Metadata</a>
-  <a href="{{ url_for('.download', name=upload.project.name, upload_id=upload.id) }}" title="Download uploaded file"><span class="octicon octicon-desktop-download"></span> Download</a> {% if not upload.released_at -%}
-  <a href="{{ url_for('.release', name=upload.project.name, upload_id=upload.id) }}" title="Release to PyPI"><span class="octicon octicon-cloud-upload"></span> Release</a>
-  <a href="{{ url_for('.delete', name=upload.project.name, upload_id=upload.id) }}" title="Delete release"><span class="octicon octicon-trashcan"></span> Delete</a>
+  <a href="{{ url_for('projects.formdata', name=upload.project.name, upload_id=upload.id) }}" title="View submitted formdata as JSON"><i class="fas fa-info-circle"></i> Metadata</a>
+  <a href="{{ url_for('.download', name=upload.project.name, upload_id=upload.id) }}" title="Download uploaded file"><i class="fas fa-download"></i> Download</a> {% if not upload.released_at -%}
+  <a href="{{ url_for('.release', name=upload.project.name, upload_id=upload.id) }}" title="Release to PyPI"><i class="fas fa-cloud-upload-alt"></i> Release</a>
+  <a href="{{ url_for('.delete', name=upload.project.name, upload_id=upload.id) }}" title="Delete release"><i class="fas fa-trash-alt"></i> Delete</a>
   {%- endif %}
 </dt>
 

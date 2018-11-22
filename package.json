@@ -1,0 +1,25 @@
+{
+  "name": "jazzband",
+  "version": "2018.11.0",
+  "description": "Code for the Jazzband website",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.5.0",
+    "blazy": "^1.8.2"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jazzband/website.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jazzband/website/issues"
+  },
+  "homepage": "https://github.com/jazzband/website#readme",
+  "private": true
+}

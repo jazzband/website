@@ -3,7 +3,7 @@
 {% set this_url = url_for('projects.index') %}
 
 {%- macro sorter_link(sorter, current_sorter, current_order, icon) -%}
-<a href="{{ this_url }}?sorter={{ sorter }}{% if current_order != DEFAULT_ORDER and sorter != 'random' and not initial_sorting and sorter == current_sorter %}&order={{ DEFAULT_ORDER }}{% endif %}" title="Sort by {{ sorter }}"{% if sorter == current_sorter %} class="red"{% endif %}><span class="mega-octicon octicon-{{ icon }}"></span></a>
+<a href="{{ this_url }}?sorter={{ sorter }}{% if current_order != DEFAULT_ORDER and sorter != 'random' and not initial_sorting and sorter == current_sorter %}&order={{ DEFAULT_ORDER }}{% endif %}" title="Sort by {{ sorter }}"{% if sorter == current_sorter %} class="red"{% endif %}><i class="{{ icon }}"></i></a>
 {%- endmacro -%}
 
 {% block content %}
@@ -19,25 +19,25 @@
     <thead>
       <tr>
         <th>
-          {{ sorter_link('name', sorter, order, 'repo') }}
+          {{ sorter_link('name', sorter, order, 'fas fa-signature') }}
         </th>
           <th class="numbers">
-          {{ sorter_link('random', sorter, order, 'squirrel') }}
+          {{ sorter_link('random', sorter, order, 'fas fa-random') }}
         </th>
         <th class="numbers">
-          {{ sorter_link('uploads', sorter, order, 'package') }}
+          {{ sorter_link('uploads', sorter, order, 'fas fa-archive') }}
         </th>
         <th class="numbers">
-          {{ sorter_link('watchers', sorter, order, 'eye') }}
+          {{ sorter_link('watchers', sorter, order, 'far fa-eye') }}
         </th>
         <th class="numbers">
-          {{ sorter_link('stargazers', sorter, order, 'star') }}
+          {{ sorter_link('stargazers', sorter, order, 'fas fa-star') }}
         </th>
         <th class="numbers">
-          {{ sorter_link('forks', sorter, order, 'repo-forked') }}
+          {{ sorter_link('forks', sorter, order, 'fas fa-code-branch') }}
         </th>
         <th class="numbers">
-           {{ sorter_link('issues', sorter, order, 'issue-opened') }}
+           {{ sorter_link('issues', sorter, order, 'fas fa-bug') }}
         </th>
       </tr>
     </thead>
