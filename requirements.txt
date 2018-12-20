@@ -66,7 +66,7 @@ raven[flask]==6.10.0
 readme-renderer==24.0     # via twine
 redis==2.10.6
 requests-toolbelt==0.8.0  # via twine
-requests[security]==2.20.0  # via flask-hookserver, github-flask, requests-toolbelt, twine
+requests[security]==2.21.0  # via flask-hookserver, github-flask, requests-toolbelt, twine
 simplekv==0.11.11         # via flask-kvsession
 six==1.11.0               # via bleach, cryptography, flask-kvsession, flask-talisman, libsass, packaging, pip-tools, pyopenssl, python-dateutil, readme-renderer, sqlalchemy-utils
 sqlalchemy-utils==0.33.8
