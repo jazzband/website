@@ -64,7 +64,7 @@ pytz==2018.7              # via babel, celery
 pyyaml==3.13              # via flask-flatpages
 raven[flask]==6.10.0
 readme-renderer==24.0     # via twine
-redis==2.10.6
+redis==3.0.1
 requests-toolbelt==0.8.0  # via twine
 requests[security]==2.21.0  # via flask-hookserver, github-flask, requests-toolbelt, twine
 simplekv==0.11.11         # via flask-kvsession
