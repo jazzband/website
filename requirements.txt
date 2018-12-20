@@ -20,7 +20,7 @@ click==7.0                # via flask, pip-tools
 cryptography==2.3.1       # via pyopenssl, requests
 delegator.py==0.1.1
 docutils==0.14            # via readme-renderer
-flask-admin==1.5.2
+flask-admin==1.5.3
 flask-assets==0.12
 flask-celeryext==0.3.1
 flask-compress==1.4.0
