@@ -8,7 +8,7 @@ alembic==1.0.5            # via flask-migrate
 amqp==2.3.2               # via kombu
 asn1crypto==0.24.0        # via cryptography
 babel==2.6.0
-billiard==3.5.0.4         # via celery
+billiard==3.5.0.5         # via celery
 bleach==3.0.2             # via readme-renderer
 blinker==1.4              # via flask-mail, raven
 brotli==1.0.7             # via whitenoise
@@ -17,7 +17,7 @@ certifi==2018.11.29       # via requests
 cffi==1.11.5              # via cryptography
 chardet==3.0.4            # via requests
 click==7.0                # via flask, pip-tools
-cryptography==2.3.1       # via pyopenssl, requests
+cryptography==2.4.2       # via pyopenssl, requests
 delegator.py==0.1.1
 docutils==0.14            # via readme-renderer
 flask-admin==1.5.3
@@ -64,12 +64,12 @@ pytz==2018.7              # via babel, celery
 pyyaml==3.13              # via flask-flatpages
 raven[flask]==6.10.0
 readme-renderer==24.0     # via twine
-redis==2.10.6
+redis==3.0.1
 requests-toolbelt==0.8.0  # via twine
 requests[security]==2.21.0  # via flask-hookserver, github-flask, requests-toolbelt, twine
 simplekv==0.11.11         # via flask-kvsession
 six==1.12.0               # via bleach, cryptography, flask-kvsession, flask-talisman, libsass, packaging, pip-tools, pyopenssl, python-dateutil, readme-renderer, sqlalchemy-utils
-sqlalchemy-utils==0.33.8
+sqlalchemy-utils==0.33.9
 sqlalchemy==1.2.15
 tqdm==4.28.1              # via twine
 twine==1.12.1
