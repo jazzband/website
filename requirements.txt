@@ -13,7 +13,7 @@ bleach==3.0.2             # via readme-renderer
 blinker==1.4              # via flask-mail, raven
 brotli==1.0.7             # via whitenoise
 celery==4.2.1             # via flask-celeryext
-certifi==2018.10.15       # via requests
+certifi==2018.11.29       # via requests
 cffi==1.11.5              # via cryptography
 chardet==3.0.4            # via requests
 click==7.0                # via flask, pip-tools
