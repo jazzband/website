@@ -9,7 +9,7 @@ from wtforms.fields import BooleanField, HiddenField, StringField
 
 from .decorators import templated
 from .github import github
-from .members.tasks import sync_user_email_addresses
+from .members.jobs import sync_user_email_addresses
 from .members.models import db, User
 from .utils import get_redirect_target
 
@@ -148,7 +148,7 @@ def callback(access_token):
         return {'form': form}
     else:
         # fetch the current set of email addresses from GitHub
-        sync_user_email_addresses.delay(user.id)
+        sync_user_email_addresses.queue(user.id)
 
         # remember the user_id for the next request
         login_user(user)

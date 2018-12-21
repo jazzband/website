@@ -5,24 +5,21 @@
 #    pip-compile --output-file requirements.txt requirements.in
 #
 alembic==1.0.5            # via flask-migrate
-amqp==2.3.2               # via kombu
 asn1crypto==0.24.0        # via cryptography
 babel==2.6.0
-billiard==3.5.0.5         # via celery
 bleach==3.0.2             # via readme-renderer
-blinker==1.4              # via flask-mail, raven
+blinker==1.4              # via flask-mail, sentry-sdk
 brotli==1.0.7             # via whitenoise
-celery==4.2.1             # via flask-celeryext
-certifi==2018.11.29       # via requests
+certifi==2018.11.29       # via requests, sentry-sdk
 cffi==1.11.5              # via cryptography
 chardet==3.0.4            # via requests
-click==7.0                # via flask, pip-tools
+click==7.0                # via flask, pip-tools, rq
+croniter==0.3.26          # via rq-scheduler
 cryptography==2.4.2       # via pyopenssl, requests
 delegator.py==0.1.1
 docutils==0.14            # via readme-renderer
 flask-admin==1.5.3
 flask-assets==0.12
-flask-celeryext==0.3.1
 flask-compress==1.4.0
 flask-flatpages==0.7.0
 flask-hookserver==1.1.0
@@ -31,6 +28,7 @@ flask-login==0.4.1
 flask-mail==0.9.1
 flask-migrate==2.3.1
 flask-redis==0.3.0
+flask-rq2==18.3
 flask-script==2.0.6
 flask-sqlalchemy==2.3.2
 flask-talisman==0.6.0
@@ -39,10 +37,9 @@ flask==1.0.2
 github-flask==3.2.0
 gunicorn==19.9.0
 honcho==1.0.1
-idna==2.7                 # via cryptography, requests
+idna==2.8                 # via cryptography, requests
 itsdangerous==1.1.0       # via flask, flask-kvsession
 jinja2==2.10              # via flask
-kombu==4.2.2              # via celery
 libsass==0.16.1
 mako==1.0.7               # via alembic
 markdown==3.0.1           # via flask-flatpages
@@ -57,25 +54,26 @@ pycparser==2.19           # via cffi
 pygments==2.3.1
 pyopenssl==18.0.0         # via requests
 pyparsing==2.3.0          # via packaging
-python-dateutil==2.7.5    # via alembic
+python-dateutil==2.7.5    # via alembic, croniter
 python-decouple==3.1
 python-editor==1.0.3      # via alembic
-pytz==2018.7              # via babel, celery
+pytz==2018.7              # via babel
 pyyaml==3.13              # via flask-flatpages
-raven[flask]==6.10.0
 readme-renderer==24.0     # via twine
 redis==3.0.1
 requests-toolbelt==0.8.0  # via twine
 requests[security]==2.21.0  # via flask-hookserver, github-flask, requests-toolbelt, twine
+rq-scheduler==0.9         # via flask-rq2
+rq==0.13.0                # via flask-rq2, rq-scheduler
+sentry-sdk[flask]==0.6.4
 simplekv==0.11.11         # via flask-kvsession
 six==1.12.0               # via bleach, cryptography, flask-kvsession, flask-talisman, libsass, packaging, pip-tools, pyopenssl, python-dateutil, readme-renderer, sqlalchemy-utils
 sqlalchemy-utils==0.33.9
 sqlalchemy==1.2.15
 tqdm==4.28.1              # via twine
 twine==1.12.1
-urllib3==1.24.1           # via requests
+urllib3==1.24.1           # via requests, sentry-sdk
 uwsgi==2.0.17.1
-vine==1.1.4               # via amqp
 webassets==0.12.1         # via flask-assets
 webencodings==0.5.1       # via bleach
 werkzeug==0.14.1          # via flask, flask-hookserver, flask-kvsession

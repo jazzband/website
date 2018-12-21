@@ -3,7 +3,6 @@ delegator.py
 Flask
 Flask-Admin
 Flask-Assets
-Flask-CeleryExt
 Flask-Compress
 Flask-Mail
 Flask-Flatpages
@@ -12,6 +11,7 @@ Flask-KVSession
 Flask-Login
 Flask-Migrate
 Flask-Redis
+Flask-RQ2
 Flask-Script
 Flask-SQLAlchemy
 flask-talisman
@@ -25,7 +25,7 @@ pip-tools
 psycopg2-binary
 pygments
 python-decouple
-raven[flask]
+sentry-sdk[flask]
 redis
 sqlalchemy>=0.9
 sqlalchemy-utils
