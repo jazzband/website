@@ -1,6 +1,7 @@
 from flask import redirect, url_for, request
-from flask_admin import Admin
+from flask_admin import Admin, AdminIndexView, expose
 from flask_admin.contrib import sqla
+from flask_login import current_user
 
 from .auth import current_user_is_roadie
 from .db import postgres
@@ -17,6 +18,15 @@ class JazzbandModelView(sqla.ModelView):
     def inaccessible_callback(self, name, **kwargs):
         # redirect to login page if user doesn't have access
         return redirect(url_for('account.login', next=request.url))
+
+
+class JazzbandAdminIndexView(AdminIndexView):
+
+    @expose('/')
+    def index(self):
+        if not current_user.is_authenticated:
+            return redirect(url_for('account.login', next=request.url))
+        return super().index()
 
 
 class UserAdmin(JazzbandModelView):
@@ -55,7 +65,12 @@ class ProjectUploadAdmin(JazzbandModelView):
 
 
 def init_app(app):
-    admin = Admin(app, name='jazzband', template_mode='bootstrap3')
+    admin = Admin(
+        app,
+        name='jazzband',
+        template_mode='bootstrap3',
+        index_view=JazzbandAdminIndexView(),
+    )
 
     model_admins = [
         (User, UserAdmin),
