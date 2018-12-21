@@ -1,12 +1,11 @@
-from urllib.parse import urljoin
 from urllib.parse import (
     ParseResult, SplitResult, _coerce_args, _splitnetloc, _splitparams,
-    scheme_chars, uses_params,
+    scheme_chars, uses_params, urljoin,
 )
 import unicodedata
 
 from time import time
-from flask import current_app, request, url_for
+from flask import current_app, request, session, url_for
 
 
 def sub_dict(map, keys):
@@ -148,7 +147,12 @@ def _is_safe_url(url, allowed_hosts, require_https=False):
 
 
 def get_redirect_target(endpoint='content.index'):
-    targets = request.args.get('next'), request.referrer, url_for(endpoint)
+    targets = (
+        session.pop('next'),
+        request.args.get('next'),
+        request.referrer,
+        url_for(endpoint),
+    )
     for target in targets:
         if not target:
             continue

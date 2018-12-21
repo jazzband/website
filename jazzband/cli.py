@@ -3,9 +3,9 @@ import sys
 import click
 from flask.cli import with_appcontext
 
-from .models import db, redis
-from .members.commands import sync_members
-from .projects.commands import sync_projects
+from .db import postgres, redis
+from .members.commands import sync_members, sync_email_addresses
+from .projects.commands import sync_projects, send_new_upload_notifications
 
 
 @click.command('db')
@@ -13,7 +13,7 @@ from .projects.commands import sync_projects
 def check_db():
     "Checks database connection"
     try:
-        db.session.execute('SELECT 1;')
+        postgres.session.execute('SELECT 1;')
     except Exception as exc:
         print(f'Database connection failed: {exc}')
         sys.exit(1)
@@ -36,14 +36,21 @@ def init_app(app):
 
     @app.cli.group()
     def sync():
-        "Sync Jazzband data"
+        "Sync Jazzband data."
+
+    @app.cli.group()
+    def send():
+        "Send notifications."
 
     @app.cli.group()
     def check():
-        "Checks some backends"
+        "Checks some backends."
 
     check.add_command(check_db)
     check.add_command(check_redis)
 
+    send.add_command(send_new_upload_notifications)
+
     sync.add_command(sync_members)
     sync.add_command(sync_projects)
+    sync.add_command(sync_email_addresses)

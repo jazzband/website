@@ -9,7 +9,8 @@ from sqlalchemy.dialects.postgresql import UUID, JSONB
 from sqlalchemy_utils import aggregated
 
 from ..auth import current_user_is_roadie
-from ..models import Helpers, Syncable, db
+from ..db import postgres as db
+from ..mixins import Helpers, Syncable
 
 
 class Project(db.Model, Helpers, Syncable):
@@ -29,8 +30,12 @@ class Project(db.Model, Helpers, Syncable):
 
     credentials = db.relationship('ProjectCredential', backref='project',
                                   lazy='dynamic')
-    uploads = db.relationship('ProjectUpload', backref='project',
-                              lazy='dynamic')
+    uploads = db.relationship(
+        'ProjectUpload',
+        backref='project',
+        lazy='dynamic',
+        order_by=lambda: ProjectUpload.ordering.desc(),
+    )
 
     created_at = db.Column(db.DateTime, nullable=True)
     updated_at = db.Column(db.DateTime, nullable=True)
@@ -123,9 +128,11 @@ class ProjectUpload(db.Model, Helpers):
     blake2_256_digest = db.Column(db.Text, unique=True, nullable=False)
     uploaded_at = db.Column(db.DateTime, default=datetime.utcnow)
     released_at = db.Column(db.DateTime, nullable=True)
+    notified_at = db.Column(db.DateTime, nullable=True, index=True)
     form_data = db.Column(JSONB)
     user_agent = db.Column(db.Text)
     remote_addr = db.Column(db.Text)
+    ordering = db.Column(db.Integer, default=0)
 
     __tablename__ = 'project_uploads'
     __table_args__ = (

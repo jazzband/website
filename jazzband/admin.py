@@ -3,7 +3,7 @@ from flask_admin import Admin
 from flask_admin.contrib import sqla
 
 from .auth import current_user_is_roadie
-from .models import db
+from .db import postgres
 from .members.models import User, EmailAddress
 from .projects.models import (Project, ProjectCredential, ProjectUpload,
                               ProjectMembership)
@@ -57,10 +57,14 @@ class ProjectUploadAdmin(JazzbandModelView):
 def init_app(app):
     admin = Admin(app, name='jazzband', template_mode='bootstrap3')
 
-    admin.add_view(UserAdmin(User, db.session))
-    admin.add_view(EmailAddressAdmin(EmailAddress, db.session))
+    model_admins = [
+        (User, UserAdmin),
+        (EmailAddress, EmailAddressAdmin),
+        (Project, ProjectAdmin),
+        (ProjectMembership, JazzbandModelView),
+        (ProjectUpload, ProjectUploadAdmin),
+        (ProjectCredential, JazzbandModelView),
+    ]
 
-    admin.add_view(ProjectAdmin(Project, db.session))
-    admin.add_view(JazzbandModelView(ProjectMembership, db.session))
-    admin.add_view(ProjectUploadAdmin(ProjectUpload, db.session))
-    admin.add_view(JazzbandModelView(ProjectCredential, db.session))
+    for model_cls, admin_cls in model_admins:
+        admin.add_view(admin_cls(model_cls, postgres.session))

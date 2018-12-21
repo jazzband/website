@@ -1,17 +1,19 @@
 from datetime import datetime
-
-from flask import Blueprint, redirect, session, url_for, flash
-from flask_login import (LoginManager, current_user,
-                         login_user, logout_user, login_required)
+from flask import Blueprint, flash, redirect, session, url_for
+from flask_login import (
+    LoginManager, current_user, login_user, logout_user, login_required
+)
 from flask_wtf import FlaskForm
 from wtforms import validators, ValidationError
 from wtforms.fields import BooleanField, HiddenField, StringField
 
 from .decorators import templated
 from .github import github
-from .members.jobs import sync_user_email_addresses
-from .members.models import db, User
+from .members.jobs import sync_email_addresses
+from .members.models import User
+from .db import postgres
 from .utils import get_redirect_target
+
 
 login_manager = LoginManager()
 login_manager.login_view = 'account.login'
@@ -104,7 +106,7 @@ def login():
         return redirect(next_url)
 
     # Set the next URL in the session to be checked in the account callback
-    session['next_url'] = next_url
+    session['next'] = next_url
 
     # default fallback is to initiate the GitHub auth workflow
     return github.authorize(scope=github.scope)
@@ -116,7 +118,9 @@ def login():
 def callback(access_token):
     form = ConsentForm(access_token=access_token)
     # first get the profile data for the user with the given access token
-    user_data = github.get_user(access_token=access_token or form.access_token.data)
+    user_data = github.get_user(
+        access_token=access_token or form.access_token.data
+    )
 
     # and see if the user is already in our database
     user = User.query.filter_by(id=user_data['id']).first()
@@ -140,7 +144,7 @@ def callback(access_token):
             user.org_consent = True
             user.cookies_consent = True
             user.age_consent = True
-        db.session.commit()
+        postgres.session.commit()
 
     # we'll show the form either if there is no user yet,
     # or if the user hasn't given consent yet
@@ -148,7 +152,7 @@ def callback(access_token):
         return {'form': form}
     else:
         # fetch the current set of email addresses from GitHub
-        sync_user_email_addresses.queue(user.id)
+        sync_email_addresses.queue(user.id)
 
         # remember the user_id for the next request
         login_user(user)
@@ -157,7 +161,7 @@ def callback(access_token):
 
         # Check for the next URL using the session first and then fallback
         next_url = (
-            session.get('next_url') or
+            session.pop('next') or
             get_redirect_target('account.dashboard')
         )
         return redirect(next_url)
@@ -185,7 +189,7 @@ def join():
     # in case the user doesn't have verified emails, let's check again
     # the async task may not have run yet
     if not has_verified_emails:
-        sync_user_email_addresses(current_user.id)
+        sync_email_addresses(current_user.id)
         has_verified_emails = current_user.has_verified_emails
 
     membership = None
@@ -220,7 +224,7 @@ def leave():
         else:
             current_user.left_at = datetime.utcnow()
             current_user.is_member = False
-            db.session.commit()
+            postgres.session.commit()
             logout_user()
             flash('You have been removed from the Jazzband GitHub '
                   'organization. See you soon!')
@@ -232,4 +236,5 @@ def leave():
 def logout():
     logout_user()
     flash("You've successfully logged out.")
-    return redirect(default_url())
+    next_url = get_redirect_target()
+    return redirect(next_url)

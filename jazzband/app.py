@@ -11,12 +11,12 @@ from . import admin, cli, errors
 from .account import account, login_manager
 from .assets import assets
 from .content import about_pages, news_pages, content
+from .db import postgres, redis
+from .email import mail
 from .github import github
 from .headers import talisman
 from .hooks import hooks
 from .jobs import rq
-from .email import mail
-from .models import db, redis
 from .members.views import members
 from .members.models import User
 from .projects.models import Project
@@ -70,11 +70,11 @@ talisman.init_app(
     content_security_policy_report_uri=app.config['CSP_REPORT_URI'],
 )
 
-db.init_app(app)
+postgres.init_app(app)
 
 redis.init_app(app)
 
-Migrate(app, db)
+Migrate(app, postgres)
 
 admin.init_app(app)
 
