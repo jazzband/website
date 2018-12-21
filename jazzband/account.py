@@ -136,7 +136,7 @@ def callback(access_token):
             user.joined_at = utc_now
 
         # update a bunch of things
-        user.access_token = form.access_token.data
+        user.access_token = access_token
 
         if not user.consented_at:
             user.consented_at = utc_now
@@ -144,7 +144,7 @@ def callback(access_token):
             user.org_consent = True
             user.cookies_consent = True
             user.age_consent = True
-        postgres.session.commit()
+        user.save()
 
     # we'll show the form either if there is no user yet,
     # or if the user hasn't given consent yet

@@ -1,22 +1,85 @@
-from datetime import timedelta
+import logging
+from datetime import datetime
+
+from flask import render_template
+from flask_mail import Message
 from packaging.version import parse as parse_version
 
-from . import commands
-from .models import ProjectUpload
 from ..db import postgres
+from ..email import mail
 from ..jobs import rq
+from ..members.models import User, EmailAddress
+from .models import ProjectMembership, ProjectUpload
+
+logger = logging.getLogger(__name__)
 
 
 @rq.job
-def send_new_upload_notifications():
-    commands.send_new_upload_notifications()
+def send_new_upload_notifications(project_id=None):
+    "Sends project upload notifications if needed"
+    unnotified_uploads = ProjectUpload.query.filter_by(notified_at=None)
+    if project_id is not None:
+        unnotified_uploads = unnotified_uploads.filter_by(
+            project_id=project_id,
+        )
+    messages = []
+
+    for upload in unnotified_uploads:
+        lead_memberships = upload.project.membership.join(
+            ProjectMembership.user
+        ).filter(
+            ProjectMembership.is_lead == True,
+            User.is_member == True,
+            User.is_banned == False,
+        )
+        lead_members = [membership.user for membership in lead_memberships]
+
+        recipients = []
+
+        for lead_member in lead_members + list(User.roadies()):
+
+            primary_email = lead_member.email_addresses.filter(
+                EmailAddress.primary == True,
+                EmailAddress.verified == True,
+            ).first()
+
+            if not primary_email:
+                continue
+
+            recipients.append(primary_email.email)
+
+        message = Message(
+            subject=f'Project {upload.project.name} received a new upload',
+            recipients=recipients,
+            body=render_template(
+                'projects/mails/new_upload_notification.txt',
+                project=upload.project,
+                upload=upload,
+                lead_members=lead_members,
+            )
+        )
+        messages.append((upload, message))
+
+    if not messages:
+        logger.info('No uploads found without notifications.')
+        return
+
+    with mail.connect() as smtp:
+        for upload, message in messages:
+            with postgres.transaction():
+                try:
+                    smtp.send(message)
+                finally:
+                    upload.notified_at = datetime.utcnow()
+                    upload.save()
+                    logger.info(f'Send notification for upload {upload}.')
 
 
-send_new_upload_notifications.schedule(
-    timedelta(minutes=1),
-    timeout=45,
-    job_id='send-upload-notifications',
-)
+# send_new_upload_notifications.schedule(
+#     timedelta(minutes=1),
+#     timeout=45,
+#     job_id='send-upload-notifications',
+# )
 
 
 @rq.job

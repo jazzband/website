@@ -148,7 +148,7 @@ def _is_safe_url(url, allowed_hosts, require_https=False):
 
 def get_redirect_target(endpoint='content.index'):
     targets = (
-        session.pop('next'),
+        session.get('next'),
         request.args.get('next'),
         request.referrer,
         url_for(endpoint),

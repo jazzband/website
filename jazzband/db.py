@@ -1,13 +1,13 @@
 from collections import deque
 from contextlib import contextmanager
 
-from flask_sqlalchemy import SQLAlchemy
 from flask_redis import FlaskRedis
+from flask_sqlalchemy import SQLAlchemy
 
 from .exceptions import Rollback
 
 
-class ExtendedSQLAlchemy(SQLAlchemy):
+class JazzbandSQLAlchemy(SQLAlchemy):
 
     def init_app(self, app):
         super().init_app(app)
@@ -142,6 +142,6 @@ class ExtendedSQLAlchemy(SQLAlchemy):
             return stack[0]
 
 
-sa = ExtendedSQLAlchemy()
+postgres = JazzbandSQLAlchemy()
 
 redis = FlaskRedis()
