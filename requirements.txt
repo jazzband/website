@@ -50,7 +50,7 @@ markupsafe==1.1.0         # via jinja2, mako
 packaging==18.0
 pexpect==4.6.0            # via delegator.py
 pip-tools==3.2.0
-pkginfo==1.4.2            # via twine
+pkginfo==1.5.0            # via twine
 psycopg2-binary==2.7.6.1
 ptyprocess==0.6.0         # via pexpect
 pycparser==2.19           # via cffi
