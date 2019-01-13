@@ -63,7 +63,7 @@ version manually in the `setup.py` works just the same.
 [PyPUG]: https://packaging.python.org/en/latest/
 [setuptools_scm]: https://pypi.org/project/setuptools_scm/
 
-### Travis
+### Continuous Integration  
 
 Next you will want to set up the project to use Travis-CI for
 continous testing. Please refer to the [Python specific
