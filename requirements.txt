@@ -75,7 +75,7 @@ tqdm==4.28.1              # via twine
 twine==1.12.1
 urllib3==1.24.1           # via requests
 uwsgi==2.0.17.1
-vine==1.1.4               # via amqp
+vine==1.2.0               # via amqp
 webassets==0.12.1         # via flask-assets
 webencodings==0.5.1       # via bleach
 werkzeug==0.14.1          # via flask, flask-hookserver, flask-kvsession
