@@ -55,7 +55,7 @@ psycopg2-binary==2.7.7
 ptyprocess==0.6.0         # via pexpect
 pycparser==2.19           # via cffi
 pygments==2.3.1
-pyopenssl==18.0.0         # via requests
+pyopenssl==19.0.0         # via requests
 pyparsing==2.3.1          # via packaging
 python-dateutil==2.7.5    # via alembic
 python-decouple==3.1
