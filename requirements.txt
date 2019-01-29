@@ -17,7 +17,7 @@ certifi==2018.11.29       # via requests
 cffi==1.11.5              # via cryptography
 chardet==3.0.4            # via requests
 click==7.0                # via flask, pip-tools
-cryptography==2.4.2       # via pyopenssl, requests
+cryptography==2.5         # via pyopenssl, requests
 delegator.py==0.1.1
 docutils==0.14            # via readme-renderer
 flask-admin==1.5.3
@@ -39,7 +39,7 @@ flask==1.0.2
 github-flask==3.2.0
 gunicorn==19.9.0
 honcho==1.0.1
-idna==2.8                 # via cryptography, requests
+idna==2.8                 # via requests
 itsdangerous==1.1.0       # via flask, flask-kvsession
 jinja2==2.10              # via flask
 kombu==4.2.2.post1        # via celery
