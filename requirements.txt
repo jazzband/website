@@ -57,7 +57,7 @@ pycparser==2.19           # via cffi
 pygments==2.3.1
 pyopenssl==19.0.0         # via requests
 pyparsing==2.3.1          # via packaging
-python-dateutil==2.7.5    # via alembic
+python-dateutil==2.8.0    # via alembic
 python-decouple==3.1
 python-editor==1.0.3      # via alembic
 pytz==2018.9              # via babel, celery
