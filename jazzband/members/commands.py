@@ -1,8 +1,9 @@
 import click
 from flask.cli import with_appcontext
 
+from ..db import postgres
 from ..github import github
-from .models import db, User
+from .models import User
 
 
 @click.command('members')
@@ -19,4 +20,13 @@ def sync_members():
         User.query.filter(
             User.id.in_(stale_ids)
         ).update({'is_member': False}, 'fetch')
-        db.session.commit()
+        postgres.session.commit()
+
+
+@click.command('emails')
+@click.option('--user_id', '-u', default=None)
+@with_appcontext
+def sync_email_addresses(user_id):
+    "Sync email addresses for user"
+    from .tasks import sync_email_addresses
+    return sync_email_addresses(user_id)

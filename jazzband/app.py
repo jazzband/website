@@ -1,6 +1,4 @@
 from flask import Flask, render_template
-
-from flask_celeryext import create_celery_app
 from flask_compress import Compress
 from flask_migrate import Migrate
 from flask_kvsession import KVSessionExtension
@@ -8,29 +6,23 @@ from simplekv.memory.redisstore import RedisStore
 from werkzeug.contrib.fixers import ProxyFix
 from whitenoise import WhiteNoise
 
-from . import admin, cli
-from .account import account, login_manager
+from . import admin, cli, errors, logging  # noqa
+from .account.manager import login_manager
 from .assets import assets
-from .content import about_pages, news_pages, content
-from .errors import sentry
+from .content import about_pages, news_pages
+from .db import postgres, redis
+from .email import mail
 from .github import github
 from .headers import talisman
 from .hooks import hooks
-from .email import mail
-from .models import db, redis
-from .members.views import members
 from .members.models import User
 from .projects.models import Project
-from .projects.views import projects
-
+from .tasks import spinach
 
 # setup flask
 app = Flask('jazzband')
 # load decoupled config variables
 app.config.from_object('jazzband.config')
-
-celery = create_celery_app(app)
-
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -73,17 +65,19 @@ talisman.init_app(
     content_security_policy_report_uri=app.config['CSP_REPORT_URI'],
 )
 
-db.init_app(app)
+postgres.init_app(app)
 
 redis.init_app(app)
 
-Migrate(app, db)
+Migrate(app, postgres)
 
 admin.init_app(app)
 
 cli.init_app(app)
 
-sentry.init_app(app)
+spinach.init_app(app)
+
+errors.init_app(app)
 
 if app.config['IS_PRODUCTION']:
     app.wsgi_app = ProxyFix(app.wsgi_app)
@@ -112,11 +106,8 @@ Compress(app)
 
 about_pages.init_app(app)
 news_pages.init_app(app)
-app.register_blueprint(content)
 
-app.register_blueprint(account)
 login_manager.init_app(app)
 
-app.register_blueprint(members)
-
-app.register_blueprint(projects)
+from . import blueprints  # noqa
+blueprints.init_app(app)

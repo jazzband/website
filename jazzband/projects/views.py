@@ -10,25 +10,23 @@ from pkg_resources import safe_name
 import delegator
 import requests
 from flask import (abort, Blueprint, current_app, flash, jsonify,
-                   make_response, redirect, render_template, request,
+                   make_response, redirect, request,
                    safe_join, send_from_directory, url_for)
 from flask.views import MethodView
 from flask_login import current_user, login_required
-from flask_mail import Message
 from packaging.version import parse as parse_version
 from requests.exceptions import HTTPError
 from sqlalchemy import desc
-from sqlalchemy.orm import joinedload
 from sqlalchemy.sql.expression import func
 from werkzeug import secure_filename
 
 from ..auth import current_user_is_roadie
 from ..decorators import templated
-from ..members.models import User, EmailAddress
-from ..email import mail
 from ..exceptions import eject
+from ..tasks import spinach
 from .forms import DeleteForm, ReleaseForm, UploadForm
-from .models import db, Project, ProjectMembership, ProjectUpload
+from .models import Project, ProjectUpload
+from .tasks import send_new_upload_notifications, update_upload_ordering
 
 
 projects = Blueprint('projects', __name__, url_prefix='/projects')
@@ -103,7 +101,8 @@ class DetailView(ProjectMixin, MethodView):
 
     def get(self, name):
         uploads = self.project.uploads.order_by(
-            ProjectUpload.version.desc()
+            ProjectUpload.ordering.desc(),
+            ProjectUpload.version.desc(),
         )
         versions = set()
         for upload in uploads:
@@ -137,42 +136,6 @@ class UploadView(ProjectMixin, MethodView):
             is_active=True,
             key=request.authorization.password,
         ).scalar()
-
-    def send_notifications(self, upload):
-        lead_memberships = self.project.membership.join(
-            ProjectMembership.user
-        ).filter(
-            ProjectMembership.is_lead == True,
-            User.is_member == True,
-            User.is_banned == False,
-        )
-        lead_members = [membership.user for membership in lead_memberships]
-
-        recipients = []
-
-        for lead_member in lead_members + list(User.roadies()):
-
-            primary_email = lead_member.email_addresses.filter(
-                EmailAddress.primary == True,
-                EmailAddress.verified == True,
-            ).first()
-
-            if not primary_email:
-                continue
-
-            recipients.append(primary_email.email)
-
-        message = Message(
-            subject=f'Project {self.project.name} received a new upload',
-            recipients=recipients,
-            body=render_template(
-                'projects/mails/project_upload_notification.txt',
-                project=self.project,
-                upload=upload,
-                lead_members=lead_members,
-            )
-        )
-        mail.send(message)
 
     def post(self, name):
         if not self.check_authentication():
@@ -324,7 +287,8 @@ class UploadView(ProjectMixin, MethodView):
             # write to database
             upload.save()
 
-        self.send_notifications(upload)
+        spinach.schedule(send_new_upload_notifications, self.project.id)
+        spinach.schedule(update_upload_ordering, self.project.id)
         return 'OK'
 
 

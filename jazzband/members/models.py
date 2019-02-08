@@ -3,7 +3,8 @@ from datetime import datetime
 from flask_login import UserMixin
 from sqlalchemy.sql import expression
 
-from ..models import Helpers, Syncable, db
+from ..db import postgres as db
+from ..mixins import Helpers, Syncable
 
 
 class User(db.Model, Helpers, Syncable, UserMixin):

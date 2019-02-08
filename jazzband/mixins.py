@@ -1,17 +1,11 @@
 from datetime import datetime
 
-from flask_sqlalchemy import SQLAlchemy
-from flask_redis import FlaskRedis
-
+from .db import postgres
 from .utils import sub_dict
-
-db = SQLAlchemy()
-
-redis = FlaskRedis()
 
 
 class Syncable:
-    synced_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    synced_at = postgres.Column(postgres.DateTime, default=datetime.utcnow, nullable=False)
 
     @classmethod
     def sync(cls, data, key='id'):
@@ -26,11 +20,11 @@ class Syncable:
                     **{key: item[key]}
                 )
             )
-        db.session.commit()
+        postgres.session.commit()
         return results
 
 
-@db.event.listens_for(Syncable, 'before_update', propagate=True)
+@postgres.event.listens_for(Syncable, 'before_update', propagate=True)
 def timestamp_before_update(mapper, connection, target):
     # When a model with a timestamp is updated; force update the updated
     # timestamp.
@@ -48,25 +42,25 @@ class Helpers:
             for arg, value in defaults.items():
                 setattr(instance, arg, value)
             if commit:
-                db.session.commit()
+                postgres.session.commit()
             return instance, False
         else:
             params = kwargs.copy()
             params.update(defaults)
             instance = cls(**params)
-            db.session.add(instance)
+            postgres.session.add(instance)
             if commit:
-                db.session.commit()
+                postgres.session.commit()
             return instance, True
 
     def save(self, commit=True):
-        db.session.add(self)
+        postgres.session.add(self)
         if commit:
-            db.session.commit()
+            postgres.session.commit()
         return self
 
     def delete(self, commit=True):
-        db.session.delete(self)
+        postgres.session.delete(self)
         if commit:
-            db.session.commit()
+            postgres.session.commit()
         return self

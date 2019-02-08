@@ -1,93 +1,25 @@
 from datetime import datetime
+from flask import Blueprint, flash, redirect, session, url_for
+from flask_login import (
+    current_user, login_user, logout_user, login_required
+)
 
-from flask import Blueprint, redirect, session, url_for, flash
-from flask_login import (LoginManager, current_user,
-                         login_user, logout_user, login_required)
-from flask_wtf import FlaskForm
-from wtforms import validators, ValidationError
-from wtforms.fields import BooleanField, HiddenField, StringField
+from ..db import postgres
+from ..decorators import templated
+from ..github import github
+from ..members.models import User
+from ..members.tasks import sync_email_addresses
+from ..tasks import spinach
+from ..utils import get_redirect_target
 
-from .decorators import templated
-from .github import github
-from .members.tasks import sync_user_email_addresses
-from .members.models import db, User
-from .utils import get_redirect_target
+from .forms import ConsentForm, LeaveForm
 
-login_manager = LoginManager()
-login_manager.login_view = 'account.login'
 account = Blueprint('account', __name__, url_prefix='/account')
-
-
-class LeaveForm(FlaskForm):
-    login = StringField(
-        'Your GitHub Login',
-        validators=[
-            validators.DataRequired(),
-        ]
-    )
-
-    def validate_login(self, field):
-        if field.data != current_user.login:
-            raise ValidationError(
-                "Sorry, but that GitHub login doesn't match our records.")
-
-
-CONSENT_ERROR_MESSAGE = 'Your consent is required to continue.'
-
-
-class ConsentForm(FlaskForm):
-    access_token = HiddenField(
-        'GitHub access token',
-        validators=[
-            validators.DataRequired(),
-        ],
-    )
-    profile = BooleanField(
-        'I consent to fetching, processing and storing my profile '
-        'data which is fetched from the GitHub API.',
-        validators=[
-            validators.DataRequired(CONSENT_ERROR_MESSAGE),
-        ],
-    )
-    org = BooleanField(
-        'I consent to fetching, processing and storing my GitHub '
-        'organiztion membership data which is fetched from the '
-        'GitHub API.',
-        validators=[
-            validators.DataRequired(CONSENT_ERROR_MESSAGE),
-        ],
-    )
-    cookies = BooleanField(
-        'I consent to using browser cookies for identifying me for '
-        'account features such as logging in and content personalizations '
-        'such as rendering my account dashboard.',
-        validators=[
-            validators.DataRequired(CONSENT_ERROR_MESSAGE),
-        ],
-    )
-    age = BooleanField(
-        'I\'m at least 16 years old or – if not – have permission by a '
-        'parent (or legal guardian) to proceed.',
-        validators=[
-            validators.DataRequired(CONSENT_ERROR_MESSAGE),
-        ],
-    )
-
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(user_id)
 
 
 @account.app_template_global()
 def default_url():
     return url_for('content.index')
-
-
-@github.access_token_getter
-def token_getter():
-    if current_user.is_authenticated:
-        return current_user.access_token
 
 
 @account.route('')
@@ -104,7 +36,7 @@ def login():
         return redirect(next_url)
 
     # Set the next URL in the session to be checked in the account callback
-    session['next_url'] = next_url
+    session['next'] = next_url
 
     # default fallback is to initiate the GitHub auth workflow
     return github.authorize(scope=github.scope)
@@ -116,7 +48,9 @@ def login():
 def callback(access_token):
     form = ConsentForm(access_token=access_token)
     # first get the profile data for the user with the given access token
-    user_data = github.get_user(access_token=access_token or form.access_token.data)
+    user_data = github.get_user(
+        access_token=access_token or form.access_token.data
+    )
 
     # and see if the user is already in our database
     user = User.query.filter_by(id=user_data['id']).first()
@@ -132,7 +66,7 @@ def callback(access_token):
             user.joined_at = utc_now
 
         # update a bunch of things
-        user.access_token = form.access_token.data
+        user.access_token = access_token
 
         if not user.consented_at:
             user.consented_at = utc_now
@@ -140,7 +74,7 @@ def callback(access_token):
             user.org_consent = True
             user.cookies_consent = True
             user.age_consent = True
-        db.session.commit()
+        user.save()
 
     # we'll show the form either if there is no user yet,
     # or if the user hasn't given consent yet
@@ -148,7 +82,7 @@ def callback(access_token):
         return {'form': form}
     else:
         # fetch the current set of email addresses from GitHub
-        sync_user_email_addresses.delay(user.id)
+        spinach.schedule(sync_email_addresses, user.id)
 
         # remember the user_id for the next request
         login_user(user)
@@ -157,7 +91,7 @@ def callback(access_token):
 
         # Check for the next URL using the session first and then fallback
         next_url = (
-            session.get('next_url') or
+            session.pop('next') or
             get_redirect_target('account.dashboard')
         )
         return redirect(next_url)
@@ -185,7 +119,7 @@ def join():
     # in case the user doesn't have verified emails, let's check again
     # the async task may not have run yet
     if not has_verified_emails:
-        sync_user_email_addresses(current_user.id)
+        sync_email_addresses(current_user.id)
         has_verified_emails = current_user.has_verified_emails
 
     membership = None
@@ -220,7 +154,7 @@ def leave():
         else:
             current_user.left_at = datetime.utcnow()
             current_user.is_member = False
-            db.session.commit()
+            postgres.session.commit()
             logout_user()
             flash('You have been removed from the Jazzband GitHub '
                   'organization. See you soon!')
@@ -232,4 +166,5 @@ def leave():
 def logout():
     logout_user()
     flash("You've successfully logged out.")
-    return redirect(default_url())
+    next_url = get_redirect_target()
+    return redirect(next_url)

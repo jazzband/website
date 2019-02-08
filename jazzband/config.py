@@ -1,5 +1,6 @@
-from datetime import timedelta
 import os
+from datetime import timedelta
+
 from decouple import config, Csv
 from markdown.extensions.toc import TocExtension
 from markdown.extensions.wikilinks import WikiLinkExtension
@@ -16,11 +17,7 @@ SERVER_NAME = config('SERVER_NAME', 'localhost:5000')
 
 HOSTNAMES = config('HOSTNAMES', 'localhost:5000,0.0.0.0:5000', cast=Csv())
 REDIS_URL = config('REDIS_URL', 'redis://redis:6379/0')
-
-CELERY_BROKER_URL = CELERY_RESULT_BACKEND = REDIS_URL
-CELERY_IMPORTS = [
-    'jazzband.members.tasks',
-]
+QUEUE_URL = config('QUEUE_URL', REDIS_URL)
 
 MAIL_DEFAULT_SENDER = config(
     'MAIL_DEFAULT_SENDER',
@@ -71,6 +68,7 @@ SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SECURE = not DEBUG
 SESSION_REFRESH_EACH_REQUEST = False
 PERMANENT_SESSION_LIFETIME = timedelta(days=14)
+USE_SESSION_FOR_NEXT = True
 
 LIBSASS_STYLE = 'compressed'
 

@@ -2,7 +2,7 @@ from flask import render_template
 from flask_hookserver import Hooks
 
 from .github import github
-from .models import db
+from .db import postgres
 from .members.models import User
 
 
@@ -23,10 +23,10 @@ def membership(data, guid):
         return
     if data['action'] == 'added':
         member.is_member = True
-        db.session.commit()
+        postgres.session.commit()
     elif data['action'] == 'removed':
         member.is_member = False
-        db.session.commit()
+        postgres.session.commit()
     return 'Thanks'
 
 
@@ -34,12 +34,12 @@ def membership(data, guid):
 def member(data, guid):
     # if no action was given or it was about removing a member
     if data.get('action') != 'added':
-        return
+        return 'Thanks'
 
     # if there is no repo data
     repo = data.get('repository')
     if repo is None:
-        return
+        return 'Thanks'
 
     # get list of roadies and set them as the default assignees
     roadies = User.query.filter_by(

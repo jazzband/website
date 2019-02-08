@@ -1,21 +1,17 @@
 import logging
-import os
 
-logger = logging.getLogger(__name__)
+import sentry_sdk
+from sentry_sdk.integrations.flask import FlaskIntegration
+from sentry_sdk.integrations.logging import LoggingIntegration
 
 
-if 'SENTRY_DSN' in os.environ:
-    from raven.contrib.flask import Sentry
-    sentry = Sentry(logging=True, level=logging.INFO)
-else:
-    class FakeSentry:
-        def init_app(self, *args, **kwargs):
-            pass
-
-        def captureMessage(self, message, *args, **kwargs):
-            logger.info(message, *args, **kwargs)
-
-        def captureException(self, *args, **kwargs):
-            logger.exception('Error')
-
-    sentry = FakeSentry()  # noqa
+def init_app(app):
+    sentry_sdk.init(
+        integrations=[
+            LoggingIntegration(
+                level=logging.INFO,  # Capture info and above as breadcrumbs
+                event_level=logging.ERROR,  # Send errors as events
+            ),
+            FlaskIntegration(),
+        ]
+    )
