@@ -4,7 +4,6 @@ import logging
 from flask.cli import with_appcontext
 
 from ..github import github
-from . import jobs
 from .models import Project
 
 
@@ -24,4 +23,5 @@ def sync_projects():
 @click_log.simple_verbosity_option(logger)
 @with_appcontext
 def send_new_upload_notifications(project_id=None):
-    return jobs.send_new_upload_notifications(project_id)
+    from .tasks import send_new_upload_notifications
+    return send_new_upload_notifications(project_id)

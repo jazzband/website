@@ -17,8 +17,7 @@ SERVER_NAME = config('SERVER_NAME', 'localhost:5000')
 
 HOSTNAMES = config('HOSTNAMES', 'localhost:5000,0.0.0.0:5000', cast=Csv())
 REDIS_URL = config('REDIS_URL', 'redis://redis:6379/0')
-
-RQ_REDIS_URL = REDIS_URL
+QUEUE_URL = config('QUEUE_URL', REDIS_URL)
 
 MAIL_DEFAULT_SENDER = config(
     'MAIL_DEFAULT_SENDER',

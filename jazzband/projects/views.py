@@ -23,9 +23,10 @@ from werkzeug import secure_filename
 from ..auth import current_user_is_roadie
 from ..decorators import templated
 from ..exceptions import eject
+from ..tasks import spinach
 from .forms import DeleteForm, ReleaseForm, UploadForm
-from .jobs import send_new_upload_notifications, update_upload_ordering
 from .models import Project, ProjectUpload
+from .tasks import send_new_upload_notifications, update_upload_ordering
 
 
 projects = Blueprint('projects', __name__, url_prefix='/projects')
@@ -286,8 +287,8 @@ class UploadView(ProjectMixin, MethodView):
             # write to database
             upload.save()
 
-        send_new_upload_notifications.queue(self.project.id)
-        update_upload_ordering.queue(self.project.id)
+        spinach.schedule(send_new_upload_notifications, self.project.id)
+        spinach.schedule(update_upload_ordering, self.project.id)
         return 'OK'
 
 

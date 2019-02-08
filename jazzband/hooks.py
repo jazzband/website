@@ -34,12 +34,12 @@ def membership(data, guid):
 def member(data, guid):
     # if no action was given or it was about removing a member
     if data.get('action') != 'added':
-        return
+        return 'Thanks'
 
     # if there is no repo data
     repo = data.get('repository')
     if repo is None:
-        return
+        return 'Thanks'
 
     # get list of roadies and set them as the default assignees
     roadies = User.query.filter_by(

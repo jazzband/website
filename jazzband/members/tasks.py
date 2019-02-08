@@ -1,10 +1,12 @@
-from ..jobs import rq
-from ..github import github
+from spinach import Tasks
 
+from ..github import github
 from .models import EmailAddress, User
 
+tasks = Tasks()
 
-@rq.job
+
+@tasks.task(name='sync_email_addresses')
 def sync_email_addresses(user_id=None):
     "Sync email addresses for user"
     if user_id is None:

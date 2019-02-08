@@ -3,7 +3,6 @@ from flask.cli import with_appcontext
 
 from ..db import postgres
 from ..github import github
-from . import jobs
 from .models import User
 
 
@@ -29,4 +28,5 @@ def sync_members():
 @with_appcontext
 def sync_email_addresses(user_id):
     "Sync email addresses for user"
-    return jobs.sync_email_addresses(user_id)
+    from .tasks import sync_email_addresses
+    return sync_email_addresses(user_id)

@@ -4,17 +4,19 @@ from datetime import datetime
 from flask import render_template
 from flask_mail import Message
 from packaging.version import parse as parse_version
+from spinach import Tasks
 
 from ..db import postgres
 from ..email import mail
-from ..jobs import rq
 from ..members.models import User, EmailAddress
 from .models import ProjectMembership, ProjectUpload
 
 logger = logging.getLogger(__name__)
 
+tasks = Tasks()
 
-@rq.job
+
+@tasks.task(name="send_new_upload_notifications")
 def send_new_upload_notifications(project_id=None):
     "Sends project upload notifications if needed"
     unnotified_uploads = ProjectUpload.query.filter_by(notified_at=None)
@@ -82,7 +84,7 @@ def send_new_upload_notifications(project_id=None):
 # )
 
 
-@rq.job
+@tasks.task(name='update_upload_ordering')
 def update_upload_ordering(project_id):
     uploads = ProjectUpload.query.filter_by(project_id=project_id).all()
 

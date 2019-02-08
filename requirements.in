@@ -1,6 +1,7 @@
 Babel
 click-log
 delegator.py
+spinach
 Flask
 Flask-Admin
 Flask-Assets
@@ -12,13 +13,11 @@ Flask-KVSession
 Flask-Login
 Flask-Migrate
 Flask-Redis
-Flask-RQ2
 Flask-Script
 Flask-SQLAlchemy
 flask-talisman
 Flask-WTF
 GitHub-Flask
-gunicorn
 Honcho
 libsass
 packaging
@@ -27,7 +26,7 @@ psycopg2-binary
 pygments
 python-decouple
 sentry-sdk[flask]
-redis
+redis>=3.0.0
 sqlalchemy>=0.9
 sqlalchemy-utils
 twine

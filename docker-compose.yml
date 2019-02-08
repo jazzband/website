@@ -8,34 +8,30 @@ services:
   redis:
     image: redis:latest
 
-  app:
+  web: &app
     build: .
-    # pass those two into the environment
-    environment:
-      - FLASK_APP=jazzband/app.py
-      - FLASK_DEBUG=1
-    # but also response the .env file for the rest
-    env_file:
-      - .env
     volumes:
       - .:/app
-
-  web:
-    extends:
-      service: app
     command: honcho start -f Procfile.dev web
     environment:
+      # pass those two into the environment
+      # but also response the .env file for the rest
+      FLASK_APP: jazzband/app.py
+      FLASK_DEBUG: 1
       PORT: 5000
+    env_file:
+      - .env
     ports:
       - "5000:5000"
     links:
       - db
       - redis
 
+  # scheduler:
+  #   <<: *app
+  #   command: honcho start -f Procfile.dev scheduler
+
   worker:
-    extends:
-      service: app
+    <<: *app
     command: honcho start -f Procfile.dev worker
-    links:
-      - db
-      - redis
+    ports: []
