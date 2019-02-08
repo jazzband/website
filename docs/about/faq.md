@@ -38,7 +38,7 @@ conduct following our [code of conduct](/about/conduct).
 
 See the [contact page](/about/contact#security).
 
-### Are you proccessing or storing any personal data on the Jazzband website?
+### Are you processing or storing any personal data on the Jazzband website?
 
 When logging into the Jazzband site you consent to fetching your profile
 data, email address(es) and the team and organization membership status
