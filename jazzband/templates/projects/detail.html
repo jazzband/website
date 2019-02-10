@@ -15,6 +15,13 @@
     More infos: <a href="{{ project.html_url }}">{{ project.html_url }}</a>
   </p>
   {% endif %}
+  {% if project.transfer_issue_url %}
+  <p>
+    The original GitHub issue documenting the repository transfer from the
+    previous maintainer can be found
+    <a href="{{ project.transfer_issue_url }}">here</a>.
+  </p>
+  {% endif %}
   <table class="projects-detail">
     <tr>
       <td><i class="far fa-eye"></i></td>

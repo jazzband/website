@@ -25,6 +25,7 @@ class Project(db.Model, Helpers, Syncable):
     open_issues_count = db.Column(db.SmallInteger, default=0, nullable=False)
     uploads_count = db.Column(db.SmallInteger, default=0)
     is_active = db.Column(db.Boolean, default=True, nullable=False, index=True)
+    transfer_issue_url = db.Column(db.String(255))
     membership = db.relationship('ProjectMembership', backref='project',
                                  lazy='dynamic')
 

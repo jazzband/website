@@ -118,5 +118,12 @@ class JazzbandGitHub(GitHub):
         except GitHubError:
             return False
 
+    def new_roadies_issue(self, data):
+        return self.post(
+            'repos/jazzband/roadies/issues',
+            data,
+            access_token=self.admin_access_token,
+        )
+
 
 github = JazzbandGitHub()

@@ -6,14 +6,58 @@ from flask_mail import Message
 from packaging.version import parse as parse_version
 from spinach import Tasks
 
-from ..db import postgres
+from ..db import postgres, redis
 from ..email import mail
+from ..github import github
 from ..members.models import User, EmailAddress
-from .models import ProjectMembership, ProjectUpload
+from .models import Project, ProjectMembership, ProjectUpload
 
 logger = logging.getLogger(__name__)
 
 tasks = Tasks()
+
+
+@tasks.task(name="update_project_by_hook")
+def update_project_by_hook(hook_id):
+    # first load the hook data again
+    hook_data = redis.Hash(hook_id).as_dict(True)
+
+    # then sync the project so it definitely exists
+    Project.sync([hook_data["repository"]])
+
+    # get the project again from the database
+    project_name = hook_data['repository']['name']
+    project = Project.query.get(Project.name == project_name).first()
+
+    # if there already was an issue created, just stop here
+    if project.transfer_issue_url:
+        return
+
+    # use a lock to make sure we don't run this multiple times
+    with redis.lock(f"project-update-by-hook-{project_name}", ttl=60 * 1000):
+        # get list of roadies and set them as the default assignees
+        roadies = User.query.filter_by(
+            is_member=True,
+            is_banned=False,
+            is_roadie=True,
+        )
+        # we'll auto-assign all the roadies, huh huh huh
+        assignees = [roadie.login for roadie in roadies]
+        # add sender of the hook as well if given
+        if 'sender' in hook_data:
+            assignees.append(hook_data['sender']['login'])
+
+        # create a new issue, finally
+        issue_data = github.new_roadies_issue({
+            'title': render_template('hooks/project-title.txt', **hook_data),
+            'body': render_template('hooks/project-body.txt', **hook_data),
+            'labels': ['guidelines', 'review'],
+            'assignees': assignees,
+        })
+        issue_url = issue_data.get("html_url")
+        if issue_url.startswith("https://github.com/jazzband/roadies/issues"):
+            project.transfer_issue_url = issue_url
+            project.save()
 
 
 @tasks.task(name="send_new_upload_notifications")
