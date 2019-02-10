@@ -9,6 +9,9 @@ maintenance when a number of projects are created at or moved to it.
 
     The Jazzband [roadies](/roadies) will enforce the guidelines and won't hesitate to remove projects from the GitHub organization if required.
 
+    The section about [frequently asked questions](/about/faq) may be
+    interesting to you as well.
+
 ### Viability
 
 There is no place in the Jazzband for proofs of concept or projects that

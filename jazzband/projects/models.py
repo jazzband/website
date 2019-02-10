@@ -10,6 +10,7 @@ from sqlalchemy_utils import aggregated
 
 from ..auth import current_user_is_roadie
 from ..db import postgres as db
+from ..members.models import User
 from ..mixins import Helpers, Syncable
 
 
@@ -72,6 +73,16 @@ class Project(db.Model, Helpers, Syncable):
     @property
     def member_ids(self):
         return [member.user.id for member in self.membership.all()]
+
+    @property
+    def leads(self):
+        leads = self.membership.filter(
+            ProjectMembership.is_lead == True,
+            ProjectMembership.user_id.in_(
+                User.active_members().options(orm.load_only('id'))
+            )
+        )
+        return [member.user for member in leads]
 
     @property
     def pypi_json_url(self):

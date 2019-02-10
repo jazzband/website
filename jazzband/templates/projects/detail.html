@@ -51,6 +51,29 @@
     </tr>
     {% endif %}
   </table>
+  <h3>Leads</h3>
+  {% with leads = project.leads %}
+  {% if leads %}
+  <div class="grid">
+    {% for lead in leads %}
+    <div class="grid-cell">
+      {{ macros.avatar_cell(lead) }}
+    </div>
+    {% endfor %}
+    {{ macros.avatar_js() }}
+  </div>
+  {% else %}
+  <div class="admonition">
+    <p class="admonition-title">Continued maintainance is at risk!</p>
+    <p>
+      There are no members yet who have volunteered to lead this project.
+    </p>
+  </div>
+  {% endif %}
+  <p>
+    See the <a href="{{ url_for('content.about', path='releases') }}#security">releases documentation</a> about why are there project leads and how to volunteer to become one.
+  </p>
+  {% endwith %}
   {% if project.current_user_is_member and uploads %}
   <h3>Uploads</h3>
   <p>
@@ -105,19 +128,5 @@
   <p>No uploads found for this project.</p>
   {% endfor %}
   {% endif %}
-  {# <h3>Members</h3>
-  {% if project.membership.scalar() %}
-  <div class="grid">
-    {% for member in project.membership %}
-    <div class="grid-cell">
-      {{ macros.avatar_cell(member.user) }}
-    </div>
-    {% endfor %}
-    {{ macros.avatar_js() }}
-  </div>
-  {% else %}
-    There are no members of this project yet.
-  {% endif %}
-  #}
   </div>
 {% endblock %}

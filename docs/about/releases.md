@@ -17,15 +17,15 @@ to all Jazzband members but only to those who have shown significant
 contributions to the projects in question. All other Jazzband features
 (as of writing this) continue to be open to all Jazzband members.
 
-To become a "lead" project member, please also [open an issue with the
+To become a project lead, please also [open an issue with the
 "lead" label](/roadies/issue?labels=lead).
 
-In case no such "lead" project member(s) can be found for an individual
-project the [roadies] will act as surrogate leads and can be requested
-to make a PyPI release on the behalf of the Jazzband members. Please
-[open a ticket with a PyPI label](/roadies/issue?labels=pypi) for that.
+In case no project lead(s) can be found for a project the [roadies]
+will act as surrogate leads and can be requested to make a PyPI
+release on the behalf of the Jazzband members. Please
+[open a ticket with a "pypi" label](/roadies/issue?labels=pypi) for that.
 
-!!! note "Why are there "lead" project members?"
+!!! note "Why are there project leads?"
 
 	While we strongly favor the idea of providing full access to
 	the Jazzband projects to all members, we need to counter-balance
@@ -34,7 +34,7 @@ to make a PyPI release on the behalf of the Jazzband members. Please
 	Otherwise a bad actor may be able to make releases that are not
 	in line with our [Code of Conduct] or -- even worse -- contain
 	malicious code.
-	
+
 	We sincerely hope that the Jazzband members accept that
 	trade-off. We are committed to unrestricted members.
 	We're all part of this.
