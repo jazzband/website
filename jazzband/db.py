@@ -3,6 +3,7 @@ from contextlib import contextmanager
 
 from flask_redis import FlaskRedis
 from flask_sqlalchemy import SQLAlchemy
+from walrus import Walrus
 
 from .exceptions import Rollback
 
@@ -144,4 +145,4 @@ class JazzbandSQLAlchemy(SQLAlchemy):
 
 postgres = JazzbandSQLAlchemy()
 
-redis = FlaskRedis()
+redis = FlaskRedis.from_custom_provider(Walrus)
