@@ -2,7 +2,6 @@ from flask import render_template
 from flask_hookserver import Hooks
 
 from .github import github
-from .db import postgres
 from .members.models import User
 
 
@@ -23,10 +22,10 @@ def membership(data, guid):
         return
     if data['action'] == 'added':
         member.is_member = True
-        postgres.session.commit()
+        member.save()
     elif data['action'] == 'removed':
         member.is_member = False
-        postgres.session.commit()
+        member.save()
     return 'Thanks'
 
 

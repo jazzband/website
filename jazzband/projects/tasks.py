@@ -77,13 +77,6 @@ def send_new_upload_notifications(project_id=None):
                     logger.info(f'Send notification for upload {upload}.')
 
 
-# send_new_upload_notifications.schedule(
-#     timedelta(minutes=1),
-#     timeout=45,
-#     job_id='send-upload-notifications',
-# )
-
-
 @tasks.task(name='update_upload_ordering')
 def update_upload_ordering(project_id):
     uploads = ProjectUpload.query.filter_by(project_id=project_id).all()

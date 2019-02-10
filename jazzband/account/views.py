@@ -4,7 +4,6 @@ from flask_login import (
     current_user, login_user, logout_user, login_required
 )
 
-from ..db import postgres
 from ..decorators import templated
 from ..github import github
 from ..members.models import User
@@ -154,7 +153,7 @@ def leave():
         else:
             current_user.left_at = datetime.utcnow()
             current_user.is_member = False
-            postgres.session.commit()
+            current_user.save()
             logout_user()
             flash('You have been removed from the Jazzband GitHub '
                   'organization. See you soon!')
