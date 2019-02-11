@@ -67,7 +67,7 @@ six==1.12.0               # via bleach, cryptography, flask-kvsession, flask-tal
 spinach==0.0.9
 sqlalchemy-utils==0.33.11
 sqlalchemy==1.2.17
-tqdm==4.30.0              # via twine
+tqdm==4.31.1              # via twine
 twine==1.12.1
 urllib3==1.24.1           # via requests, sentry-sdk
 uwsgi==2.0.17.1
