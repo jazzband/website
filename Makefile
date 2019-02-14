@@ -1,7 +1,7 @@
 .PHONY: bash build clean compile db-migrate db-upgrade redis-cli run shell start stop sync
 
 bash:
-	docker-compose run web bash
+	docker-compose run --rm  web bash
 
 build:
 	docker-compose build --pull
@@ -13,22 +13,22 @@ clean: stop
 	rm -rf jazzband/static/css/styles.*.css
 
 compile:
-	docker-compose run web pip-compile -U -o requirements.txt requirements.in
+	docker-compose run --rm web pip-compile -U -o requirements.txt requirements.in
 
 db-migrate:
-	docker-compose run web flask db migrate
+	docker-compose run --rm web flask db migrate
 
 db-upgrade:
-	docker-compose run web flask db upgrade
+	docker-compose run --rm web flask db upgrade
 
 redis-cli:
-	docker-compose run redis redis-cli -h redis
+	docker-compose run --rm redis redis-cli -h redis
 
 run:
 	docker-compose up
 
 shell:
-	docker-compose run web flask shell
+	docker-compose run --rm web flask shell
 
 start:
 	docker-compose up -d
@@ -37,4 +37,4 @@ stop:
 	docker-compose stop
 
 sync: compile
-	docker-compose run web pip-sync requirements.txt
+	docker-compose run --rm web pip-sync requirements.txt
