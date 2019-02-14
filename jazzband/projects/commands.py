@@ -3,25 +3,22 @@ import click_log
 import logging
 from flask.cli import with_appcontext
 
-from ..github import github
-from .models import Project
-
+from . import tasks
 
 logger = logging.getLogger(__name__)
 click_log.basic_config(logger)
 
 
 @click.command('projects')
+@click_log.simple_verbosity_option(logger)
 @with_appcontext
 def sync_projects():
     "Syncs projects"
-    projects_data = github.get_projects()
-    Project.sync(projects_data)
+    tasks.sync_projects()
 
 
 @click.command('new_upload_notifications')
 @click_log.simple_verbosity_option(logger)
 @with_appcontext
 def send_new_upload_notifications(project_id=None):
-    from .tasks import send_new_upload_notifications
-    return send_new_upload_notifications(project_id)
+    tasks.send_new_upload_notifications(project_id)

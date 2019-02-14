@@ -1,5 +1,5 @@
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from flask import render_template
 from flask_mail import Message
@@ -15,6 +15,13 @@ from .models import Project, ProjectMembership, ProjectUpload
 logger = logging.getLogger(__name__)
 
 tasks = Tasks()
+
+
+@tasks.task(name="sync_projects", periodicity=timedelta(seconds=60))
+def sync_projects():
+    with redis.lock("sync_projects", ttl=60 * 1000):
+        projects_data = github.get_projects()
+        Project.sync(projects_data)
 
 
 @tasks.task(name="update_project_by_hook")
@@ -121,7 +128,7 @@ def send_new_upload_notifications(project_id=None):
                     logger.info(f'Send notification for upload {upload}.')
 
 
-@tasks.task(name='update_upload_ordering')
+@tasks.task(name='update_upload_ordering', max_retries=10)
 def update_upload_ordering(project_id):
     uploads = ProjectUpload.query.filter_by(project_id=project_id).all()
 
