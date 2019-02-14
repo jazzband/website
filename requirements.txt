@@ -11,7 +11,7 @@ bleach==3.1.0             # via readme-renderer
 blinker==1.4              # via flask-mail, sentry-sdk, spinach
 brotli==1.0.7             # via whitenoise
 certifi==2018.11.29       # via requests, sentry-sdk
-cffi==1.11.5              # via cryptography
+cffi==1.12.0              # via cryptography
 chardet==3.0.4            # via requests
 click-log==0.3.2
 click==7.0                # via click-log, flask, pip-tools
@@ -67,7 +67,7 @@ spinach==0.0.9
 sqlalchemy-utils==0.33.11
 sqlalchemy==1.2.17
 tqdm==4.31.1              # via twine
-twine==1.12.1
+twine==1.13.0
 urllib3==1.24.1           # via requests, sentry-sdk
 uwsgi==2.0.18
 walrus==0.7.1
