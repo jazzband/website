@@ -68,7 +68,7 @@ spinach==0.0.9
 sqlalchemy-utils==0.33.11
 sqlalchemy==1.2.17
 tqdm==4.30.0              # via twine
-twine==1.12.1
+twine==1.13.0
 urllib3==1.24.1           # via requests, sentry-sdk
 uwsgi==2.0.17.1
 webassets==0.12.1         # via flask-assets
