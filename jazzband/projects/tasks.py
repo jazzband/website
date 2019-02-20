@@ -6,6 +6,7 @@ from flask_mail import Message
 from packaging.version import parse as parse_version
 from spinach import Tasks
 
+from ..config import ONE_MINUTE
 from ..db import postgres, redis
 from ..email import mail
 from ..github import github
@@ -19,7 +20,7 @@ tasks = Tasks()
 
 @tasks.task(name="sync_projects", periodicity=timedelta(seconds=60))
 def sync_projects():
-    with redis.lock("sync_projects", ttl=60 * 1000):
+    with redis.lock("sync_projects", ttl=ONE_MINUTE):
         projects_data = github.get_projects()
         Project.sync(projects_data)
 
@@ -41,7 +42,7 @@ def update_project_by_hook(hook_id):
         return
 
     # use a lock to make sure we don't run this multiple times
-    with redis.lock(f"project-update-by-hook-{project_name}", ttl=60 * 1000):
+    with redis.lock(f"project-update-by-hook-{project_name}", ttl=ONE_MINUTE):
         # get list of roadies and set them as the default assignees
         roadies = User.query.filter_by(
             is_member=True,

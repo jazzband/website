@@ -3,7 +3,7 @@ import click_log
 import logging
 from flask.cli import with_appcontext
 
-from . import tasks
+from . import tasks, models
 
 logger = logging.getLogger(__name__)
 click_log.basic_config(logger)
@@ -23,4 +23,10 @@ def sync_members():
 @with_appcontext
 def sync_email_addresses(user_id):
     "Sync email addresses for user"
-    tasks.sync_email_addresses(user_id)
+    if user_id is None:
+        user_ids = [user.id for user in models.User.query.all()]
+    else:
+        user_ids = [user_id]
+
+    for user_id in user_ids:
+        tasks.sync_email_addresses(user_id)

@@ -53,6 +53,7 @@ def callback(access_token):
 
     # and see if the user is already in our database
     user = User.query.filter_by(id=user_data['id']).first()
+    user.access_token = access_token
 
     # on POST of the consent form
     if form.validate_on_submit():
@@ -65,15 +66,14 @@ def callback(access_token):
             user.joined_at = utc_now
 
         # update a bunch of things
-        user.access_token = access_token
-
         if not user.consented_at:
             user.consented_at = utc_now
             user.profile_consent = True
             user.org_consent = True
             user.cookies_consent = True
             user.age_consent = True
-        user.save()
+
+    user.save()
 
     # we'll show the form either if there is no user yet,
     # or if the user hasn't given consent yet
@@ -81,7 +81,7 @@ def callback(access_token):
         return {'form': form}
     else:
         # fetch the current set of email addresses from GitHub
-        spinach.schedule(sync_email_addresses, user.id)
+        spinach.schedule(sync_email_addresses, user.id, access_token)
 
         # remember the user_id for the next request
         login_user(user)
