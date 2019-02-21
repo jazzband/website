@@ -33,7 +33,9 @@ def sync_members():
 def sync_email_addresses(user_id, access_token=None):
     "Sync email addresses for user"
     with redis.lock("sync_email_addresses", ttl=ONE_MINUTE):
-        user = User.query.get(User.id == user_id)
+        user = User.query.filter(User.id == user_id).first()
+        if user is None:
+            return
 
         email_addresses = []
         access_token = access_token or user.access_token
