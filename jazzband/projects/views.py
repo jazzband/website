@@ -353,20 +353,20 @@ class UploadReleaseView(UploadActionView):
             pypi_response = requests.get(self.upload.project.pypi_json_url)
             pypi_response.raise_for_status()
             data = pypi_response.json()
-        except HTTPError as exc:
+        except HTTPError:
             # in case there was a network issue with getting the JSON
             # data from PyPI
             error = 'Error while validating upload'
             logger.error(error, exc_info=True)
             errors.append(error)
-        except ValueError as exc:
+        except ValueError:
             # or something was wrong about the returned JSON data
             error = (
                 'Error while parsing response from PyPI during validation'
             )
             logger.error(error, exc_info=True)
             errors.append(error)
-        except Exception as exc:
+        except Exception:
             error = 'Unknown error'
             logger.error(error, exc_info=True)
             errors.append(error)
