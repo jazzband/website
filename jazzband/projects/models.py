@@ -36,7 +36,7 @@ class Project(db.Model, Helpers, Syncable):
         'ProjectUpload',
         backref='project',
         lazy='dynamic',
-        order_by=lambda: ProjectUpload.ordering.desc(),
+        order_by=lambda: ProjectUpload.ordering.desc().nullslast(),
     )
 
     created_at = db.Column(db.DateTime, nullable=True)

@@ -16,7 +16,7 @@ from flask.views import MethodView
 from flask_login import current_user, login_required
 from packaging.version import parse as parse_version
 from requests.exceptions import HTTPError
-from sqlalchemy import desc
+from sqlalchemy import desc, nullslast
 from sqlalchemy.sql.expression import func
 from werkzeug import secure_filename
 
@@ -68,7 +68,7 @@ def index():
         Project.is_active == True,
         ~Project.name.in_(['website', 'roadies']),
     ).order_by(
-        criterion
+        nullslast(criterion)
     )
     return {
         'projects': projects,
