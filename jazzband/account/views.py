@@ -53,7 +53,6 @@ def callback(access_token):
 
     # and see if the user is already in our database
     user = User.query.filter_by(id=user_data['id']).first()
-    user.access_token = access_token
 
     # on POST of the consent form
     if form.validate_on_submit():
@@ -72,6 +71,9 @@ def callback(access_token):
             user.org_consent = True
             user.cookies_consent = True
             user.age_consent = True
+
+    if user:
+        user.access_token = access_token
 
     user.save()
 
