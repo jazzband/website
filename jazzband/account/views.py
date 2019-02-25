@@ -72,16 +72,15 @@ def callback(access_token):
             user.cookies_consent = True
             user.age_consent = True
 
-    if user:
-        user.access_token = access_token
-
-    user.save()
-
     # we'll show the form either if there is no user yet,
     # or if the user hasn't given consent yet
     if user is None or not user.consented_at:
         return {'form': form}
     else:
+        if user:
+            user.access_token = access_token
+            user.save()
+
         # fetch the current set of email addresses from GitHub
         spinach.schedule(sync_email_addresses, user.id, access_token)
 
