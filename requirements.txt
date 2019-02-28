@@ -15,7 +15,7 @@ cffi==1.12.2              # via cryptography
 chardet==3.0.4            # via requests
 click-log==0.3.2
 click==7.0                # via click-log, flask, pip-tools
-cryptography==2.5         # via pyopenssl, requests
+cryptography==2.6.1       # via pyopenssl, requests
 delegator.py==0.1.1
 docutils==0.14            # via readme-renderer
 flask-admin==1.5.3
