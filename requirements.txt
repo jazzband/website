@@ -4,7 +4,7 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
-alembic==1.0.7            # via flask-migrate
+alembic==1.0.8            # via flask-migrate
 asn1crypto==0.24.0        # via cryptography
 babel==2.6.0
 bleach==3.1.0             # via readme-renderer
