@@ -1,0 +1,17 @@
+stages:
+  - deploy
+
+variables:
+  APP_NAME: jazzband
+
+deploy:
+  image: ilyasemenov/gitlab-ci-git-push
+  stage: deploy
+  environment:
+    name: production
+    url: https://$APP_NAME.co/
+  only:
+    - master
+  script:
+    - git-push ssh://dokku@websushi.org:22/$APP_NAME
+  when: manual
