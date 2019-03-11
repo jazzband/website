@@ -10,7 +10,7 @@ babel==2.6.0
 bleach==3.1.0             # via readme-renderer
 blinker==1.4              # via flask-mail, sentry-sdk, spinach
 brotli==1.0.7             # via whitenoise
-certifi==2018.11.29       # via requests, sentry-sdk
+certifi==2019.3.9         # via requests, sentry-sdk
 cffi==1.12.2              # via cryptography
 chardet==3.0.4            # via requests
 click-log==0.3.2
