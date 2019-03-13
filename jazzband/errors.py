@@ -13,5 +13,7 @@ def init_app(app):
                 event_level=logging.ERROR,  # Send errors as events
             ),
             FlaskIntegration(),
-        ]
+        ],
+        request_bodies='always',
+        with_locals=True,
     )
