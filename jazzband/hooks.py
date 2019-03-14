@@ -1,7 +1,7 @@
+import json
 import uuid
 
 from flask_hookserver import Hooks
-from walrus.containers import Hash
 
 from .db import redis
 from .members.models import User
@@ -37,8 +37,12 @@ def membership(data, guid):
 def member(data, guid):
     # only if the action is to add a member and if there is repo data
     if data.get('action') == 'added' and 'repository' in data:
-        hook_id = f'project-added-{uuid.uuid4()}'
-        hook_hash = Hash.from_dict(redis, hook_id, data)
-        hook_hash.expire(60 * 5)  # expire the hook hash in 5 minutes
+        hook_id = f'repo-added-{uuid.uuid4()}'
+        redis.setex(
+            hook_id,
+            60 * 5,  # expire the hook hash in 5 minutes
+            json.dumps(data)
+        )
         spinach.schedule(update_project_by_hook, hook_id)
+        return hook_id
     return 'Thanks'

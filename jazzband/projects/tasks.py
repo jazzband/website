@@ -1,3 +1,4 @@
+import json
 import logging
 from datetime import datetime, timedelta
 
@@ -28,7 +29,10 @@ def sync_projects():
 @tasks.task(name="update_project_by_hook")
 def update_project_by_hook(hook_id):
     # first load the hook data again
-    hook_data = redis.Hash(hook_id).as_dict(True)
+    hook_data = redis.get(hook_id)
+    if not hook_data:
+        return
+    hook_data = json.loads(hook_data)
 
     # then sync the project so it definitely exists
     Project.sync([hook_data["repository"]])
