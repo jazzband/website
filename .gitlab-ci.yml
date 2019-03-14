@@ -2,21 +2,17 @@ stages:
   - test
   - deploy
 
-image: gitlab/dind
-
 services:
   - docker:dind
 
 variables:
   APP_NAME: jazzband
-  DOCKER_DRIVER: overlay
-
-before_script:
-  - docker info
-  - apk add --update py-pip make npm
-  - pip install docker-compose
 
 test:
+  before_script:
+    - docker info
+    - apk add --update py-pip make npm
+    - pip install docker-compose
   image: docker:stable
   script:
     - cp .env-dist .env
