@@ -10,8 +10,11 @@ RUN npm install
 
 FROM python:3.6
 
-ENV PYTHONUNBUFFERED 1 \
-    PYTHONPATH /app/
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV LANG=C.UTF-8
+ENV PYTHONPATH=/app/
+ENV PATH=/app/.local/bin:$PATH
 
 # add a non-privileged user for installing and running the application
 # don't use --create-home option to prevent populating with skeleton files
@@ -40,8 +43,7 @@ RUN pip install -U pip
 COPY requirements.txt /tmp/
 
 RUN set -x \
-    && pip install --no-cache-dir -r /tmp/requirements.txt \
-    && find /usr/local -type f -name '*.pyc' -name '*.pyo' -delete
+    && pip install -r /tmp/requirements.txt
 
 COPY . /app/
 

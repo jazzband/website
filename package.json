@@ -1,8 +1,7 @@
 {
   "name": "jazzband",
-  "version": "2018.11.0",
+  "version": "2019.3.0",
   "description": "Code for the Jazzband website",
-  "main": "index.js",
   "directories": {
     "doc": "docs"
   },

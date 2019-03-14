@@ -1,4 +1,4 @@
-version: '2'
+version: "3.2"
 services:
   db:
     image: postgres:9.5
@@ -12,6 +12,7 @@ services:
     build: .
     volumes:
       - .:/app
+      - cache:/root/.cache:delegated
     command: honcho start -f Procfile.dev web
     environment:
       # pass those two into the environment
@@ -35,3 +36,6 @@ services:
     <<: *app
     command: honcho start -f Procfile.dev worker
     ports: []
+
+volumes:
+  cache:

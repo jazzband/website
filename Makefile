@@ -1,9 +1,12 @@
-.PHONY: bash build clean compile db-migrate db-upgrade redis-cli run shell start stop sync
+.PHONY: bash npm-install build clean compile db-migrate db-upgrade redis-cli run shell start stop sync test
 
 bash:
 	docker-compose run --rm  web bash
 
-build:
+npm-install:
+	npm install
+
+build: npm-install
 	docker-compose build --pull
 
 clean: stop
