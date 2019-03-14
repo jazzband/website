@@ -12,7 +12,7 @@ variables:
 
 before_script:
   - docker info
-  - apk add --update py-pip make
+  - apk add --update py-pip make npm
   - pip install docker-compose
 
 test:
