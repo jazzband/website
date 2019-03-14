@@ -5,8 +5,6 @@ stages:
 services:
   - docker:dind
 
-image: docker:stable
-
 variables:
   APP_NAME: jazzband
 
@@ -16,6 +14,7 @@ before_script:
   - pip install docker-compose
 
 test:
+  image: docker:stable
   script:
     - cp .env-dist .env
     - make test
