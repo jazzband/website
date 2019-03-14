@@ -1,0 +1,4 @@
+pytest
+pytest-flask
+pytest-datadir
+pytest-mock

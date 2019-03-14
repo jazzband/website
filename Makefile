@@ -41,3 +41,7 @@ stop:
 
 sync: compile
 	docker-compose run --rm web pip-sync requirements.txt
+
+test: npm-install
+	docker-compose run --rm web pip install --user -r tests/requirements.txt
+	docker-compose run --rm web pytest tests/
