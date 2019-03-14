@@ -30,7 +30,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         build-essential curl git libpq-dev \
         postgresql-client gettext sqlite3 libffi-dev \
-        inotify-tools wget bzip2 && \
+        inotify-tools wget bzip2 wait-for-it && \
     apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
