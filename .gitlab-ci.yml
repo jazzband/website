@@ -2,11 +2,14 @@ stages:
   - test
   - deploy
 
+image: gitlab/dind
+
 services:
   - docker:dind
 
 variables:
   APP_NAME: jazzband
+  DOCKER_DRIVER: overlay
 
 before_script:
   - docker info
