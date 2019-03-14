@@ -1,8 +1,23 @@
 stages:
+  - test
   - deploy
+
+services:
+  - docker:dind
+
+image: docker:stable
 
 variables:
   APP_NAME: jazzband
+
+before_script:
+  - docker info
+  - apk add --update py-pip
+  - pip install docker-compose
+
+test:
+  script:
+    - make test
 
 deploy:
   image: ilyasemenov/gitlab-ci-git-push
