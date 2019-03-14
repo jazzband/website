@@ -17,6 +17,7 @@ before_script:
 
 test:
   script:
+    - cp .env-dist .env
     - make test
 
 deploy:
