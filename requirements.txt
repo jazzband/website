@@ -58,7 +58,7 @@ pytz==2018.9              # via babel
 pyuwsgi==2.0.18.post0
 pyyaml==5.1               # via flask-flatpages
 readme-renderer==24.0     # via twine
-redis==3.2.0
+redis==3.2.1
 requests-toolbelt==0.9.1  # via twine
 requests[security]==2.21.0  # via flask-hookserver, github-flask, requests-toolbelt, twine
 sentry-sdk[flask]==0.7.6
