@@ -10,8 +10,7 @@ from .models import EmailAddress, User
 tasks = Tasks()
 
 
-
-@tasks.task(name='sync_members', periodicity=timedelta(seconds=60))
+@tasks.task(name='sync_members', periodicity=timedelta(minutes=3))
 def sync_members():
     # use a lock to make sure we don't run this multiple times
     with redis.lock("sync_members", ttl=ONE_MINUTE):
