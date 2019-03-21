@@ -1,9 +1,9 @@
 import babel.dates
-from flask import (Blueprint, current_app, render_template, redirect, request,
+from flask import (Blueprint, Response, current_app, render_template, redirect, request,
                    url_for, send_from_directory, safe_join)
 from flask_flatpages import FlatPages
 from flask_login import current_user
-from werkzeug.contrib.atom import AtomFeed
+from pyatom import AtomFeed
 
 from .assets import styles
 from .decorators import templated
@@ -65,7 +65,7 @@ def news_feed():
                  url=full_url(url_for('content.news', path=page.path)),
                  updated=updated,
                  published=published)
-    return feed.get_response()
+    return Response(feed.to_string(), mimetype="application/atom+xml")
 
 
 @content.route('/news', defaults={'path': 'index'})

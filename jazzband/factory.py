@@ -3,7 +3,7 @@ from flask_compress import Compress
 from flask_migrate import Migrate
 from flask_kvsession import KVSessionExtension
 from simplekv.memory.redisstore import RedisStore
-from werkzeug.contrib.fixers import ProxyFix
+from werkzeug.middleware.proxy_fix import ProxyFix
 from whitenoise import WhiteNoise
 
 from . import admin, cli, errors, logging  # noqa
