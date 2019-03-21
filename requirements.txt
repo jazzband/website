@@ -38,7 +38,7 @@ idna==2.8                 # via requests
 itsdangerous==1.1.0       # via flask, flask-kvsession
 jinja2==2.10              # via flask
 libsass==0.18.0
-mako==1.0.7               # via alembic
+mako==1.0.8               # via alembic
 markdown==3.0.1           # via flask-flatpages
 markupsafe==1.1.1         # via jinja2, mako
 packaging==19.0
