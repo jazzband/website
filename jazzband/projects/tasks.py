@@ -39,7 +39,7 @@ def update_project_by_hook(hook_id):
 
     # get the project again from the database
     project_name = hook_data['repository']['name']
-    project = Project.query.get(Project.name == project_name).first()
+    project = Project.query.filter(Project.name == project_name).first()
 
     # if there already was an issue created, just stop here
     if project.transfer_issue_url:
