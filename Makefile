@@ -7,7 +7,7 @@ npm-install:
 	npm install
 
 build: npm-install
-	docker-compose build --pull --build-arg JAZZBAND_ENV=dev
+	docker-compose build --pull --build-arg POETRY_ARGS="--no-interaction --no-ansi"
 
 clean: stop
 	docker-compose rm -f

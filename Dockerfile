@@ -10,9 +10,9 @@ RUN npm install
 
 FROM python:3.6-stretch
 
-ARG JAZZBAND_ENV=production
+ARG POETRY_ARGS="--no-dev --no-interaction --no-ansi"
 
-ENV JAZZBAND_ENV=${JAZZBAND_ENV} \
+ENV POETRY_ARGS=${POETRY_ARGS} \
     PYTHONPATH=/app/ \
     PYTHONFAULTHANDLER=1 \
     PYTHONUNBUFFERED=1 \
@@ -54,7 +54,7 @@ WORKDIR /app
 COPY poetry.lock pyproject.toml /app/
 
 RUN poetry config settings.virtualenvs.create false && \
-    poetry install $(test "$JAZZBAND_ENV" == "production" && echo "--no-dev") --no-interaction --no-ansi
+    poetry install $POETRY_ARGS
 
 COPY . /app/
 
