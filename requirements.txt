@@ -74,6 +74,6 @@ urllib3==1.24.1           # via requests, sentry-sdk
 walrus==0.7.1
 webassets==0.12.1         # via flask-assets
 webencodings==0.5.1       # via bleach
-werkzeug==0.14.1          # via flask, flask-hookserver, flask-kvsession
+werkzeug==0.15.0          # via flask, flask-hookserver, flask-kvsession
 whitenoise[brotli]==4.1.2
 wtforms==2.2.1
