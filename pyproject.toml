@@ -1,0 +1,55 @@
+[tool.poetry]
+name = "jazzband"
+version = "0.1.0"
+description = "Code that renders jazzband.co"
+authors = ["Jannis Leidel <jannis@leidel.info>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.6"
+Babel = "^2.6"
+click-log = "^0.3.2"
+"delegator.py" = "^0.1.1"
+spinach = "^0.0.9"
+Flask-Admin = "^1.5"
+Flask = "^1.0"
+Flask-Assets = "^0.12.0"
+Flask-Compress = "^1.4"
+Flask-Mail = "^0.9.1"
+Flask-Flatpages = "^0.7.0"
+Flask-Hookserver = "^1.1"
+Flask-KVSession = "^0.6.2"
+Flask-Login = "^0.4.1"
+Flask-Migrate = "^2.4"
+Flask-Redis = "^0.3.0"
+Flask-SQLAlchemy = "^2.3"
+Flask-Talisman = "^0.6.0"
+Flask-WTF = "^0.14.2"
+GitHub-Flask = "^3.2"
+Honcho = "^1.0"
+libsass = "^0.18.0"
+packaging = "^19.0"
+psycopg2-binary = "^2.7"
+pygments = "^2.3"
+python-decouple = "^3.1"
+redis = "^3.2"
+sqlalchemy = "^1.3"
+sqlalchemy-utils = "^0.33.11"
+twine = "^1.13"
+pyatom = "^1.4"
+pyuwsgi = "^2.0"
+walrus = "^0.7.1"
+wtforms = "^2.2"
+whitenoise = {version = "^4.1",extras = ["brotli"]}
+sentry-sdk = {version = "^0.7.7",extras = ["flask"]}
+
+
+[tool.poetry.dev-dependencies]
+pytest = "^4.3"
+pytest-flask = "^0.14.0"
+pytest-datadir = "^1.3"
+pytest-mock = "^1.10"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

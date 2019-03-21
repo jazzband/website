@@ -92,8 +92,7 @@ class JazzbandGitHub(GitHub):
         """
         Gets the verified email addresses of the authenticated GitHub user.
         """
-        return self.get('user/emails', all_pages=True,
-                        access_token=access_token)
+        return self.get('user/emails', all_pages=True, access_token=access_token)
 
     def get_without_2fa(self):
         """

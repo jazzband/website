@@ -1,3 +1,4 @@
+import logging
 from datetime import datetime
 from flask import Blueprint, flash, redirect, session, url_for
 from flask_login import (
@@ -8,12 +9,13 @@ from ..decorators import templated
 from ..github import github
 from ..members.models import User
 from ..members.tasks import sync_email_addresses
-from ..tasks import spinach
 from ..utils import get_redirect_target
 
 from .forms import ConsentForm, LeaveForm
 
 account = Blueprint('account', __name__, url_prefix='/account')
+
+logger = logging.getLogger(__name__)
 
 
 @account.app_template_global()
@@ -82,7 +84,7 @@ def callback(access_token):
             user.save()
 
         # fetch the current set of email addresses from GitHub
-        spinach.schedule(sync_email_addresses, user.id, access_token)
+        sync_email_addresses(user.id, access_token)
 
         # remember the user_id for the next request
         login_user(user)
@@ -115,12 +117,9 @@ def join():
         flash("You're already a member of Jazzband")
         return redirect(next_url)
 
+    if not current_user.has_verified_emails:
+        sync_email_addresses(current_user.id, current_user.access_token)
     has_verified_emails = current_user.has_verified_emails
-    # in case the user doesn't have verified emails, let's check again
-    # the async task may not have run yet
-    if not has_verified_emails:
-        sync_email_addresses(current_user.id)
-        has_verified_emails = current_user.has_verified_emails
 
     membership = None
     if has_verified_emails:

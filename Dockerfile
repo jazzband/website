@@ -10,11 +10,20 @@ RUN npm install
 
 FROM python:3.6-stretch
 
-ENV PYTHONUNBUFFERED=1
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV LANG=C.UTF-8
-ENV PYTHONPATH=/app/
-ENV PATH=/app/.local/bin:$PATH
+ARG JAZZBAND_ENV=production
+
+ENV JAZZBAND_ENV=${JAZZBAND_ENV} \
+    PYTHONPATH=/app/ \
+    PYTHONFAULTHANDLER=1 \
+    PYTHONUNBUFFERED=1 \
+    PYTHONHASHSEED=random \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=off \
+    PIP_DISABLE_PIP_VERSION_CHECK=on \
+    PIP_DEFAULT_TIMEOUT=100 \
+    LANG=C.UTF-8 \
+    POETRY_VERSION=0.12.11 \
+    PATH=/app/.local/bin:$PATH
 
 # add a non-privileged user for installing and running the application
 # don't use --create-home option to prevent populating with skeleton files
@@ -38,12 +47,14 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN pip install -U pip
+RUN pip install -U pip && \
+    pip install "poetry==$POETRY_VERSION"
 
-COPY requirements.txt /tmp/
+WORKDIR /app
+COPY poetry.lock pyproject.toml /app/
 
-RUN set -x \
-    && pip install -r /tmp/requirements.txt
+RUN poetry config settings.virtualenvs.create false && \
+    poetry install $(test "$JAZZBAND_ENV" == "production" && echo "--no-dev") --no-interaction --no-ansi
 
 COPY . /app/
 
@@ -52,7 +63,5 @@ COPY --from=npm /tmp/node_modules /app/node_modules/
 RUN chown -R 10001:10001 /app
 
 USER 10001
-
-WORKDIR /app
 
 ENTRYPOINT ["/app/docker-entrypoint.sh", "--"]
