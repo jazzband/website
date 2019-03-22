@@ -1,5 +1,7 @@
 import logging
 from datetime import datetime
+
+import sentry_sdk
 from flask import Blueprint, flash, redirect, session, url_for
 from flask_login import (
     current_user, login_user, logout_user, login_required
@@ -47,11 +49,13 @@ def login():
 @templated()
 @github.authorized_handler
 def callback(access_token):
+    if not access_token:
+        flash("Something went wrong during login. Please try again.")
+        sentry_sdk.capture_message("Login attempt without access token")
+        return redirect(default_url())
     form = ConsentForm(access_token=access_token)
     # first get the profile data for the user with the given access token
-    user_data = github.get_user(
-        access_token=access_token or form.access_token.data
-    )
+    user_data = github.get_user(access_token=form.access_token.data)
 
     # and see if the user is already in our database
     user = User.query.filter_by(id=user_data['id']).first()
