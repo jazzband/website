@@ -8,8 +8,8 @@ from alembic import op
 
 
 # revision identifiers, used by Alembic.
-revision = '2c9e39e05b87'
-down_revision = '1083bb6545c9'
+revision = "2c9e39e05b87"
+down_revision = "1083bb6545c9"
 
 
 def upgrade():
@@ -24,15 +24,15 @@ def upgrade():
             RETURNS NULL ON NULL INPUT;
         """
     )
-    op.execute("""
+    op.execute(
+        """
         CREATE UNIQUE INDEX project_name_pep426_normalized
             ON projects
             (normalize_pep426_name(name))
-    """)
+    """
+    )
 
 
 def downgrade():
-    op.drop_index(
-        op.f('project_name_pep426_normalized'), table_name='projects'
-    )
+    op.drop_index(op.f("project_name_pep426_normalized"), table_name="projects")
     op.execute("DROP FUNCTION normalize_pep426_name(text)")
