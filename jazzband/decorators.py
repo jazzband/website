@@ -9,19 +9,22 @@ def templated(template=None):
     """
     Taken from http://flask.pocoo.org/docs/0.10/patterns/viewdecorators/
     """
+
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
             template_name = template
             if template_name is None:
-                template_name = request.endpoint.replace('.', '/') + '.html'
+                template_name = request.endpoint.replace(".", "/") + ".html"
             ctx = f(*args, **kwargs)
             if ctx is None:
                 ctx = {}
             elif not isinstance(ctx, dict):
                 return ctx
             return render_template(template_name, **ctx)
+
         return decorated_function
+
     return decorator
 
 
@@ -41,6 +44,7 @@ def http_cache(timeout=None):
 
     Originally from https://gist.github.com/glenrobertson/954da3acec84606885f5
     """
+
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
@@ -49,6 +53,7 @@ def http_cache(timeout=None):
                 return response
             else:
                 return patch_http_cache_headers(response, timeout)
+
         return decorated_function
 
     return decorator

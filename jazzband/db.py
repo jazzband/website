@@ -9,11 +9,10 @@ from .exceptions import Rollback
 
 
 class JazzbandSQLAlchemy(SQLAlchemy):
-
     def init_app(self, app):
         super().init_app(app)
-        app.config.setdefault('SQLALCHEMY_NESTED_TRANSACTION', False)
-        app.config.setdefault('SQLALCHEMY_ISOLATE_TRANSACTION', True)
+        app.config.setdefault("SQLALCHEMY_NESTED_TRANSACTION", False)
+        app.config.setdefault("SQLALCHEMY_ISOLATE_TRANSACTION", True)
 
     @contextmanager
     def transaction(self, isolate=None, nested=None, **kwargs):
@@ -101,9 +100,9 @@ class JazzbandSQLAlchemy(SQLAlchemy):
             item = stack[-1].copy()
 
         if nested is None:
-            nested = self.get_app().config['SQLALCHEMY_NESTED_TRANSACTION']
+            nested = self.get_app().config["SQLALCHEMY_NESTED_TRANSACTION"]
         if isolate is None:
-            isolate = self.get_app().config['SQLALCHEMY_ISOLATE_TRANSACTION']
+            isolate = self.get_app().config["SQLALCHEMY_ISOLATE_TRANSACTION"]
 
         item.update(kwargs)
         stack.append(item)
@@ -131,14 +130,14 @@ class JazzbandSQLAlchemy(SQLAlchemy):
     @property
     def tx_local(self):
         """A shared dict object associated with current (nested) transaction"""
-        stack = getattr(self.session(), '_tx_stack', None)
+        stack = getattr(self.session(), "_tx_stack", None)
         if stack:
             return stack[-1]
 
     @property
     def root_tx_local(self):
         """A shared dict object associated with current DB transaction"""
-        stack = getattr(self.session(), '_tx_stack', None)
+        stack = getattr(self.session(), "_tx_stack", None)
         if stack:
             return stack[0]
 

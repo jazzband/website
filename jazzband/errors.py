@@ -7,18 +7,17 @@ from sentry_sdk.integrations.logging import LoggingIntegration
 
 
 def init_app(app):
-
     @app.errorhandler(404)
     def page_not_found(e):
-        return render_template('error.html'), 404
+        return render_template("error.html"), 404
 
     @app.errorhandler(403)
     def forbidden(error):
-        return render_template('forbidden.html'), 403
+        return render_template("forbidden.html"), 403
 
     @app.errorhandler(500)
     def error(error):
-        return render_template('error.html'), 500
+        return render_template("error.html"), 500
 
     sentry_sdk.init(
         integrations=[
@@ -28,6 +27,6 @@ def init_app(app):
             ),
             FlaskIntegration(),
         ],
-        request_bodies='always',
+        request_bodies="always",
         with_locals=True,
     )

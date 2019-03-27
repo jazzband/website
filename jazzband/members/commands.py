@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 click_log.basic_config(logger)
 
 
-@click.command('members')
+@click.command("members")
 @click_log.simple_verbosity_option(logger)
 @with_appcontext
 def sync_members():
@@ -17,8 +17,8 @@ def sync_members():
     tasks.sync_members()
 
 
-@click.command('emails')
-@click.option('--user_id', '-u', default=None)
+@click.command("emails")
+@click.option("--user_id", "-u", default=None)
 @click_log.simple_verbosity_option(logger)
 @with_appcontext
 def sync_email_addresses(user_id):

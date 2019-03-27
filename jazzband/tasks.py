@@ -7,13 +7,9 @@ from .projects.tasks import tasks as project_tasks
 
 
 class JazzbandSpinach(Spinach):
-
     def init_app(self, app):
-        app.config['SPINACH_BROKER'] = RedisBroker(
-            redis.from_url(
-                app.config['QUEUE_URL'],
-                **recommended_socket_opts
-            )
+        app.config["SPINACH_BROKER"] = RedisBroker(
+            redis.from_url(app.config["QUEUE_URL"], **recommended_socket_opts)
         )
         super().init_app(app)
         for tasks in [member_tasks, project_tasks]:

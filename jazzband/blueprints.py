@@ -3,12 +3,7 @@ from .content import content
 from .members.views import members
 from .projects.views import projects
 
-blueprints = [
-    account,
-    content,
-    members,
-    projects,
-]
+blueprints = [account, content, members, projects]
 
 
 def init_app(app):

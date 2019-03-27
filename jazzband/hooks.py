@@ -12,37 +12,35 @@ from .tasks import spinach
 hooks = Hooks()
 
 
-@hooks.hook('ping')
+@hooks.hook("ping")
 def ping(data, guid):
-    return 'pong'
+    return "pong"
 
 
-@hooks.hook('membership')
+@hooks.hook("membership")
 def membership(data, guid):
-    if data['scope'] != 'team':
+    if data["scope"] != "team":
         return
-    member = User.query.filter_by(id=data['member']['id']).first()
+    member = User.query.filter_by(id=data["member"]["id"]).first()
     if member is None:
         return
-    if data['action'] == 'added':
+    if data["action"] == "added":
         member.is_member = True
         member.save()
-    elif data['action'] == 'removed':
+    elif data["action"] == "removed":
         member.is_member = False
         member.save()
-    return 'Thanks'
+    return "Thanks"
 
 
-@hooks.hook('member')
+@hooks.hook("member")
 def member(data, guid):
     # only if the action is to add a member and if there is repo data
-    if data.get('action') == 'added' and 'repository' in data:
-        hook_id = f'repo-added-{uuid.uuid4()}'
+    if data.get("action") == "added" and "repository" in data:
+        hook_id = f"repo-added-{uuid.uuid4()}"
         redis.setex(
-            hook_id,
-            60 * 5,  # expire the hook hash in 5 minutes
-            json.dumps(data)
+            hook_id, 60 * 5, json.dumps(data)  # expire the hook hash in 5 minutes
         )
         spinach.schedule(update_project_by_hook, hook_id)
         return hook_id
-    return 'Thanks'
+    return "Thanks"

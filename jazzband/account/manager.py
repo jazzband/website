@@ -1,12 +1,10 @@
-from flask_login import (
-    LoginManager, current_user
-)
+from flask_login import LoginManager, current_user
 
 from ..github import github
 from ..members.models import User
 
 login_manager = LoginManager()
-login_manager.login_view = 'account.login'
+login_manager.login_view = "account.login"
 
 
 @login_manager.user_loader

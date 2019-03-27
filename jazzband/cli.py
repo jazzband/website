@@ -8,18 +8,18 @@ from .members.commands import sync_members, sync_email_addresses
 from .projects.commands import sync_projects, send_new_upload_notifications
 
 
-@click.command('db')
+@click.command("db")
 @with_appcontext
 def check_db():
     "Checks database connection"
     try:
-        postgres.session.execute('SELECT 1;')
+        postgres.session.execute("SELECT 1;")
     except Exception as exc:
-        print(f'Database connection failed: {exc}')
+        print(f"Database connection failed: {exc}")
         sys.exit(1)
 
 
-@click.command('redis')
+@click.command("redis")
 @with_appcontext
 def check_redis():
     "Checks database connection"
@@ -28,12 +28,11 @@ def check_redis():
     except Exception:
         response = None
     if not response:
-        print('Redis ping failed.')
+        print("Redis ping failed.")
         sys.exit(1)
 
 
 def init_app(app):
-
     @app.cli.group()
     def sync():
         "Sync Jazzband data."

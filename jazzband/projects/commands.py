@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 click_log.basic_config(logger)
 
 
-@click.command('projects')
+@click.command("projects")
 @click_log.simple_verbosity_option(logger)
 @with_appcontext
 def sync_projects():
@@ -17,7 +17,7 @@ def sync_projects():
     tasks.sync_projects()
 
 
-@click.command('new_upload_notifications')
+@click.command("new_upload_notifications")
 @click_log.simple_verbosity_option(logger)
 @with_appcontext
 def send_new_upload_notifications(project_id=None):

@@ -38,7 +38,7 @@ def update_project_by_hook(hook_id):
     Project.sync([hook_data["repository"]])
 
     # get the project again from the database
-    project_name = hook_data['repository']['name']
+    project_name = hook_data["repository"]["name"]
     project = Project.query.filter(Project.name == project_name).first()
 
     # if there already was an issue created, just stop here
@@ -48,24 +48,22 @@ def update_project_by_hook(hook_id):
     # use a lock to make sure we don't run this multiple times
     with redis.lock(f"project-update-by-hook-{project_name}", ttl=ONE_MINUTE):
         # get list of roadies and set them as the default assignees
-        roadies = User.query.filter_by(
-            is_member=True,
-            is_banned=False,
-            is_roadie=True,
-        )
+        roadies = User.query.filter_by(is_member=True, is_banned=False, is_roadie=True)
         # we'll auto-assign all the roadies, huh huh huh
         assignees = [roadie.login for roadie in roadies]
         # add sender of the hook as well if given
-        if 'sender' in hook_data:
-            assignees.append(hook_data['sender']['login'])
+        if "sender" in hook_data:
+            assignees.append(hook_data["sender"]["login"])
 
         # create a new issue, finally
-        issue_data = github.new_roadies_issue({
-            'title': render_template('hooks/project-title.txt', **hook_data),
-            'body': render_template('hooks/project-body.txt', **hook_data),
-            'labels': ['guidelines', 'review'],
-            'assignees': assignees,
-        })
+        issue_data = github.new_roadies_issue(
+            {
+                "title": render_template("hooks/project-title.txt", **hook_data),
+                "body": render_template("hooks/project-body.txt", **hook_data),
+                "labels": ["guidelines", "review"],
+                "assignees": assignees,
+            }
+        )
         issue_url = issue_data.get("html_url")
         if issue_url.startswith("https://github.com/jazzband/roadies/issues"):
             project.transfer_issue_url = issue_url
@@ -77,9 +75,7 @@ def send_new_upload_notifications(project_id=None):
     "Sends project upload notifications if needed"
     unnotified_uploads = ProjectUpload.query.filter_by(notified_at=None)
     if project_id is not None:
-        unnotified_uploads = unnotified_uploads.filter_by(
-            project_id=project_id,
-        )
+        unnotified_uploads = unnotified_uploads.filter_by(project_id=project_id)
     messages = []
 
     for upload in unnotified_uploads:
@@ -97,8 +93,7 @@ def send_new_upload_notifications(project_id=None):
         for lead_member in lead_members + list(User.roadies()):
 
             primary_email = lead_member.email_addresses.filter(
-                EmailAddress.primary == True,
-                EmailAddress.verified == True,
+                EmailAddress.primary == True, EmailAddress.verified == True
             ).first()
 
             if not primary_email:
@@ -107,19 +102,19 @@ def send_new_upload_notifications(project_id=None):
             recipients.append(primary_email.email)
 
         message = Message(
-            subject=f'Project {upload.project.name} received a new upload',
+            subject=f"Project {upload.project.name} received a new upload",
             recipients=recipients,
             body=render_template(
-                'projects/mails/new_upload_notification.txt',
+                "projects/mails/new_upload_notification.txt",
                 project=upload.project,
                 upload=upload,
                 lead_members=lead_members,
-            )
+            ),
         )
         messages.append((upload, message))
 
     if not messages:
-        logger.info('No uploads found without notifications.')
+        logger.info("No uploads found without notifications.")
         return
 
     with mail.connect() as smtp:
@@ -130,10 +125,10 @@ def send_new_upload_notifications(project_id=None):
                 finally:
                     upload.notified_at = datetime.utcnow()
                     upload.save()
-                    logger.info(f'Send notification for upload {upload}.')
+                    logger.info(f"Send notification for upload {upload}.")
 
 
-@tasks.task(name='update_upload_ordering', max_retries=10)
+@tasks.task(name="update_upload_ordering", max_retries=10)
 def update_upload_ordering(project_id):
     uploads = ProjectUpload.query.filter_by(project_id=project_id).all()
 

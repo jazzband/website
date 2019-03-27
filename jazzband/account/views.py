@@ -3,9 +3,7 @@ from datetime import datetime
 
 import sentry_sdk
 from flask import Blueprint, flash, redirect, session, url_for
-from flask_login import (
-    current_user, login_user, logout_user, login_required
-)
+from flask_login import current_user, login_user, logout_user, login_required
 
 from ..decorators import templated
 from ..github import github
@@ -15,37 +13,37 @@ from ..utils import get_redirect_target
 
 from .forms import ConsentForm, LeaveForm
 
-account = Blueprint('account', __name__, url_prefix='/account')
+account = Blueprint("account", __name__, url_prefix="/account")
 
 logger = logging.getLogger(__name__)
 
 
 @account.app_template_global()
 def default_url():
-    return url_for('content.index')
+    return url_for("content.index")
 
 
-@account.route('')
+@account.route("")
 @login_required
 @templated()
 def dashboard():
     return {}
 
 
-@account.route('/login')
+@account.route("/login")
 def login():
-    next_url = get_redirect_target('account.dashboard')
+    next_url = get_redirect_target("account.dashboard")
     if current_user.is_authenticated:
         return redirect(next_url)
 
     # Set the next URL in the session to be checked in the account callback
-    session['next'] = next_url
+    session["next"] = next_url
 
     # default fallback is to initiate the GitHub auth workflow
     return github.authorize(scope=github.scope)
 
 
-@account.route('/callback', methods=['GET', 'POST'])
+@account.route("/callback", methods=["GET", "POST"])
 @templated()
 @github.authorized_handler
 def callback(access_token):
@@ -59,7 +57,7 @@ def callback(access_token):
     user_data = github.get_user(access_token=form.access_token.data)
 
     # and see if the user is already in our database
-    user = User.query.filter_by(id=user_data['id']).first()
+    user = User.query.filter_by(id=user_data["id"]).first()
 
     # on POST of the consent form
     if form.validate_on_submit():
@@ -82,7 +80,7 @@ def callback(access_token):
     # we'll show the form either if there is no user yet,
     # or if the user hasn't given consent yet
     if user is None or not user.consented_at:
-        return {'form': form}
+        return {"form": form}
     else:
         if user:
             user.access_token = access_token
@@ -97,14 +95,11 @@ def callback(access_token):
         flash("You've successfully logged in.")
 
         # Check for the next URL using the session first and then fallback
-        next_url = (
-            session.pop('next', None) or
-            get_redirect_target('account.dashboard')
-        )
+        next_url = session.pop("next", None) or get_redirect_target("account.dashboard")
         return redirect(next_url)
 
 
-@account.route('/join')
+@account.route("/join")
 @login_required
 @templated()
 def join():
@@ -133,14 +128,14 @@ def join():
             flash("To join please accept the invitation from GitHub.")
 
     return {
-        'next_url': 'https://github.com/jazzband/roadies/wiki/Welcome',
-        'membership': membership,
-        'org_id': github.org_id,
-        'has_verified_emails': has_verified_emails,
+        "next_url": "https://github.com/jazzband/roadies/wiki/Welcome",
+        "membership": membership,
+        "org_id": github.org_id,
+        "has_verified_emails": has_verified_emails,
     }
 
 
-@account.route('/leave', methods=['GET', 'POST'])
+@account.route("/leave", methods=["GET", "POST"])
 @login_required
 @templated()
 def leave():
@@ -153,20 +148,24 @@ def leave():
     if form.validate_on_submit():
         response = github.leave_organization(current_user.login)
         if response is None:
-            flash('Leaving the organization failed. '
-                  'Please try again or open a ticket for the roadies.')
+            flash(
+                "Leaving the organization failed. "
+                "Please try again or open a ticket for the roadies."
+            )
         else:
             current_user.left_at = datetime.utcnow()
             current_user.is_member = False
             current_user.save()
             logout_user()
-            flash('You have been removed from the Jazzband GitHub '
-                  'organization. See you soon!')
+            flash(
+                "You have been removed from the Jazzband GitHub "
+                "organization. See you soon!"
+            )
         return redirect(next_url)
-    return {'form': form}
+    return {"form": form}
 
 
-@account.route('/logout')
+@account.route("/logout")
 def logout():
     logout_user()
     flash("You've successfully logged out.")

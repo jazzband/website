@@ -7,13 +7,21 @@ from wtforms import StringField, SubmitField, validators, ValidationError
 
 
 _project_name_re = re.compile(
-    r"^([A-Z0-9]|[A-Z0-9][A-Z0-9._-]*[A-Z0-9])$",
-    re.IGNORECASE,
+    r"^([A-Z0-9]|[A-Z0-9][A-Z0-9._-]*[A-Z0-9])$", re.IGNORECASE
 )
 
 UPLOAD_EXTENSIONS = [
-    'exe', 'tar.gz', 'bz2', 'rpm', 'deb', 'zip', 'tgz',
-    'egg', 'dmg', 'msi', 'whl',
+    "exe",
+    "tar.gz",
+    "bz2",
+    "rpm",
+    "deb",
+    "zip",
+    "tgz",
+    "egg",
+    "dmg",
+    "msi",
+    "whl",
 ]
 
 
@@ -30,9 +38,7 @@ def _validate_pep440_version(form, field):
     # Check that this version does not have a PEP 440 local segment attached
     # to it.
     if parsed.local is not None:
-        raise validators.ValidationError(
-            "Cannot use PEP 440 local versions."
-        )
+        raise validators.ValidationError("Cannot use PEP 440 local versions.")
 
 
 class UploadForm(FlaskForm):
@@ -48,7 +54,7 @@ class UploadForm(FlaskForm):
                     "only ascii numeric and '.', '_' and '-'."
                 ),
             ),
-        ],
+        ]
     )
     version = StringField(
         validators=[
@@ -58,28 +64,24 @@ class UploadForm(FlaskForm):
                 message="Cannot have leading or trailing whitespace.",
             ),
             _validate_pep440_version,
-        ],
+        ]
     )
 
     content = FileField(
         validators=[
-            FileRequired('Upload payload does not have a file.'),
-            FileAllowed(UPLOAD_EXTENSIONS, 'Invalid file extension.')
-        ],
+            FileRequired("Upload payload does not have a file."),
+            FileAllowed(UPLOAD_EXTENSIONS, "Invalid file extension."),
+        ]
     )
 
     gpg_signature = FileField(
         validators=[
             validators.Optional(),
-            FileAllowed(['asc'], 'Invalid file extension.')
-        ],
+            FileAllowed(["asc"], "Invalid file extension."),
+        ]
     )
 
-    md5_digest = StringField(
-        validators=[
-            validators.Optional(),
-        ],
-    )
+    md5_digest = StringField(validators=[validators.Optional()])
 
     sha256_digest = StringField(
         validators=[
@@ -87,7 +89,7 @@ class UploadForm(FlaskForm):
             validators.Regexp(
                 r"^[A-F0-9]{64}$",
                 re.IGNORECASE,
-                message='Must be a valid, hex encoded, SHA256 message digest.',
+                message="Must be a valid, hex encoded, SHA256 message digest.",
             ),
         ]
     )
@@ -104,18 +106,12 @@ class UploadForm(FlaskForm):
     )
 
     def validate_content(form, field):
-        if field.data and ('/' in field.data or '\\' in field.data):
-            raise ValidationError(
-                "Cannot upload a file with '/' or '\\' in the name.")
+        if field.data and ("/" in field.data or "\\" in field.data):
+            raise ValidationError("Cannot upload a file with '/' or '\\' in the name.")
 
 
 class ProjectNameForm(FlaskForm):
-    project_name = StringField(
-        'Project name',
-        validators=[
-            validators.DataRequired(),
-        ]
-    )
+    project_name = StringField("Project name", validators=[validators.DataRequired()])
 
     def __init__(self, project_name, *args, **kwargs):
         self._project_name = project_name
@@ -123,9 +119,7 @@ class ProjectNameForm(FlaskForm):
 
     def validate_project_name(self, field):
         if field.data != self._project_name:
-            raise ValidationError(
-                "Sorry, but the entered project name doesn't match."
-            )
+            raise ValidationError("Sorry, but the entered project name doesn't match.")
 
 
 class TwoFactorAuthValidation:
@@ -134,13 +128,13 @@ class TwoFactorAuthValidation:
     def validate_submit(self, field):
         if not current_user.has_2fa:
             raise ValidationError(
-                'Sorry, but to release the upload you need to have '
-                'Two Factor Auth (2FA) enabled on GitHub.'
+                "Sorry, but to release the upload you need to have "
+                "Two Factor Auth (2FA) enabled on GitHub."
             )
 
 
 class ReleaseForm(TwoFactorAuthValidation, ProjectNameForm):
-    submit = SubmitField('Release')
+    submit = SubmitField("Release")
 
     def __init__(self, *args, **kwargs):
         self.global_errors = []
@@ -151,4 +145,4 @@ class ReleaseForm(TwoFactorAuthValidation, ProjectNameForm):
 
 
 class DeleteForm(TwoFactorAuthValidation, ProjectNameForm):
-    submit = SubmitField('Delete')
+    submit = SubmitField("Delete")

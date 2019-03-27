@@ -9,9 +9,19 @@ from pkg_resources import safe_name
 
 import delegator
 import requests
-from flask import (abort, Blueprint, current_app, flash, jsonify,
-                   make_response, redirect, request,
-                   safe_join, send_from_directory, url_for)
+from flask import (
+    abort,
+    Blueprint,
+    current_app,
+    flash,
+    jsonify,
+    make_response,
+    redirect,
+    request,
+    safe_join,
+    send_from_directory,
+    url_for,
+)
 from flask.views import MethodView
 from flask_login import current_user, login_required
 from packaging.version import parse as parse_version
@@ -29,65 +39,60 @@ from .models import Project, ProjectUpload
 from .tasks import send_new_upload_notifications, update_upload_ordering
 
 
-projects = Blueprint('projects', __name__, url_prefix='/projects')
+projects = Blueprint("projects", __name__, url_prefix="/projects")
 
 logger = logging.getLogger(__name__)
 
 MAX_FILESIZE = 60 * 1024 * 1024  # 60M
-MAX_SIGSIZE = 8 * 1024           # 8K
-SIGNATURE_START = b'-----BEGIN PGP SIGNATURE-----'
-PATH_HASHER = 'sha256'
+MAX_SIGSIZE = 8 * 1024  # 8K
+SIGNATURE_START = b"-----BEGIN PGP SIGNATURE-----"
+PATH_HASHER = "sha256"
 DEFAULT_SORTER = func.random()
 SORTER = {
-    'uploads': Project.uploads_count,
-    'watchers': Project.subscribers_count,
-    'stargazers': Project.stargazers_count,
-    'forks': Project.forks_count,
-    'issues': Project.open_issues_count,
-    'name': Project.name,
-    'random': DEFAULT_SORTER,
+    "uploads": Project.uploads_count,
+    "watchers": Project.subscribers_count,
+    "stargazers": Project.stargazers_count,
+    "forks": Project.forks_count,
+    "issues": Project.open_issues_count,
+    "name": Project.name,
+    "random": DEFAULT_SORTER,
 }
-DEFAULT_ORDER = 'desc'
+DEFAULT_ORDER = "desc"
 
 
-@projects.route('')
+@projects.route("")
 @templated()
 def index():
-    sorter = request.args.get('sorter', None)
+    sorter = request.args.get("sorter", None)
     if sorter is None:
-        sorter = 'random'
+        sorter = "random"
         initial_sorting = True
     else:
         initial_sorting = False
-    order = request.args.get('order', None)
+    order = request.args.get("order", None)
     criterion = SORTER.get(sorter, DEFAULT_SORTER)
     if order == DEFAULT_ORDER:
         criterion = desc(criterion)
 
     projects = Project.query.filter(
-        Project.is_active == True,
-        ~Project.name.in_(['website', 'roadies']),
-    ).order_by(
-        nullslast(criterion)
-    )
+        Project.is_active == True, ~Project.name.in_(["website", "roadies"])
+    ).order_by(nullslast(criterion))
     return {
-        'projects': projects,
-        'sorter': sorter,
-        'initial_sorting': initial_sorting,
-        'order': order,
-        'DEFAULT_ORDER': DEFAULT_ORDER,
+        "projects": projects,
+        "sorter": sorter,
+        "initial_sorting": initial_sorting,
+        "order": order,
+        "DEFAULT_ORDER": DEFAULT_ORDER,
     }
 
 
 class ProjectMixin:
-
     def dispatch_request(self, *args, **kwargs):
-        name = kwargs.get('name')
+        name = kwargs.get("name")
         if not name:
             abort(404)
         self.project = Project.query.filter(
-            Project.is_active == True,
-            Project.name == name,
+            Project.is_active == True, Project.name == name
         ).first_or_404()
         return super().dispatch_request(*args, **kwargs)
 
@@ -96,21 +101,21 @@ class DetailView(ProjectMixin, MethodView):
     """
     A view to show the details of a project.
     """
-    methods = ['GET']
+
+    methods = ["GET"]
     decorators = [templated()]
 
     def get(self, name):
         uploads = self.project.uploads.order_by(
-            ProjectUpload.ordering.desc(),
-            ProjectUpload.version.desc(),
+            ProjectUpload.ordering.desc(), ProjectUpload.version.desc()
         )
         versions = set()
         for upload in uploads:
             versions.add(upload.version)
         return {
-            'project': self.project,
-            'uploads': uploads,
-            'versions': sorted(versions, key=parse_version, reverse=True),
+            "project": self.project,
+            "uploads": uploads,
+            "versions": sorted(versions, key=parse_version, reverse=True),
         }
 
 
@@ -119,7 +124,8 @@ class UploadView(ProjectMixin, MethodView):
     A view to show the details of a project and also handling file uploads
     via Twine/distutils.
     """
-    methods = ['POST']
+
+    methods = ["POST"]
 
     def check_authentication(self):
         """
@@ -128,18 +134,17 @@ class UploadView(ProjectMixin, MethodView):
         if request.authorization is None:
             return False
         # the upload killswitch
-        if not current_app.config['UPLOAD_ENABLED']:
+        if not current_app.config["UPLOAD_ENABLED"]:
             return False
-        if request.authorization.username != 'jazzband':
+        if request.authorization.username != "jazzband":
             return False
         return self.project.credentials.filter_by(
-            is_active=True,
-            key=request.authorization.password,
+            is_active=True, key=request.authorization.password
         ).scalar()
 
     def post(self, name):
         if not self.check_authentication():
-            response = make_response('', 401)
+            response = make_response("", 401)
             response.headers["WWW-Authenticate"] = 'Basic realm="Jazzband"'
             return response
 
@@ -150,19 +155,15 @@ class UploadView(ProjectMixin, MethodView):
         form_copy = request.form.copy()
         unknown_found = False
         for key, value in request.form.items():
-            if value == 'UNKNOWN':
+            if value == "UNKNOWN":
                 unknown_found = True
                 form_copy.pop(key)
         if unknown_found:
             request.form = form_copy
 
-        form = UploadForm(meta={'csrf': False})
+        form = UploadForm(meta={"csrf": False})
 
-        validation_order = [
-            'name',
-            'version',
-            'content',
-        ]
+        validation_order = ["name", "version", "content"]
         if not form.validate_on_submit():
             for field_name in validation_order:
                 if field_name in form.errors:
@@ -172,15 +173,14 @@ class UploadView(ProjectMixin, MethodView):
 
             eject(
                 400,
-                description='%s: %s' %
-                            (field_name, ', '.join(form.errors[field_name]))
+                description="%s: %s" % (field_name, ", ".join(form.errors[field_name])),
             )
 
         # the upload FileStorage
         upload_data = form.content.data
 
         if upload_data is None:
-            eject(400, description='Upload payload does not have a file.')
+            eject(400, description="Upload payload does not have a file.")
 
         upload_filename = secure_filename(upload_data.filename)
 
@@ -190,14 +190,15 @@ class UploadView(ProjectMixin, MethodView):
         if not safe_name(upload_filename).lower().startswith(prefix):
             eject(
                 400,
-                description='The filename for %r must start with %r.' %
-                            (self.project.name, prefix)
+                description="The filename for %r must start with %r."
+                % (self.project.name, prefix),
             )
 
         # Fail if a project upload already exists
         if ProjectUpload.query.filter_by(
-                filename=upload_filename, project_id=self.project.id).scalar():
-            eject(400, description='File already exists.')
+            filename=upload_filename, project_id=self.project.id
+        ).scalar():
+            eject(400, description="File already exists.")
 
         # Store file uploads and calculate hashes
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -207,13 +208,13 @@ class UploadView(ProjectMixin, MethodView):
 
             # Buffer the entire file onto disk, checking the hash of the file
             # as we go along.
-            with open(upload_path, 'rb') as upload_file:
+            with open(upload_path, "rb") as upload_file:
                 file_hashes = {
-                    'md5': hashlib.md5(),
-                    'sha256': hashlib.sha256(),
-                    'blake2_256': hashlib.blake2b(digest_size=256 // 8),
+                    "md5": hashlib.md5(),
+                    "sha256": hashlib.sha256(),
+                    "blake2_256": hashlib.blake2b(digest_size=256 // 8),
                 }
-                for chunk in iter(lambda: upload_file.read(8096), b''):
+                for chunk in iter(lambda: upload_file.read(8096), b""):
                     for hasher in file_hashes.values():
                         hasher.update(chunk)
 
@@ -230,36 +231,32 @@ class UploadView(ProjectMixin, MethodView):
             # digests we expect them all to be given.
             hash_comparisons = [
                 hmac.compare_digest(
-                    getattr(form, '%s_digest' % digest_name).data.lower(),
-                    digest_value,
+                    getattr(form, "%s_digest" % digest_name).data.lower(), digest_value
                 )
                 for digest_name, digest_value in file_hashes.items()
-                if getattr(form, '%s_digest' % digest_name).data
+                if getattr(form, "%s_digest" % digest_name).data
             ]
             if not all(hash_comparisons):
                 eject(
                     400,
-                    description='The digest supplied does not match a digest '
-                                'calculated from the uploaded file.',
+                    description="The digest supplied does not match a digest "
+                    "calculated from the uploaded file.",
                 )
 
             # Also buffer the entire signature file to disk.
             signature = form.gpg_signature.data
-            signature_filename = upload_filename + '.asc'
+            signature_filename = upload_filename + ".asc"
             if signature:
                 signature_path = os.path.join(tmpdir, signature_filename)
                 signature.stream.seek(0)
                 signature.save(signature_path)
                 if os.path.getsize(signature_path) > MAX_SIGSIZE:
-                    eject(400, description='Signature too large.')
+                    eject(400, description="Signature too large.")
 
                 # Check whether signature is ASCII armored
-                with open(signature_path, 'rb') as signature_file:
+                with open(signature_path, "rb") as signature_file:
                     if not signature_file.read().startswith(SIGNATURE_START):
-                        eject(
-                            400,
-                            description='PGP signature is not ASCII armored.',
-                        )
+                        eject(400, description="PGP signature is not ASCII armored.")
 
             version = form.version.data
             upload = ProjectUpload(
@@ -269,9 +266,9 @@ class UploadView(ProjectMixin, MethodView):
                 path=safe_join(self.project.name, file_hashes[PATH_HASHER]),
                 filename=upload_filename,
                 size=os.path.getsize(upload_path),
-                md5_digest=file_hashes['md5'],
-                sha256_digest=file_hashes['sha256'],
-                blake2_256_digest=file_hashes['blake2_256'],
+                md5_digest=file_hashes["md5"],
+                sha256_digest=file_hashes["sha256"],
+                blake2_256_digest=file_hashes["blake2_256"],
                 form_data=request.form,
                 user_agent=request.user_agent.string,
                 remote_addr=request.remote_addr,
@@ -283,13 +280,13 @@ class UploadView(ProjectMixin, MethodView):
             shutil.move(upload_path, upload.full_path)
             # copy the uploaded signature file to storage path directory
             if signature:
-                shutil.move(signature_path, upload.full_path + '.asc')
+                shutil.move(signature_path, upload.full_path + ".asc")
             # write to database
             upload.save()
 
         spinach.schedule(send_new_upload_notifications, self.project.id)
         spinach.schedule(update_upload_ordering, self.project.id)
-        return 'OK'
+        return "OK"
 
 
 class UploadActionView(MethodView):
@@ -297,8 +294,7 @@ class UploadActionView(MethodView):
 
     def dispatch_request(self, *args, **kwargs):
         projects = Project.query.filter(
-            Project.is_active == True,
-            Project.name == kwargs.get('name'),
+            Project.is_active == True, Project.name == kwargs.get("name")
         )
         if not current_user_is_roadie():
             projects = projects.filter(
@@ -307,21 +303,19 @@ class UploadActionView(MethodView):
             )
         self.project = projects.first_or_404()
         self.upload = self.project.uploads.filter_by(
-            id=kwargs.get('upload_id')
+            id=kwargs.get("upload_id")
         ).first_or_404()
         return super().dispatch_request(*args, **kwargs)
 
     def redirect_to_project(self):
-        return redirect(url_for('projects.detail', name=self.project.name))
+        return redirect(url_for("projects.detail", name=self.project.name))
 
 
 class UploadDownloadView(UploadActionView):
-    methods = ['GET']
+    methods = ["GET"]
 
     def get(self, name, upload_id):
-        cache_timeout = current_app.get_send_file_max_age(
-            self.upload.full_path
-        )
+        cache_timeout = current_app.get_send_file_max_age(self.upload.full_path)
         path, filename = os.path.split(self.upload.full_path)
         return send_from_directory(
             path,
@@ -335,14 +329,14 @@ class UploadDownloadView(UploadActionView):
 
 
 class UploadFormDataView(UploadActionView):
-    methods = ['GET']
+    methods = ["GET"]
 
     def get(self, name, upload_id):
         return jsonify(self.upload.form_data)
 
 
 class UploadReleaseView(UploadActionView):
-    methods = ['GET', 'POST']
+    methods = ["GET", "POST"]
     decorators = UploadActionView.decorators + [templated()]
 
     def validate_upload(self):
@@ -356,84 +350,67 @@ class UploadReleaseView(UploadActionView):
         except HTTPError:
             # in case there was a network issue with getting the JSON
             # data from PyPI
-            error = 'Error while validating upload'
+            error = "Error while validating upload"
             logger.error(error, exc_info=True)
             errors.append(error)
         except ValueError:
             # or something was wrong about the returned JSON data
-            error = (
-                'Error while parsing response from PyPI during validation'
-            )
+            error = "Error while parsing response from PyPI during validation"
             logger.error(error, exc_info=True)
             errors.append(error)
         except Exception:
-            error = 'Unknown error'
+            error = "Unknown error"
             logger.error(error, exc_info=True)
             errors.append(error)
         else:
             # next check the data for what we're looking for
-            releases = data.get('releases', {})
+            releases = data.get("releases", {})
             release_files = releases.get(self.upload.version, [])
 
             if release_files:
                 for release_file in release_files:
-                    release_filename = release_file.get('filename', None)
+                    release_filename = release_file.get("filename", None)
                     if release_filename is None:
-                        error = 'No file found in PyPI validation response.'
-                        logger.error(error, extra={
-                            'stack': True,
-                        })
+                        error = "No file found in PyPI validation response."
+                        logger.error(error, extra={"stack": True})
 
                     if release_filename == self.upload.filename:
-                        digests = release_file.get('digests', {})
+                        digests = release_file.get("digests", {})
                         if digests:
-                            md5_digest = digests.get('md5', None)
-                            if (md5_digest and
-                                    md5_digest != self.upload.md5_digest):
+                            md5_digest = digests.get("md5", None)
+                            if md5_digest and md5_digest != self.upload.md5_digest:
                                 error = (
-                                    f'MD5 hash of {self.upload.filename} does '
-                                    f'not match hash returned by PyPI.'
+                                    f"MD5 hash of {self.upload.filename} does "
+                                    f"not match hash returned by PyPI."
                                 )
                                 errors.append(error)
-                                logger.error(error, extra={
-                                    'stack': True,
-                                })
+                                logger.error(error, extra={"stack": True})
 
-                            sha256_digest = digests.get('sha256', None)
-                            if (sha256_digest and
-                                    sha256_digest !=
-                                    self.upload.sha256_digest):
+                            sha256_digest = digests.get("sha256", None)
+                            if (
+                                sha256_digest and
+                                    sha256_digest != self.upload.sha256_digest
+                            ):
                                 error = (
-                                    f'SHA256 hash of {self.upload.filename} '
-                                    f'does not match hash returned by PyPI.'
+                                    f"SHA256 hash of {self.upload.filename} "
+                                    f"does not match hash returned by PyPI."
                                 )
                                 errors.append(error)
-                                logger.error(error, extra={
-                                    'stack': True,
-                                })
+                                logger.error(error, extra={"stack": True})
                         else:
-                            error = (
-                                f'No digests for file {self.upload.filename}'
-                            )
+                            error = f"No digests for file {self.upload.filename}"
                             errors.append(error)
-                            logger.error(error, extra={
-                                'stack': True,
-                            })
+                            logger.error(error, extra={"stack": True})
 
             else:
-                error = (
-                    f'No released files found for upload '
-                    f'{self.upload.filename}'
-                )
+                error = f"No released files found for upload " f"{self.upload.filename}"
                 errors.append(error)
-                logger.error(error, extra={
-                    'stack': True,
-                })
+                logger.error(error, extra={"stack": True})
         return errors
 
     def post(self, name, upload_id):
-        if not current_app.config['RELEASE_ENABLED']:
-            message = 'Releasing is currently out of service'
+        if not current_app.config["RELEASE_ENABLED"]:
+            message = "Releasing is currently out of service"
             flash(message)
             logging.info(message)
 
@@ -447,9 +424,9 @@ class UploadReleaseView(UploadActionView):
         release_form = ReleaseForm(project_name=self.project.name)
 
         context = {
-            'release_form': release_form,
-            'project': self.project,
-            'upload': self.upload,
+            "release_form": release_form,
+            "project": self.project,
+            "upload": self.upload,
         }
 
         if release_form.validate_on_submit():
@@ -459,7 +436,7 @@ class UploadReleaseView(UploadActionView):
                 shutil.copy(self.upload.full_path, upload_path)
 
                 # run twine upload against copied upload file
-                twine_run = delegator.run(f'twine upload {upload_path}')
+                twine_run = delegator.run(f"twine upload {upload_path}")
 
             if twine_run.return_code == 0:
                 errors = self.validate_upload()
@@ -469,25 +446,17 @@ class UploadReleaseView(UploadActionView):
                     self.upload.released_at = datetime.utcnow()
                     # write to database
                     self.upload.save()
-                    message = (
-                        f"You've successfully released {self.upload} to PyPI."
-                    )
+                    message = f"You've successfully released {self.upload} to PyPI."
                     flash(message)
                     logger.info(message)
                     return self.redirect_to_project()
             else:
-                error = f'Release of {self.upload} failed.'
+                error = f"Release of {self.upload} failed."
                 release_form.add_global_error(error)
-                logger.error(error, extra={
-                    'data': {
-                        'out': twine_run.out,
-                        'err': twine_run.err,
-                    }
-                })
-            context.update({
-                'twine_run': twine_run,
-                'upload': self.upload,
-            })
+                logger.error(
+                    error, extra={"data": {"out": twine_run.out, "err": twine_run.err}}
+                )
+            context.update({"twine_run": twine_run, "upload": self.upload})
 
         return context
 
@@ -503,14 +472,14 @@ class UploadReleaseView(UploadActionView):
 
         release_form = ReleaseForm(project_name=self.project.name)
         return {
-            'project': self.project,
-            'release_form': release_form,
-            'upload': self.upload,
+            "project": self.project,
+            "release_form": release_form,
+            "upload": self.upload,
         }
 
 
 class UploadDeleteView(UploadActionView):
-    methods = ['GET', 'POST']
+    methods = ["GET", "POST"]
     decorators = UploadActionView.decorators + [templated()]
 
     def get(self, name, upload_id):
@@ -524,9 +493,9 @@ class UploadDeleteView(UploadActionView):
             return self.redirect_to_project()
 
         return {
-            'project': self.project,
-            'upload': self.upload,
-            'delete_form': DeleteForm(project_name=self.project.name),
+            "project": self.project,
+            "upload": self.upload,
+            "delete_form": DeleteForm(project_name=self.project.name),
         }
 
     def post(self, name, upload_id):
@@ -536,23 +505,19 @@ class UploadDeleteView(UploadActionView):
                 f"released and can't be deleted."
             )
             flash(message)
-            logger.error(message, extra={
-                'stack': True,
-            })
+            logger.error(message, extra={"stack": True})
             return self.redirect_to_project()
 
         delete_form = DeleteForm(project_name=self.project.name)
         context = {
-            'delete_form': delete_form,
-            'project': self.project,
-            'upload': self.upload,
+            "delete_form": delete_form,
+            "project": self.project,
+            "upload": self.upload,
         }
 
         if delete_form.validate_on_submit():
             self.upload.delete()
-            message = (
-                f"You've successfully deleted the upload {self.upload}."
-            )
+            message = f"You've successfully deleted the upload {self.upload}."
             flash(message)
             logger.info(message)
             return self.redirect_to_project()
@@ -562,31 +527,23 @@ class UploadDeleteView(UploadActionView):
 
 # /projects/test-project/1/delete
 projects.add_url_rule(
-    '/<name>/upload/<upload_id>/delete',
-    view_func=UploadDeleteView.as_view('delete')
+    "/<name>/upload/<upload_id>/delete", view_func=UploadDeleteView.as_view("delete")
 )
 # /projects/test-project/1/data
 projects.add_url_rule(
-    '/<name>/upload/<upload_id>/formdata',
-    view_func=UploadFormDataView.as_view('formdata')
+    "/<name>/upload/<upload_id>/formdata",
+    view_func=UploadFormDataView.as_view("formdata"),
 )
 # /projects/test-project/1/download
 projects.add_url_rule(
-    '/<name>/upload/<upload_id>/download',
-    view_func=UploadDownloadView.as_view('download')
+    "/<name>/upload/<upload_id>/download",
+    view_func=UploadDownloadView.as_view("download"),
 )
 # /projects/test-project/1/release
 projects.add_url_rule(
-    '/<name>/upload/<upload_id>/release',
-    view_func=UploadReleaseView.as_view('release')
+    "/<name>/upload/<upload_id>/release", view_func=UploadReleaseView.as_view("release")
 )
 # /projects/test-project
-projects.add_url_rule(
-    '/<name>/upload',
-    view_func=UploadView.as_view('upload'),
-)
+projects.add_url_rule("/<name>/upload", view_func=UploadView.as_view("upload"))
 # /projects/test-project
-projects.add_url_rule(
-    '/<name>',
-    view_func=DetailView.as_view('detail')
-)
+projects.add_url_rule("/<name>", view_func=DetailView.as_view("detail"))

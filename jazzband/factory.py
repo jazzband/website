@@ -22,32 +22,32 @@ from .tasks import spinach
 
 def create_app():
     # setup flask
-    app = Flask('jazzband')
+    app = Flask("jazzband")
     # load decoupled config variables
-    app.config.from_object('jazzband.config')
+    app.config.from_object("jazzband.config")
 
     @app.context_processor
     def app_context_processor():
         return {
-            'about': about_pages,
-            'news': news_pages,
-            'User': User,
-            'Project': Project,
+            "about": about_pages,
+            "news": news_pages,
+            "User": User,
+            "Project": Project,
         }
 
     @app.after_request
     def add_vary_header(response):
-        response.vary.add('Cookie')
-        response.headers['Jazzband'] = "We're all part of this."
+        response.vary.add("Cookie")
+        response.headers["Jazzband"] = "We're all part of this."
         return response
 
     talisman.init_app(
         app,
-        force_https=app.config['IS_PRODUCTION'],
+        force_https=app.config["IS_PRODUCTION"],
         force_file_save=True,
-        content_security_policy=app.config['CSP_RULES'],
-        content_security_policy_report_only=app.config['CSP_REPORT_ONLY'],
-        content_security_policy_report_uri=app.config['CSP_REPORT_URI'],
+        content_security_policy=app.config["CSP_RULES"],
+        content_security_policy_report_only=app.config["CSP_REPORT_ONLY"],
+        content_security_policy_report_uri=app.config["CSP_REPORT_URI"],
     )
 
     postgres.init_app(app)
@@ -64,13 +64,11 @@ def create_app():
 
     errors.init_app(app)
 
-    if app.config['IS_PRODUCTION']:
+    if app.config["IS_PRODUCTION"]:
         app.wsgi_app = ProxyFix(app.wsgi_app)
 
     app.wsgi_app = WhiteNoise(
-        app.wsgi_app,
-        root=app.static_folder,
-        prefix=app.static_url_path,
+        app.wsgi_app, root=app.static_folder, prefix=app.static_url_path
     )
 
     mail.init_app(app)
@@ -95,6 +93,7 @@ def create_app():
     login_manager.init_app(app)
 
     from . import blueprints  # noqa
+
     blueprints.init_app(app)
 
     return app
