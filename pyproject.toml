@@ -40,8 +40,10 @@ pyatom = "^1.4"
 pyuwsgi = "^2.0"
 walrus = "^0.7.1"
 wtforms = "^2.2"
-whitenoise = {version = "^4.1",extras = ["brotli"]}
 sentry-sdk = {version = "^0.7.7",extras = ["flask"]}
+whitenoise = "^4.1"
+brotli = "^1.0"
+blinker = "^1.4"
 
 
 [tool.poetry.dev-dependencies]
