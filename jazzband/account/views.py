@@ -98,7 +98,7 @@ def callback(access_token):
 
         # Check for the next URL using the session first and then fallback
         next_url = (
-            session.pop('next') or
+            session.pop('next', None) or
             get_redirect_target('account.dashboard')
         )
         return redirect(next_url)
