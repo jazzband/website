@@ -1,3 +1,5 @@
+from flask import request
+from sentry_sdk import capture_message, configure_scope
 from flask_github import GitHub, GitHubError
 
 
@@ -11,6 +13,14 @@ class JazzbandGitHub(GitHub):
         self.admin_access_token = app.config['GITHUB_ADMIN_TOKEN']
         self.org_id = app.config['GITHUB_ORG_ID']
         self.scope = app.config['GITHUB_SCOPE']
+
+    def _handle_invalid_response(self):
+        error = request.args.get('error')
+        if error:
+            with configure_scope() as scope:
+                scope.set_extra("error_description", request.args.get('error_description'))
+                scope.set_extra("error_uri", request.args.get('error_uri'))
+                capture_message(f"Error during OAUTH found: {error}")
 
     def join_organization(self, user_login):
         """

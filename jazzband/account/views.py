@@ -53,6 +53,7 @@ def callback(access_token):
         flash("Something went wrong during login. Please try again.")
         sentry_sdk.capture_message("Login attempt without access token")
         return redirect(default_url())
+
     form = ConsentForm(access_token=access_token)
     # first get the profile data for the user with the given access token
     user_data = github.get_user(access_token=form.access_token.data)
