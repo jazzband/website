@@ -12,7 +12,7 @@ variables:
 test:
   before_script:
     - docker info
-    - apk add --update py-pip make npm build-base python2-dev
+    - apk add --update py-pip make npm build-base python2-dev libffi-dev openssl-dev
     - pip install docker-compose
   image: docker:latest
   script:
