@@ -11,7 +11,7 @@ variables:
 test:
   before_script:
     - docker info
-    - apk add --update py-pip make npm build-base python-devel python3-devel
+    - apk add --update py-pip make npm build-base python3-devel
     - pip install docker-compose
   image: docker:stable
   script:
