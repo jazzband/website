@@ -7,13 +7,14 @@ services:
 
 variables:
   APP_NAME: jazzband
+  DOCKER_DRIVER: overlay2
 
 test:
   before_script:
     - docker info
-    - apk add --update py-pip make npm build-base python3-devel
+    - apk add --update py-pip make npm build-base python-devel
     - pip install docker-compose
-  image: docker:stable
+  image: docker:latest
   script:
     - cp .env-dist .env
     - make test
