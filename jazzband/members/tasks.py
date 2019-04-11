@@ -13,10 +13,10 @@ logger = logging.getLogger(__name__)
 tasks = Tasks()
 
 
-@tasks.task(name="sync_members", periodicity=timedelta(minutes=3), max_retries=3)
+@tasks.task(name="sync_members", periodicity=timedelta(minutes=15), max_retries=3)
 def sync_members():
     # use a lock to make sure we don't run this multiple times
-    with redis.lock("sync_members", ttl=ONE_MINUTE):
+    with redis.lock("sync_members", ttl=ONE_MINUTE * 14):
 
         members_data = github.get_members()
         User.sync(members_data)

@@ -19,9 +19,9 @@ logger = logging.getLogger(__name__)
 tasks = Tasks()
 
 
-@tasks.task(name="sync_projects", periodicity=timedelta(minutes=5), max_retries=3)
+@tasks.task(name="sync_projects", periodicity=timedelta(minutes=15), max_retries=3)
 def sync_projects():
-    with redis.lock("sync_projects", ttl=ONE_MINUTE):
+    with redis.lock("sync_projects", ttl=ONE_MINUTE * 14):
         projects_data = github.get_projects()
         Project.sync(projects_data)
 
