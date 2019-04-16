@@ -32,17 +32,20 @@ def sync_members():
 
 
 @tasks.task(name="sync_email_addresses", max_retries=5)
-def sync_email_addresses(user_id, access_token):
+def sync_email_addresses(user_id):
     "Sync email addresses for user"
-    logger.info(
-        "Updating emails for user %s with access token %s..", user_id, access_token[:6]
-    )
-
     # load user or raise an exception if not found
     user = User.query.filter(User.id == user_id).one()
 
+    if not user.access_token:
+        raise ValueError(f"No access token for user {user.login}")
+
+    logger.info(
+        "Updating emails for user %s with access token %s..", user_id, user.access_token[:6]
+    )
+
     email_addresses = []
-    email_data = github.get_emails(access_token=access_token)
+    email_data = github.get_emails(access_token=user.access_token)
 
     for email_item in email_data:
         email_item["user_id"] = user.id

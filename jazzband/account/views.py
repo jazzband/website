@@ -145,7 +145,7 @@ def callback(blueprint, token):
         db.session.commit()
 
         # sync email addresses for the user
-        sync_email_addresses(user.id, token["access_token"])
+        sync_email_addresses(user.id)
 
         # log in the new user
         login_user(user)
@@ -175,7 +175,7 @@ def join():
         return redirect(next_url)
 
     if not current_user.has_verified_emails:
-        sync_email_addresses(current_user.id, current_user.access_token)
+        sync_email_addresses(current_user.id)
     has_verified_emails = current_user.has_verified_emails
 
     membership = None

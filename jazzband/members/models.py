@@ -90,6 +90,13 @@ class User(db.Model, Syncable, UserMixin):
         )
 
     @property
+    def access_token(self):
+        oauth = self.oauths.scalar()
+        if oauth is None:
+            return
+        return oauth.token.get('access_token', None)
+
+    @property
     def has_consented(self):
         return (
             self.profile_consent
