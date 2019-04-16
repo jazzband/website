@@ -21,14 +21,14 @@ class JazzbandModelView(sqla.ModelView):
 
     def inaccessible_callback(self, name, **kwargs):
         # redirect to login page if user doesn't have access
-        return redirect(url_for("account.login", next=request.url))
+        return redirect(url_for("github.login", next=request.url))
 
 
 class JazzbandAdminIndexView(AdminIndexView):
     @expose("/")
     def index(self):
         if not current_user.is_authenticated:
-            return redirect(url_for("account.login", next=request.url))
+            return redirect(url_for("github.login", next=request.url))
         return super().index()
 
 
