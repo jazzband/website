@@ -34,5 +34,5 @@ def upgrade():
 
 
 def downgrade():
-    op.drop_index(op.f("project_name_pep426_normalized"), table_name="projects")
+    op.execute("DROP INDEX project_name_pep426_normalized")
     op.execute("DROP FUNCTION normalize_pep426_name(text)")

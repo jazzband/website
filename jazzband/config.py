@@ -50,8 +50,8 @@ FLATPAGES_ABOUT_HTML_RENDERER = FLATPAGES_NEWS_HTML_RENDERER = smart_pygmented_m
 FLATPAGES_NEWS_ROOT = "../docs/news"
 
 # Set these values in the .env file or env vars
-GITHUB_CLIENT_ID = config("GITHUB_CLIENT_ID", "")
-GITHUB_CLIENT_SECRET = config("GITHUB_CLIENT_SECRET", "")
+GITHUB_OAUTH_CLIENT_ID = config("GITHUB_CLIENT_ID", "")
+GITHUB_OAUTH_CLIENT_SECRET = config("GITHUB_CLIENT_SECRET", "")
 GITHUB_ORG_ID = config("GITHUB_ORG_ID", "jazzband")
 GITHUB_SCOPE = config("GITHUB_SCOPE", "read:org,user:email")
 GITHUB_MEMBERS_TEAM_ID = config("GITHUB_MEMBERS_TEAM_ID", 0, cast=int)

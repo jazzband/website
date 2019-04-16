@@ -12,7 +12,6 @@ from .assets import assets
 from .content import about_pages, news_pages
 from .db import postgres, redis
 from .email import mail
-from .github import github
 from .headers import talisman
 from .hooks import hooks
 from .members.models import User
@@ -72,9 +71,6 @@ def create_app():
     )
 
     mail.init_app(app)
-
-    # setup github-flask
-    github.init_app(app)
 
     hooks.init_app(app)
 

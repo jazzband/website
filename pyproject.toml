@@ -16,6 +16,7 @@ Flask = "^1.0"
 Flask-Assets = "^0.12.0"
 Flask-Compress = "^1.4"
 Flask-Mail = "^0.9.1"
+Flask-Dance = {version = "^2.0",extras = ["sqla"]}
 Flask-Flatpages = "^0.7.0"
 Flask-Hookserver = "^1.1"
 Flask-KVSession = "^0.6.2"
@@ -25,7 +26,6 @@ Flask-Redis = "^0.3.0"
 Flask-SQLAlchemy = "^2.3"
 Flask-Talisman = "^0.6.0"
 Flask-WTF = "^0.14.2"
-GitHub-Flask = "^3.2"
 Honcho = "^1.0"
 libsass = "^0.18.0"
 packaging = "^19.0"
@@ -44,7 +44,6 @@ sentry-sdk = {version = "^0.7.10",extras = ["flask"]}
 whitenoise = "^4.1"
 brotli = "^1.0"
 blinker = "^1.4"
-
 
 [tool.poetry.dev-dependencies]
 pytest = "^4.4"

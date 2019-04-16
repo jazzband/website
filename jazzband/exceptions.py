@@ -2,6 +2,16 @@ from werkzeug.exceptions import Aborter, HTTPException
 from werkzeug._compat import integer_types
 
 
+class RateLimit(Exception):
+    def __init__(self, response):
+        self.response = response
+        try:
+            message = response.json()["message"]
+        except Exception:
+            message = getattr(response, "content", response)
+        super().__init__(message)
+
+
 class Rollback(Exception):
     """Raising to manually rollback current (nested) transaction.
 

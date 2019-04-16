@@ -5,6 +5,7 @@ from flask_login import current_user
 
 from .auth import current_user_is_roadie
 from .db import postgres
+from .account.models import OAuth
 from .members.models import User, EmailAddress
 from .projects.models import (
     Project,
@@ -47,7 +48,12 @@ class UserAdmin(JazzbandModelView):
         "cookies_consent",
         "age_consent",
     )
-    inline_models = (EmailAddress, ProjectMembership)
+    inline_models = (OAuth, EmailAddress, ProjectMembership)
+
+
+class OAuthAdmin(JazzbandModelView):
+    column_searchable_list = ("token", "user_id")
+    column_filters = ("created_at", "provider")
 
 
 class EmailAddressAdmin(JazzbandModelView):
@@ -76,6 +82,7 @@ def init_app(app):
 
     model_admins = [
         (User, UserAdmin),
+        (OAuth, OAuthAdmin),
         (EmailAddress, EmailAddressAdmin),
         (Project, ProjectAdmin),
         (ProjectMembership, JazzbandModelView),

@@ -1,15 +1,12 @@
 from flask_login import current_user
 from flask_wtf import FlaskForm
 from wtforms import validators, ValidationError
-from wtforms.fields import BooleanField, HiddenField, StringField
+from wtforms.fields import BooleanField, StringField
 
 CONSENT_ERROR_MESSAGE = "Your consent is required to continue."
 
 
 class ConsentForm(FlaskForm):
-    access_token = HiddenField(
-        "GitHub access token", validators=[validators.DataRequired()]
-    )
     profile = BooleanField(
         "I consent to fetching, processing and storing my profile "
         "data which is fetched from the GitHub API.",

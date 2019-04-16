@@ -7,10 +7,10 @@ from flask_mail import Message
 from packaging.version import parse as parse_version
 from spinach import Tasks
 
+from ..account import github
 from ..config import ONE_MINUTE
 from ..db import postgres, redis
 from ..email import mail
-from ..github import github
 from ..members.models import User, EmailAddress
 from .models import Project, ProjectMembership, ProjectUpload
 

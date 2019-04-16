@@ -69,6 +69,7 @@ class User(db.Model, Syncable, UserMixin):
     projects_memberships = db.relationship(
         "ProjectMembership", backref="user", lazy="dynamic"
     )
+    oauths = db.relationship("OAuth", backref="user", lazy="dynamic")
 
     __tablename__ = "users"
     __table_args__ = (db.Index("member_not_banned", "is_member", "is_banned"),)
@@ -87,6 +88,15 @@ class User(db.Model, Syncable, UserMixin):
             cls.is_banned.is_(False),
             cls.is_restricted.is_(False),
             cls.login != "jazzband-bot",
+        )
+
+    @property
+    def has_consented(self):
+        return (
+            self.profile_consent
+            and self.org_consent
+            and self.cookies_consent
+            and self.age_consent
         )
 
     @property
