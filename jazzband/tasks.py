@@ -15,7 +15,7 @@ class JazzbandSpinach(Spinach):
         )
         super().init_app(app)
 
-        namespace = app.extensions['spinach'].namespace
+        namespace = app.extensions["spinach"].namespace
 
         @signals.job_started.connect_via(namespace)
         def job_started(*args, **kwargs):

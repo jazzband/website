@@ -64,7 +64,6 @@ class User(db.Model, Syncable, UserMixin):
         nullable=False,
         index=True,
     )
-    access_token = db.Column(db.String(200))
     email_addresses = db.relationship("EmailAddress", backref="user", lazy="dynamic")
     projects_memberships = db.relationship(
         "ProjectMembership", backref="user", lazy="dynamic"

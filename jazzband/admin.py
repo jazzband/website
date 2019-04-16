@@ -21,7 +21,7 @@ class JazzbandModelView(sqla.ModelView):
 
     def inaccessible_callback(self, name, **kwargs):
         # redirect to login page if user doesn't have access
-        session['next_url'] = request.url
+        session["next_url"] = request.url
         return redirect(url_for("github.login"))
 
 
