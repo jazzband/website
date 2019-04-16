@@ -1,4 +1,4 @@
-from flask import redirect, url_for, request
+from flask import redirect, url_for, request, session
 from flask_admin import Admin, AdminIndexView, expose
 from flask_admin.contrib import sqla
 from flask_login import current_user
@@ -21,7 +21,8 @@ class JazzbandModelView(sqla.ModelView):
 
     def inaccessible_callback(self, name, **kwargs):
         # redirect to login page if user doesn't have access
-        return redirect(url_for("github.login", next=request.url))
+        session['next_url'] = request.url
+        return redirect(url_for("github.login"))
 
 
 class JazzbandAdminIndexView(AdminIndexView):

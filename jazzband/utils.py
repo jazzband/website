@@ -150,7 +150,7 @@ def _is_safe_url(url, allowed_hosts, require_https=False):
 
 def get_redirect_target(endpoint="content.index"):
     targets = (
-        session.get("next"),
+        session.get("next_url"),
         request.args.get("next"),
         request.referrer,
         url_for(endpoint),
