@@ -102,7 +102,7 @@ def _urlsplit(url, scheme="", allow_fragments=True):
             if c not in scheme_chars:
                 break
         else:
-            scheme, url = url[:i].lower(), url[i + 1:]
+            scheme, url = url[:i].lower(), url[i + 1 :]
 
     if url[:2] == "//":
         netloc, url = _splitnetloc(url, 2)

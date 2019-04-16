@@ -82,9 +82,9 @@ def send_new_upload_notifications(project_id=None):
         lead_memberships = upload.project.membership.join(
             ProjectMembership.user
         ).filter(
-            ProjectMembership.is_lead == True,
-            User.is_member == True,
-            User.is_banned == False,
+            ProjectMembership.is_lead.is_(True),
+            User.is_member.is_(True),
+            User.is_banned.is_(False),
         )
         lead_members = [membership.user for membership in lead_memberships]
 
@@ -93,7 +93,7 @@ def send_new_upload_notifications(project_id=None):
         for lead_member in lead_members + list(User.roadies()):
 
             primary_email = lead_member.email_addresses.filter(
-                EmailAddress.primary == True, EmailAddress.verified == True
+                EmailAddress.primary.is_(True), EmailAddress.verified.is_(True)
             ).first()
 
             if not primary_email:

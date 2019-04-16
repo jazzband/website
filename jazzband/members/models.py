@@ -2,12 +2,14 @@ from datetime import datetime
 
 from flask_login import UserMixin
 from sqlalchemy.sql import expression
+from sqlalchemy_utils import generic_repr
 
 from ..db import postgres as db
-from ..mixins import Helpers, Syncable
+from ..mixins import Syncable
 
 
-class User(db.Model, Helpers, Syncable, UserMixin):
+@generic_repr("login", "id")
+class User(db.Model, Syncable, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     login = db.Column(db.String(39), unique=True, nullable=False, index=True)
     avatar_url = db.Column(db.String(255))
@@ -74,19 +76,16 @@ class User(db.Model, Helpers, Syncable, UserMixin):
     def __str__(self):
         return self.login
 
-    def __repr__(self):
-        return "<User %s (%s)>" % (self.login, self.id)
-
     @classmethod
     def roadies(cls):
-        return cls.query.filter(cls.is_roadie == True)
+        return cls.query.filter(cls.is_roadie.is_(True))
 
     @classmethod
     def active_members(cls):
         return cls.query.filter(
-            cls.is_member == True,
-            cls.is_banned == False,
-            cls.is_restricted == False,
+            cls.is_member.is_(True),
+            cls.is_banned.is_(False),
+            cls.is_restricted.is_(False),
             cls.login != "jazzband-bot",
         )
 
@@ -105,7 +104,8 @@ class User(db.Model, Helpers, Syncable, UserMixin):
         )
 
 
-class EmailAddress(db.Model, Helpers, Syncable):
+@generic_repr("email", "user_id", "verified", "primary")
+class EmailAddress(db.Model, Syncable):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(200))
     verified = db.Column(db.Boolean, default=True, nullable=False, index=True)
@@ -117,12 +117,3 @@ class EmailAddress(db.Model, Helpers, Syncable):
 
     def __str__(self):
         return self.email
-
-    def __repr__(self):
-        meta = []
-        if self.verified:
-            meta.append("Verified")
-        if self.primary:
-            meta.append("Primary")
-        meta = "(%s)" % ", ".join(meta)
-        return "<EmailAddress %s %s>" % (self.email, meta)

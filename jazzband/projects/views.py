@@ -75,7 +75,7 @@ def index():
         criterion = desc(criterion)
 
     projects = Project.query.filter(
-        Project.is_active == True, ~Project.name.in_(["website", "roadies"])
+        Project.is_active.is_(True), ~Project.name.in_(["website", "roadies"])
     ).order_by(nullslast(criterion))
     return {
         "projects": projects,
@@ -92,7 +92,7 @@ class ProjectMixin:
         if not name:
             abort(404)
         self.project = Project.query.filter(
-            Project.is_active == True, Project.name == name
+            Project.is_active.is_(True), Project.name == name
         ).first_or_404()
         return super().dispatch_request(*args, **kwargs)
 
@@ -294,7 +294,7 @@ class UploadActionView(MethodView):
 
     def dispatch_request(self, *args, **kwargs):
         projects = Project.query.filter(
-            Project.is_active == True, Project.name == kwargs.get("name")
+            Project.is_active.is_(True), Project.name == kwargs.get("name")
         )
         if not current_user_is_roadie():
             projects = projects.filter(
@@ -388,8 +388,8 @@ class UploadReleaseView(UploadActionView):
 
                             sha256_digest = digests.get("sha256", None)
                             if (
-                                sha256_digest and
-                                    sha256_digest != self.upload.sha256_digest
+                                sha256_digest
+                                and sha256_digest != self.upload.sha256_digest
                             ):
                                 error = (
                                     f"SHA256 hash of {self.upload.filename} "

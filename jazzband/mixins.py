@@ -29,37 +29,3 @@ def timestamp_before_update(mapper, connection, target):
     # When a model with a timestamp is updated; force update the updated
     # timestamp.
     target.synced_at = datetime.utcnow()
-
-
-class Helpers:
-    @classmethod
-    def update_or_create(cls, defaults=None, commit=True, **kwargs):
-        if defaults is None:
-            defaults = {}
-        instance = cls.query.filter_by(**kwargs).first()
-        if instance:
-            for arg, value in defaults.items():
-                setattr(instance, arg, value)
-            if commit:
-                postgres.session.commit()
-            return instance, False
-        else:
-            params = kwargs.copy()
-            params.update(defaults)
-            instance = cls(**params)
-            postgres.session.add(instance)
-            if commit:
-                postgres.session.commit()
-            return instance, True
-
-    def save(self, commit=True):
-        postgres.session.add(self)
-        if commit:
-            postgres.session.commit()
-        return self
-
-    def delete(self, commit=True):
-        postgres.session.delete(self)
-        if commit:
-            postgres.session.commit()
-        return self

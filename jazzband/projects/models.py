@@ -6,15 +6,16 @@ from flask import current_app, safe_join
 from flask_login import current_user
 from sqlalchemy import func, orm
 from sqlalchemy.dialects.postgresql import UUID, JSONB
-from sqlalchemy_utils import aggregated
+from sqlalchemy_utils import aggregated, generic_repr
 
 from ..auth import current_user_is_roadie
 from ..db import postgres as db
 from ..members.models import User
-from ..mixins import Helpers, Syncable
+from ..mixins import Syncable
 
 
-class Project(db.Model, Helpers, Syncable):
+@generic_repr("id", "name")
+class Project(db.Model, Syncable):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text, nullable=False, index=True)
     normalized_name = orm.column_property(func.normalize_pep426_name(name))
@@ -24,7 +25,6 @@ class Project(db.Model, Helpers, Syncable):
     stargazers_count = db.Column(db.SmallInteger, default=0, nullable=False)
     forks_count = db.Column(db.SmallInteger, default=0, nullable=False)
     open_issues_count = db.Column(db.SmallInteger, default=0, nullable=False)
-    uploads_count = db.Column(db.SmallInteger, default=0)
     is_active = db.Column(db.Boolean, default=True, nullable=False, index=True)
     transfer_issue_url = db.Column(db.String(255))
     membership = db.relationship("ProjectMembership", backref="project", lazy="dynamic")
@@ -52,9 +52,6 @@ class Project(db.Model, Helpers, Syncable):
     def __str__(self):
         return self.name
 
-    def __repr__(self):
-        return "<Project %s: %s (%s)>" % (self.id, self.name, self.id)
-
     @aggregated("uploads", db.Column(db.SmallInteger))
     def uploads_count(self):
         return db.func.count("1")
@@ -77,7 +74,7 @@ class Project(db.Model, Helpers, Syncable):
     @property
     def leads(self):
         leads = self.membership.filter(
-            ProjectMembership.is_lead == True,
+            ProjectMembership.is_lead.is_(True),
             ProjectMembership.user_id.in_(
                 User.active_members().options(orm.load_only("id"))
             ),
@@ -89,7 +86,8 @@ class Project(db.Model, Helpers, Syncable):
         return f"https://pypi.org/pypi/{self.normalized_name}/json"  # noqa
 
 
-class ProjectCredential(db.Model, Helpers):
+@generic_repr("id", "project_id", "is_active", "key")
+class ProjectCredential(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     project_id = db.Column(db.Integer, db.ForeignKey("projects.id"))
     is_active = db.Column(db.Boolean, default=True, nullable=False, index=True)
@@ -101,11 +99,9 @@ class ProjectCredential(db.Model, Helpers):
     def __str__(self):
         return self.key.hex
 
-    def __repr__(self):
-        return f"<ProjectCredential {self.id} (active: {self.is_active})>"
 
-
-class ProjectMembership(db.Model, Helpers):
+@generic_repr("id", "user_id", "project_id", "is_lead")
+class ProjectMembership(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     project_id = db.Column(db.Integer, db.ForeignKey("projects.id"))
@@ -117,15 +113,9 @@ class ProjectMembership(db.Model, Helpers):
     def __str__(self):
         return f"User: {self.user}, Project: {self.project}"
 
-    def __repr__(self):
-        return "<ProjectMembership %s: User %s and Project %s>" % (
-            self.id,
-            self.user,
-            self.project,
-        )
 
-
-class ProjectUpload(db.Model, Helpers):
+@generic_repr("id", "project_id", "filename")
+class ProjectUpload(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     project_id = db.Column(db.Integer, db.ForeignKey("projects.id"))
     version = db.Column(db.Text, index=True)
@@ -164,9 +154,6 @@ class ProjectUpload(db.Model, Helpers):
 
     def __str__(self):
         return self.filename
-
-    def __repr__(self):
-        return "<ProjectUpload %s (%s)>" % (self.filename, self.id)
 
 
 @db.event.listens_for(ProjectUpload, "after_delete")
