@@ -12,6 +12,7 @@ from ..decorators import templated
 from ..exceptions import RateLimit
 from ..members.models import User
 from ..members.tasks import sync_email_addresses
+from ..tasks import spinach
 from ..utils import get_redirect_target
 
 from . import github
@@ -144,11 +145,11 @@ def callback(blueprint, token):
         db.session.add_all([user, oauth])
         db.session.commit()
 
-        # sync email addresses for the user
-        sync_email_addresses(user.id)
-
         # log in the new user
         login_user(user)
+
+    # sync email addresses for the user
+    spinach.schedule(sync_email_addresses, current_user.id)
 
     flash("You've successfully logged in.")
     # Return False here to prevent Flask-Dance creating an own instance
