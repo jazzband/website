@@ -1,5 +1,5 @@
-from flask import flash
-from flask_login import current_user
+from flask import current_app, flash
+from flask_login import current_user, login_user
 from flask_dance.consumer import OAuth2ConsumerBlueprint, oauth_error
 from flask_dance.consumer.requests import OAuth2Session, BaseOAuth2Session
 from flask_dance.consumer.storage.sqla import SQLAlchemyStorage
@@ -10,11 +10,6 @@ from werkzeug.utils import cached_property
 from ..db import postgres as db
 from ..exceptions import RateLimit
 from .models import OAuth
-
-try:
-    from flask import _app_ctx_stack as stack
-except ImportError:
-    from flask import _request_ctx_stack as stack
 
 
 @oauth_error.connect
@@ -199,13 +194,13 @@ class GitHubBlueprint(OAuth2ConsumerBlueprint):
         """
         self.admin_session.put(f"orgs/{self.org_id}/public_members/{user_login}")
 
-    def get_emails(self, access_token=None):
+    def get_emails(self, user):
         """
         Gets the verified email addresses of the authenticated GitHub user.
         """
-        return self.session.get(
-            "user/emails", all_pages=True, params={"access_token": access_token}
-        )
+        with current_app.test_request_context("/"):
+            login_user(user)
+            return self.session.get("user/emails", all_pages=True)
 
     def get_without_2fa(self):
         """

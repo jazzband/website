@@ -41,13 +41,14 @@ def sync_email_addresses(user_id):
         raise ValueError(f"No access token for user {user.login}")
 
     logger.info(
-        "Updating emails for user %s with access token %s..", user_id, user.access_token[:6]
+        "Updating emails for user %s with access token %s..",
+        user_id,
+        user.access_token[:6],
     )
 
     email_addresses = []
-    email_data = github.get_emails(access_token=user.access_token)
 
-    for email_item in email_data:
+    for email_item in github.get_emails(user):
         email_item["user_id"] = user.id
         email_addresses.append(email_item)
 
