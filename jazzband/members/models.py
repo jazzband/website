@@ -94,7 +94,7 @@ class User(db.Model, Syncable, UserMixin):
         oauth = self.oauths.scalar()
         if oauth is None:
             return
-        return oauth.token.get('access_token', None)
+        return oauth.token.get("access_token", None)
 
     @property
     def has_consented(self):

@@ -55,16 +55,19 @@
   {% endif %}
   </p>
 #}
+  {% set email_addresses = current_user.email_addresses.all() %}
+  {% if email_addresses %}
   <h4>Email addresses</h4>
   <p>
     Here are the email addresses we fetched using the GitHub API to make sure
     you have verified at least one:
     <ul>
-    {% for email in current_user.email_addresses.all() %}
+    {% for email in email_addresses %}
       <li>{{ email.email }}{% if email.primary %} (primary){% endif %}</li>
     {% endfor %}
   </ul>
   </p>
+  {% endif %}
   <h4>What's next?</h4>
   <p>
     You may be wondering what you can do as member of the Jazzband.
