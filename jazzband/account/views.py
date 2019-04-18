@@ -127,6 +127,11 @@ def callback(blueprint, token):
         oauth = query.one()
     except NoResultFound:
         oauth = OAuth(provider=blueprint.name, user_id=github_user_id, token=token)
+    else:
+        if oauth.token != token:
+            oauth.token = token
+            db.session.add(oauth)
+            db.session.commit()
 
     if oauth.user:
         # If there is a user assigned to the OAuth token already we log them in
