@@ -5,6 +5,7 @@
 {% block content %}
 <div class="c4">
   <h2>Members</h2>
+  {% cache config["CACHE_DEFAULT_TIMEOUT"] %}
   <p>
     The following {{ members.count() }} Jazzband members have volunteered to
     maintain the <a href="{{ url_for('projects.index') }}">Jazzband projects</a>.
@@ -16,6 +17,7 @@
     </div>
     {% endfor %}
   </div>
+  {% endcache %}
 </div>
 {{ macros.avatar_js() }}
 {% endblock %}

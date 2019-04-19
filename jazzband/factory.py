@@ -9,6 +9,7 @@ from whitenoise import WhiteNoise
 from . import admin, cli, errors, logging  # noqa
 from .account.manager import login_manager
 from .assets import assets
+from .cache import cache
 from .content import about_pages, news_pages
 from .db import postgres, redis
 from .email import mail
@@ -32,6 +33,7 @@ def create_app():
             "news": news_pages,
             "User": User,
             "Project": Project,
+            "config": app.config,
         }
 
     @app.after_request
@@ -54,6 +56,8 @@ def create_app():
     redis.init_app(app)
 
     Migrate(app, postgres)
+
+    cache.init_app(app)
 
     admin.init_app(app)
 

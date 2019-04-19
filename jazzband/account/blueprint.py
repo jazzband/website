@@ -7,6 +7,7 @@ from sentry_sdk import capture_message, configure_scope
 from urlobject import URLObject
 from werkzeug.utils import cached_property
 
+from ..cache import cache
 from ..db import postgres as db
 from ..exceptions import RateLimit
 from .models import OAuth
@@ -109,7 +110,7 @@ class GitHubBlueprint(OAuth2ConsumerBlueprint):
             token_url="https://github.com/login/oauth/access_token",
             session_class=GitHubSession,
             storage=SQLAlchemyStorage(
-                OAuth, db.session, user=current_user, user_required=False
+                OAuth, db.session, user=current_user, user_required=False, cache=cache
             ),
             *args,
             **kwargs,
