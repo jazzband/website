@@ -17,7 +17,7 @@ Flask-Assets = "^0.12.0"
 Flask-Compress = "^1.4"
 Flask-Mail = "^0.9.1"
 Flask-Dance = {version = "^2.0",extras = ["sqla"]}
-Flask-Flatpages = "^0.7.0"
+Flask-Flatpages = "^0.7.1"
 Flask-Hookserver = "^1.1"
 Flask-KVSession = "^0.6.2"
 Flask-Login = "^0.4.1"
