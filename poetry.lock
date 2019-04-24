@@ -686,10 +686,12 @@ description = "Python client for Sentry (https://getsentry.com)"
 name = "sentry-sdk"
 optional = false
 python-versions = "*"
-version = "0.7.10"
+version = "0.7.11"
 
 [package.dependencies]
+blinker = ">=1.1"
 certifi = "*"
+flask = ">=0.8"
 urllib3 = "*"
 
 [[package]]
@@ -832,7 +834,7 @@ python-versions = "*"
 version = "2.2.1"
 
 [metadata]
-content-hash = "c8d9a7d765f9d931681b7a8a50f9233b068e27c61818d55dc03cbdc5e3237423"
+content-hash = "28550d4f2da2cd44a6bcfd9daf569f8cf06474f7db2bc2ab64c625d8607203b3"
 python-versions = "^3.6"
 
 [metadata.hashes]
@@ -901,7 +903,7 @@ redis = ["6946b5dca72e86103edc8033019cc3814c031232d339d5f4533b02ea85685175", "8c
 requests = ["502a824f31acdacb3a35b6690b5fbf0bc41d63a24a45c4004352b0242707598e", "7bf2a778576d825600030a110f3c0e3e8edc51dfaafe1c146e39a2027784957b"]
 requests-oauthlib = ["bd6533330e8748e94bf0b214775fed487d309b8b8fe823dc45641ebcd9a32f57", "d3ed0c8f2e3bbc6b344fa63d6f933745ab394469da38db16bdddb461c7e25140", "dd5a0499abfefd087c6dd96693cbd5bfd28aa009719a7f85ab3fabe3956ef19a"]
 requests-toolbelt = ["380606e1d10dc85c3bd47bf5a6095f815ec007be7a8b69c878507068df059e6f", "968089d4584ad4ad7c171454f0a5c6dac23971e9472521ea3b6d49d610aa6fc0"]
-sentry-sdk = ["ca2723556c102a1fabdf461b9a038d1d8631608c4d10085a7c06a0b590e79ad4", "ced85a48171b3421d71f14f1682168f8008581411893e42359469c397fdf6285"]
+sentry-sdk = ["2d74844adbc960180b343c3e808a6afdde25a6ad9fdaaaac77e5d6c3bb1e041e", "b33ca986b7af24d3c306d42515319a6f1cf1c6081245ee5009ad47b79a809c3f"]
 simplekv = ["61e6a8c8d53154033c8f97131418d0e31159d5d959a94b8f0fe5587da2d472b1", "87872911cb6299d3fe82e97674410ea4eafcad6cb59dece1b2a0588078cfadc8", "898fa9d028b542a1b3df6acce8acf5587635092da003f8d5d96528804f412c68", "cf57cebc3432a0ac3c82da80540c858243f6ddd254a271921d6a8e60245eeba7"]
 six = ["3350809f0555b11f552448330d0b52d5f24c91a322ea4a15ef22629740f3761c", "d16a0141ec1a18405cd4ce8b4613101da75da0e9a7aec5bdd4fa804d0e0eba73"]
 spinach = ["a8161ceed8f0f263fec3ab365ad275ce4594b4fa5c57804c4c53c3f43bc8b4a5", "c067d15fd305dccbbace0e33b9c329fd624ab75b2b8f5cc5c2488fa23a8782d7"]
