@@ -290,11 +290,11 @@ redis = ">=2.7.6"
 
 [[package]]
 category = "main"
-description = "Adds SQLAlchemy support to your Flask application"
+description = "Adds SQLAlchemy support to your Flask application."
 name = "flask-sqlalchemy"
 optional = false
-python-versions = "*"
-version = "2.3.2"
+python-versions = ">= 2.7, != 3.0.*, != 3.1.*, != 3.2.*, != 3.3.*"
+version = "2.4.0"
 
 [package.dependencies]
 Flask = ">=0.10"
@@ -810,7 +810,7 @@ python-versions = "*"
 version = "2.2.1"
 
 [metadata]
-content-hash = "28550d4f2da2cd44a6bcfd9daf569f8cf06474f7db2bc2ab64c625d8607203b3"
+content-hash = "9a846021548a61edb3d69b4b6cf8b7b0060bd0aadf094c0aac6b5b2c2b2ccd9d"
 python-versions = "^3.6"
 
 [metadata.hashes]
@@ -840,7 +840,7 @@ flask-login = ["c815c1ac7b3e35e2081685e389a665f2c74d7e077cb93cecabaea352da4752ec
 flask-mail = ["22e5eb9a940bf407bcf30410ecc3708f3c56cc44b29c34e1726fe85006935f41"]
 flask-migrate = ["a361578cb829681f860e4de5ed2c48886264512f0c16144e404c36ddc95ab49c", "c24d105c5d6cc670de20f8cbfb909e04f4e04b8784d0df070005944de1f21549"]
 flask-redis = ["56ebd5e69a42988e9a7a904f07b37cd625a7dbcdfbfe31797885c3c4a92516f5", "ffb8e636c7af0226a3074860200602850a5a871169bc53fcde05b7d973aad714"]
-flask-sqlalchemy = ["3bc0fac969dd8c0ace01b32060f0c729565293302f0c4269beed154b46bec50b", "5971b9852b5888655f11db634e87725a9031e170f37c0ce7851cf83497f56e53"]
+flask-sqlalchemy = ["0c9609b0d72871c540a7945ea559c8fdf5455192d2db67219509aed680a3d45a", "8631bbea987bc3eb0f72b1f691d47bd37ceb795e73b59ab48586d76d75a7c605"]
 flask-talisman = ["5a88c0ee2b0d509610ae74cbd7059d91228ad56ab3e955813428fe8e63a3e195", "85c6688bcbc8de6c37b86bfb60db2da295ee1935c2ed27ca16396792ab45a3ef"]
 flask-wtf = ["5d14d55cfd35f613d99ee7cba0fc3fbbe63ba02f544d349158c14ca15561cc36", "d9a9e366b32dcbb98ef17228e76be15702cd2600675668bca23f63a7947fd5ac"]
 honcho = ["af5806bf13e3b20acdcb9ff8c0beb91eee6fe07393c3448dfad89667e6ac7576", "c189402ad2e337777283c6a12d0f4f61dc6dd20c254c9a3a4af5087fc66cea6e"]
