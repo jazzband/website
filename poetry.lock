@@ -667,9 +667,7 @@ python-versions = "*"
 version = "0.7.12"
 
 [package.dependencies]
-blinker = ">=1.1"
 certifi = "*"
-flask = ">=0.8"
 urllib3 = "*"
 
 [[package]]
@@ -750,7 +748,7 @@ description = "HTTP library with thread-safe connection pooling, file post, and 
 name = "urllib3"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, <4"
-version = "1.25.1"
+version = "1.25.2"
 
 [[package]]
 category = "main"
@@ -887,7 +885,7 @@ sqlalchemy = ["91c54ca8345008fceaec987e10924bf07dcab36c442925357e5a467b36a38319"
 sqlalchemy-utils = ["3f1cb542cf0549a0de508d4919f3ad693a36230bf4cd13fdd6253549fec71182"]
 tqdm = ["d385c95361699e5cf7622485d9b9eae2d4864b21cd5a2374a9c381ffed701021", "e22977e3ebe961f72362f6ddfb9197cc531c9737aaf5f607ef09740c849ecd05"]
 twine = ["0fb0bfa3df4f62076cab5def36b1a71a2e4acb4d1fa5c97475b048117b1a6446", "d6c29c933ecfc74e9b1d9fa13aa1f87c5d5770e119f5a4ce032092f0ff5b14dc"]
-urllib3 = ["904bd981d6371bb95a200c0ec9dba5ba7cc980f2d6b125bd793fefe3293be388", "a9645efd62b9fc1c7cad8ed93e162aad4c6bfd90e143966ddd4099b78cd244be"]
+urllib3 = ["a53063d8b9210a7bdec15e7b272776b9d42b2fd6816401a0d43006ad2f9902db", "d363e3607d8de0c220d31950a8f38b18d5ba7c0830facd71a1c6b1036b7ce06c"]
 urlobject = ["47b2e20e6ab9c8366b2f4a3566b6ff4053025dad311c4bb71279bbcfa2430caa"]
 walrus = ["27b12d069194dce8fa82c39a549622b5723f2532371dc0d30186603bb3c2f699"]
 webassets = ["e7d9c8887343123fd5b32309b33167428cb1318cdda97ece12d0907fd69d38db"]
