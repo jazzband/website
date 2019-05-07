@@ -6,7 +6,7 @@
     "doc": "docs"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.8.1",
+    "@fortawesome/fontawesome-free": "^5.8.2",
     "blazy": "^1.8.2"
   },
   "devDependencies": {},
