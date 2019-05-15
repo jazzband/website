@@ -188,7 +188,7 @@ description = "Doing the OAuth dance with style using Flask, requests, and oauth
 name = "flask-dance"
 optional = false
 python-versions = "*"
-version = "2.0.0"
+version = "2.1.0"
 
 [package.dependencies]
 Flask = ">=0.7"
@@ -196,6 +196,8 @@ oauthlib = "*"
 requests = ">=2.0"
 requests-oauthlib = ">=1.0.0"
 six = "*"
+sqlalchemy = "*"
+sqlalchemy-utils = "*"
 urlobject = "*"
 
 [[package]]
@@ -819,7 +821,7 @@ python-versions = "*"
 version = "2.2.1"
 
 [metadata]
-content-hash = "dd56524274c6599a935d3929da5a5ee442cccb96bf09b20146f67aecf0954df1"
+content-hash = "f6e7d7f77c9a96a838bbdbb8b6d4be69228fa6413e11030a66e185c15d7187d5"
 python-versions = "^3.6"
 
 [metadata.hashes]
@@ -841,7 +843,7 @@ flask-admin = ["ca0be6ec11a6913b73f656c65c444ae5be416c57c75638dd3199376ce6bc7422
 flask-assets = ["6031527b89fb3509d1581d932affa5a79dd348cfffb58d0aef99a43461d47847"]
 flask-caching = ["a21c3e98badfea57c9e91e3485ec0b0c029261ae4badbac876a65a834db6c368", "cc25b0800fb0ae4e3fcaaf12203263c564f41197593283669b81216089803a1b"]
 flask-compress = ["468693f4ddd11ac6a41bca4eb5f94b071b763256d54136f77957cfee635badb3"]
-flask-dance = ["311101c99c9426dabbb12a90abd698d4916dcae953439af26f5ea91639acc3f5", "5a7d62a736f7e8ace77387d6c96e6b1b6e7542d757dc85c1f417940955c17d03", "e3df9c92d0f06efc84ee299a4a2b26b39e496483fa4caf9d72938738a8068e5b"]
+flask-dance = ["666e93e0fd2ca2ff9e92c75448b33f9f204f941b8351ec499a52fa75bb180303", "7268cd64e247a5d0e582476e768171c85d90facca8c908329a8b7b897e8b0316", "cc7808c7dc2cfdc998248174d9beef96be544f1932d9b805ee80ff2c97f0815d"]
 flask-flatpages = ["537f943f6761483ad0b617db3da39fc5e27fe77dadfa99fb7f11ba49c7a65adf", "66a3bf799519bee349c57702488677dc71efdd157a6dcddc5891d4da49f76bc0"]
 flask-hookserver = ["6ace808bbbf62936293bcf791ee26ba1d4a8360d18b65fedecb1f51dff07dee6", "dcb41c3cafb053419ec60aee574d4f90c28c6fd3cab7131c7e2b86c6f87da9f2"]
 flask-kvsession = ["9c0ee93fae089c45baeda0a3fd3ae32a96ee81c34996017749f8b3fd06df936c"]
