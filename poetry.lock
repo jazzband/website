@@ -136,7 +136,7 @@ description = "A simple framework for building complex web applications."
 name = "flask"
 optional = false
 python-versions = "*"
-version = "1.0.2"
+version = "1.0.3"
 
 [package.dependencies]
 Jinja2 = ">=2.10"
@@ -204,8 +204,6 @@ oauthlib = "*"
 requests = ">=2.0"
 requests-oauthlib = ">=1.0.0"
 six = "*"
-sqlalchemy = "*"
-sqlalchemy-utils = "*"
 urlobject = "*"
 
 [[package]]
@@ -861,7 +859,7 @@ click-log = ["16fd1ca3fc6b16c98cea63acf1ab474ea8e676849dc669d86afafb0ed7003124",
 colorama = ["05eed71e2e327246ad6b38c540c4a3117230b19679b875190486ddd2d721422d", "f8ac84de7840f5b9c4e3347b3c1eaa50f7e49c2b07596221daec5edaabbd7c48"]
 "delegator.py" = ["814657d96b98a244c479e3d5f6e9e850ac333e85f807d6bc846e72bbb2537806", "e6cc9cedab9ae59b169ee0422e17231adedadb144e63c0b5a60e6ff8adf8521b"]
 docutils = ["02aec4bd92ab067f6ff27a38a38a41173bf01bed8f89157768c1573f53e474a6", "51e64ef2ebfb29cae1faa133b3710143496eca21c530f3f71424d77687764274", "7a4bd47eaf6596e1295ecb11361139febe29b084a87bf005bf899f9a42edc3c6"]
-flask = ["2271c0070dbcb5275fad4a82e29f23ab92682dc45f9dfbc22c02ba9b9322ce48", "a080b744b7e345ccfcbc77954861cb05b3c63786e93f2b3875e0913d44b43f05"]
+flask = ["ad7c6d841e64296b962296c2c2dabc6543752985727af86a975072dea984b6f3", "e7d32475d1de5facaa55e3958bc4ec66d3762076b074296aa50ef8fdc5b9df61"]
 flask-admin = ["ca0be6ec11a6913b73f656c65c444ae5be416c57c75638dd3199376ce6bc7422"]
 flask-assets = ["6031527b89fb3509d1581d932affa5a79dd348cfffb58d0aef99a43461d47847"]
 flask-caching = ["a21c3e98badfea57c9e91e3485ec0b0c029261ae4badbac876a65a834db6c368", "cc25b0800fb0ae4e3fcaaf12203263c564f41197593283669b81216089803a1b"]
