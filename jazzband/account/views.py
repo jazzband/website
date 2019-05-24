@@ -41,6 +41,11 @@ def dashboard():
     return {}
 
 
+@account.route("/login")
+def login():
+    return redirect(url_for("github.login"))
+
+
 @oauth_before_login.connect
 def before_login(blueprint, url):
     session["next_url"] = get_redirect_target("account.dashboard")
