@@ -22,7 +22,7 @@ ENV POETRY_ARGS=${POETRY_ARGS} \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
     PIP_DEFAULT_TIMEOUT=100 \
     LANG=C.UTF-8 \
-    POETRY_VERSION=0.12.12 \
+    POETRY_VERSION=0.12.16 \
     PATH=/app/.local/bin:$PATH
 
 # add a non-privileged user for installing and running the application
