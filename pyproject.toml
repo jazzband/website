@@ -7,7 +7,7 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.6"
-Babel = "^2.6"
+Babel = "^2.7"
 click-log = "^0.3.2"
 "delegator.py" = "^0.1.1"
 spinach = "^0.0.9"
