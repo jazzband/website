@@ -174,7 +174,7 @@ description = "Adds caching support to your Flask application"
 name = "flask-caching"
 optional = false
 python-versions = "*"
-version = "1.7.1"
+version = "1.7.2"
 
 [package.dependencies]
 Flask = "*"
@@ -884,7 +884,7 @@ docutils = ["02aec4bd92ab067f6ff27a38a38a41173bf01bed8f89157768c1573f53e474a6", 
 flask = ["ad7c6d841e64296b962296c2c2dabc6543752985727af86a975072dea984b6f3", "e7d32475d1de5facaa55e3958bc4ec66d3762076b074296aa50ef8fdc5b9df61"]
 flask-admin = ["ca0be6ec11a6913b73f656c65c444ae5be416c57c75638dd3199376ce6bc7422"]
 flask-assets = ["6031527b89fb3509d1581d932affa5a79dd348cfffb58d0aef99a43461d47847"]
-flask-caching = ["a21c3e98badfea57c9e91e3485ec0b0c029261ae4badbac876a65a834db6c368", "cc25b0800fb0ae4e3fcaaf12203263c564f41197593283669b81216089803a1b"]
+flask-caching = ["52e236cbc836c41a5ced0c0a67b48ad180c9e2b5cb69e881089bba766db5569e", "b0daabd5249bebfbae3da4c22987bac22047fc8b18ea2716c4fc63d57d218946"]
 flask-compress = ["468693f4ddd11ac6a41bca4eb5f94b071b763256d54136f77957cfee635badb3"]
 flask-dance = ["666e93e0fd2ca2ff9e92c75448b33f9f204f941b8351ec499a52fa75bb180303", "7268cd64e247a5d0e582476e768171c85d90facca8c908329a8b7b897e8b0316", "cc7808c7dc2cfdc998248174d9beef96be544f1932d9b805ee80ff2c97f0815d"]
 flask-flatpages = ["537f943f6761483ad0b617db3da39fc5e27fe77dadfa99fb7f11ba49c7a65adf", "66a3bf799519bee349c57702488677dc71efdd157a6dcddc5891d4da49f76bc0"]
