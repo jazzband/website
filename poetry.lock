@@ -286,11 +286,11 @@ alembic = ">=0.7"
 
 [[package]]
 category = "main"
-description = "Redis Extension for Flask Applications"
+description = "A nice way to use Redis in your Flask app"
 name = "flask-redis"
 optional = false
-python-versions = "*"
-version = "0.3.0"
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+version = "0.4.0"
 
 [package.dependencies]
 Flask = ">=0.8"
@@ -704,9 +704,7 @@ python-versions = "*"
 version = "0.9.0"
 
 [package.dependencies]
-blinker = ">=1.1"
 certifi = "*"
-flask = ">=0.8"
 urllib3 = "*"
 
 [[package]]
@@ -865,7 +863,7 @@ python-versions = ">=2.7"
 version = "0.5.1"
 
 [metadata]
-content-hash = "e1ed5898d093d26e3ed4f5983b314a1f25a0694e6808fe20107c962a3235bbc9"
+content-hash = "9693f3c400b9cf207671cb55c69dae1e9c70370b65c0ef63037703a147c49b2e"
 python-versions = "^3.6"
 
 [metadata.hashes]
@@ -895,7 +893,7 @@ flask-kvsession = ["9c0ee93fae089c45baeda0a3fd3ae32a96ee81c34996017749f8b3fd06df
 flask-login = ["c815c1ac7b3e35e2081685e389a665f2c74d7e077cb93cecabaea352da4752ec"]
 flask-mail = ["22e5eb9a940bf407bcf30410ecc3708f3c56cc44b29c34e1726fe85006935f41"]
 flask-migrate = ["6fb038be63d4c60727d5dfa5f581a6189af5b4e2925bc378697b4f0a40cfb4e1", "a96ff1875a49a40bd3e8ac04fce73fdb0870b9211e6168608cbafa4eb839d502"]
-flask-redis = ["56ebd5e69a42988e9a7a904f07b37cd625a7dbcdfbfe31797885c3c4a92516f5", "ffb8e636c7af0226a3074860200602850a5a871169bc53fcde05b7d973aad714"]
+flask-redis = ["8d79eef4eb1217095edab603acc52f935b983ae4b7655ee7c82c0dfd87315d17", "e1fccc11e7ea35c2a4d68c0b9aa58226a098e45e834d615c7b6c4928b01ddd6c"]
 flask-sqlalchemy = ["0c9609b0d72871c540a7945ea559c8fdf5455192d2db67219509aed680a3d45a", "8631bbea987bc3eb0f72b1f691d47bd37ceb795e73b59ab48586d76d75a7c605"]
 flask-talisman = ["468131464a249274ed226efc21b372518f442487e58918ccab8357eaa638fd1f", "eaa754f4b771dfbe473843391d69643b79e3a38c865790011ac5e4179c68e3ec"]
 flask-wtf = ["5d14d55cfd35f613d99ee7cba0fc3fbbe63ba02f544d349158c14ca15561cc36", "d9a9e366b32dcbb98ef17228e76be15702cd2600675668bca23f63a7947fd5ac"]
