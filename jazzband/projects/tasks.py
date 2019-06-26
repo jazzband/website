@@ -64,7 +64,7 @@ def update_project_by_hook(hook_id):
                 "assignees": assignees,
             }
         )
-        issue_url = issue_data.get("html_url")
+        issue_url = issue_data.json().get("html_url")
         if issue_url.startswith("https://github.com/jazzband/roadies/issues"):
             project.transfer_issue_url = issue_url
             project.save()
