@@ -4,6 +4,7 @@ from flask import render_template
 import sentry_sdk
 from sentry_sdk.integrations.flask import FlaskIntegration
 from sentry_sdk.integrations.logging import LoggingIntegration
+from spinach.contrib.sentry_sdk_spinach import SpinachIntegration
 
 
 def init_app(app):
@@ -26,6 +27,7 @@ def init_app(app):
                 event_level=logging.ERROR,  # Send errors as events
             ),
             FlaskIntegration(),
+            SpinachIntegration(),
         ],
         request_bodies="always",
         with_locals=True,
