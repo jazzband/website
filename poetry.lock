@@ -705,9 +705,7 @@ python-versions = "*"
 version = "0.9.2"
 
 [package.dependencies]
-blinker = ">=1.1"
 certifi = "*"
-flask = ">=0.8"
 urllib3 = "*"
 
 [[package]]
@@ -732,7 +730,7 @@ description = "Modern Redis task queue for Python 3"
 name = "spinach"
 optional = false
 python-versions = "*"
-version = "0.0.9"
+version = "0.0.10"
 
 [package.dependencies]
 blinker = "*"
@@ -866,7 +864,7 @@ python-versions = ">=2.7"
 version = "0.5.1"
 
 [metadata]
-content-hash = "54c17685118386dff5f45653cfa30eee68406fabaa0bc5b74472d172981fe196"
+content-hash = "4abbc0e809448b3c3e05e37c72d71ed56376190c17fdd800abbad747fb0fde7c"
 python-versions = "^3.6"
 
 [metadata.hashes]
@@ -939,7 +937,7 @@ requests-toolbelt = ["380606e1d10dc85c3bd47bf5a6095f815ec007be7a8b69c878507068df
 sentry-sdk = ["0db9bf507aa227d100768ad0fcb427ff4b91b941e0a06ba27e74d245062ff714", "6146a59dea4d893df9aabd589003f4aac1311baa218605ad48eb85b52533b183"]
 simplekv = ["61e6a8c8d53154033c8f97131418d0e31159d5d959a94b8f0fe5587da2d472b1", "87872911cb6299d3fe82e97674410ea4eafcad6cb59dece1b2a0588078cfadc8", "898fa9d028b542a1b3df6acce8acf5587635092da003f8d5d96528804f412c68", "cf57cebc3432a0ac3c82da80540c858243f6ddd254a271921d6a8e60245eeba7"]
 six = ["3350809f0555b11f552448330d0b52d5f24c91a322ea4a15ef22629740f3761c", "d16a0141ec1a18405cd4ce8b4613101da75da0e9a7aec5bdd4fa804d0e0eba73"]
-spinach = ["a8161ceed8f0f263fec3ab365ad275ce4594b4fa5c57804c4c53c3f43bc8b4a5", "c067d15fd305dccbbace0e33b9c329fd624ab75b2b8f5cc5c2488fa23a8782d7"]
+spinach = ["0b90d2067db4b028f605953f404cdbcc2513032fb629dce857c98f78ea2cc2a5", "c28247e8fbaac5a16a82418072dacae53f72559f0de14b970c83badea64a5f66"]
 sqlalchemy = ["c30925d60af95443458ebd7525daf791f55762b106049ae71e18f8dd58084c2f"]
 sqlalchemy-utils = ["0ebd4d176a5786233db9f2e92040476fcff8b1b426fdbbb7ee4f478280ee9166"]
 tqdm = ["14a285392c32b6f8222ecfbcd217838f88e11630affe9006cd0e94c7eff3cb61", "25d4c0ea02a305a688e7e9c2cdc8f862f989ef2a4701ab28ee963295f5b109ab"]
