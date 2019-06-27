@@ -762,7 +762,7 @@ description = "Fast, Extensible Progress Meter"
 name = "tqdm"
 optional = false
 python-versions = ">=2.6, !=3.0.*, !=3.1.*"
-version = "4.32.1"
+version = "4.32.2"
 
 [[package]]
 category = "main"
@@ -940,7 +940,7 @@ six = ["3350809f0555b11f552448330d0b52d5f24c91a322ea4a15ef22629740f3761c", "d16a
 spinach = ["a8161ceed8f0f263fec3ab365ad275ce4594b4fa5c57804c4c53c3f43bc8b4a5", "c067d15fd305dccbbace0e33b9c329fd624ab75b2b8f5cc5c2488fa23a8782d7"]
 sqlalchemy = ["c7fef198b43ef31dfd783d094fd5ee435ce8717592e6784c45ba337254998017"]
 sqlalchemy-utils = ["0ebd4d176a5786233db9f2e92040476fcff8b1b426fdbbb7ee4f478280ee9166"]
-tqdm = ["0a860bf2683fdbb4812fe539a6c22ea3f1777843ea985cb8c3807db448a0f7ab", "e288416eecd4df19d12407d0c913cbf77aa8009d7fddb18f632aded3bdbdda6b"]
+tqdm = ["14a285392c32b6f8222ecfbcd217838f88e11630affe9006cd0e94c7eff3cb61", "25d4c0ea02a305a688e7e9c2cdc8f862f989ef2a4701ab28ee963295f5b109ab"]
 twine = ["0fb0bfa3df4f62076cab5def36b1a71a2e4acb4d1fa5c97475b048117b1a6446", "d6c29c933ecfc74e9b1d9fa13aa1f87c5d5770e119f5a4ce032092f0ff5b14dc"]
 urllib3 = ["b246607a25ac80bedac05c6f282e3cdaf3afb65420fd024ac94435cabe6e18d1", "dbe59173209418ae49d485b87d1681aefa36252ee85884c31346debd19463232"]
 urlobject = ["47b2e20e6ab9c8366b2f4a3566b6ff4053025dad311c4bb71279bbcfa2430caa"]
