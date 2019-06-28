@@ -702,10 +702,12 @@ description = "Python client for Sentry (https://getsentry.com)"
 name = "sentry-sdk"
 optional = false
 python-versions = "*"
-version = "0.9.2"
+version = "0.9.5"
 
 [package.dependencies]
+blinker = ">=1.1"
 certifi = "*"
+flask = ">=0.8"
 urllib3 = "*"
 
 [[package]]
@@ -864,7 +866,7 @@ python-versions = ">=2.7"
 version = "0.5.1"
 
 [metadata]
-content-hash = "4abbc0e809448b3c3e05e37c72d71ed56376190c17fdd800abbad747fb0fde7c"
+content-hash = "a1f1aa913c34095d6db4a75fa9e04811a1489b96c56afed05116cce80f9f7bb3"
 python-versions = "^3.6"
 
 [metadata.hashes]
@@ -934,7 +936,7 @@ redis = ["6946b5dca72e86103edc8033019cc3814c031232d339d5f4533b02ea85685175", "8c
 requests = ["11e007a8a2aa0323f5a921e9e6a2d7e4e67d9877e85773fba9ba6419025cbeb4", "9cf5292fcd0f598c671cfc1e0d7d1a7f13bb8085e9a590f48c010551dc6c4b31"]
 requests-oauthlib = ["bd6533330e8748e94bf0b214775fed487d309b8b8fe823dc45641ebcd9a32f57", "d3ed0c8f2e3bbc6b344fa63d6f933745ab394469da38db16bdddb461c7e25140", "dd5a0499abfefd087c6dd96693cbd5bfd28aa009719a7f85ab3fabe3956ef19a"]
 requests-toolbelt = ["380606e1d10dc85c3bd47bf5a6095f815ec007be7a8b69c878507068df059e6f", "968089d4584ad4ad7c171454f0a5c6dac23971e9472521ea3b6d49d610aa6fc0"]
-sentry-sdk = ["0db9bf507aa227d100768ad0fcb427ff4b91b941e0a06ba27e74d245062ff714", "6146a59dea4d893df9aabd589003f4aac1311baa218605ad48eb85b52533b183"]
+sentry-sdk = ["692aa93637273365166041ee8e06ccd6b61d5f06560765d78828edbaac83fae1", "7c9db0e419fb0fb31c1b1d2ec9247667d2b77bd4f3136119ee6f1464e9b088a4"]
 simplekv = ["61e6a8c8d53154033c8f97131418d0e31159d5d959a94b8f0fe5587da2d472b1", "87872911cb6299d3fe82e97674410ea4eafcad6cb59dece1b2a0588078cfadc8", "898fa9d028b542a1b3df6acce8acf5587635092da003f8d5d96528804f412c68", "cf57cebc3432a0ac3c82da80540c858243f6ddd254a271921d6a8e60245eeba7"]
 six = ["3350809f0555b11f552448330d0b52d5f24c91a322ea4a15ef22629740f3761c", "d16a0141ec1a18405cd4ce8b4613101da75da0e9a7aec5bdd4fa804d0e0eba73"]
 spinach = ["0b90d2067db4b028f605953f404cdbcc2513032fb629dce857c98f78ea2cc2a5", "c28247e8fbaac5a16a82418072dacae53f72559f0de14b970c83badea64a5f66"]
