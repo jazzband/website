@@ -33,10 +33,10 @@ def membership(data, guid):
     return "Thanks"
 
 
-@hooks.hook("member")
-def member(data, guid):
+@hooks.hook("repository")
+def repository(data, guid):
     # only if the action is to add a member and if there is repo data
-    if data.get("action") == "added" and "repository" in data:
+    if data.get("action") == "transferred" and "repository" in data:
         hook_id = f"repo-added-{uuid.uuid4()}"
         redis.setex(
             hook_id, 60 * 5, json.dumps(data)  # expire the hook hash in 5 minutes
