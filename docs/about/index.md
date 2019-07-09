@@ -1,6 +1,6 @@
 title: About
 
-Here you’ll find some background info, a quick introduction how
+Here you’ll find some background info, a quick introduction of how
 Jazzband works and some examples how to improve maintenance of
 your own projects using Jazzband’s techniques.
 
@@ -15,7 +15,7 @@ Jazzband strives to enable broader collaboration between the users by
 bringing down the walls that prevent them from becoming contributors.
 
 Jazzband tries to foster participation by the community and shared
-responsibilty within its membership. It helps keeping projects alive as
+responsibility within its membership. It helps to keep projects alive as
 well as finding new avenues of development.
 
 In short, it's cooperative coding.
@@ -27,7 +27,7 @@ When you join you will be...
 - automatically added to the Jazzband GitHub organization
 - granted a wide range of privileges, e.g. pushing to repositories
 
-After that you can go ahead and do things like...
+After that, you can go ahead and do things like...
 
 - move repos that follow the [guidelines](/about/guidelines) into the Jazzband organization
 - start working on an already existing Jazzband [project](/projects)
