@@ -1,4 +1,7 @@
+image: docker:latest
+
 stages:
+  - build
   - test
   - deploy
 
@@ -8,6 +11,18 @@ services:
 variables:
   APP_NAME: jazzband
   DOCKER_DRIVER: overlay2
+  DOCKER_HOST: tcp://docker:2375/
+
+before_script:
+  - docker login -u $CI_DEPLOY_USER -p $CI_DEPLOY_PASSWORD $CI_REGISTRY
+
+build:
+  stage: build
+  script:
+    - docker pull $CI_REGISTRY_IMAGE:latest || true
+    - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:latest .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    - docker push $CI_REGISTRY_IMAGE:latest
 
 test:
   before_script:
