@@ -204,6 +204,8 @@ oauthlib = "*"
 requests = ">=2.0"
 requests-oauthlib = ">=1.0.0"
 six = "*"
+sqlalchemy = "*"
+sqlalchemy-utils = "*"
 urlobject = "*"
 
 [[package]]
@@ -700,7 +702,9 @@ python-versions = "*"
 version = "0.10.1"
 
 [package.dependencies]
+blinker = ">=1.1"
 certifi = "*"
+flask = ">=0.8"
 urllib3 = "*"
 
 [[package]]
@@ -745,7 +749,7 @@ description = "Various utility functions for SQLAlchemy."
 name = "sqlalchemy-utils"
 optional = false
 python-versions = "*"
-version = "0.34.0"
+version = "0.34.1"
 
 [package.dependencies]
 SQLAlchemy = ">=1.0"
@@ -859,7 +863,7 @@ python-versions = ">=2.7"
 version = "0.5.2"
 
 [metadata]
-content-hash = "0a2429da8f58e4cf47c30fcaa76dec33da8ca071d3ef69b1ab9c0b9dbc042bad"
+content-hash = "0c777170be51510edcd730b62fa7671be5f57e429cd8df80bdeba728b2f6c34d"
 python-versions = "^3.6"
 
 [metadata.hashes]
@@ -934,7 +938,7 @@ simplekv = ["61e6a8c8d53154033c8f97131418d0e31159d5d959a94b8f0fe5587da2d472b1", 
 six = ["3350809f0555b11f552448330d0b52d5f24c91a322ea4a15ef22629740f3761c", "d16a0141ec1a18405cd4ce8b4613101da75da0e9a7aec5bdd4fa804d0e0eba73"]
 spinach = ["0b90d2067db4b028f605953f404cdbcc2513032fb629dce857c98f78ea2cc2a5", "c28247e8fbaac5a16a82418072dacae53f72559f0de14b970c83badea64a5f66"]
 sqlalchemy = ["c30925d60af95443458ebd7525daf791f55762b106049ae71e18f8dd58084c2f"]
-sqlalchemy-utils = ["0ebd4d176a5786233db9f2e92040476fcff8b1b426fdbbb7ee4f478280ee9166"]
+sqlalchemy-utils = ["c037bec2fe2a73b2dfda7b079b02644f20c477fdf6fc4ff0c2141a65ddbee0ee"]
 tqdm = ["14a285392c32b6f8222ecfbcd217838f88e11630affe9006cd0e94c7eff3cb61", "25d4c0ea02a305a688e7e9c2cdc8f862f989ef2a4701ab28ee963295f5b109ab"]
 twine = ["0fb0bfa3df4f62076cab5def36b1a71a2e4acb4d1fa5c97475b048117b1a6446", "d6c29c933ecfc74e9b1d9fa13aa1f87c5d5770e119f5a4ce032092f0ff5b14dc"]
 urllib3 = ["b246607a25ac80bedac05c6f282e3cdaf3afb65420fd024ac94435cabe6e18d1", "dbe59173209418ae49d485b87d1681aefa36252ee85884c31346debd19463232"]
