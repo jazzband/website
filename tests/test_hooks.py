@@ -21,10 +21,10 @@ def test_ping(client):
     assert rv.status_code == 200
 
 
-def test_member_hook(client, datadir, mocker):
-    contents = (datadir / 'member.json').read_text()
+def test_repo_transferred_hook(client, datadir, mocker):
+    contents = (datadir / 'repository.json').read_text()
     mocked_schedule = mocker.patch.object(JazzbandSpinach, 'schedule')
-    response = post(client, 'member', json.loads(contents))
+    response = post(client, 'repository', json.loads(contents))
     assert response.data
     response_string = response.data.decode('utf-8')
     assert response_string.startswith('repo-added-')

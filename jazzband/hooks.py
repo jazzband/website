@@ -39,7 +39,8 @@ def repository(data, guid):
     if data.get("action") == "transferred" and "repository" in data:
         hook_id = f"repo-added-{uuid.uuid4()}"
         redis.setex(
-            hook_id, 60 * 5, json.dumps(data)  # expire the hook hash in 5 minutes
+            # expire the hook hash in 5 minutes
+            hook_id, 60 * 5, json.dumps(data)
         )
         spinach.schedule(update_project_by_hook, hook_id)
         return hook_id
