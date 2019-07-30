@@ -21,7 +21,7 @@ To become a project lead, please also [open an issue with the
 "lead" label](/roadies/issue?labels=lead).
 
 In case no project lead(s) can be found for a project the [roadies]
-will act as surrogate leads and can be requested to make a PyPI
+will act as surrogate leads and can contacted to request a PyPI
 release on the behalf of the Jazzband members. Please
 [open a ticket with a "pypi" label](/roadies/issue?labels=pypi) for that.
 

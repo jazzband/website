@@ -9,11 +9,11 @@ its projects. It was born out of necessity of expanding the group of
 maintainers of some projects whose original authors weren't able to
 effectively manage them when people volunteered to help out.
 
-In that sense it's hoped that opening the contribution process will lower
+In that sense, it's hoped that opening the contribution process will lower
 the barrier of entry for new contributors and reduce the stress that comes
 with receiving commit access to a project by spreading it to a bigger group.
 
-**"We are all part of this"** means that we share the responsibilties of
+**"We are all part of this"** means that we share the responsibilities of
 open source software development, including dreaming big, acting positively
 and failing sometimes. It'll be okay since we're not alone.
 
@@ -47,7 +47,7 @@ of your [GitHub] account.
 That data is used to determine whether you're already a member,
 invite you to the Jazzband GitHub organization if required, check
 if you have a verified email address, show you in the members list
-and other neccesary uses.
+and other necessary uses.
 
 The site uses cookies that are required for this site to work correctly
 (e.g. session cookies) but doesn't include any 3rd party cookies.
@@ -76,7 +76,7 @@ click on the "Send invitation" link on your [account dashboard](/account).
     If you want to delete all Jazzband data about you that was fetched from the
     GitHub API, please let the [roadies](/roadies) know.
 
-**Alternatively** you can remove yourself from the Jazzband GitHub organization
+**Alternatively**, you can remove yourself from the Jazzband GitHub organization
 on your [personal settings](https://github.com/settings/organizations) over at
 GitHub. There you can see the GitHub organizations you're a member of and easily
 leave the Jazzband by clicking on the "Leave" button next to it. See the note
