@@ -9,7 +9,12 @@ services:
     image: redis:latest
 
   web: &app
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+      cache_from:
+        - jazzband/website
+    image: jazzband/website
     volumes:
       - .:/app
       - cache:/app/.cache:delegated
