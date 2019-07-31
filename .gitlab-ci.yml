@@ -17,11 +17,21 @@ variables:
 build:
   stage: build
   before_script:
-    - docker login -u $CI_DEPLOY_USER -p $CI_DEPLOY_PASSWORD $CI_REGISTRY
+    - apk add --no-cache py-pip python-dev libffi-dev openssl-dev gcc libc-dev make
+    - pip install docker-compose
   script:
+    - docker pull $CI_REGISTRY_IMAGE:npm || true
     - docker pull $CI_REGISTRY_IMAGE:latest || true
-    - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:latest .
-    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    - docker build
+        --target npm
+        --cache-from $CI_REGISTRY_IMAGE:npm
+        --tag $CI_REGISTRY_IMAGE:npm
+        "."
+    - cp .env-dist .env
+    - docker-compose build
+    - docker-compose up -d
+    - docker login -u $CI_DEPLOY_USER -p $CI_DEPLOY_PASSWORD $CI_REGISTRY
+    - docker push $CI_REGISTRY_IMAGE:npm
     - docker push $CI_REGISTRY_IMAGE:latest
 
 test:
@@ -34,7 +44,7 @@ test:
   script:
     - cp .env-dist .env
     - docker pull $CI_REGISTRY_IMAGE:latest || true
-    - make test
+    - docker-compose run --rm web pytest tests/
 
 deploy:
   image: ilyasemenov/gitlab-ci-git-push
