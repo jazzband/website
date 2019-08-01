@@ -7,19 +7,22 @@ stages:
 services:
   - docker:dind
 
+cache:
+  paths:
+    - .cache/pip
+
 variables:
   APP_NAME: jazzband
   DOCKER_DRIVER: overlay2
   DOCKER_HOST: tcp://docker:2375/
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
 
 test:
   stage: test
   before_script:
     - docker info
-    - apk add --update make npm curl
-    - curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-    - chmod +x /usr/local/bin/docker-compose
-    - ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+    - apk add --update py-pip make npm build-base python2-dev libffi-dev openssl-dev
+    - pip install docker-compose
   script:
     - cp .env-dist .env
     - make test
