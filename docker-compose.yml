@@ -13,8 +13,8 @@ services:
       context: .
       dockerfile: Dockerfile
       cache_from:
-        - jazzband/website
-    image: jazzband/website
+        - jazzband/website:latest
+    image: jazzband/website:latest
     volumes:
       - .:/app
       - cache:/app/.cache:delegated
