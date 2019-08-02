@@ -49,6 +49,7 @@ def create_app():
         content_security_policy=app.config["CSP_RULES"],
         content_security_policy_report_only=app.config["CSP_REPORT_ONLY"],
         content_security_policy_report_uri=app.config["CSP_REPORT_URI"],
+        feature_policy=app.config["FEATURE_POLICY"],
     )
 
     postgres.init_app(app)

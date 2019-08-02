@@ -94,6 +94,21 @@ CSP_RULES = {
     "img-src": "* data:",
     "object-src": "'none'",
 }
+FEATURE_POLICY = {
+    "geolocation": "'none'",
+    "midi": "'none'",
+    "notifications": "'self'",
+    "push": "'self'",
+    "sync-xhr": "'self'",
+    "microphone": "'none'",
+    "camera": "'none'",
+    "magnetometer": "'none'",
+    "gyroscope": "'none'",
+    "speaker": "'self'",
+    "vibrate": "'self'",
+    "fullscreen": "'self'",
+    "payment": "'self'",
+}
 
 SENTRY_USER_ATTRS = ["id", "login", "is_banned", "is_member"]
 if "GIT_REV" in os.environ:
