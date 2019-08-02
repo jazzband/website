@@ -1,5 +1,3 @@
-image: docker:latest
-
 stages:
   - test
   - deploy
@@ -14,10 +12,10 @@ cache:
 variables:
   APP_NAME: jazzband
   DOCKER_DRIVER: overlay2
-  DOCKER_HOST: tcp://docker:2375/
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
 
 test:
+  image: docker:latest
   stage: test
   before_script:
     - docker info
