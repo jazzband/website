@@ -40,7 +40,7 @@ pyatom = "^1.4"
 pyuwsgi = "^2.0"
 walrus = "^0.7.1"
 wtforms = "^2.2"
-sentry-sdk = {version = "^0.10.1",extras = ["flask"]}
+sentry-sdk = {version = "^0.10.2",extras = ["flask"]}
 whitenoise = "^4.1"
 brotli = "^1.0"
 blinker = "^1.4"
