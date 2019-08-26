@@ -1,4 +1,8 @@
+import datetime
+
 import babel.dates
+import pytz
+from feedgen.feed import FeedGenerator
 from flask import (
     Blueprint,
     Response,
@@ -12,7 +16,6 @@ from flask import (
 )
 from flask_flatpages import FlatPages
 from flask_login import current_user
-from pyatom import AtomFeed
 
 from .assets import styles
 from .decorators import templated
@@ -55,27 +58,55 @@ def about(path):
 
 @content.route("/news/feed")
 def news_feed():
-    feed = AtomFeed(
-        "Jazzband News Feed", feed_url=request.url, url=request.url_root, generator=None
-    )
+    feed = FeedGenerator()
+    feed.id("https://jazzband.co/news/feed")
+    feed.link(href="https://jazzband.co/", rel="alternate")
+    feed.title("Jazzband News Feed")
+    feed.subtitle("We are all part of this.")
+    feed.link(href=full_url(request.url), rel="self")
+
+    # the list of updates of all news for setting the feed's updated value
+    updates = []
+
     for page in news_pages:
         if page.path == "index":
             continue
+
+        # make the datetime timezone aware if needed
         published = page.meta.get("published", None)
+        if published and published.tzinfo is None:
+            published = pytz.utc.localize(published)
         updated = page.meta.get("updated", published)
+        if updated:
+            if updated.tzinfo is None:
+                updated = pytz.utc.localize(updated)
+            updates.append(updated)
+
         summary = page.meta.get("summary", None)
-        feed.add(
-            title=page.meta["title"],
-            content=str(page.html),
-            content_type="html",
-            summary=summary,
-            summary_type="text",
-            author=page.meta.get("author", None),
-            url=full_url(url_for("content.news", path=page.path)),
-            updated=updated,
-            published=published,
-        )
-    return Response(feed.to_string(), mimetype="application/atom+xml")
+        author = page.meta.get("author", None)
+        author_link = page.meta.get("author_link", None)
+        url = full_url(url_for("content.news", path=page.path))
+
+        entry = feed.add_entry()
+        entry.id(url)
+        entry.title(page.meta["title"])
+        entry.summary(summary)
+        entry.content(content=str(page.html), type="html")
+
+        if author is not None:
+            author = {"name": author}
+            if author_link is not None:
+                author["uri"] = author_link
+            entry.author(author)
+
+        entry.link(href=url)
+        entry.updated(updated)
+        entry.published(published)
+
+    sorted_updates = sorted(updates)
+    feed.updated(sorted_updates and sorted_updates[-1] or datetime.utcnow())
+
+    return Response(feed.atom_str(pretty=True), mimetype="application/atom+xml")
 
 
 @content.route("/news", defaults={"path": "index"})

@@ -39,7 +39,7 @@ def create_app():
     @app.after_request
     def add_vary_header(response):
         response.vary.add("Cookie")
-        response.headers["Jazzband"] = "We're all part of this."
+        response.headers["Jazzband"] = "We are all part of this."
         return response
 
     talisman.init_app(
