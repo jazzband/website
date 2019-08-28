@@ -13,11 +13,13 @@ Feel free to ping a [Jazzband roadie](https://jazzband.co/roadies) if you have a
 - [ ] Add the [Jazzband contributing guideline](https://jazzband.co/about/guidelines#contributing-guidelines) to the `CONTRIBUTING.md` file
 - [ ] Check if continuous testing works (e.g. [Travis-CI](https://travis-ci.org/), [CircleCI](https://circleci.com), [AppVeyor](https://www.appveyor.com), etc)
 - [ ] Check if test coverage services work (e.g. [Coveralls](https://coveralls.io), [Codecov](https://codecov.io), etc)
-- [ ] Add `jazzband` account to [PyPI](https://pypi.org/) project as maintainer role (e.g. URL: `https://pypi.org/manage/project/<PROJECTNAME>/collaboration/`)
-- [ ] Add `jazzband-bot` as maintainer to the [Read the Docs](https://readthedocs.org/) project (URL: `https://readthedocs.org/dashboard/<PROJECTNAME>/users/`)
+- [ ] Add `jazzband` account to [PyPI](https://pypi.org/) project as maintainer role (e.g. URL: https://pypi.org/manage/project/{{ repository.name }}/collaboration/)
+- [ ] Add `jazzband-bot` as maintainer to the [Read the Docs](https://readthedocs.org/) project (e.g. URL: https://readthedocs.org/dashboard/{{ repository.name }}/users/)
+- [ ] Add incoming GitHub webhook integration to Read the Docs project (e.g. URL: https://readthedocs.org/dashboard/{{ repository.name }}/integrations/)
 - [ ] Fix project URL in [GitHub project]({{ repository.html_url }}) description
 - [ ] Review project if other services are used and port them to Jazzband
-- [ ] Decide who is project lead for the project (if at all) and setup CI for it if needed
+- [ ] Decide who is project lead for the project (if at all)
+- [ ] Set up CI for Jazzband project releases if needed and open ticket if yes
 
 {% if repository %}
 ## Project details
