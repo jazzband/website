@@ -50,9 +50,10 @@ together.
 
 ### Contributing Guidelines
 
-Projects have to add a `CONTRIBUTING.md` file to their repository so it's
+Projects have to add a `CONTRIBUTING.md` or `CONTRIBUTING.rst` file to their repository so it's
 automatically displayed when new issues and pull requests are created.
-It needs to contain this header:
+
+A `CONTRIBUTING.md` ([Markdown]) file needs to contain this header:
 
 ```md
 [![Jazzband](https://jazzband.co/static/img/jazzband.svg)](https://jazzband.co/)
@@ -60,10 +61,7 @@ It needs to contain this header:
 This is a [Jazzband](https://jazzband.co/) project. By contributing you agree to abide by the [Contributor Code of Conduct](https://jazzband.co/about/conduct) and follow the [guidelines](https://jazzband.co/about/guidelines).
 ```
 
-See this website's [contributing guideline] for how it'd look like.
-Feel free to add a similar paragraph to your `README.md`.
-
-A [reStructuredText] version of the above Markdown paragraph is:
+A `CONTRIBUTING.rst` ([reStructuredText]) file needs to contain this header
 
 ```rst
 .. image:: https://jazzband.co/static/img/jazzband.svg
@@ -73,14 +71,17 @@ A [reStructuredText] version of the above Markdown paragraph is:
 This is a `Jazzband <https://jazzband.co>`_ project. By contributing you agree to abide by the `Contributor Code of Conduct <https://jazzband.co/about/conduct>`_ and follow the `guidelines <https://jazzband.co/about/guidelines>`_.
 ```
 
-[contributing guideline]: https://github.com/jazzband/site/blob/master/CONTRIBUTING.md
-[reStructuredText]: http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html
+See this website's [contributing guideline] for how it'd look like.
+Feel free to add a similar paragraph to your `README` file.
 
 Of course extending the contributing document with your project's contributing
 guide is highly encouraged, too. See GitHub's documentation on [contributing
 guidelines] for more information.
 
 [contributing guidelines]: https://help.github.com/articles/setting-guidelines-for-repository-contributors/
+[contributing guideline]: https://github.com/jazzband/site/blob/master/CONTRIBUTING.md
+[reStructuredText]: http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html
+[Markdown]: https://daringfireball.net/projects/markdown/syntax
 
 ### Badges
 
