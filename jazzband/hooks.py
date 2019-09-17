@@ -40,7 +40,9 @@ def repository(data, guid):
         hook_id = f"repo-added-{uuid.uuid4()}"
         redis.setex(
             # expire the hook hash in 5 minutes
-            hook_id, 60 * 5, json.dumps(data)
+            hook_id,
+            60 * 5,
+            json.dumps(data),
         )
         spinach.schedule(update_project_by_hook, hook_id)
         return hook_id
