@@ -1,8 +1,8 @@
 This app renders https://jazzband.co.
 
 [![Jazzband](https://jazzband.co/static/img/badge.svg)](https://jazzband.co/)
-[![Gitlab pipeline status](https://img.shields.io/gitlab/pipeline/jazzband/website.svg?logo=gitlab)](https://gitlab.com/jazzband/website)
-[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=jazzband/website)](https://dependabot.com)
+[![GitHub CI status](https://github.com/jazzband-roadies/website/workflows/CI/badge.svg)](https://gitlab.com/jazzband-roadies/website)
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=jazzband-roadies/website)](https://dependabot.com)
 
 ## Installation
 
