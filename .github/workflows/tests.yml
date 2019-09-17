@@ -22,7 +22,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Push
-      if: github.event_name == "push" && github.ref == "refs/heads/master"
+      if: github.event_name == 'push' && github.ref == 'refs/heads/master'
       uses: vitalyliber/dokku-github-action@master
       env:
         PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
