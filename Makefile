@@ -1,4 +1,4 @@
-.PHONY: bash npm-install build clean db-migrate db-upgrade redis-cli run shell start stop update test
+.PHONY: bash npm-install build clean db-migrate db-upgrade redis-cli run shell start stop update test pytest container-build envvar ci
 
 bash:
 	docker-compose run --rm  web bash
@@ -6,8 +6,10 @@ bash:
 npm-install:
 	npm install
 
-build: npm-install
+container-build:
 	docker-compose build --pull --build-arg POETRY_ARGS="--no-interaction --no-ansi"
+
+build: npm-install container-build
 
 clean: stop
 	docker-compose rm -f
@@ -39,5 +41,12 @@ stop:
 update:
 	docker-compose run --rm web poetry update
 
-test: build
+pytest:
 	docker-compose run --rm web pytest tests/
+
+test: build pytest
+
+envvar:
+	cp .env-dist .env
+
+ci: envvar pytest
