@@ -1,9 +1,11 @@
 name: CI
 on:
   pull_request:
+    branches:
+    - master
   push:
     branches:
-      - master
+    - master
 
 jobs:
   test:
@@ -15,10 +17,11 @@ jobs:
       run: make test
 
   deploy:
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - name: Dokku deploy
+    - name: Push
       if: github.event_name == 'push' && github.ref == refs/heads/master
       uses: vitalyliber/dokku-github-action@master
       env:
