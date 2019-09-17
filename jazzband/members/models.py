@@ -113,7 +113,7 @@ class User(db.Model, Syncable, UserMixin):
     def has_verified_emails(self):
         # User can have multiple emails,
         # we just want to ensure he has at least one:
-        # see https://github.com/jazzband/website/issues/8 for more.
+        # see https://github.com/jazzband-roadies/website/issues/8 for more.
         return (
             EmailAddress.query.filter_by(user_id=self.id, verified=True).first()
             is not None

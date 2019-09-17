@@ -12,13 +12,13 @@
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jazzband/website.git"
+    "url": "git+https://github.com/jazzband-roadies/website.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jazzband/website/issues"
+    "url": "https://github.com/jazzband-roadies/website/issues"
   },
-  "homepage": "https://github.com/jazzband/website#readme",
+  "homepage": "https://github.com/jazzband-roadies/website#readme",
   "private": true
 }
