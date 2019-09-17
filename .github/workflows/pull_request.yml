@@ -1,0 +1,14 @@
+name: Pull request
+on:
+  pull_request:
+    branches:
+    - master
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Test
+      run: make ci
