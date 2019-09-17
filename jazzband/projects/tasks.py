@@ -56,16 +56,16 @@ def update_project_by_hook(hook_id):
             assignees.append(hook_data["sender"]["login"])
 
         # create a new issue, finally
-        issue_data = github.new_roadies_issue(
-            {
+        issue_data = github.new_project_issue(
+            project=project_name,
+            data={
                 "title": render_template("hooks/project-title.txt", **hook_data),
                 "body": render_template("hooks/project-body.txt", **hook_data),
-                "labels": ["guidelines", "review"],
                 "assignees": assignees,
             }
         )
         issue_url = issue_data.json().get("html_url")
-        if issue_url.startswith("https://github.com/jazzband/roadies/issues"):
+        if issue_url.startswith(f"https://github.com/jazzband/{project_name}"):
             project.transfer_issue_url = issue_url
             project.save()
 

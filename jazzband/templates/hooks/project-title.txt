@@ -1,1 +1,1 @@
-Implement Jazzband guidelines for project {{ repository.name }}
+Implement Jazzband guidelines for {{ repository.name }}
