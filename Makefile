@@ -49,4 +49,4 @@ test: build pytest
 envvar:
 	cp .env-dist .env
 
-ci: envvar pytest
+ci: envvar test
