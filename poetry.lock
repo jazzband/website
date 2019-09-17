@@ -757,7 +757,7 @@ description = "Database Abstraction Library"
 name = "sqlalchemy"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "1.3.7"
+version = "1.3.8"
 
 [[package]]
 category = "main"
@@ -957,7 +957,7 @@ sentry-sdk = ["528f936118679e9a52dacb96bfefe20acb5d63e0797856c64a582cc3c2bc1f9e"
 simplekv = ["58bbb99c3d3a55ab69a2dabb064a309fd7089730cb5f9d3eecb47b110e3fc5b0", "a2f8cdde73b1f9ae60540f9bc0b49c564226d8a46f6a1bd98d1b6169f98274ed", "ae52e8f48618ecf9f81631c152ea8fbed8b88fb7c17870db984a295481483c06"]
 six = ["3350809f0555b11f552448330d0b52d5f24c91a322ea4a15ef22629740f3761c", "d16a0141ec1a18405cd4ce8b4613101da75da0e9a7aec5bdd4fa804d0e0eba73"]
 spinach = ["20e6b802cd2c7855173009aabbcf5d2a48bdbf93c2a13d3e78a777b5300b128f", "d1f639d91773069e6dcf588e208027ba44e6f9f26a3dafd3f2385a6911101a40"]
-sqlalchemy = ["0459bf0ea6478f3e904de074d65769a11d74cdc34438ab3159250c96d089aef0"]
+sqlalchemy = ["2f8ff566a4d3a92246d367f2e9cd6ed3edeef670dcd6dda6dfdc9efed88bcd80"]
 sqlalchemy-utils = ["6689b29d7951c5c7c4d79fa6b8c95f9ff9ec708b07aa53f82060599bd14dcc88"]
 tqdm = ["1be3e4e3198f2d0e47b928e9d9a8ec1b63525db29095cec1467f4c5a4ea8ebf9", "7e39a30e3d34a7a6539378e39d7490326253b7ee354878a92255656dc4284457"]
 twine = ["0fb0bfa3df4f62076cab5def36b1a71a2e4acb4d1fa5c97475b048117b1a6446", "d6c29c933ecfc74e9b1d9fa13aa1f87c5d5770e119f5a4ce032092f0ff5b14dc"]
