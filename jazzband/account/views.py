@@ -196,7 +196,6 @@ def join():
             flash("To join please accept the invitation from GitHub.")
 
     return {
-        "next_url": "https://github.com/jazzband/roadies/wiki/Welcome",
         "membership": membership,
         "org_id": github.org_id,
         "has_verified_emails": has_verified_emails,
