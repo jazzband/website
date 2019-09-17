@@ -10,10 +10,7 @@ RUN npm install
 
 FROM python:3.6-stretch
 
-ARG POETRY_ARGS="--no-dev --no-interaction --no-ansi"
-
-ENV POETRY_ARGS=${POETRY_ARGS} \
-    PYTHONPATH=/app/ \
+ENV PYTHONPATH=/app/ \
     PYTHONFAULTHANDLER=1 \
     PYTHONUNBUFFERED=1 \
     PYTHONHASHSEED=random \
@@ -22,7 +19,6 @@ ENV POETRY_ARGS=${POETRY_ARGS} \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
     PIP_DEFAULT_TIMEOUT=100 \
     LANG=C.UTF-8 \
-    POETRY_VERSION=0.12.16 \
     PATH=/app/.local/bin:$PATH
 
 # add a non-privileged user for installing and running the application
@@ -47,14 +43,12 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN pip install -U pip && \
-    pip install "poetry==$POETRY_VERSION"
+RUN pip install -U pip
 
 WORKDIR /app
-COPY poetry.lock pyproject.toml /app/
+COPY requirements.txt /app/
 
-RUN poetry config settings.virtualenvs.create false && \
-    poetry install $POETRY_ARGS
+RUN pip install -r requirements.txt
 
 COPY . /app/
 

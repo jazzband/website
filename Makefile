@@ -7,7 +7,7 @@ npm-install:
 	npm install
 
 container-build:
-	docker-compose build --pull --build-arg POETRY_ARGS="--no-interaction --no-ansi"
+	docker-compose build --pull
 
 build: npm-install container-build
 
@@ -39,7 +39,7 @@ stop:
 	docker-compose stop
 
 update:
-	docker-compose run --rm web poetry update
+	docker-compose run --rm web pip install -r requirements.txt
 
 pytest:
 	docker-compose run --rm web pytest tests/
