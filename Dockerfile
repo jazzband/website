@@ -18,8 +18,7 @@ ENV PYTHONPATH=/app/ \
     PIP_NO_CACHE_DIR=off \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
     PIP_DEFAULT_TIMEOUT=100 \
-    LANG=C.UTF-8 \
-    PATH=/app/.local/bin:$PATH
+    LANG=C.UTF-8
 
 # add a non-privileged user for installing and running the application
 # don't use --create-home option to prevent populating with skeleton files
