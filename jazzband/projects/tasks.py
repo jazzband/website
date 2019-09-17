@@ -62,7 +62,7 @@ def update_project_by_hook(hook_id):
                 "title": render_template("hooks/project-title.txt", **hook_data),
                 "body": render_template("hooks/project-body.txt", **hook_data),
                 "assignees": assignees,
-            }
+            },
         )
         issue_url = issue_data.json().get("html_url")
         if issue_url.startswith(f"https://github.com/jazzband/{project_name}"):
