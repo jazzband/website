@@ -12,3 +12,4 @@ styles = Bundle(
 )
 
 assets.register("styles", styles)
+assets.cache = "/tmp/webassets-cache"
