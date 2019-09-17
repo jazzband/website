@@ -715,7 +715,7 @@ description = "Python client for Sentry (https://getsentry.com)"
 name = "sentry-sdk"
 optional = false
 python-versions = "*"
-version = "0.11.1"
+version = "0.11.2"
 
 [package.dependencies]
 blinker = ">=1.1"
@@ -882,7 +882,7 @@ version = "0.6.0"
 more-itertools = "*"
 
 [metadata]
-content-hash = "ed8a7cd4b17400d34e6ddf9406b82771298bb2fff07f4da374c66e5ff82d6db8"
+content-hash = "a8a9facbe9dc99dfde01ee6c946abee0ecdec0fd283040ee344106ce00fe73c6"
 python-versions = "^3.6"
 
 [metadata.hashes]
@@ -953,7 +953,7 @@ redis = ["1f2493b72f669a096c59ca7cf7f4067b1ab58a0a3c6bef51d5d8fd384298c6a2", "b8
 requests = ["11e007a8a2aa0323f5a921e9e6a2d7e4e67d9877e85773fba9ba6419025cbeb4", "9cf5292fcd0f598c671cfc1e0d7d1a7f13bb8085e9a590f48c010551dc6c4b31"]
 requests-oauthlib = ["bd6533330e8748e94bf0b214775fed487d309b8b8fe823dc45641ebcd9a32f57", "d3ed0c8f2e3bbc6b344fa63d6f933745ab394469da38db16bdddb461c7e25140", "dd5a0499abfefd087c6dd96693cbd5bfd28aa009719a7f85ab3fabe3956ef19a"]
 requests-toolbelt = ["380606e1d10dc85c3bd47bf5a6095f815ec007be7a8b69c878507068df059e6f", "968089d4584ad4ad7c171454f0a5c6dac23971e9472521ea3b6d49d610aa6fc0"]
-sentry-sdk = ["79e8352b5097aa06014871c6daad0933f59d1fcccc586339464ea86e4877b2ab", "aeaaf6ae7cc4030d390e5c95797ac1a2a79ac2c8b687709293975ee808c68784"]
+sentry-sdk = ["528f936118679e9a52dacb96bfefe20acb5d63e0797856c64a582cc3c2bc1f9e", "b4edcb1296fee107439345d0f8b23432b8732b7e28407f928367d0a4a36301a9"]
 simplekv = ["58bbb99c3d3a55ab69a2dabb064a309fd7089730cb5f9d3eecb47b110e3fc5b0", "a2f8cdde73b1f9ae60540f9bc0b49c564226d8a46f6a1bd98d1b6169f98274ed", "ae52e8f48618ecf9f81631c152ea8fbed8b88fb7c17870db984a295481483c06"]
 six = ["3350809f0555b11f552448330d0b52d5f24c91a322ea4a15ef22629740f3761c", "d16a0141ec1a18405cd4ce8b4613101da75da0e9a7aec5bdd4fa804d0e0eba73"]
 spinach = ["20e6b802cd2c7855173009aabbcf5d2a48bdbf93c2a13d3e78a777b5300b128f", "d1f639d91773069e6dcf588e208027ba44e6f9f26a3dafd3f2385a6911101a40"]
