@@ -74,9 +74,9 @@ def index():
     if order == DEFAULT_ORDER:
         criterion = desc(criterion)
 
-    projects = Project.query.filter(
-        Project.is_active.is_(True), ~Project.name.in_(["website", "roadies"])
-    ).order_by(nullslast(criterion))
+    projects = Project.query.filter(Project.is_active.is_(True)).order_by(
+        nullslast(criterion)
+    )
     return {
         "projects": projects,
         "sorter": sorter,
