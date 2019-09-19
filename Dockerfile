@@ -8,7 +8,7 @@ RUN npm install
 
 # -----------------------------------------------------------------------------
 
-FROM python:3.6-stretch
+FROM python:3.7
 
 ENV PYTHONPATH=/app/ \
     PYTHONFAULTHANDLER=1 \
