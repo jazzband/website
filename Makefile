@@ -1,4 +1,4 @@
-.PHONY: bash npm-install build clean db-migrate db-upgrade redis-cli run shell start stop update test pytest container-build envvar ci
+.PHONY: bash npm-build npm-install build clean db-migrate db-upgrade redis-cli run shell start stop update test pytest container-build envvar ci
 
 bash:
 	docker-compose run --rm  web bash
@@ -6,10 +6,13 @@ bash:
 npm-install:
 	npm install
 
+npm-build:
+	npm run build
+
 container-build:
 	docker-compose build --pull
 
-build: npm-install container-build
+build: npm-install npm-build container-build
 
 clean: stop
 	docker-compose rm -f

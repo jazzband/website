@@ -13,13 +13,12 @@ services:
     volumes:
       - .:/app
       - cache:/app/.cache:delegated
-    command: honcho start -f Procfile.dev web
+    command: sh -c 'wait-for-it db:5432 redis:6379 -- honcho start -f Procfile.dev' web
     environment:
       # pass those two into the environment
       # but also response the .env file for the rest
       FLASK_APP: jazzband/app.py
       FLASK_DEBUG: 1
-      PORT: 5000
     env_file:
       - .env
     ports:
@@ -34,7 +33,7 @@ services:
 
   worker:
     <<: *app
-    command: honcho start -f Procfile.dev worker
+    command: sh -c 'wait-for-it db:5432 redis:6379 -- honcho start -f Procfile.dev worker'
     ports: []
 
 volumes:
