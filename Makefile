@@ -14,8 +14,7 @@ build: npm-install container-build
 clean: stop
 	docker-compose rm -f
 	find . -name "*.pyc" -delete
-	rm -rf jazzband/static/.webassets-cache
-	rm -rf jazzband/static/css/styles.*.css
+	rm -rf jazzband/static/dist
 
 db-migrate:
 	docker-compose run --rm web flask db migrate
@@ -44,7 +43,7 @@ update:
 pytest:
 	docker-compose run --rm web pytest tests/
 
-test: build pytest
+test: pytest
 
 envvar:
 	cp .env-dist .env

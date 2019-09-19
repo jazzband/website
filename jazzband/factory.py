@@ -8,7 +8,6 @@ from whitenoise import WhiteNoise
 
 from . import admin, cli, errors, logging  # noqa
 from .account.manager import login_manager
-from .assets import assets
 from .cache import cache
 from .content import about_pages, news_pages
 from .db import postgres, redis
@@ -78,9 +77,6 @@ def create_app():
     mail.init_app(app)
 
     hooks.init_app(app)
-
-    # setup webassets
-    assets.init_app(app)
 
     # setup session store
     session_store = RedisStore(redis)

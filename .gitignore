@@ -1,6 +1,5 @@
 .env
-jazzband/static/.webassets-cache
-jazzband/static/css/styles.*.css
+jazzband/static/dist
 venv/
 .eggs
 *.egg-info

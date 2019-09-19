@@ -1,10 +1,11 @@
 FROM node as npm
 
-COPY package.json package-lock.json /tmp/
+COPY . /tmp/
 
 WORKDIR /tmp
 
-RUN npm install
+RUN npm install \
+    && npm run build
 
 # -----------------------------------------------------------------------------
 
@@ -52,9 +53,9 @@ RUN pip install -r requirements.txt
 COPY . /app/
 
 COPY --from=npm /tmp/node_modules /app/node_modules/
+COPY --from=npm /tmp/jazzband/static/dist /app/jazzband/static/dist/
 
-RUN mkdir -p /app/jazzband/static/.webassets-cache \
-    chown -R 10001:10001 /app
+RUN chown -R 10001:10001 /app
 
 USER 10001
 

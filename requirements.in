@@ -50,7 +50,6 @@ six
 tqdm
 urllib3
 wcwidth
-webassets
 werkzeug
 babel
 blinker
@@ -61,7 +60,6 @@ docutils
 feedgen
 flask
 flask-admin
-flask-assets
 flask-caching
 flask-compress
 flask-flatpages

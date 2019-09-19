@@ -25,7 +25,4 @@ wait_for_check db
 # then run the database migrations
 flask db upgrade
 
-# then build the assets
-flask assets build
-
 exec "$@"

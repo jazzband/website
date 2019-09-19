@@ -9,7 +9,10 @@
     "@fortawesome/fontawesome-free": "^5.10.2",
     "blazy": "^1.8.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "parcel-bundler": "^1.12.3",
+    "sass": "^1.22.12"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jazzband-roadies/website.git"
@@ -20,5 +23,8 @@
     "url": "https://github.com/jazzband-roadies/website/issues"
   },
   "homepage": "https://github.com/jazzband-roadies/website#readme",
-  "private": true
+  "private": true,
+  "scripts": {
+    "build": "parcel build jazzband/static/scss/styles.scss --public-url=/static/dist/ --out-dir jazzband/static/dist/ --detailed-report --no-cache"
+  }
 }
