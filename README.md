@@ -6,7 +6,7 @@ This app renders https://jazzband.co.
 
 ## Installation
 
-Install Docker. Run `make build`. This will create a set of Docker
+Install Docker. Run `make bu ild`. This will create a set of Docker
 containers with all backends and dependencies.
 
 ## Running
