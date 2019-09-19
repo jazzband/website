@@ -91,7 +91,6 @@ sqlalchemy
 sqlalchemy-utils
 twine
 walrus
-whitenoise
 wtforms
 Flask-Dance[sqla]
 URLObject

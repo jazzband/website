@@ -4,7 +4,6 @@ from flask_kvsession import KVSessionExtension
 from flask_migrate import Migrate
 from simplekv.memory.redisstore import RedisStore
 from werkzeug.middleware.proxy_fix import ProxyFix
-from whitenoise import WhiteNoise
 
 from . import admin, cli, errors, logging  # noqa
 from .account.manager import login_manager
@@ -69,10 +68,6 @@ def create_app():
 
     if app.config["IS_PRODUCTION"]:
         app.wsgi_app = ProxyFix(app.wsgi_app)
-
-    app.wsgi_app = WhiteNoise(
-        app.wsgi_app, root=app.static_folder, prefix=app.static_url_path
-    )
 
     mail.init_app(app)
 
