@@ -1,4 +1,5 @@
 import logging
+
 from flask.logging import default_handler
 
 for name in ["jazzband", "spinach"]:

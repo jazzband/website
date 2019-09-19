@@ -1,9 +1,11 @@
-import click
-import click_log
 import logging
+
+import click
+
+import click_log
 from flask.cli import with_appcontext
 
-from . import tasks, models
+from . import models, tasks
 
 logger = logging.getLogger(__name__)
 click_log.basic_config(logger)

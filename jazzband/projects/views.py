@@ -5,13 +5,14 @@ import os
 import shutil
 import tempfile
 from datetime import datetime
+
 from pkg_resources import safe_name
 
 import delegator
 import requests
 from flask import (
-    abort,
     Blueprint,
+    abort,
     current_app,
     flash,
     jsonify,
@@ -37,7 +38,6 @@ from ..tasks import spinach
 from .forms import DeleteForm, ReleaseForm, UploadForm
 from .models import Project, ProjectUpload
 from .tasks import send_new_upload_notifications, update_upload_ordering
-
 
 projects = Blueprint("projects", __name__, url_prefix="/projects")
 

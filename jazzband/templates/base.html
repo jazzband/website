@@ -9,7 +9,7 @@
         <title>Jazzband</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        {% assets "styles" %}<link href="{{ ASSET_URL }}" media="screen, projection" rel="stylesheet" type="text/css" />{% endassets %}
+        <link href="{{ url_for('static', filename='dist/styles.css') }}" media="screen, projection" rel="stylesheet" type="text/css" />
         {% include "includes/favicons.html" %}
         <link rel="alternate" type="application/atom+xml" href="{{ url_for('content.news_feed', _external=True) }}" />
     </head>

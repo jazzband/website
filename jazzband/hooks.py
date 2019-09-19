@@ -8,7 +8,6 @@ from .members.models import User
 from .projects.tasks import update_project_by_hook
 from .tasks import spinach
 
-
 hooks = Hooks()
 
 

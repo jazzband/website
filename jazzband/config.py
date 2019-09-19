@@ -1,7 +1,7 @@
 import os
 from datetime import timedelta
 
-from decouple import config, Csv
+from decouple import Csv, config
 from markdown.extensions.toc import TocExtension
 from markdown.extensions.wikilinks import WikiLinkExtension
 
@@ -69,8 +69,6 @@ SESSION_COOKIE_SECURE = not DEBUG
 SESSION_REFRESH_EACH_REQUEST = False
 PERMANENT_SESSION_LIFETIME = timedelta(days=14)
 USE_SESSION_FOR_NEXT = True
-
-LIBSASS_STYLE = "compressed"
 
 SQLALCHEMY_DATABASE_URI = config("DATABASE_URL", "postgres://postgres@db/postgres")
 if IS_PRODUCTION:

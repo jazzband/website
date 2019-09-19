@@ -5,7 +5,7 @@ from uuid import uuid4
 from flask import current_app, safe_join
 from flask_login import current_user
 from sqlalchemy import func, orm
-from sqlalchemy.dialects.postgresql import UUID, JSONB
+from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy_utils import aggregated, generic_repr
 
 from ..auth import current_user_is_roadie

@@ -11,7 +11,7 @@ from ..account import github
 from ..config import ONE_MINUTE
 from ..db import postgres, redis
 from ..email import mail
-from ..members.models import User, EmailAddress
+from ..members.models import EmailAddress, User
 from .models import Project, ProjectMembership, ProjectUpload
 
 logger = logging.getLogger(__name__)

@@ -1,7 +1,7 @@
 import redis
 from spinach import signals
+from spinach.brokers.redis import RedisBroker, recommended_socket_opts
 from spinach.contrib.flask_spinach import Spinach
-from spinach.brokers.redis import recommended_socket_opts, RedisBroker
 
 from .account import github
 from .members.tasks import tasks as member_tasks

@@ -22,4 +22,3 @@ under the MIT license.
 
 [add-to-org]: https://github.com/benbalter/add-to-org
 [Attribution-NonCommercial-ShareAlike 4.0 International]: https://creativecommons.org/licenses/by-nc-sa/4.0/
-

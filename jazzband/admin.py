@@ -1,17 +1,17 @@
-from flask import redirect, url_for, request, session
+from flask import redirect, request, session, url_for
 from flask_admin import Admin, AdminIndexView, expose
 from flask_admin.contrib import sqla
 from flask_login import current_user
 
+from .account.models import OAuth
 from .auth import current_user_is_roadie
 from .db import postgres
-from .account.models import OAuth
-from .members.models import User, EmailAddress
+from .members.models import EmailAddress, User
 from .projects.models import (
     Project,
     ProjectCredential,
-    ProjectUpload,
     ProjectMembership,
+    ProjectUpload,
 )
 
 

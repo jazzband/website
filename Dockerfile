@@ -1,19 +1,17 @@
 FROM node as npm
 
-COPY package.json package-lock.json /tmp/
+COPY . /tmp/
 
 WORKDIR /tmp
 
-RUN npm install
+RUN npm install \
+    && npm run build
 
 # -----------------------------------------------------------------------------
 
-FROM python:3.6-stretch
+FROM python:3.7
 
-ARG POETRY_ARGS="--no-dev --no-interaction --no-ansi"
-
-ENV POETRY_ARGS=${POETRY_ARGS} \
-    PYTHONPATH=/app/ \
+ENV PYTHONPATH=/app/ \
     PYTHONFAULTHANDLER=1 \
     PYTHONUNBUFFERED=1 \
     PYTHONHASHSEED=random \
@@ -21,9 +19,7 @@ ENV POETRY_ARGS=${POETRY_ARGS} \
     PIP_NO_CACHE_DIR=off \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
     PIP_DEFAULT_TIMEOUT=100 \
-    LANG=C.UTF-8 \
-    POETRY_VERSION=0.12.16 \
-    PATH=/app/.local/bin:$PATH
+    LANG=C.UTF-8
 
 # add a non-privileged user for installing and running the application
 # don't use --create-home option to prevent populating with skeleton files
@@ -42,23 +38,22 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         build-essential curl git libpq-dev \
         postgresql-client gettext sqlite3 libffi-dev \
-        inotify-tools wget bzip2 && \
+        inotify-tools wget bzip2 wait-for-it && \
     apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN pip install -U pip && \
-    pip install "poetry==$POETRY_VERSION"
+RUN pip install -U pip
 
 WORKDIR /app
-COPY poetry.lock pyproject.toml /app/
+COPY requirements.txt /app/
 
-RUN poetry config settings.virtualenvs.create false && \
-    poetry install $POETRY_ARGS
+RUN pip install -r requirements.txt
 
 COPY . /app/
 
 COPY --from=npm /tmp/node_modules /app/node_modules/
+COPY --from=npm /tmp/jazzband/static/dist /app/jazzband/static/dist/
 
 RUN chown -R 10001:10001 /app
 

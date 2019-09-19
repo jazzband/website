@@ -7,17 +7,16 @@ from flask import (
     Blueprint,
     Response,
     current_app,
-    render_template,
     redirect,
+    render_template,
     request,
-    url_for,
-    send_from_directory,
     safe_join,
+    send_from_directory,
+    url_for,
 )
 from flask_flatpages import FlatPages
 from flask_login import current_user
 
-from .assets import styles
 from .decorators import templated
 from .utils import full_url
 
@@ -123,12 +122,6 @@ def index():
     if current_user.is_authenticated:
         return redirect(url_for("account.dashboard"))
     return {}
-
-
-@content.route("/static/css/styles.css")
-def styles_css():
-    urls = styles.urls()
-    return redirect(urls[0])
 
 
 @content.route("/favicon.ico")

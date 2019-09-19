@@ -1,3 +1,5 @@
+import unicodedata
+from time import time
 from urllib.parse import (
     ParseResult,
     SplitResult,
@@ -5,12 +7,10 @@ from urllib.parse import (
     _splitnetloc,
     _splitparams,
     scheme_chars,
-    uses_params,
     urljoin,
+    uses_params,
 )
-import unicodedata
 
-from time import time
 from flask import current_app, request, session, url_for
 
 

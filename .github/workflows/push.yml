@@ -1,20 +1,20 @@
-name: CI
+name: Push
 on:
-  pull_request:
-    branches:
-    - master
   push:
     branches:
     - master
 
 jobs:
   test:
-    name: Run tests
+    name: Test
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
     - name: Test
-      run: make test
+      run: make ci
 
   deploy:
     name: Deploy
@@ -22,7 +22,6 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Push
-      if: github.event_name == 'push' && github.ref == refs/heads/master
       uses: vitalyliber/dokku-github-action@master
       env:
         PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}

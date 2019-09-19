@@ -2,9 +2,9 @@ import logging
 from datetime import datetime
 
 import sentry_sdk
-from flask import flash, redirect, request, session, url_for, Blueprint
-from flask_login import current_user, login_user, logout_user, login_required
-from flask_dance.consumer import oauth_before_login, oauth_authorized
+from flask import Blueprint, flash, redirect, request, session, url_for
+from flask_dance.consumer import oauth_authorized, oauth_before_login
+from flask_login import current_user, login_required, login_user, logout_user
 from sqlalchemy.orm.exc import NoResultFound
 
 from ..db import postgres as db
@@ -14,7 +14,6 @@ from ..members.models import User
 from ..members.tasks import sync_email_addresses
 from ..tasks import spinach
 from ..utils import get_redirect_target
-
 from . import github
 from .blueprint import GitHubBlueprint
 from .forms import ConsentForm, LeaveForm

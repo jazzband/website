@@ -1,14 +1,12 @@
 from flask import Flask
 from flask_compress import Compress
-from flask_migrate import Migrate
 from flask_kvsession import KVSessionExtension
+from flask_migrate import Migrate
 from simplekv.memory.redisstore import RedisStore
 from werkzeug.middleware.proxy_fix import ProxyFix
-from whitenoise import WhiteNoise
 
 from . import admin, cli, errors, logging  # noqa
 from .account.manager import login_manager
-from .assets import assets
 from .cache import cache
 from .content import about_pages, news_pages
 from .db import postgres, redis
@@ -71,16 +69,9 @@ def create_app():
     if app.config["IS_PRODUCTION"]:
         app.wsgi_app = ProxyFix(app.wsgi_app)
 
-    app.wsgi_app = WhiteNoise(
-        app.wsgi_app, root=app.static_folder, prefix=app.static_url_path
-    )
-
     mail.init_app(app)
 
     hooks.init_app(app)
-
-    # setup webassets
-    assets.init_app(app)
 
     # setup session store
     session_store = RedisStore(redis)

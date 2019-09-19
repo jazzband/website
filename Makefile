@@ -1,4 +1,4 @@
-.PHONY: bash npm-install build clean db-migrate db-upgrade redis-cli run shell start stop update test
+.PHONY: bash npm-build npm-install build clean db-migrate db-upgrade redis-cli run shell start stop update test pytest container-build envvar ci
 
 bash:
 	docker-compose run --rm  web bash
@@ -6,14 +6,18 @@ bash:
 npm-install:
 	npm install
 
-build: npm-install
-	docker-compose build --pull --build-arg POETRY_ARGS="--no-interaction --no-ansi"
+npm-build:
+	npm run build
+
+container-build:
+	docker-compose build --pull
+
+build: npm-install npm-build container-build
 
 clean: stop
 	docker-compose rm -f
 	find . -name "*.pyc" -delete
-	rm -rf jazzband/static/.webassets-cache
-	rm -rf jazzband/static/css/styles.*.css
+	rm -rf jazzband/static/dist
 
 db-migrate:
 	docker-compose run --rm web flask db migrate
@@ -37,7 +41,14 @@ stop:
 	docker-compose stop
 
 update:
-	docker-compose run --rm web poetry update
+	docker-compose run --rm web pip install -r requirements.txt
 
-test: build
+pytest:
 	docker-compose run --rm web pytest tests/
+
+test: pytest
+
+envvar:
+	cp .env-dist .env
+
+ci: envvar test
