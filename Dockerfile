@@ -59,4 +59,6 @@ RUN chown -R 10001:10001 /app
 
 USER 10001
 
+EXPOSE 5000
+
 ENTRYPOINT ["/app/docker-entrypoint.sh", "--"]
