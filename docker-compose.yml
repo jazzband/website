@@ -19,6 +19,7 @@ services:
       # but also response the .env file for the rest
       FLASK_APP: jazzband/app.py
       FLASK_DEBUG: 1
+      PORT: 5000
     env_file:
       - .env
     ports:
