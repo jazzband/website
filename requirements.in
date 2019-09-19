@@ -81,6 +81,7 @@ psycopg2-binary
 pygments
 pytest
 pytest-datadir
+pytest-dotenv
 pytest-flask
 pytest-mock
 python-decouple
