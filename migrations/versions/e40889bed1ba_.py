@@ -4,9 +4,8 @@ Revision ID: e40889bed1ba
 Revises: b72321d58252
 Create Date: 2019-02-10 21:55:49.665314
 """
-from alembic import op
 import sqlalchemy as sa
-
+from alembic import op
 
 # revision identifiers, used by Alembic.
 revision = "e40889bed1ba"

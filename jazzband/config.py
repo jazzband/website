@@ -1,7 +1,7 @@
 import os
 from datetime import timedelta
 
-from decouple import config, Csv
+from decouple import Csv, config
 from markdown.extensions.toc import TocExtension
 from markdown.extensions.wikilinks import WikiLinkExtension
 

@@ -1,10 +1,10 @@
 import re
+
 from flask_login import current_user
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileAllowed, FileRequired
+from flask_wtf.file import FileAllowed, FileField, FileRequired
 from packaging import version
-from wtforms import StringField, SubmitField, validators, ValidationError
-
+from wtforms import StringField, SubmitField, ValidationError, validators
 
 _project_name_re = re.compile(
     r"^([A-Z0-9]|[A-Z0-9][A-Z0-9._-]*[A-Z0-9])$", re.IGNORECASE

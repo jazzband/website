@@ -1,7 +1,7 @@
 import json
 
-from jazzband.tasks import JazzbandSpinach
 from jazzband.projects.tasks import update_project_by_hook
+from jazzband.tasks import JazzbandSpinach
 
 
 def post(client, hook, data, guid="abc"):

@@ -4,8 +4,8 @@ import click
 from flask.cli import with_appcontext
 
 from .db import postgres, redis
-from .members.commands import sync_members, sync_email_addresses
-from .projects.commands import sync_projects, send_new_upload_notifications
+from .members.commands import sync_email_addresses, sync_members
+from .projects.commands import send_new_upload_notifications, sync_projects
 
 
 @click.command("db")

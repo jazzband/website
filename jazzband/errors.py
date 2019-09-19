@@ -1,7 +1,7 @@
 import logging
-from flask import render_template
 
 import sentry_sdk
+from flask import render_template
 from sentry_sdk.integrations.flask import FlaskIntegration
 from sentry_sdk.integrations.logging import LoggingIntegration
 from sentry_sdk.integrations.sqlalchemy import SqlalchemyIntegration

@@ -1,6 +1,6 @@
 from flask_login import current_user
 from flask_wtf import FlaskForm
-from wtforms import validators, ValidationError
+from wtforms import ValidationError, validators
 from wtforms.fields import BooleanField, StringField
 
 CONSENT_ERROR_MESSAGE = "Your consent is required to continue."

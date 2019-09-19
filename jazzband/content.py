@@ -7,12 +7,12 @@ from flask import (
     Blueprint,
     Response,
     current_app,
-    render_template,
     redirect,
+    render_template,
     request,
-    url_for,
-    send_from_directory,
     safe_join,
+    send_from_directory,
+    url_for,
 )
 from flask_flatpages import FlatPages
 from flask_login import current_user

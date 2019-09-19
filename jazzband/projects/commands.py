@@ -1,6 +1,7 @@
+import logging
+
 import click
 import click_log
-import logging
 from flask.cli import with_appcontext
 
 from . import tasks

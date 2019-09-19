@@ -1,5 +1,5 @@
-from werkzeug.exceptions import Aborter, HTTPException
 from werkzeug._compat import integer_types
+from werkzeug.exceptions import Aborter, HTTPException
 
 
 class RateLimit(Exception):

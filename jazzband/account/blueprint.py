@@ -1,8 +1,8 @@
 from flask import current_app, flash
-from flask_login import current_user, login_user
 from flask_dance.consumer import OAuth2ConsumerBlueprint, oauth_error
-from flask_dance.consumer.requests import OAuth2Session, BaseOAuth2Session
+from flask_dance.consumer.requests import BaseOAuth2Session, OAuth2Session
 from flask_dance.consumer.storage.sqla import SQLAlchemyStorage
+from flask_login import current_user, login_user
 from sentry_sdk import capture_message, configure_scope
 from urlobject import URLObject
 from werkzeug.utils import cached_property
