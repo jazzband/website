@@ -1,6 +1,7 @@
 import sys
 
 import click
+
 from flask.cli import with_appcontext
 
 from .db import postgres, redis

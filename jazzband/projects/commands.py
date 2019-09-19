@@ -1,6 +1,7 @@
 import logging
 
 import click
+
 import click_log
 from flask.cli import with_appcontext
 
