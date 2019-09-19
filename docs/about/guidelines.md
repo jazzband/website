@@ -79,7 +79,7 @@ guide is highly encouraged, too. See GitHub's documentation on [contributing
 guidelines] for more information.
 
 [contributing guidelines]: https://help.github.com/articles/setting-guidelines-for-repository-contributors/
-[contributing guideline]: https://github.com/jazzband/site/blob/master/CONTRIBUTING.md
+[contributing guideline]: https://github.com/jazzband/website/blob/master/CONTRIBUTING.md
 [reStructuredText]: http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html
 [Markdown]: https://daringfireball.net/projects/markdown/syntax
 
