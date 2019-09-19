@@ -15,7 +15,7 @@ jobs:
         python-version: 3.7
     - name: Install dependencies
       run: |
-        pip install flake8 flake8-black flake-isort
+        pip install flake8 flake8-black flake8-isort
     - name: Run flake8
       run: |
         flake8 .
