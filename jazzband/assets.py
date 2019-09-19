@@ -2,6 +2,7 @@
 from flask_assets import Bundle, Environment
 
 assets = Environment()
+assets.auto_build = False
 
 styles = Bundle(
     "scss/styles.scss",
