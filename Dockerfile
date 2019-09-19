@@ -53,7 +53,8 @@ COPY . /app/
 
 COPY --from=npm /tmp/node_modules /app/node_modules/
 
-RUN chown -R 10001:10001 /app
+RUN mkdir -p /app/jazzband/static/.webassets-cache \
+    chown -R 10001:10001 /app
 
 USER 10001
 
