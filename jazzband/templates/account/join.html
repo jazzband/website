@@ -8,7 +8,7 @@
       <p>GitHub just sent you an email to your primary email address. Please follow the instructions in it to join the Jazzband GitHub organization.</p>
       <p>Alternatively you can also accept the invitation by visiting the organization page directly at <a href="https://github.com/{{ org_id }}">https://github.com/{{ org_id }}</a>.</p>
     {% else %}
-      <h2>Uh uh, someting went wrong</h2>
+      <h2>Uh uh, something went wrong</h2>
       <p>Please <a href="{{ url_for('account.join') }}">try again</a> joining the Jazzband.</p>
     {% endif %}
   {% else %}
