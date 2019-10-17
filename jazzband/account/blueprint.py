@@ -146,15 +146,44 @@ class GitHubBlueprint(OAuth2ConsumerBlueprint):
         """
         Adds the GitHub user with the given login to the org.
         """
-        return self.admin_session.put(
-            f"teams/{self.members_team_id}/memberships/{user_login}"
-        )
+        return self.join_team(self.members_team_id, user_login)
 
     def leave_organization(self, user_login):
         """
         Remove the GitHub user with the given login from the org.
         """
         return self.admin_session.delete(f"orgs/{self.org_id}/memberships/{user_login}")
+
+    def create_project_team(self, name):
+        """
+        Create a project team in the members team with the given name.
+        """
+        return self.admin_session.post(
+            f"orgs/{self.org_id}/teams",
+            json={
+                "name": name,
+                "parent_team_id": self.members_team_id,
+            },
+            headers={
+                "Accept": "application/vnd.github.hellcat-preview+json"
+            },
+        )
+
+    def join_team(self, team_id, user_login):
+        """
+        Join the GitHub user with the given login to the given team id.
+        """
+        return self.admin_session.put(
+            f"teams/{team_id}/memberships/{user_login}"
+        )
+
+    def leave_team(self, team_id, user_login):
+        """
+        Remove the GitHub user with the given login from the given team id.
+        """
+        return self.admin_session.delete(
+            f"teams/{team_id}/memberships/{user_login}"
+        )
 
     def get_projects(self):
         projects = self.admin_session.get(
@@ -169,6 +198,12 @@ class GitHubBlueprint(OAuth2ConsumerBlueprint):
             project["subscribers_count"] = len(watchers)
             projects_with_subscribers.append(project)
         return projects_with_subscribers
+
+    def get_teams(self):
+        return self.admin_session.get(
+            f"teams/{self.members_team_id}/teams", all_pages=True,
+            headers={"Accept": "application/vnd.github.hellcat-preview+json"},
+        )
 
     def get_roadies(self):
         return self.admin_session.get(
