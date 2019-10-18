@@ -37,8 +37,11 @@ def update_project_by_hook(hook_id):
     # then sync the project so it definitely exists
     Project.sync([hook_data["repository"]])
 
-    # get the project again from the database
+    # create a team for the project
     project_name = hook_data["repository"]["name"]
+    github.create_project_team(project_name)
+
+    # get the project again from the database
     project = Project.query.filter(Project.name == project_name).first()
 
     # if there already was an issue created, just stop here
