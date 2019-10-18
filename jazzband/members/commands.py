@@ -19,6 +19,14 @@ def sync_members():
     tasks.sync_members()
 
 
+@click.command("teams")
+@click_log.simple_verbosity_option(logger)
+@with_appcontext
+def sync_teams():
+    "Syncs teams"
+    tasks.sync_teams()
+
+
 @click.command("emails")
 @click.option("--user_id", "-u", default=None)
 @click_log.simple_verbosity_option(logger)
