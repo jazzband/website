@@ -58,7 +58,7 @@ def sync_email_addresses(user_id):
     return email_addresses
 
 
-#FIXME do we really need periodical task?
+# FIXME do we really need periodical task?
 @tasks.task(name="sync_teams", periodicity=timedelta(minutes=15), max_retries=3)
 def sync_teams():
     with redis.lock("sync_teams", ttl=ONE_MINUTE * 14):
