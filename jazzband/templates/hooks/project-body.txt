@@ -11,7 +11,7 @@ Feel free to ping a [Jazzband roadie](https://jazzband.co/roadies) if you have a
 - [ ] Fix all links in the docs (and README file etc) from old to new repo
 - [ ] Add the [Jazzband badge](https://jazzband.co/about/guidelines#badges) to the `README` file
 - [ ] Add the [Jazzband contributing guideline](https://jazzband.co/about/guidelines#contributing-guidelines) to the `CONTRIBUTING.md` or `CONTRIBUTING.rst` file
-- [ ] Check if continuous testing works (e.g. [Travis-CI](https://travis-ci.org/), [CircleCI](https://circleci.com), [AppVeyor](https://www.appveyor.com), etc)
+- [ ] Check if continuous testing works (e.g. [Travis CI](https://travis-ci.org/), [CircleCI](https://circleci.com), [AppVeyor](https://www.appveyor.com), etc)
 - [ ] Check if test coverage services work (e.g. [Coveralls](https://coveralls.io), [Codecov](https://codecov.io), etc)
 - [ ] Add `jazzband` account to [PyPI](https://pypi.org/) project as maintainer role (e.g. URL: https://pypi.org/manage/project/{{ repository.name }}/collaboration/)
 - [ ] Add `jazzband-bot` as maintainer to the [Read the Docs](https://readthedocs.org/) project (e.g. URL: https://readthedocs.org/dashboard/{{ repository.name }}/users/)
