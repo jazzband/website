@@ -6,7 +6,7 @@ transfered projects to add the `jazzband` PyPI user as a maintainer role
 on [PyPI].
 
 Once that's done, the [roadies] are able to set up the recommended
-continuous testing solution [Travis-CI] to automatically do releases
+continuous testing solution [Travis CI] to automatically do releases
 to a private and secure package index where Jazzband members can
 review the uploaded files and release them to [PyPI] on their own.
 
@@ -21,7 +21,7 @@ To become a project lead, please also [open an issue with the
 "lead" label](/roadies/issue?labels=lead).
 
 In case no project lead(s) can be found for a project the [roadies]
-will act as surrogate leads and can contacted to request a PyPI
+will act as surrogate leads and can be contacted to request a PyPI
 release on the behalf of the Jazzband members. Please
 [open a ticket with a "pypi" label](/roadies/issue?labels=pypi) for that.
 
@@ -44,7 +44,7 @@ Jazzband project to be semi-automatically released to PyPI whenever
 a new Git tag is pushed to its repository.
 
 [PyPI]: https://pypi.org/
-[Travis-CI]: https://travis-ci.org/
+[Travis CI]: https://travis-ci.org/
 [roadies]: /roadies
 [Code of Conduct]: /about/conduct
 
@@ -65,7 +65,7 @@ version manually in the `setup.py` works just the same.
 
 ### Continuous Integration  
 
-Next you will want to set up the project to use Travis-CI for
+Next you will want to set up the project to use Travis CI for
 continous testing. Please refer to the [Python specific
 documentation][travis-python] for how to accomplish that.
 
@@ -78,7 +78,7 @@ project is using [tox] (which is also recommended).
 
 Steps needed:
 
-- Set up the `.travis.yml` file following the  [Travis-CI docs][travis-python].
+- Set up the `.travis.yml` file following the  [Travis CI docs][travis-python].
 - Create a `tox.ini` which takes [tox-travis] into account.
 - [Open an issue](/roadies/issue?labels=pypi) for the
   roadies to enable the auto-release mechanism via the Jazzband.
@@ -88,7 +88,7 @@ the code you’d like just as before (e.g. update `AUTHORS`, `CHANGELOG`,
 documentation, etc.), commit the changes, tag them with `git tag` and push
 the code to GitHub with `git push --tags`.
 
-If all goes according to plan, Travis-CI will run the test suite for the
+If all goes according to plan, Travis CI will run the test suite for the
 pushed tag, create release files, uploads it to the Jazzband site, for
 the lead members or roadies to review. They will be able to confirm the
 uploads and release them to PyPI individually.

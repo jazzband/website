@@ -33,7 +33,7 @@ Document as much as possible and don't rely on autodoc alone. Write like you're
 ### Tests
 
 Projects must have tests that are easy to run. Automatic testing based on
-contributions (e.g. Travis-CI) is also strongly encouraged. The test coverage
+contributions (e.g. Travis CI) is also strongly encouraged. The test coverage
 requirement follows the "perfect is the enemy of the good" motto -- it's enough
 if the tests cover the core API of the project.
 
@@ -61,7 +61,7 @@ A `CONTRIBUTING.md` ([Markdown]) file needs to contain this header:
 This is a [Jazzband](https://jazzband.co/) project. By contributing you agree to abide by the [Contributor Code of Conduct](https://jazzband.co/about/conduct) and follow the [guidelines](https://jazzband.co/about/guidelines).
 ```
 
-A `CONTRIBUTING.rst` ([reStructuredText]) file needs to contain this header
+A `CONTRIBUTING.rst` ([reStructuredText]) file needs to contain this header:
 
 ```rst
 .. image:: https://jazzband.co/static/img/jazzband.svg
