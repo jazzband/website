@@ -170,30 +170,21 @@ class GitHubBlueprint(OAuth2ConsumerBlueprint):
         """
         return self.admin_session.post(
             f"orgs/{self.org_id}/teams",
-            json={
-                "name": name,
-                "parent_team_id": self.members_team_id,
-            },
-            headers={
-                "Accept": "application/vnd.github.hellcat-preview+json"
-            },
+            json={"name": name, "parent_team_id": self.members_team_id},
+            headers={"Accept": "application/vnd.github.hellcat-preview+json"},
         )
 
     def join_team(self, team_id, user_login):
         """
         Join the GitHub user with the given login to the given team id.
         """
-        return self.admin_session.put(
-            f"teams/{team_id}/memberships/{user_login}"
-        )
+        return self.admin_session.put(f"teams/{team_id}/memberships/{user_login}")
 
     def leave_team(self, team_id, user_login):
         """
         Remove the GitHub user with the given login from the given team id.
         """
-        return self.admin_session.delete(
-            f"teams/{team_id}/memberships/{user_login}"
-        )
+        return self.admin_session.delete(f"teams/{team_id}/memberships/{user_login}")
 
     def get_projects(self):
         projects = self.admin_session.get(
@@ -211,7 +202,8 @@ class GitHubBlueprint(OAuth2ConsumerBlueprint):
 
     def get_teams(self):
         return self.admin_session.get(
-            f"teams/{self.members_team_id}/teams", all_pages=True,
+            f"teams/{self.members_team_id}/teams",
+            all_pages=True,
             headers={"Accept": "application/vnd.github.hellcat-preview+json"},
         )
 
