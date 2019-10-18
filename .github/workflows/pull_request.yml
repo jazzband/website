@@ -14,11 +14,9 @@ jobs:
       with:
         python-version: 3.7
     - name: Install dependencies
-      run: |
-        pip install flake8 flake8-black flake8-isort
-    - name: Run flake8
-      run: |
-        flake8 .
+      run: pip install pre-commit
+    - name: Run pre-commit
+      run: pre-commit run --all-files --show-diff-on-failure
 
   test:
     name: Test
