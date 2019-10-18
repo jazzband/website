@@ -136,6 +136,9 @@ class GitHubBlueprint(OAuth2ConsumerBlueprint):
 
     @cached_property
     def admin_session(self):
+        # FIXME investigate why config is not loading on cli invocation
+        self.load_config()
+
         "This is a custom session using the organization's admin permissions."
         return AdminGitHubSession(
             client_id=self._client_id,
