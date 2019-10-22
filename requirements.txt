@@ -164,9 +164,9 @@ flask-migrate==2.5.2 \
 flask-redis==0.4.0 \
     --hash=sha256:8d79eef4eb1217095edab603acc52f935b983ae4b7655ee7c82c0dfd87315d17 \
     --hash=sha256:e1fccc11e7ea35c2a4d68c0b9aa58226a098e45e834d615c7b6c4928b01ddd6c
-flask-sqlalchemy==2.4.0 \
-    --hash=sha256:0c9609b0d72871c540a7945ea559c8fdf5455192d2db67219509aed680a3d45a \
-    --hash=sha256:8631bbea987bc3eb0f72b1f691d47bd37ceb795e73b59ab48586d76d75a7c605
+flask-sqlalchemy==2.4.1 \
+    --hash=sha256:0078d8663330dc05a74bc72b3b6ddc441b9a744e2f56fe60af1a5bfc81334327 \
+    --hash=sha256:6974785d913666587949f7c2946f7001e4fa2cb2d19f4e69ead02e4b8f50b33d
 flask-talisman==0.7.0 \
     --hash=sha256:468131464a249274ed226efc21b372518f442487e58918ccab8357eaa638fd1f \
     --hash=sha256:eaa754f4b771dfbe473843391d69643b79e3a38c865790011ac5e4179c68e3ec
@@ -487,4 +487,4 @@ zipp==0.6.0 \
 
 # WARNING: The following packages were not pinned, but pip requires them to be
 # pinned when the requirements file includes hashes. Consider using the --allow-unsafe flag.
-# setuptools==41.2.0        # via markdown, twine
+# setuptools==41.4.0        # via markdown, twine
