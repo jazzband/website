@@ -7,7 +7,6 @@ webencodings
 bleach
 chardet
 configparser
-contextlib2
 cryptography
 funcsigs
 idna
