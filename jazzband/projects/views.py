@@ -29,7 +29,7 @@ from packaging.version import parse as parse_version
 from requests.exceptions import HTTPError
 from sqlalchemy import desc, nullslast
 from sqlalchemy.sql.expression import func
-from werkzeug import secure_filename
+from werkzeug.utils import secure_filename
 
 from ..auth import current_user_is_roadie
 from ..decorators import templated
