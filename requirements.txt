@@ -140,9 +140,9 @@ feedgen==0.8.0 \
     --hash=sha256:26557304284007a3c2d772c376a48c0a8ec8e24371c4471455ea89cf568fa114
 flask-admin==1.5.3 \
     --hash=sha256:ca0be6ec11a6913b73f656c65c444ae5be416c57c75638dd3199376ce6bc7422
-flask-caching==1.7.2 \
-    --hash=sha256:52e236cbc836c41a5ced0c0a67b48ad180c9e2b5cb69e881089bba766db5569e \
-    --hash=sha256:b0daabd5249bebfbae3da4c22987bac22047fc8b18ea2716c4fc63d57d218946
+flask-caching==1.8.0 \
+    --hash=sha256:3d0bd13c448c1640334131ed4163a12aff7df2155e73860f07fc9e5e75de7126 \
+    --hash=sha256:54b6140bb7b9f3e63d009ff08b03bacd84eefb1af1d30af06b4a6bc3c16fa3b2
 flask-compress==1.4.0 \
     --hash=sha256:468693f4ddd11ac6a41bca4eb5f94b071b763256d54136f77957cfee635badb3
 flask-dance[sqla]==2.2.0 \
