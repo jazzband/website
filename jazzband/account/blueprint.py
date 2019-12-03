@@ -127,6 +127,13 @@ class GitHubBlueprint(OAuth2ConsumerBlueprint):
             }
         )
 
+    def register(self, app, options, first_registration=False):
+        # load config when the blueprint is registered
+        if first_registration:
+            with app.app_context():
+                self.load_config()
+        return super().register(app, options, first_registration=first_registration)
+
     @cached_property
     def admin_session(self):
         "This is a custom session using the organization's admin permissions."
