@@ -27,6 +27,7 @@ jobs:
         username: "${{ secrets.PACKAGES_USERNAME }}"
         password: "${{ secrets.PACKAGES_KEY }}"
         image_name: jazzband-roadies/website
+        image_tag: latest
         registry: docker.pkg.github.com
     - name: Test
       run: make ci
