@@ -15,16 +15,3 @@ jobs:
         node-version: '10.x'
     - name: Test
       run: make ci
-
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-    - name: Push
-      uses: vitalyliber/dokku-github-action@master
-      env:
-        PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-        PUBLIC_KEY: ${{ secrets.PUBLIC_KEY }}
-        HOST: ${{ secrets.DOKKU_HOST }}
-        PROJECT: ${{ secrets.DOKKU_APPNAME }}
