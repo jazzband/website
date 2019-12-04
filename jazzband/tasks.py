@@ -19,7 +19,8 @@ class JazzbandSpinach(Spinach):
 
         @signals.job_started.connect_via(namespace)
         def job_started(*args, **kwargs):
-            github.load_config()
+            with app.app_context():
+                github.load_config()
 
         for tasks in [member_tasks, project_tasks]:
             self.register_tasks(app, tasks)
