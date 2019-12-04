@@ -24,10 +24,9 @@ jobs:
           ${{ runner.OS }}-
     - uses: whoan/docker-build-with-cache-action@master
       with:
-        username: "${{ secrets.PACKAGES_USERNAME }}"
-        password: "${{ secrets.PACKAGES_KEY }}"
-        image_name: jazzband-roadies/website/base
+        username: "${{ secrets.DOCKER_USERNAME }}"
+        password: "${{ secrets.DOCKER_TOKEN }}"
+        image_name: jazzband/website
         image_tag: master
-        registry: docker.pkg.github.com
     - name: Test
       run: make ci
