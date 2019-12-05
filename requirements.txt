@@ -369,8 +369,8 @@ pytest==5.1.2 \
 python-dateutil==2.8.0 \
     --hash=sha256:7e6584c74aeed623791615e26efd690f29817a27c73085b78e4bad02493df2fb \
     --hash=sha256:c89805f6f4d64db21ed966fda138f8a5ed7a4fdbc1a8ee329ce1b74e3c74da9e
-python-decouple==3.1 \
-    --hash=sha256:1317df14b43efee4337a4aa02914bf004f010cd56d6c4bd894e6474ec8c4fe2d
+python-decouple==3.3 \
+    --hash=sha256:55c546b85b0c47a15a47a4312d451a437f7344a9be3e001660bccd93b637de95
 python-dotenv==0.10.3 \
     --hash=sha256:debd928b49dbc2bf68040566f55cdb3252458036464806f4094487244e2a4093 \
     --hash=sha256:f157d71d5fec9d4bd5f51c82746b6344dffa680ee85217c123f4a0c8117c4544 \
@@ -496,4 +496,4 @@ zipp==0.6.0 \
 
 # WARNING: The following packages were not pinned, but pip requires them to be
 # pinned when the requirements file includes hashes. Consider using the --allow-unsafe flag.
-# setuptools==42.0.0        # via markdown, twine
+# setuptools
