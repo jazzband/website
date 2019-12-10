@@ -53,6 +53,7 @@ ordereddict
 packaging
 pathlib2
 pexpect
+pip-tools
 pkginfo
 pluggy
 psycopg2-binary
