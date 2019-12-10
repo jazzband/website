@@ -51,7 +51,6 @@ more-itertools
 oauthlib
 ordereddict
 packaging
-pathlib2
 pexpect
 pip-tools
 pkginfo
