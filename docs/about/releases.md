@@ -86,14 +86,16 @@ Steps needed:
 If you need a project release and you are not a project lead, you
 should create a pull request named:
 `Prepare release of <project> <version>`
-and update AUTHORS, CHANGELOG and VERSION number, to makes it easy
-for a project lead to review and release.
+and make sure that everything is ready for the release
+(e.g. update AUTHORS, CHANGELOG, documentation, etc.),
+to makes it easy for a project lead to review and release.
 
 If you are a project lead, when you are ready to do a release to PyPI
 simply make sure that everything is ready for the release you’d like
-(e.g. update `AUTHORS`, `CHANGELOG`, documentation, etc.), merge
-the release pull-request, tag it with `git tag` and push the code
-to GitHub with `git push --tags`.
+(e.g. update `AUTHORS`, `CHANGELOG`, documentation, etc.), merge the
+release pull-request, tag it with `git tag` and push the code to
+GitHub with `git push --tags`. Aternatively, you can use the Github UI
+to create a Github release that will create the tag for you.
 
 If all goes according to plan, Travis CI will run the test suite for the
 pushed tag, create release files, uploads it to the Jazzband site, for
