@@ -83,10 +83,19 @@ Steps needed:
 - [Open an issue](/roadies/issue?labels=pypi) for the
   roadies to enable the auto-release mechanism via the Jazzband.
 
-When you’re ready to do a release to PyPI simply make sure to prepare all
-the code you’d like just as before (e.g. update `AUTHORS`, `CHANGELOG`,
-documentation, etc.), commit the changes, tag them with `git tag` and push
-the code to GitHub with `git push --tags`.
+If you need a project release and you are not a project lead, you
+should create a pull request named:
+`Prepare release of <project> <version>`
+and make sure that everything is ready for the release
+(e.g. update AUTHORS, CHANGELOG, documentation, etc.),
+to makes it easy for a project lead to review and release.
+
+If you are a project lead, when you are ready to do a release to PyPI
+simply make sure that everything is ready for the release you’d like
+(e.g. update `AUTHORS`, `CHANGELOG`, documentation, etc.), merge the
+release pull-request, tag it with `git tag` and push the code to
+GitHub with `git push --tags`. Aternatively, you can use the GitHub UI
+to create a GitHub release that will create the tag for you.
 
 If all goes according to plan, Travis CI will run the test suite for the
 pushed tag, create release files, uploads it to the Jazzband site, for
