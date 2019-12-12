@@ -41,7 +41,6 @@ importlib-metadata
 ipaddress
 itsdangerous
 jinja2
-libsass
 lxml
 mako
 markdown
