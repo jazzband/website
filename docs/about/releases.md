@@ -94,8 +94,8 @@ If you are a project lead, when you are ready to do a release to PyPI
 simply make sure that everything is ready for the release you’d like
 (e.g. update `AUTHORS`, `CHANGELOG`, documentation, etc.), merge the
 release pull-request, tag it with `git tag` and push the code to
-GitHub with `git push --tags`. Aternatively, you can use the Github UI
-to create a Github release that will create the tag for you.
+GitHub with `git push --tags`. Aternatively, you can use the GitHub UI
+to create a GitHub release that will create the tag for you.
 
 If all goes according to plan, Travis CI will run the test suite for the
 pushed tag, create release files, uploads it to the Jazzband site, for
