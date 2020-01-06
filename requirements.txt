@@ -467,8 +467,8 @@ six==1.13.0 \
 spinach==0.0.11 \
     --hash=sha256:20e6b802cd2c7855173009aabbcf5d2a48bdbf93c2a13d3e78a777b5300b128f \
     --hash=sha256:d1f639d91773069e6dcf588e208027ba44e6f9f26a3dafd3f2385a6911101a40
-sqlalchemy-utils==0.36.0 \
-    --hash=sha256:db030c8f00526bfb7a9c659bfaf75deaa7b0002e89e3f84784e24e09a43473f2
+sqlalchemy-utils==0.36.1 \
+    --hash=sha256:4e637c88bf3ac5f99b7d72342092a1f636bea1287b2e3e17d441b0413771f86e
 sqlalchemy==1.3.12 \
     --hash=sha256:bfb8f464a5000b567ac1d350b9090cf081180ec1ab4aa87e7bca12dab25320ec
 tqdm==4.41.1 \
