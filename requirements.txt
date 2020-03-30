@@ -531,9 +531,9 @@ secretstorage==3.1.1 \
     --hash=sha256:20c797ae48a4419f66f8d28fc221623f11fc45b6828f96bdb1ad9990acb59f92 \
     --hash=sha256:7a119fb52a88e398dbb22a4b3eb39b779bfbace7e4153b7bc6e5954d86282a8a \
     # via keyring
-sentry-sdk[flask]==0.13.5 \
-    --hash=sha256:05285942901d38c7ce2498aba50d8e87b361fc603281a5902dda98f3f8c5e145 \
-    --hash=sha256:c6b919623e488134a728f16326c6f0bcdab7e3f59e7f4c472a90eea4d6d8fe82 \
+sentry-sdk[flask]==0.14.3 \
+    --hash=sha256:23808d571d2461a4ce3784ec12bbee5bdb8c026c143fe79d36cef8a6d653e71f \
+    --hash=sha256:bb90a4e19c7233a580715fc986cc44be2c48fc10b31e71580a2037e1c94b6950 \
     # via -r requirements.in
 simplekv==0.14.0 \
     --hash=sha256:109ac55e5124ec02cc3625948eac41ad06c6f891500880061dbab99bc34d14f6 \
