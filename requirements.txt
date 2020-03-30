@@ -163,8 +163,9 @@ enum34==1.1.6 \
 feedgen==0.9.0 \
     --hash=sha256:8e811bdbbed6570034950db23a4388453628a70e689a6e8303ccec430f5a804a \
     # via -r requirements.in
-flask-admin==1.5.4 \
-    --hash=sha256:ed7b256471dba0f3af74f1a315733c3b36244592f2002c3bbdc65fd7c2aa807a \
+flask-admin==1.5.5 \
+    --hash=sha256:aeebf87b5d5fd18525c876e0ecd71e0d0837614610122be235375c411b2d59dc \
+    --hash=sha256:ff8270de5e8916541d19a0b03e469e2f8bbd22e4952c17aebc605112976f2fc4 \
     # via -r requirements.in
 flask-caching==1.8.0 \
     --hash=sha256:3d0bd13c448c1640334131ed4163a12aff7df2155e73860f07fc9e5e75de7126 \
