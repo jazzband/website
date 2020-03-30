@@ -17,7 +17,6 @@ configparser
 cryptography
 delegator.py
 docutils
-enum34
 feedgen
 flask
 flask-admin
