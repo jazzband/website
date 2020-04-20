@@ -567,8 +567,8 @@ urllib3==1.25.8 \
 urlobject==2.4.3 \
     --hash=sha256:47b2e20e6ab9c8366b2f4a3566b6ff4053025dad311c4bb71279bbcfa2430caa \
     # via -r requirements.in, flask-dance
-walrus==0.8.0 \
-    --hash=sha256:b862719ae430b76af41205a7350ad681a77b90e9d9b1dbd8881f27246963f309 \
+walrus==0.8.1 \
+    --hash=sha256:6752420331b0110af6b3c6d32e61252dbafbd05ae2fc1a5fbfa6d42d2382062a \
     # via -r requirements.in
 wcwidth==0.1.9 \
     --hash=sha256:cafe2186b3c009a04067022ce1dcd79cb38d8d65ee4f4791b8888d6599d1bbe1 \
