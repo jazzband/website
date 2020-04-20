@@ -183,8 +183,9 @@ flask-hookserver==1.1.0 \
 flask-kvsession==0.6.2 \
     --hash=sha256:9c0ee93fae089c45baeda0a3fd3ae32a96ee81c34996017749f8b3fd06df936c \
     # via -r requirements.in
-flask-login==0.4.1 \
-    --hash=sha256:c815c1ac7b3e35e2081685e389a665f2c74d7e077cb93cecabaea352da4752ec \
+flask-login==0.5.0 \
+    --hash=sha256:6d33aef15b5bcead780acc339464aae8a6e28f13c90d8b1cf9de8b549d1c0b4b \
+    --hash=sha256:7451b5001e17837ba58945aead261ba425fdf7b4f0448777e597ddab39f4fba0 \
     # via -r requirements.in
 flask-mail==0.9.1 \
     --hash=sha256:22e5eb9a940bf407bcf30410ecc3708f3c56cc44b29c34e1726fe85006935f41 \
