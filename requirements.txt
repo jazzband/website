@@ -532,9 +532,10 @@ sentry-sdk[flask]==0.14.3 \
     --hash=sha256:23808d571d2461a4ce3784ec12bbee5bdb8c026c143fe79d36cef8a6d653e71f \
     --hash=sha256:bb90a4e19c7233a580715fc986cc44be2c48fc10b31e71580a2037e1c94b6950 \
     # via -r requirements.in
-simplekv==0.14.0 \
-    --hash=sha256:109ac55e5124ec02cc3625948eac41ad06c6f891500880061dbab99bc34d14f6 \
-    --hash=sha256:d951549bb3d9dbe944ae3308fde66702c4f0478c94c785139a37da4129cd8882 \
+simplekv==0.14.1 \
+    --hash=sha256:8953a36cb3741ea821c9de1962b5313bf6fe1b927f6ced2a55266eb8ce2cd0f6 \
+    --hash=sha256:af91a50af41a286a8b7b93292b21dd1af37f38e9513fea0eb4fa75ce778c1683 \
+    --hash=sha256:fcee8d972d092de0dc83732084e389c9b95839503537ef85c1a2eeb07182f2f5 \
     # via -r requirements.in, flask-kvsession
 six==1.14.0 \
     --hash=sha256:236bdbdce46e6e6a3d61a337c0f8b763ca1e8717c03b369e87a7ec7ce1319c0a \
