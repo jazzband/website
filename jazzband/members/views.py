@@ -22,7 +22,7 @@ def roadies():
 @members.route("/roadies/issue")
 def roadies_issue():
     labels = request.args.get("labels", None)
-    url = f"https://github.com/jazzband-roadies/help/issues/new"
+    url = "https://github.com/jazzband-roadies/help/issues/new"
     if labels:
         url += f"?labels={labels}"
     return redirect(url)
