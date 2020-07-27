@@ -50,6 +50,7 @@ oauthlib
 ordereddict
 packaging
 pexpect
+pip>=20.0
 pip-tools
 pkginfo
 pluggy
