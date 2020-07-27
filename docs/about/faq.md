@@ -22,6 +22,12 @@ and failing sometimes. It'll be okay since we're not alone.
 First [login with GitHub](/account/login) and then follow the instructions
 on your [account dashboard](/account).
 
+### How do I transfer a project to Jazzband?
+Full instructions for transferring a repository can be found on the
+[guidelines page](/about/guidelines). You should transfer your project to
+the Jazzband organization on GitHub, and then the Jazzband bot will open an
+issue with the outstanding tasks to complete the transfer.
+
 ### Does the Jazzband have a code of conduct?
 
 Yes, the Jazzband follows a [Contributor Code of Conduct](/about/conduct)

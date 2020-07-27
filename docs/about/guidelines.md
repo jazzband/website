@@ -5,6 +5,15 @@ there are some guidelines to follow. They exist to make sure that
 the Jazzband stays useful as a place to share responsibility for software
 maintenance when a number of projects are created at or moved to it.
 
+To initiate the transfer to Jazzband, you should use
+[Github's Transfer Feature](https://help.github.com/en/github/administering-a-repository/transferring-a-repository)
+to transfer the repository to the Jazzband organization. The Jazzband bot will
+then open an issue in the
+[Roadies help repo](https://github.com/jazzband-roadies/help/issues/38)
+with a TODO list that you can work through to complete the transfer, which
+is mainly to ensure the below guidelines are being followed. Please do read
+the guidelines in full before initiating a transfer.
+
 !!! warn "Please consider these guidelines carefully before deciding to transfer a repository to the Jazzband GitHub organization."
 
     The Jazzband [roadies](/roadies) will enforce the guidelines and won't hesitate to remove projects from the GitHub organization if required.
