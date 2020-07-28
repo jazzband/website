@@ -6,8 +6,10 @@
 <div class="c4">
   <h2>Roadies</h2>
   <p>
-    The Jazzband is supported by {{ roadies.count() }} roadies who strive to
-    make playing in the band as easy and simple as possible.
+    The Jazzband is supported by {{ roadies.count() }}
+    roadie{% if roadies.count() != 1 %}s{% endif %}
+    who strive{% if roadies.count() == 1 %}s{% endif %}
+    to make playing in the band as easy and simple as possible.
   </p>
   <p>
     You can get in touch with the roadies by
