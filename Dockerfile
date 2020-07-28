@@ -1,15 +1,18 @@
 FROM node as npm
 
-COPY . /tmp/
-
 WORKDIR /tmp
 
-RUN npm install \
-    && npm run build
+COPY package.json package-lock.json /tmp/
+
+RUN npm install
+
+COPY . /tmp/
+
+RUN npm run build
 
 # -----------------------------------------------------------------------------
 
-FROM python:3.7
+FROM python:3.8-slim-buster
 
 ENV PYTHONPATH=/app/ \
     PYTHONFAULTHANDLER=1 \
@@ -19,6 +22,7 @@ ENV PYTHONPATH=/app/ \
     PIP_NO_CACHE_DIR=off \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
     PIP_DEFAULT_TIMEOUT=100 \
+    POETRY_VIRTUALENVS_CREATE=false \
     LANG=C.UTF-8 \
     PORT=5000
 
@@ -46,10 +50,13 @@ RUN apt-get update && \
 
 RUN pip install -U pip
 
-WORKDIR /app
-COPY requirements.txt /app/
+RUN pip install --pre poetry
 
-RUN pip install -r requirements.txt
+WORKDIR /app
+
+COPY pyproject.toml poetry.lock /app/
+
+RUN poetry install --no-root --no-interaction
 
 COPY . /app/
 
