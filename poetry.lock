@@ -277,14 +277,8 @@ requests = ">=2.0"
 requests-oauthlib = ">=1.0.0"
 six = "*"
 urlobject = "*"
-
-[package.dependencies.sqlalchemy]
-optional = true
-version = "*"
-
-[package.dependencies.sqlalchemy-utils]
-optional = true
-version = "*"
+sqlalchemy = {version = "*", optional = true, markers = "extra == \"sqla\""}
+sqlalchemy-utils = {version = "*", optional = true, markers = "extra == \"sqla\""}
 
 [package.extras]
 signals = ["blinker"]
@@ -302,10 +296,7 @@ version = "0.7.2"
 Flask = ">1.0"
 Jinja2 = ">=2.10.2"
 Markdown = ">=2.5"
-
-[package.dependencies.PyYAML]
-python = "<3.4.0 || >=3.5.0"
-version = ">3.12"
+PyYAML = {version = ">3.12", markers = "python_version != \"3.4\""}
 
 [package.extras]
 codehilite = ["Pygments (>1.6)"]
@@ -322,10 +313,7 @@ version = "1.1.0"
 [package.dependencies]
 Flask = ">=0.9"
 Werkzeug = ">=0.7"
-
-[package.dependencies.requests]
-extras = ["security"]
-version = ">=2.3.0"
+requests = {version = ">=2.3.0", extras = ["security"]}
 
 [[package]]
 category = "main"
@@ -447,7 +435,7 @@ python-versions = "*"
 version = "1.0.1"
 
 [package.dependencies]
-colorama = "*"
+colorama = {version = "*", markers = "sys_platform == \"win32\""}
 
 [package.extras]
 export = ["jinja2 (>=2.7,<2.8)"]
@@ -525,9 +513,10 @@ python-versions = ">=3.6"
 version = "21.2.0"
 
 [package.dependencies]
-SecretStorage = ">=3"
-jeepney = ">=0.4.2"
-pywin32-ctypes = "<0.1.0 || >0.1.0,<0.1.1 || >0.1.1"
+SecretStorage = {version = ">=3", markers = "sys_platform == \"linux\""}
+importlib-metadata = {version = "*", markers = "python_version < \"3.8\""}
+jeepney = {version = ">=0.4.2", markers = "sys_platform == \"linux\""}
+pywin32-ctypes = {version = "<0.1.0 || >0.1.0,<0.1.1 || >0.1.1", markers = "sys_platform == \"win32\""}
 
 [package.extras]
 docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
@@ -569,9 +558,6 @@ name = "markdown"
 optional = false
 python-versions = ">=3.5"
 version = "3.2.1"
-
-[package.dependencies]
-setuptools = ">=36"
 
 [package.extras]
 testing = ["coverage", "pyyaml"]
@@ -668,6 +654,9 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "0.13.1"
 
+[package.dependencies]
+importlib-metadata = {version = ">=0.12", markers = "python_version < \"3.8\""}
+
 [package.extras]
 dev = ["pre-commit", "tox"]
 
@@ -744,14 +733,15 @@ python-versions = ">=3.5"
 version = "5.4.3"
 
 [package.dependencies]
-atomicwrites = ">=1.0"
 attrs = ">=17.4.0"
-colorama = "*"
 more-itertools = ">=4.0.0"
 packaging = "*"
 pluggy = ">=0.12,<1.0"
 py = ">=1.5.0"
 wcwidth = "*"
+atomicwrites = {version = ">=1.0", markers = "sys_platform == \"win32\""}
+colorama = {version = "*", markers = "sys_platform == \"win32\""}
+importlib-metadata = {version = ">=0.12", markers = "python_version < \"3.8\""}
 
 [package.extras]
 checkqa-mypy = ["mypy (v0.761)"]
@@ -867,7 +857,6 @@ version = "2.0.18.post0"
 [[package]]
 category = "main"
 description = ""
-marker = "sys_platform == \"win32\""
 name = "pywin32-ctypes"
 optional = false
 python-versions = "*"
@@ -922,14 +911,8 @@ certifi = ">=2017.4.17"
 chardet = ">=3.0.2,<4"
 idna = ">=2.5,<3"
 urllib3 = ">=1.21.1,<1.25.0 || >1.25.0,<1.25.1 || >1.25.1,<1.26"
-
-[package.dependencies.cryptography]
-optional = true
-version = ">=1.3.4"
-
-[package.dependencies.pyOpenSSL]
-optional = true
-version = ">=0.14"
+cryptography = {version = ">=1.3.4", optional = true, markers = "extra == \"security\""}
+pyOpenSSL = {version = ">=0.14", optional = true, markers = "extra == \"security\""}
 
 [package.extras]
 security = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)"]
@@ -1003,14 +986,8 @@ version = "0.14.3"
 [package.dependencies]
 certifi = "*"
 urllib3 = ">=1.10.0"
-
-[package.dependencies.blinker]
-optional = true
-version = ">=1.1"
-
-[package.dependencies.flask]
-optional = true
-version = ">=0.11"
+blinker = {version = ">=1.1", optional = true, markers = "extra == \"flask\""}
+flask = {version = ">=0.11", optional = true, markers = "extra == \"flask\""}
 
 [package.extras]
 aiohttp = ["aiohttp (>=3.5)"]
@@ -1021,7 +998,6 @@ django = ["django (>=1.8)"]
 falcon = ["falcon (>=1.4)"]
 flask = ["flask (>=0.11)", "blinker (>=1.1)"]
 pyspark = ["pyspark (>=2.4.4)"]
-rq = ["0.6"]
 sanic = ["sanic (>=0.8)"]
 sqlalchemy = ["sqlalchemy (>=1.2)"]
 tornado = ["tornado (>=5)"]
@@ -1130,8 +1106,8 @@ readme-renderer = ">=21.0"
 requests = ">=2.20"
 requests-toolbelt = ">=0.8.0,<0.9.0 || >0.9.0"
 rfc3986 = ">=1.4.0"
-setuptools = ">=0.7.0"
 tqdm = ">=4.14"
+importlib-metadata = {version = "*", markers = "python_version < \"3.8\""}
 
 [[package]]
 category = "main"
@@ -1222,9 +1198,9 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "9dcc89ee93bb1cf569491ce8eef5ded1344840bd0f52cfb89dfad8135da3e8bf"
-lock-version = "1.0"
-python-versions = "^3.8"
+content-hash = "2530cae574cb5bde06b22670bc3d50f23d5ed3fa667a4af028dbf461b1bba2c1"
+lock-version = "1.1"
+python-versions = "^3.7"
 
 [metadata.files]
 alembic = [
