@@ -321,7 +321,7 @@ markupsafe==1.1.1 \
     --hash=sha256:cdb132fc825c38e1aeec2c8aa9338310d29d337bebbd7baa06889d09a60a1fa2 \
     --hash=sha256:e249096428b3ae81b08327a63a485ad0878de3fb939049038579ac0ef61e17e7 \
     --hash=sha256:e8313f01ba26fbbe36c7be1966a7b7424942f670f38e666995b88d012765b9be \
-    # via -r requirements.in, jinja2, mako
+    # via -r requirements.in, jinja2, mako, wtforms
 mock==4.0.2 \
     --hash=sha256:3f9b2c0196c60d21838f307f5825a7b86b678cedc58ab9e50a8988187b4d81e0 \
     --hash=sha256:dd33eb70232b6118298d516bbcecd26704689c386594f0f3c4f13867b2c56f72 \
@@ -588,9 +588,9 @@ werkzeug==1.0.1 \
     --hash=sha256:2de2a5db0baeae7b2d2664949077c2ac63fbd16d98da0ff71837f7d1dea3fd43 \
     --hash=sha256:6c80b1e5ad3665290ea39320b91e1be1e0d5f60652b964a3070216de83d2e47c \
     # via -r requirements.in, flask, flask-hookserver, flask-kvsession, pytest-flask
-wtforms==2.2.1 \
-    --hash=sha256:0cdbac3e7f6878086c334aa25dc5a33869a3954e9d1e015130d65a69309b3b61 \
-    --hash=sha256:e3ee092c827582c50877cdbd49e9ce6d2c5c1f6561f849b3b068c1b8029626f1 \
+wtforms==2.3.1 \
+    --hash=sha256:6ff8635f4caeed9f38641d48cfe019d0d3896f41910ab04494143fc027866e1b \
+    --hash=sha256:861a13b3ae521d6700dac3b2771970bd354a63ba7043ecc3a82b5288596a1972 \
     # via -r requirements.in, flask-admin, flask-wtf
 zipp==3.1.0 \
     --hash=sha256:aa36550ff0c0b7ef7fa639055d797116ee891440eac1a56f378e2d3179e0320b \
