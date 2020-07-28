@@ -56,12 +56,16 @@ WORKDIR /app
 
 COPY pyproject.toml poetry.lock /app/
 
-RUN poetry install --no-root --no-interaction
+RUN poetry export --without-hashes -f requirements.txt --dev \
+    | poetry run pip install -r /dev/stdin \
+    && poetry debug
 
 COPY . /app/
 
 COPY --from=npm /tmp/node_modules /app/node_modules/
 COPY --from=npm /tmp/jazzband/static/dist /app/jazzband/static/dist/
+
+RUN poetry install --no-interaction
 
 RUN chown -R 10001:10001 /app
 
@@ -69,4 +73,4 @@ USER 10001
 
 EXPOSE 5000
 
-ENTRYPOINT ["/app/docker-entrypoint.sh", "--"]
+ENTRYPOINT ["poetry", "run", "/app/docker-entrypoint.sh", "--"]
