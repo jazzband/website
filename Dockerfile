@@ -22,7 +22,6 @@ ENV PYTHONPATH=/app/ \
     PIP_NO_CACHE_DIR=off \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
     PIP_DEFAULT_TIMEOUT=100 \
-    POETRY_VIRTUALENVS_CREATE=false \
     LANG=C.UTF-8 \
     PORT=5000
 
@@ -50,22 +49,15 @@ RUN apt-get update && \
 
 RUN pip install -U pip
 
-RUN pip install --pre poetry
-
 WORKDIR /app
+COPY requirements.txt /app/
 
-COPY pyproject.toml poetry.lock /app/
-
-RUN poetry export --without-hashes -f requirements.txt --dev \
-    | poetry run pip install -r /dev/stdin \
-    && poetry debug
+RUN pip install -r requirements.txt
 
 COPY . /app/
 
 COPY --from=npm /tmp/node_modules /app/node_modules/
 COPY --from=npm /tmp/jazzband/static/dist /app/jazzband/static/dist/
-
-RUN poetry install --no-interaction
 
 RUN chown -R 10001:10001 /app
 
@@ -73,4 +65,4 @@ USER 10001
 
 EXPOSE 5000
 
-ENTRYPOINT ["poetry", "run", "/app/docker-entrypoint.sh", "--"]
+ENTRYPOINT ["/app/docker-entrypoint.sh", "--"]
