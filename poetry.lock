@@ -277,8 +277,14 @@ requests = ">=2.0"
 requests-oauthlib = ">=1.0.0"
 six = "*"
 urlobject = "*"
-sqlalchemy = {version = "*", optional = true, markers = "extra == \"sqla\""}
-sqlalchemy-utils = {version = "*", optional = true, markers = "extra == \"sqla\""}
+
+[package.dependencies.sqlalchemy]
+optional = true
+version = "*"
+
+[package.dependencies.sqlalchemy-utils]
+optional = true
+version = "*"
 
 [package.extras]
 signals = ["blinker"]
@@ -296,7 +302,10 @@ version = "0.7.2"
 Flask = ">1.0"
 Jinja2 = ">=2.10.2"
 Markdown = ">=2.5"
-PyYAML = {version = ">3.12", markers = "python_version != \"3.4\""}
+
+[package.dependencies.PyYAML]
+python = "<3.4.0 || >=3.5.0"
+version = ">3.12"
 
 [package.extras]
 codehilite = ["Pygments (>1.6)"]
@@ -313,7 +322,10 @@ version = "1.1.0"
 [package.dependencies]
 Flask = ">=0.9"
 Werkzeug = ">=0.7"
-requests = {version = ">=2.3.0", extras = ["security"]}
+
+[package.dependencies.requests]
+extras = ["security"]
+version = ">=2.3.0"
 
 [[package]]
 category = "main"
@@ -435,7 +447,7 @@ python-versions = "*"
 version = "1.0.1"
 
 [package.dependencies]
-colorama = {version = "*", markers = "sys_platform == \"win32\""}
+colorama = "*"
 
 [package.extras]
 export = ["jinja2 (>=2.7,<2.8)"]
@@ -513,10 +525,13 @@ python-versions = ">=3.6"
 version = "21.2.0"
 
 [package.dependencies]
-SecretStorage = {version = ">=3", markers = "sys_platform == \"linux\""}
-importlib-metadata = {version = "*", markers = "python_version < \"3.8\""}
-jeepney = {version = ">=0.4.2", markers = "sys_platform == \"linux\""}
-pywin32-ctypes = {version = "<0.1.0 || >0.1.0,<0.1.1 || >0.1.1", markers = "sys_platform == \"win32\""}
+SecretStorage = ">=3"
+jeepney = ">=0.4.2"
+pywin32-ctypes = "<0.1.0 || >0.1.0,<0.1.1 || >0.1.1"
+
+[package.dependencies.importlib-metadata]
+python = "<3.8"
+version = "*"
 
 [package.extras]
 docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
@@ -558,6 +573,9 @@ name = "markdown"
 optional = false
 python-versions = ">=3.5"
 version = "3.2.1"
+
+[package.dependencies]
+setuptools = ">=36"
 
 [package.extras]
 testing = ["coverage", "pyyaml"]
@@ -655,7 +673,9 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "0.13.1"
 
 [package.dependencies]
-importlib-metadata = {version = ">=0.12", markers = "python_version < \"3.8\""}
+[package.dependencies.importlib-metadata]
+python = "<3.8"
+version = ">=0.12"
 
 [package.extras]
 dev = ["pre-commit", "tox"]
@@ -733,15 +753,18 @@ python-versions = ">=3.5"
 version = "5.4.3"
 
 [package.dependencies]
+atomicwrites = ">=1.0"
 attrs = ">=17.4.0"
+colorama = "*"
 more-itertools = ">=4.0.0"
 packaging = "*"
 pluggy = ">=0.12,<1.0"
 py = ">=1.5.0"
 wcwidth = "*"
-atomicwrites = {version = ">=1.0", markers = "sys_platform == \"win32\""}
-colorama = {version = "*", markers = "sys_platform == \"win32\""}
-importlib-metadata = {version = ">=0.12", markers = "python_version < \"3.8\""}
+
+[package.dependencies.importlib-metadata]
+python = "<3.8"
+version = ">=0.12"
 
 [package.extras]
 checkqa-mypy = ["mypy (v0.761)"]
@@ -857,6 +880,7 @@ version = "2.0.18.post0"
 [[package]]
 category = "main"
 description = ""
+marker = "sys_platform == \"win32\""
 name = "pywin32-ctypes"
 optional = false
 python-versions = "*"
@@ -893,7 +917,7 @@ description = "Python client for Redis key-value store"
 name = "redis"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-version = "3.4.1"
+version = "3.5.3"
 
 [package.extras]
 hiredis = ["hiredis (>=0.1.3)"]
@@ -911,8 +935,14 @@ certifi = ">=2017.4.17"
 chardet = ">=3.0.2,<4"
 idna = ">=2.5,<3"
 urllib3 = ">=1.21.1,<1.25.0 || >1.25.0,<1.25.1 || >1.25.1,<1.26"
-cryptography = {version = ">=1.3.4", optional = true, markers = "extra == \"security\""}
-pyOpenSSL = {version = ">=0.14", optional = true, markers = "extra == \"security\""}
+
+[package.dependencies.cryptography]
+optional = true
+version = ">=1.3.4"
+
+[package.dependencies.pyOpenSSL]
+optional = true
+version = ">=0.14"
 
 [package.extras]
 security = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)"]
@@ -986,8 +1016,14 @@ version = "0.14.3"
 [package.dependencies]
 certifi = "*"
 urllib3 = ">=1.10.0"
-blinker = {version = ">=1.1", optional = true, markers = "extra == \"flask\""}
-flask = {version = ">=0.11", optional = true, markers = "extra == \"flask\""}
+
+[package.dependencies.blinker]
+optional = true
+version = ">=1.1"
+
+[package.dependencies.flask]
+optional = true
+version = ">=0.11"
 
 [package.extras]
 aiohttp = ["aiohttp (>=3.5)"]
@@ -998,6 +1034,7 @@ django = ["django (>=1.8)"]
 falcon = ["falcon (>=1.4)"]
 flask = ["flask (>=0.11)", "blinker (>=1.1)"]
 pyspark = ["pyspark (>=2.4.4)"]
+rq = ["0.6"]
 sanic = ["sanic (>=0.8)"]
 sqlalchemy = ["sqlalchemy (>=1.2)"]
 tornado = ["tornado (>=5)"]
@@ -1106,8 +1143,12 @@ readme-renderer = ">=21.0"
 requests = ">=2.20"
 requests-toolbelt = ">=0.8.0,<0.9.0 || >0.9.0"
 rfc3986 = ">=1.4.0"
+setuptools = ">=0.7.0"
 tqdm = ">=4.14"
-importlib-metadata = {version = "*", markers = "python_version < \"3.8\""}
+
+[package.dependencies.importlib-metadata]
+python = "<3.8"
+version = "*"
 
 [[package]]
 category = "main"
@@ -1198,8 +1239,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "2530cae574cb5bde06b22670bc3d50f23d5ed3fa667a4af028dbf461b1bba2c1"
-lock-version = "1.1"
+content-hash = "4ea5953e7098ee6709ab0524fbd38b54c0fd3181030e038c721d32b76fc0492c"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -1697,8 +1737,8 @@ readme-renderer = [
     {file = "readme_renderer-26.0.tar.gz", hash = "sha256:cbe9db71defedd2428a1589cdc545f9bd98e59297449f69d721ef8f1cfced68d"},
 ]
 redis = [
-    {file = "redis-3.4.1-py2.py3-none-any.whl", hash = "sha256:b205cffd05ebfd0a468db74f0eedbff8df1a7bfc47521516ade4692991bb0833"},
-    {file = "redis-3.4.1.tar.gz", hash = "sha256:0dcfb335921b88a850d461dc255ff4708294943322bd55de6cfd68972490ca1f"},
+    {file = "redis-3.5.3-py2.py3-none-any.whl", hash = "sha256:432b788c4530cfe16d8d943a09d40ca6c16149727e4afe8c2c9d5580c59d9f24"},
+    {file = "redis-3.5.3.tar.gz", hash = "sha256:0e7e0cfca8660dea8b7d5cd8c4f6c5e29e11f31158c0b0ae91a397f00e5a05a2"},
 ]
 requests = [
     {file = "requests-2.23.0-py2.7.egg", hash = "sha256:5d2d0ffbb515f39417009a46c14256291061ac01ba8f875b90cad137de83beb4"},
