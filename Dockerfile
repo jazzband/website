@@ -15,8 +15,6 @@ RUN npm run build
 FROM python:3.8-slim-buster
 
 ENV PYTHONPATH=/app/ \
-    PYTHONFAULTHANDLER=1 \
-    PYTHONUNBUFFERED=1 \
     PYTHONHASHSEED=random \
     PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=off \

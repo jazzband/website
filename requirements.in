@@ -72,7 +72,6 @@ python-editor
 pytz
 pyuwsgi
 pyyaml
-readme-renderer
 redis
 requests
 requests-oauthlib
