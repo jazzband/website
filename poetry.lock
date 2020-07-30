@@ -253,14 +253,15 @@ Flask = "*"
 
 [[package]]
 category = "main"
-description = "Compress responses in your Flask app with gzip."
+description = "Compress responses in your Flask app with gzip or brotli."
 name = "flask-compress"
 optional = false
 python-versions = "*"
-version = "1.4.0"
+version = "1.5.0"
 
 [package.dependencies]
-Flask = "*"
+brotli = "*"
+flask = "*"
 
 [[package]]
 category = "main"
@@ -1239,7 +1240,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "4ea5953e7098ee6709ab0524fbd38b54c0fd3181030e038c721d32b76fc0492c"
+content-hash = "992ea776ab5f90c13abb5909299e3bfce1a62cd6d0c76dbb6bdb11af73445537"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -1406,7 +1407,7 @@ flask-caching = [
     {file = "Flask_Caching-1.8.0-py2.py3-none-any.whl", hash = "sha256:54b6140bb7b9f3e63d009ff08b03bacd84eefb1af1d30af06b4a6bc3c16fa3b2"},
 ]
 flask-compress = [
-    {file = "Flask-Compress-1.4.0.tar.gz", hash = "sha256:468693f4ddd11ac6a41bca4eb5f94b071b763256d54136f77957cfee635badb3"},
+    {file = "Flask-Compress-1.5.0.tar.gz", hash = "sha256:f367b2b46003dd62be34f7fb1379938032656dca56377a9bc90e7188e4289a7c"},
 ]
 flask-dance = [
     {file = "Flask-Dance-3.0.0.tar.gz", hash = "sha256:5ec8fae543ef93aab96d6a4c6d34ed835c793e2f6a211212a89a4e9c31c42bed"},
