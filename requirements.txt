@@ -433,9 +433,9 @@ pytest-mock==3.2.0 \
     --hash=sha256:5564c7cd2569b603f8451ec77928083054d8896046830ca763ed68f4112d17c7 \
     --hash=sha256:7122d55505d5ed5a6f3df940ad174b3f606ecae5e9bc379569cdcbd4cd9d2b83 \
     # via -r requirements.in
-pytest==6.0.0 \
-    --hash=sha256:869ec27f9b89964ccfe4fbdd5ccb8d3f285aaa3e9aa16a8491b9c8829148c230 \
-    --hash=sha256:a64d8fb4c15cdc70dae047352e980a197d855747cc885eb332cb73ddcc769168 \
+pytest==6.0.1 \
+    --hash=sha256:85228d75db9f45e06e57ef9bf4429267f81ac7c0d742cc9ed63d09886a9fe6f4 \
+    --hash=sha256:8b6007800c53fdacd5a5c192203f4e531eb2a1540ad9c752e052ec0f7143dbad \
     # via -r requirements.in, pytest-datadir, pytest-dotenv, pytest-flask, pytest-mock
 python-dateutil==2.8.1 \
     --hash=sha256:73ebfe9dbf22e832286dafa60473e4cd239f8592f699aa5adaf10050e6e1823c \
