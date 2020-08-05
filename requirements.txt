@@ -623,7 +623,7 @@ pip==20.2.1 \
     --hash=sha256:7792c1a4f60fca3a9d674e7dee62c24e21a32df1f47d308524d3507455784f29 \
     --hash=sha256:c87c2b2620f2942dfd5f3cf1bb2a18a99ae70de07384e847c8e3afd1d1604cf2 \
     # via -r requirements.in, pip-tools
-setuptools==49.2.0 \
-    --hash=sha256:272c7f48f5cddc5af5901f4265274c421c7eede5c8bc454ac2903d3f8fc365e9 \
-    --hash=sha256:afe9e81fee0270d3f60d52608549cc8ec4c46dada8c95640c1a00160f577acf2 \
+setuptools==49.2.1 \
+    --hash=sha256:1a4299a49e3dfe2d79d774ec70746a97d54feacb283e8b689a2bef3eb62e0fe8 \
+    --hash=sha256:88094d17c8d273390659a72e9d93374cd7bfd188c12bf2747b306e2bed48df18 \
     # via twine
