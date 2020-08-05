@@ -349,9 +349,9 @@ pexpect==4.8.0 \
     --hash=sha256:0b48a55dcb3c05f3329815901ea4fc1537514d6ba867a152b581d69ae3710937 \
     --hash=sha256:fc65a43959d153d0114afe13997d439c22823a27cefceb5ff35c2178c6784c0c \
     # via -r requirements.in, delegator.py
-pip-tools==5.3.0 \
-    --hash=sha256:13ab79c33778e4071500fe6390ab99b6ab8e552e40fe0fcf3e32419963f1bd5c \
-    --hash=sha256:1c971e38643400ec6d0f6d528c7585d25855078c0af639806f00c4cb87455adf \
+pip-tools==5.3.1 \
+    --hash=sha256:5672c2b6ca0f1fd803f3b45568c2cf7fadf135b4971e7d665232b2075544c0ef \
+    --hash=sha256:73787e23269bf8a9230f376c351297b9037ed0d32ab0f9bef4a187d976acc054 \
     # via -r requirements.in
 pkginfo==1.5.0.1 \
     --hash=sha256:7424f2c8511c186cd5424bbf31045b77435b37a8d604990b79d4e70d741148bb \
