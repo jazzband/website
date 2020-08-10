@@ -624,7 +624,7 @@ pip==20.2.1 \
     --hash=sha256:7792c1a4f60fca3a9d674e7dee62c24e21a32df1f47d308524d3507455784f29 \
     --hash=sha256:c87c2b2620f2942dfd5f3cf1bb2a18a99ae70de07384e847c8e3afd1d1604cf2 \
     # via -r requirements.in, pip-tools
-setuptools==49.2.1 \
-    --hash=sha256:1a4299a49e3dfe2d79d774ec70746a97d54feacb283e8b689a2bef3eb62e0fe8 \
-    --hash=sha256:88094d17c8d273390659a72e9d93374cd7bfd188c12bf2747b306e2bed48df18 \
+setuptools==49.3.0 \
+    --hash=sha256:912c5cdd856fc0261147e81e71cb45c47636c0e3cfe6d64bf442412685277470 \
+    --hash=sha256:a7081c404f4437a0318785d5d18ac79e54f1d583c437f2f004a131d0f48f1ae4 \
     # via twine
