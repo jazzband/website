@@ -620,9 +620,9 @@ zipp==3.1.0 \
     # via -r requirements.in, importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:
-pip==20.2.1 \
-    --hash=sha256:7792c1a4f60fca3a9d674e7dee62c24e21a32df1f47d308524d3507455784f29 \
-    --hash=sha256:c87c2b2620f2942dfd5f3cf1bb2a18a99ae70de07384e847c8e3afd1d1604cf2 \
+pip==20.2.2 \
+    --hash=sha256:5244e51494f5d1dfbb89da492d4250cb07f9246644736d10ed6c45deb1a48500 \
+    --hash=sha256:58a3b0b55ee2278104165c7ee7bc8e2db6f635067f3c66cf637113ec5aa71584 \
     # via -r requirements.in, pip-tools
 setuptools==49.2.1 \
     --hash=sha256:1a4299a49e3dfe2d79d774ec70746a97d54feacb283e8b689a2bef3eb62e0fe8 \
