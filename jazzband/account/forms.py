@@ -14,7 +14,7 @@ class ConsentForm(FlaskForm):
     )
     org = BooleanField(
         "I consent to fetching, processing and storing my GitHub "
-        "organiztion membership data which is fetched from the "
+        "organization membership data which is fetched from the "
         "GitHub API.",
         validators=[validators.DataRequired(CONSENT_ERROR_MESSAGE)],
     )
