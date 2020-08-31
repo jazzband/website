@@ -247,9 +247,9 @@ jinja2==2.11.2 \
     --hash=sha256:89aab215427ef59c34ad58735269eb58b1a5808103067f7bb9d5836c651b3bb0 \
     --hash=sha256:f0a4641d3cf955324a89c04f3d94663aa4d638abe8f733ecd3582848e1c37035 \
     # via -r requirements.in, flask, flask-flatpages
-keyring==21.3.1 \
-    --hash=sha256:182f94fc0381546489e3e4d90384a8c1d43cc09ffe2eb4a826e7312df6e1be7c \
-    --hash=sha256:cd4d486803d55bdb13e2d453eb61dbbc984773e4f2b98a455aa85b1f4bc421e4 \
+keyring==21.4.0 \
+    --hash=sha256:4e34ea2fdec90c1c43d6610b5a5fafa1b9097db1802948e90caf5763974b8f8d \
+    --hash=sha256:9aeadd006a852b78f4b4ef7c7556c2774d2432bbef8ee538a3e9089ac8b11466 \
     # via twine
 lxml==4.5.2 \
     --hash=sha256:05a444b207901a68a6526948c7cc8f9fe6d6f24c70781488e32fd74ff5996e3f \
