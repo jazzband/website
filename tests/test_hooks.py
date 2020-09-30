@@ -28,3 +28,4 @@ def test_repo_transferred_hook(client, datadir, mocker):
     response_string = response.data.decode("utf-8")
     assert response_string.startswith("repo-added-")
     mocked_schedule.assert_called_once_with(update_project_by_hook, response_string)
+    #better but needs more strugle
