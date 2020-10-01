@@ -1,4 +1,4 @@
-This app renders https://jazzband.co.
+This app renders https://jazzband.co. Visit the website for more information.
 
 [![Jazzband](https://jazzband.co/static/img/badge.svg)](https://jazzband.co/)
 [![GitHub CI status](https://github.com/jazzband-roadies/website/workflows/Deploy/badge.svg)](https://github.com/jazzband-roadies/website)
