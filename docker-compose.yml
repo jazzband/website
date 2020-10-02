@@ -34,5 +34,12 @@ services:
     command: sh -c 'wait-for-it db:5432 redis:6379 -- honcho start -f Procfile.dev worker'
     ports: []
 
+  email:
+    image: maildev/maildev
+    ports:
+      - "1080:1080"
+      - "1025:1025"
+    restart: unless-stopped
+
 volumes:
   cache:
