@@ -104,7 +104,7 @@
   <p>
     {% if versions|count > 1 %}
     There are currently {{ versions|count }} versions:
-    {% else %}
+    {% elif versions|count == 1 %}
     There is currently only one version:
     {% endif %}
     {% for version in versions %}
