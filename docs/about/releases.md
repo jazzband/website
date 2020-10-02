@@ -17,13 +17,13 @@ to all Jazzband members but only to those who have shown significant
 contributions to the projects in question. All other Jazzband features
 (as of writing this) continue to be open to all Jazzband members.
 
-To become a project lead, please also [open an issue with the
-"lead" label](/roadies/issue?labels=lead).
+To become a project lead, please also
+[open a project lead issue](/roadies/issue).
 
 In case no project lead(s) can be found for a project the [roadies]
 will act as surrogate leads and can be contacted to request a PyPI
 release on the behalf of the Jazzband members. Please
-[open a ticket with a "pypi" label](/roadies/issue?labels=pypi) for that.
+[open a PyPI Release ticket](/roadies/issue) for that.
 
 !!! note "Why are there project leads?"
 
@@ -80,7 +80,7 @@ Steps needed:
 
 - Set up the `.travis.yml` file following the  [Travis CI docs][travis-python].
 - Create a `tox.ini` which takes [tox-travis] into account.
-- [Open an issue](/roadies/issue?labels=pypi) for the
+- [Open a PyPI Release issue](/roadies/issue) for the
   roadies to enable the auto-release mechanism via the Jazzband.
 
 If you need a project release and you are not a project lead, you
