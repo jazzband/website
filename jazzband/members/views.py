@@ -23,9 +23,3 @@ def roadies():
 def roadies_issue():
     url = "https://github.com/jazzband-roadies/help/issues/new/choose"
     return redirect(url)
-
-
-@members.route("/website/issue")
-def website_issue():
-    url = "https://github.com/jazzband-roadies/website/issues/new"
-    return redirect(url)
