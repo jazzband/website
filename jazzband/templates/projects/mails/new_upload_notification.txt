@@ -62,7 +62,7 @@ security@jazzband.co
 
 If you need help please file a ticket with the roadies here:
 
-https://jazzband.co/roadies/issue?labels=pypi
+https://jazzband.co/roadies/issue
 
 Or contact them in any other way:
 
@@ -75,4 +75,4 @@ Thanks for your help and remember: We are all part of this.
 
 PS: You're receiving this email because you are a member of the project "{{ project.name }}" maintained by the Jazzband: https://jazzband.co/
 
-PPS: If you want to unsubscribe from this kind of email please go to https://jazzband.co/roadies/issue?labels=bug and let us know that you would like to be removed from the project.
+PPS: If you want to unsubscribe from this kind of email please go to https://jazzband.co/roadies/issue and let us know that you would like to be removed from the project.
