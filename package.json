@@ -6,12 +6,12 @@
     "doc": "docs"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.14.0",
+    "@fortawesome/fontawesome-free": "^5.15.0",
     "blazy": "^1.8.2"
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.4",
-    "sass": "^1.26.10"
+    "sass": "^1.26.11"
   },
   "repository": {
     "type": "git",
