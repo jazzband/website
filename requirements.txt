@@ -63,7 +63,7 @@ brotli==1.0.9 \
     --hash=sha256:db844eb158a87ccab83e868a762ea8024ae27337fc7ddcbfcddd157f841fdfe7 \
     --hash=sha256:defed7ea5f218a9f2336301e6fd379f55c655bea65ba2476346340a0ce6f74a1 \
     --hash=sha256:f909bbbc433048b499cb9db9e713b5d8d949e8c109a2a548502fb9aa8630f0b1 \
-    # via -r requirements.in, flask-compress
+    # via -r requirements.in, flask-compress, whitenoise
 certifi==2020.6.20 \
     --hash=sha256:5930595817496dd21bb8dc35dad090f1c2cd0adfaf21204bf6732ca5d8ee34d3 \
     --hash=sha256:8fc0819f1f30ba15bdb34cceffb9ef04d99f420f68eb75d901e9560b8749fc41 \
@@ -220,6 +220,10 @@ flask==1.1.2 \
 funcsigs==1.0.2 \
     --hash=sha256:330cc27ccbf7f1e992e69fef78261dc7c6569012cf397db8d3de0234e6c937ca \
     --hash=sha256:a7bb0f2cf3a3fd1ab2732cb49eba4252c2af4240442415b4abce3b87022a8f50 \
+    # via -r requirements.in
+gunicorn==20.0.4 \
+    --hash=sha256:1904bb2b8a43658807108d59c3f3d56c2b6121a701161de0ddf9ad140073c626 \
+    --hash=sha256:cd4a810dd51bf497552cf3f863b575dabd73d6ad6a91075b65936b151cbf4f9c \
     # via -r requirements.in
 honcho==1.0.1 \
     --hash=sha256:af5806bf13e3b20acdcb9ff8c0beb91eee6fe07393c3448dfad89667e6ac7576 \
@@ -466,20 +470,6 @@ pytz==2020.1 \
     --hash=sha256:a494d53b6d39c3c6e44c3bec237336e14305e4f29bbf800b599253057fbb79ed \
     --hash=sha256:c35965d010ce31b23eeb663ed3cc8c906275d6be1a34393a1d73a41febf4a048 \
     # via -r requirements.in, babel
-pyuwsgi==2.0.19.1.post0 \
-    --hash=sha256:0bd14517398f494d828d77a9bf72b5a6cbef0112e1cc05e9a0080fa8828ccfa0 \
-    --hash=sha256:285e263a9094389f13cfdefd033a4e99fbed3ad120dba9ac5093846cc03ac5ab \
-    --hash=sha256:297d1d0b8c472374b12eda7f17a9f5de67cf516612e42b71a7636afb9d1e3974 \
-    --hash=sha256:5439f0f3ef5d6bf1622f341662d04c1d92b88889db40b295419e5fe75a7c7d45 \
-    --hash=sha256:56ecda11e873b2eb937b33d2999766322eebfa82ee5b26a2196a335c4e786186 \
-    --hash=sha256:66a9751f28abf348e0ddccadc4ded47623f2d35cf9609c87b57909d55a4cdc15 \
-    --hash=sha256:890e7e863cb61c8369b6bcfa5d6f323753aaeec2cfaba16741f119c79b964aa7 \
-    --hash=sha256:90e4235020048456ad867aefc383cdf5528b7f6e327555ceec579c428a828759 \
-    --hash=sha256:94d4287b155aa789ce4b6f671c981f7d6c58fc3113330e2f29ac7926cb854645 \
-    --hash=sha256:a425f562f382a097ca49df26b70d47d12f0cf0abf233610f3f58b1f7f780355e \
-    --hash=sha256:bddeb8df77010d0f842068765a0b3155fdcfd847f14bc1ba89fc7e37914a13d2 \
-    --hash=sha256:dac4a04dc0f69d641dba984e83214d2c2cc098496c5d5585e7d3f4e7a9190f84 \
-    # via -r requirements.in
 pyyaml==5.3.1 \
     --hash=sha256:06a0d7ba600ce0b2d2fe2e78453a470b5a6e000a985dd4a4e54e436cc36b0e97 \
     --hash=sha256:240097ff019d7c70a4922b6869d8a86407758333f02203e0fc6ff79c5dcede76 \
@@ -618,6 +608,10 @@ werkzeug==1.0.1 \
     --hash=sha256:2de2a5db0baeae7b2d2664949077c2ac63fbd16d98da0ff71837f7d1dea3fd43 \
     --hash=sha256:6c80b1e5ad3665290ea39320b91e1be1e0d5f60652b964a3070216de83d2e47c \
     # via -r requirements.in, flask, flask-hookserver, flask-kvsession, pytest-flask
+whitenoise[brotli]==5.2.0 \
+    --hash=sha256:05ce0be39ad85740a78750c86a93485c40f08ad8c62a6006de0233765996e5c7 \
+    --hash=sha256:05d00198c777028d72d8b0bbd234db605ef6d60e9410125124002518a48e515d \
+    # via -r requirements.in
 wtforms==2.3.3 \
     --hash=sha256:7b504fc724d0d1d4d5d5c114e778ec88c37ea53144683e084215eed5155ada4c \
     --hash=sha256:81195de0ac94fbc8368abbaf9197b88c4f3ffd6c2719b5bf5fc9da744f3d829c \
@@ -635,4 +629,4 @@ pip==20.2.3 \
 setuptools==50.3.0 \
     --hash=sha256:39060a59d91cf5cf403fa3bacbb52df4205a8c3585e0b9ba4b30e0e19d4c4b18 \
     --hash=sha256:c77b3920663a435c9450d9d971c48f5a7478fca8881b2cd2564e59f970f03536 \
-    # via twine
+    # via gunicorn, twine

@@ -34,6 +34,7 @@ flask-sqlalchemy
 flask-talisman
 flask-wtf
 funcsigs
+gunicorn
 honcho
 idna
 importlib-metadata
@@ -70,7 +71,6 @@ python-dateutil
 python-decouple
 python-editor
 pytz
-pyuwsgi
 pyyaml
 redis
 requests
@@ -91,5 +91,6 @@ walrus
 wcwidth
 webencodings
 werkzeug
+whitenoise[brotli]
 wtforms
 zipp

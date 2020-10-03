@@ -1,2 +1,2 @@
-web: uwsgi --ini uwsgi.ini
+web: gunicorn -c python:jazzband.gunicorn jazzband.app:app
 worker: flask spinach

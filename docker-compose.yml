@@ -28,6 +28,7 @@ services:
     links:
       - db
       - redis
+      - email
 
   worker:
     <<: *app
@@ -39,7 +40,6 @@ services:
     ports:
       - "1080:1080"
       - "1025:1025"
-    restart: unless-stopped
 
 volumes:
   cache:
