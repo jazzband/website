@@ -69,7 +69,7 @@ def create_app():
 
     if app.config["IS_PRODUCTION"]:
         app.wsgi_app = ProxyFix(app.wsgi_app)
-        app.wsgi_app = WhiteNoise(app.wsgi_app, root='static/')
+        app.wsgi_app = WhiteNoise(app.wsgi_app, root="static/")
 
     mail.init_app(app)
 
