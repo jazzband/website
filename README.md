@@ -10,6 +10,15 @@ This app renders https://jazzband.co.
 Install Docker. Run `make build`. This will create a set of Docker
 containers with all backends and dependencies.
 
+The Jazzband site uses a self-signed TLS certificate for development to be able
+to reproduce the production environment as close as possible. To that effect
+it's required to install [`mkcert`](https://github.com/FiloSottile/mkcert)
+in your system's certificate trust store (once). To do that install `mkcert`
+by following the installation instructions and then run `make trust`.
+
+In case the embedded self-signed certificates are outdated you can recreate
+them by running `make cert`.
+
 ## Running
 
 Run `make run` to run the development server and worker.

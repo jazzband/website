@@ -1,2 +1,2 @@
-web: flask run -h 0.0.0.0 -p 5000 --cert=adhoc
+web: flask run -h 0.0.0.0 -p 5000 --cert=certs/jazzband.local+5.pem --key=certs/jazzband.local+5-key.pem
 worker: flask spinach
