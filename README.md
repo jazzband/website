@@ -7,8 +7,12 @@ This app renders https://jazzband.co.
 
 ## Installation
 
-Install Docker. Run `make build`. This will create a set of Docker
-containers with all backends and dependencies.
+Copy `.end-dist` to `.env`.
+
+Install Docker, docker-compose and NPM.
+
+Run `make build`. This will create a set of Docker containers with all backends
+and dependencies.
 
 The Jazzband site uses a self-signed TLS certificate for development to be able
 to reproduce the production environment as close as possible. To that effect
@@ -21,7 +25,8 @@ them by running `make cert`.
 
 ## Running
 
-Run `make run` to run the development server and worker.
+Run `make run` to run the development server and worker. The website will be available
+at localhost:5000.
 
 ## License
 
