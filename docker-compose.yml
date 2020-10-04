@@ -38,7 +38,7 @@ services:
   email:
     image: maildev/maildev
     ports:
-      - "1080:1080"
+      - "1080:80"
       - "1025:1025"
 
 volumes:
