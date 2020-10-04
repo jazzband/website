@@ -9,12 +9,12 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
       with:
         node-version: '10.x'
     - name: Cache node modules
-      uses: actions/cache@v1
+      uses: actions/cache@v2
       with:
         path: node_modules
         key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test]
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Push
       uses: vitalyliber/dokku-github-action@master
       env:
@@ -38,3 +38,11 @@ jobs:
         PUBLIC_KEY: ${{ secrets.PUBLIC_KEY }}
         HOST: ${{ secrets.DOKKU_HOST }}
         PROJECT: ${{ secrets.DOKKU_APPNAME }}
+    - name: Create Sentry release
+      uses: getsentry/action-release@v1
+      env:
+        SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+        SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+      with:
+        environment: production
