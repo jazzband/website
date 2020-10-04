@@ -47,6 +47,10 @@ class JazzbandSQLAlchemy(SQLAlchemy):
         super().init_app(app)
         app.config.setdefault("SQLALCHEMY_NESTED_TRANSACTION", False)
         app.config.setdefault("SQLALCHEMY_ISOLATE_TRANSACTION", True)
+        # dispose of engine to fix issue with forks
+        # https://virtualandy.wordpress.com/2019/09/04/a-fix-for-operationalerror-psycopg2-operationalerror-ssl-error-decryption-failed-or-bad-record-mac/
+        with app.app_context():
+            self.engine.dispose()
 
     @contextmanager
     def transaction(self, isolate=None, nested=None, **kwargs):
