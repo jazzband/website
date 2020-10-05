@@ -87,7 +87,7 @@ class Project(db.Model, Syncable):
         # using a timestamp here to work-around the
         # CDN cache of the projects JSON response
         timestamp = int(time.time())
-        return f"https://pypi.org/pypi/{self.normalized_name}/json?time={timestamp}"  # noqa
+        return f"https://pypi.org/pypi/{self.normalized_name}/json?time={timestamp}"
 
 
 @generic_repr("id", "project_id", "is_active", "key")
