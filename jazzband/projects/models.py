@@ -1,4 +1,5 @@
 import os
+import time
 from datetime import datetime
 from uuid import uuid4
 
@@ -83,7 +84,10 @@ class Project(db.Model, Syncable):
 
     @property
     def pypi_json_url(self):
-        return f"https://pypi.org/pypi/{self.normalized_name}/json"  # noqa
+        # using a timestamp here to work-around the
+        # CDN cache of the projects JSON response
+        timestamp = int(time.time())
+        return f"https://pypi.org/pypi/{self.normalized_name}/json?time={timestamp}"  # noqa
 
 
 @generic_repr("id", "project_id", "is_active", "key")
