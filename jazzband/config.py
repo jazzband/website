@@ -119,3 +119,5 @@ RELEASE_ENABLED = config("RELEASE_ENABLED", True, cast=bool)
 MAX_CONTENT_LENGTH = 60 * 1024 * 1024  # 60M
 
 ONE_MINUTE = 60 * 1000  # in ms
+
+COMPRESS_ALGORITHM = ["gz", "deflate"]
