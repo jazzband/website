@@ -122,9 +122,9 @@ colorama==0.4.3 \
     --hash=sha256:7d73d2a99753107a36ac6b455ee49046802e59d9d076ef8e47b61499fa29afff \
     --hash=sha256:e96da0d330793e2cb9485e9ddfd918d456036c7149416295932478192f4436a1 \
     # via -r requirements.in, twine
-configparser==5.0.0 \
-    --hash=sha256:2ca44140ee259b5e3d8aaf47c79c36a7ab0d5e94d70bd4105c03ede7a20ea5a1 \
-    --hash=sha256:cffc044844040c7ce04e9acd1838b5f2e5fa3170182f6fda4d2ea8b0099dbadd \
+configparser==5.0.1 \
+    --hash=sha256:005c3b102c96f4be9b8f40dafbd4997db003d07d1caa19f37808be8031475f2a \
+    --hash=sha256:08e8a59ef1817ac4ed810bb8e17d049566dd6e024e7566f6285c756db2bb4ff8 \
     # via -r requirements.in
 cryptography==3.1.1 \
     --hash=sha256:21b47c59fcb1c36f1113f3709d37935368e34815ea1d7073862e92f810dc7499 \
