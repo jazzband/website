@@ -122,9 +122,9 @@ colorama==0.4.3 \
     --hash=sha256:7d73d2a99753107a36ac6b455ee49046802e59d9d076ef8e47b61499fa29afff \
     --hash=sha256:e96da0d330793e2cb9485e9ddfd918d456036c7149416295932478192f4436a1 \
     # via -r requirements.in, twine
-configparser==5.0.0 \
-    --hash=sha256:2ca44140ee259b5e3d8aaf47c79c36a7ab0d5e94d70bd4105c03ede7a20ea5a1 \
-    --hash=sha256:cffc044844040c7ce04e9acd1838b5f2e5fa3170182f6fda4d2ea8b0099dbadd \
+configparser==5.0.1 \
+    --hash=sha256:005c3b102c96f4be9b8f40dafbd4997db003d07d1caa19f37808be8031475f2a \
+    --hash=sha256:08e8a59ef1817ac4ed810bb8e17d049566dd6e024e7566f6285c756db2bb4ff8 \
     # via -r requirements.in
 cryptography==3.1.1 \
     --hash=sha256:21b47c59fcb1c36f1113f3709d37935368e34815ea1d7073862e92f810dc7499 \
@@ -168,8 +168,8 @@ flask-caching==1.9.0 \
     --hash=sha256:a0356ad868b1d8ec2d0e675a6fe891c41303128f8904d5d79e180d8b3f952aff \
     --hash=sha256:e6ef2e2af84e13c4fd32c1839c1943a42f11b6b0fbcfdd6bf46547ea5482dbfe \
     # via -r requirements.in
-flask-compress==1.6.0 \
-    --hash=sha256:2d551211eca86e684c170491c857692b6c4c94a147ab6b41995decac8ee63567 \
+flask-compress==1.7.0 \
+    --hash=sha256:965e832684160871b5268f97879c5e85a88569cc6e3e353a7779215664eefdad \
     # via -r requirements.in
 flask-dance[sqla]==3.0.0 \
     --hash=sha256:1b30ea6765ca2a9c5c15eb00a18e18f8c347a4bf2f9947b68ff0024c4c7d1dfa \
@@ -298,9 +298,9 @@ mako==1.1.3 \
     --hash=sha256:8195c8c1400ceb53496064314c6736719c6f25e7479cd24c77be3d9361cddc27 \
     --hash=sha256:93729a258e4ff0747c876bd9e20df1b9758028946e976324ccd2d68245c7b6a9 \
     # via -r requirements.in, alembic
-markdown==3.2.2 \
-    --hash=sha256:1fafe3f1ecabfb514a5285fca634a53c1b32a81cb0feb154264d55bf2ff22c17 \
-    --hash=sha256:c467cd6233885534bf0fe96e62e3cf46cfc1605112356c4f9981512b8174de59 \
+markdown==3.3 \
+    --hash=sha256:4f4172a4e989b97f96860fa434b89895069c576e2b537c4b4eed265266a7affc \
+    --hash=sha256:fbb1ba54ca41e8991dc5a561d9c6f752f5e4546f8750e56413ea50f2385761d3 \
     # via -r requirements.in, flask-flatpages
 markupsafe==1.1.1 \
     --hash=sha256:00bc623926325b26bb9605ae9eae8a215691f33cae5df11ca5424f06f2d1f473 \
@@ -483,9 +483,9 @@ pyyaml==5.3.1 \
     --hash=sha256:cc8955cfbfc7a115fa81d85284ee61147059a753344bc51098f3ccd69b0d7e0c \
     --hash=sha256:d13155f591e6fcc1ec3b30685d50bf0711574e2c0dfffd7644babf8b5102ca1a \
     # via -r requirements.in, flask-flatpages
-readme-renderer==26.0 \
-    --hash=sha256:cbe9db71defedd2428a1589cdc545f9bd98e59297449f69d721ef8f1cfced68d \
-    --hash=sha256:cc4957a803106e820d05d14f71033092537a22daa4f406dfbdd61177e0936376 \
+readme-renderer==27.0 \
+    --hash=sha256:3176d93d2c21960fb7f7458073b9f1e5dd14a5af0ec6af4afb957337dbb6a326 \
+    --hash=sha256:e6871b10341cdd85ade112fb8503b31301d1ca12c0c3b3e1358855329519968b \
     # via twine
 redis==3.5.3 \
     --hash=sha256:0e7e0cfca8660dea8b7d5cd8c4f6c5e29e11f31158c0b0ae91a397f00e5a05a2 \
@@ -578,9 +578,9 @@ toml==0.10.1 \
     --hash=sha256:926b612be1e5ce0634a2ca03470f95169cf16f939018233a670519cb4ac58b0f \
     --hash=sha256:bda89d5935c2eac546d648028b9901107a595863cb36bae0c73ac804a9b4ce88 \
     # via pytest
-tqdm==4.50.0 \
-    --hash=sha256:2dd75fdb764f673b8187643496fcfbeac38348015b665878e582b152f3391cdb \
-    --hash=sha256:93b7a6a9129fce904f6df4cf3ae7ff431d779be681a95c3344c26f3e6c09abfa \
+tqdm==4.50.2 \
+    --hash=sha256:43ca183da3367578ebf2f1c2e3111d51ea161ed1dc4e6345b86e27c2a93beff7 \
+    --hash=sha256:69dfa6714dee976e2425a9aab84b622675b7b1742873041e3db8a8e86132a4af \
     # via -r requirements.in, twine
 twine==3.2.0 \
     --hash=sha256:34352fd52ec3b9d29837e6072d5a2a7c6fe4290e97bba46bb8d478b5c598f7ab \
