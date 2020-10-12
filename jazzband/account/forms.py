@@ -18,7 +18,7 @@ class ConsentForm(FlaskForm):
         "GitHub API.",
         validators=[validators.DataRequired(CONSENT_ERROR_MESSAGE)],
     )
-    cookies = BooleanField(
+    identify = BooleanField(
         "I consent to using browser cookies for identifying me for "
         "account features such as logging in and content personalizations "
         "such as rendering my account dashboard.",
