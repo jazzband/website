@@ -298,9 +298,9 @@ mako==1.1.3 \
     --hash=sha256:8195c8c1400ceb53496064314c6736719c6f25e7479cd24c77be3d9361cddc27 \
     --hash=sha256:93729a258e4ff0747c876bd9e20df1b9758028946e976324ccd2d68245c7b6a9 \
     # via -r requirements.in, alembic
-markdown==3.3 \
-    --hash=sha256:4f4172a4e989b97f96860fa434b89895069c576e2b537c4b4eed265266a7affc \
-    --hash=sha256:fbb1ba54ca41e8991dc5a561d9c6f752f5e4546f8750e56413ea50f2385761d3 \
+markdown==3.3.1 \
+    --hash=sha256:10db1204a6c4aff7c7cf3cf25cc02761703baea54b6fb5e2b9ce2c186d81116f \
+    --hash=sha256:c3ce9ebb035c078cac0f2036068d054e7dc34354eeecc49c173c33c96b124af6 \
     # via -r requirements.in, flask-flatpages
 markupsafe==1.1.1 \
     --hash=sha256:00bc623926325b26bb9605ae9eae8a215691f33cae5df11ca5424f06f2d1f473 \
