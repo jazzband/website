@@ -30,14 +30,18 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test]
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
     - name: Push
-      uses: vitalyliber/dokku-github-action@master
+      uses: vitalyliber/dokku-github-action@v6.1
       env:
         PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
         PUBLIC_KEY: ${{ secrets.PUBLIC_KEY }}
         HOST: ${{ secrets.DOKKU_HOST }}
         PROJECT: ${{ secrets.DOKKU_APPNAME }}
+        FORCE_DEPLOY: true
     - name: Create Sentry release
       uses: getsentry/action-release@v1
       env:
