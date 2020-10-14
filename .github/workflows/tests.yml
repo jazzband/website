@@ -30,6 +30,8 @@ jobs:
           ${{ runner.OS }}-build-
           ${{ runner.OS }}-
 
+    - run: make envvar
+
     # Pull the latest image to build, and avoid caching pull-only images.
     # (docker pull is faster than caching in most cases.)
     - run: docker-compose pull
@@ -43,5 +45,4 @@ jobs:
 
     - run: docker-compose up --build
 
-    - name: Test
-      run: make ci
+    - run: make test
