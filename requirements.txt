@@ -301,9 +301,9 @@ mako==1.1.3 \
     --hash=sha256:8195c8c1400ceb53496064314c6736719c6f25e7479cd24c77be3d9361cddc27 \
     --hash=sha256:93729a258e4ff0747c876bd9e20df1b9758028946e976324ccd2d68245c7b6a9 \
     # via -r requirements.in, alembic
-markdown==3.3.2 \
-    --hash=sha256:4b71fbd2db30c1dfb400f22b25f41cb823fc1db0aa8b7b67d120644f92cc1011 \
-    --hash=sha256:77b7bff443b1f97b4814fa438c181fd5882e31edb01b422856b3feca91475f3e \
+markdown==3.3.3 \
+    --hash=sha256:5d9f2b5ca24bc4c7a390d22323ca4bad200368612b5aaa7796babf971d2b2f18 \
+    --hash=sha256:c109c15b7dc20a9ac454c9e6025927d44460b85bd039da028d85e2b6d0bcc328 \
     # via -r requirements.in, flask-flatpages
 markupsafe==1.1.1 \
     --hash=sha256:00bc623926325b26bb9605ae9eae8a215691f33cae5df11ca5424f06f2d1f473 \
