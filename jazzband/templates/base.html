@@ -12,6 +12,7 @@
         <link href="{{ url_for('static', filename='dist/styles.css') }}" media="screen, projection" rel="stylesheet" type="text/css" />
         {% include "includes/favicons.html" %}
         <link rel="alternate" type="application/atom+xml" href="{{ url_for('content.news_feed', _external=True) }}" />
+        <script src="{{ url_for('static', filename='dist/app.js') }}"></script>
     </head>
     <body class="{% block body_class %}{% endblock body_class %}">
     <div class="wrapper">
