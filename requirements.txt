@@ -344,9 +344,9 @@ mock==4.0.2 \
     --hash=sha256:3f9b2c0196c60d21838f307f5825a7b86b678cedc58ab9e50a8988187b4d81e0 \
     --hash=sha256:dd33eb70232b6118298d516bbcecd26704689c386594f0f3c4f13867b2c56f72 \
     # via -r requirements.in
-more-itertools==8.5.0 \
-    --hash=sha256:6f83822ae94818eae2612063a5101a7311e68ae8002005b5e05f03fd74a86a20 \
-    --hash=sha256:9b30f12df9393f0d28af9210ff8efe48d10c94f73e5daf886f10c4b0b0b4f03c \
+more-itertools==8.6.0 \
+    --hash=sha256:8e1a2a43b2f2727425f2b5839587ae37093f19153dc26c0927d1048ff6557330 \
+    --hash=sha256:b3a9005928e5bed54076e6e549c792b306fddfe72b2d1d22dd63d42d5d3899cf \
     # via -r requirements.in
 oauthlib==3.1.0 \
     --hash=sha256:bee41cc35fcca6e988463cacc3bcb8a96224f470ca547e697b604cc697b2f889 \
