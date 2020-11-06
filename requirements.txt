@@ -460,9 +460,9 @@ python-dateutil==2.8.1 \
 python-decouple==3.3 \
     --hash=sha256:55c546b85b0c47a15a47a4312d451a437f7344a9be3e001660bccd93b637de95 \
     # via -r requirements.in
-python-dotenv==0.14.0 \
-    --hash=sha256:8c10c99a1b25d9a68058a1ad6f90381a62ba68230ca93966882a4dbc3bc9c33d \
-    --hash=sha256:c10863aee750ad720f4f43436565e4c1698798d763b63234fb5021b6c616e423 \
+python-dotenv==0.15.0 \
+    --hash=sha256:0c8d1b80d1a1e91717ea7d526178e3882732420b03f08afea0406db6402e220e \
+    --hash=sha256:587825ed60b1711daea4832cf37524dfd404325b7db5e25ebe88c495c9f807a0 \
     # via pytest-dotenv
 python-editor==1.0.4 \
     --hash=sha256:1bf6e860a8ad52a14c3ee1252d5dc25b2030618ed80c022598f00176adc8367d \
