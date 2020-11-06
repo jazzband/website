@@ -170,9 +170,9 @@ flask-caching==1.9.0 \
 flask-compress==1.7.0 \
     --hash=sha256:965e832684160871b5268f97879c5e85a88569cc6e3e353a7779215664eefdad \
     # via -r requirements.in
-flask-dance[sqla]==3.0.0 \
-    --hash=sha256:1b30ea6765ca2a9c5c15eb00a18e18f8c347a4bf2f9947b68ff0024c4c7d1dfa \
-    --hash=sha256:5ec8fae543ef93aab96d6a4c6d34ed835c793e2f6a211212a89a4e9c31c42bed \
+flask-dance[sqla]==3.1.0 \
+    --hash=sha256:6fc8b53994de627981b7c1073144604279f1f71003a20aa26b2defdc7d3d8772 \
+    --hash=sha256:d240f2509db7a9e95482dc4ba79ad1ffc631ec993da99bdfe9988cfe5b816734 \
     # via -r requirements.in
 flask-flatpages==0.7.2 \
     --hash=sha256:591506153c66e6b1d2286b5c757b652fb14d6b9ec8e55bd4e58d1799a0bea278 \
