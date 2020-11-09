@@ -441,9 +441,9 @@ pytest-dotenv==0.5.2 \
     --hash=sha256:2dc6c3ac6d8764c71c6d2804e902d0ff810fa19692e95fe138aefc9b1aa73732 \
     --hash=sha256:40a2cece120a213898afaa5407673f6bd924b1fa7eafce6bda0e8abffe2f710f \
     # via -r requirements.in
-pytest-flask==1.0.0 \
-    --hash=sha256:44948d3feab48c69e89b087129cc4db66bad9cb5aa472c08dfc798c69f4eac67 \
-    --hash=sha256:4d5678a045c07317618d80223ea124e21e8acc89dae109542dd1fdf6783d96c2 \
+pytest-flask==1.1.0 \
+    --hash=sha256:28a24a5c12778f6e2b12eaf825e71944210aaba061edbd2c3e15e3664bc15407 \
+    --hash=sha256:9c136afd6d0fb045b0b8fd2363421b6670bfebd21d9141f79669d9051c9d2d05 \
     # via -r requirements.in
 pytest-mock==3.3.1 \
     --hash=sha256:024e405ad382646318c4281948aadf6fe1135632bea9cc67366ea0c4098ef5f2 \
