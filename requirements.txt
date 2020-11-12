@@ -24,9 +24,9 @@ attrs==20.3.0 \
     --hash=sha256:31b2eced602aa8423c2aea9c76a724617ed67cf9513173fd3a4f03e3a929c7e6 \
     --hash=sha256:832aa3cde19744e49938b91fea06d69ecb9e649c93ba974535d08ad92164f700 \
     # via -r requirements.in, pytest
-babel==2.8.0 \
-    --hash=sha256:1aac2ae2d0d8ea368fa90906567f5c08463d98ade155c0c4bfedd6a0f7160e38 \
-    --hash=sha256:d670ea0b10f8b723672d3a6abeb87b565b244da220d76b4dba1b66269ec152d4 \
+babel==2.8.1 \
+    --hash=sha256:820c195271534e8a86f564ba9ef2c207f356cfeb7e94d2bdc6b57897c4233837 \
+    --hash=sha256:be432f50d6c38c705ea45a0c05a4bbb22a70742a93888fbae5e7948da1635d23 \
     # via -r requirements.in
 bleach==3.2.1 \
     --hash=sha256:52b5919b81842b1854196eaae5ca29679a2f2e378905c346d3ca8227c2c66080 \
