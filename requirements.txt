@@ -232,9 +232,9 @@ idna==2.10 \
     --hash=sha256:b307872f855b18632ce0c21c5e45be78c0ea7ae4c15c828c20788b26921eb3f6 \
     --hash=sha256:b97d804b1e9b523befed77c48dacec60e6dcb0b5391d57af6a65a312a90648c0 \
     # via -r requirements.in, requests
-importlib-metadata==3.0.0 \
-    --hash=sha256:d582eb5c35b2f16c78e365e0f89e369f36af38fdaad0146208aa973c693ba247 \
-    --hash=sha256:fc3b3f9697703d3833d2803162d60cbe8b9f57b5da5e6496ac81e3cb82bd8d9c \
+importlib-metadata==3.1.0 \
+    --hash=sha256:590690d61efdd716ff82c39ca9a9d4209252adfe288a4b5721181050acbd4175 \
+    --hash=sha256:d9b8a46a0885337627a6430db287176970fff18ad421becec1d64cfc763c2099 \
     # via -r requirements.in
 iniconfig==1.1.1 \
     --hash=sha256:bc3af051d7d14b2ee5ef9969666def0cd1a000e121eaea580d4a313df4b37f32 \
