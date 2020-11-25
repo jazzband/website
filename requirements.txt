@@ -521,9 +521,9 @@ scandir==1.10.0 \
     --hash=sha256:b24086f2375c4a094a6b51e78b4cf7ca16c721dcee2eddd7aa6494b42d6d519d \
     --hash=sha256:cb925555f43060a1745d0a321cca94bcea927c50114b623d73179189a4e100ac \
     # via -r requirements.in
-secretstorage==3.2.0 \
-    --hash=sha256:46305c3847ee3f7252b284e0eee5590fa6341c891104a2fd2313f8798c615a82 \
-    --hash=sha256:ed5279d788af258e4676fa26b6efb6d335a31f1f9f529b6f1e200f388fac33e1 \
+secretstorage==3.3.0 \
+    --hash=sha256:30cfdef28829dad64d6ea1ed08f8eff6aa115a77068926bcc9f5225d5a3246aa \
+    --hash=sha256:5c36f6537a523ec5f969ef9fad61c98eb9e017bc601d811e53aa25bece64892f \
     # via keyring
 sentry-sdk[flask]==0.19.4 \
     --hash=sha256:1052f0ed084e532f66cb3e4ba617960d820152aee8b93fc6c05bd53861768c1c \
