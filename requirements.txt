@@ -423,9 +423,9 @@ pygments==2.7.2 \
     --hash=sha256:381985fcc551eb9d37c52088a32914e00517e57f4a21609f48141ba08e193fa0 \
     --hash=sha256:88a0bbcd659fcb9573703957c6b9cff9fab7295e6e76db54c9d00ae42df32773 \
     # via -r requirements.in, readme-renderer
-pyopenssl==19.1.0 \
-    --hash=sha256:621880965a720b8ece2f1b2f54ea2071966ab00e2970ad2ce11d596102063504 \
-    --hash=sha256:9a24494b2602aaf402be5c9e30a0b82d4a5c67528fe8fb475e3f3bc00dd69507 \
+pyopenssl==20.0.0 \
+    --hash=sha256:898aefbde331ba718570244c3b01dcddb1b31a3b336613436a45e52e27d9a82d \
+    --hash=sha256:92f08eccbd73701cf744e8ffd6989aa7842d48cbe3fea8a7c031c5647f590ac5 \
     # via -r requirements.in, requests
 pyparsing==2.4.7 \
     --hash=sha256:c203ec8783bf771a155b207279b9bccb8dea02d8f0c9e5f8ead507bc3246ecc1 \
