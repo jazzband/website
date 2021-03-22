@@ -6,12 +6,13 @@
     "doc": "docs"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.1",
+    "@fortawesome/fontawesome-free": "^5.15.3",
     "loading-attribute-polyfill": "^1.5.4"
   },
   "devDependencies": {
-    "parcel-bundler": "^1.12.4",
-    "sass": "^1.27.0"
+    "@parcel/transformer-sass": "^2.0.0-beta.2",
+    "parcel": "^2.0.0-beta.2",
+    "sass": "^1.32.8"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,6 @@
   "homepage": "https://github.com/jazzband-roadies/website#readme",
   "private": true,
   "scripts": {
-    "build": "parcel build jazzband/static/css/styles.scss --public-url=/static/dist/ --out-dir jazzband/static/dist/ --no-cache && parcel build jazzband/static/js/app.js --public-url=/static/dist/ --out-dir jazzband/static/dist/ --no-cache "
+    "build": "parcel build jazzband/static/css/styles.scss --public-url=/static/dist/ --dist-dir jazzband/static/dist/ --no-cache && parcel build jazzband/static/js/app.js --public-url=/static/dist/ --dist-dir jazzband/static/dist/ --no-cache "
   }
 }
