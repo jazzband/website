@@ -9,3 +9,4 @@ node_modules
 .python_history
 /uploads/
 .local/
+.parcel-cache
