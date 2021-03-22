@@ -1,12 +1,25 @@
-name: Deploy
+name: Test & Deploy
 on:
+  push:
+    branches:
+      - master
+  pull_request:
+  workflow_dispatch:
   release:
-    types: [published]
+    types:
+      - published
+
 jobs:
   test:
-    name: Test
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
     steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.4.0
+        with:
+          access_token: ${{ github.token }}
+
       - uses: actions/checkout@v2
 
       - uses: actions/setup-node@v2
@@ -14,37 +27,21 @@ jobs:
           node-version: "15"
           check-latest: true
 
-      - name: Cache node modules
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.OS }}-build-${{ env.cache-name }}-
-            ${{ runner.OS }}-build-
-            ${{ runner.OS }}-
-
       - run: make envvar
 
-      # Pull the latest image to build, and avoid caching pull-only images.
-      # (docker pull is faster than caching in most cases.)
-      - run: docker-compose pull
-
-      # In this step, this action saves a list of existing images,
-      # the cache is created without them in the post run.
-      # It also restores the cache if it exists.
-      - uses: satackey/action-docker-layer-caching@v0.0.11
-        # Ignore the failure of a step and avoid terminating the job.
-        continue-on-error: true
+      - run: make pull
 
       - run: make image
 
       - run: make test
 
   deploy:
-    name: Deploy
+    if: github.event.action == 'published' && github.repository == 'jazzband-roadies/website'
+
     runs-on: ubuntu-latest
+
     needs: [test]
+
     steps:
       - name: Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.4.0
@@ -57,10 +54,9 @@ jobs:
           fetch-depth: 0
 
       - name: Push
-        uses: dokku/github-action@v1
+        uses: dokku/github-action@v1.0.2
         # enable verbose ssh output
         with:
-          # specify `--force` as a flag for git pushes
           git_push_flags: "--force"
           git_remote_url: ${{ secrets.SSH_REMOTE_URL }}
           ssh_private_key: ${{ secrets.PRIVATE_KEY }}
