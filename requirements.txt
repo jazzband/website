@@ -428,9 +428,9 @@ oauthlib==3.1.0 \
 ordereddict==1.1 \
     --hash=sha256:1c35b4ac206cef2d24816c89f89cf289dd3d38cf7c449bb3fab7bf6d43f01b1f
     # via -r requirements.in
-packaging==20.7 \
-    --hash=sha256:05af3bb85d320377db281cf254ab050e1a7ebcbf5410685a9a407e18a1f81236 \
-    --hash=sha256:eb41423378682dadb7166144a4926e443093863024de508ca5c9737d6bc08376
+packaging==20.9 \
+    --hash=sha256:5b327ac1320dc863dca72f4514ecc086f31186744b84a230374cc1fd776feae5 \
+    --hash=sha256:67714da7f7bc052e064859c05c595155bd1ee9f69f76557e21f051443c20947a
     # via
     #   -r requirements.in
     #   bleach
