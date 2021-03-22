@@ -6,8 +6,6 @@ import shutil
 import tempfile
 from datetime import datetime
 
-from pkg_resources import safe_name
-
 import delegator
 import requests
 from flask import (
@@ -26,6 +24,7 @@ from flask import (
 from flask.views import MethodView
 from flask_login import current_user, login_required
 from packaging.version import parse as parse_version
+from pkg_resources import safe_name
 from requests.exceptions import HTTPError
 from sqlalchemy import desc, nullslast
 from sqlalchemy.sql.expression import func

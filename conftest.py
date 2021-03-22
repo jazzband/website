@@ -1,4 +1,5 @@
 import pytest
+
 from jazzband.factory import create_app
 
 
