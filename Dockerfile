@@ -1,3 +1,4 @@
+# syntax = docker/dockerfile:1.2
 FROM node as npm
 
 WORKDIR /tmp
@@ -51,7 +52,8 @@ RUN pip install -U pip
 WORKDIR /app
 COPY requirements.txt /app/
 
-RUN pip install -r requirements.txt
+RUN --mount=type=cache,target=/root/.cache \
+    pip install -r requirements.txt
 
 COPY . /app/
 
