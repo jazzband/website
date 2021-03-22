@@ -12,7 +12,7 @@ COPY . /tmp/
 RUN npm run build
 
 # -----------------------------------------------------------------------------
-
+# syntax = docker/dockerfile:1.2
 FROM python:3.8-slim-buster
 
 ENV PYTHONPATH=/app/ \
