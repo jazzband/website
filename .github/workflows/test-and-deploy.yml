@@ -13,9 +13,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    strategy:
-      fail-fast: false
-
     steps:
       - name: Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.4.0
@@ -29,9 +26,28 @@ jobs:
           node-version: "15"
           check-latest: true
 
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-${{ env.cache-name }}-
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+
       - run: make envvar
 
+      # Pull the latest image to build, and avoid caching pull-only images.
+      # (docker pull is faster than caching in most cases.)
       - run: make pull
+
+      # In this step, this action saves a list of existing images,
+      # the cache is created without them in the post run.
+      # It also restores the cache if it exists.
+      - uses: satackey/action-docker-layer-caching@v0.0.11
+        # Ignore the failure of a step and avoid terminating the job.
+        continue-on-error: true
 
       - run: make image
 
