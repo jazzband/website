@@ -1,4 +1,3 @@
-# syntax = docker/dockerfile:1.2
 FROM node as npm
 
 WORKDIR /tmp
@@ -12,7 +11,6 @@ COPY . /tmp/
 RUN npm run build
 
 # -----------------------------------------------------------------------------
-# syntax = docker/dockerfile:1.2
 FROM python:3.8-slim-buster
 
 ENV PYTHONPATH=/app/ \
@@ -52,8 +50,7 @@ RUN pip install -U pip
 WORKDIR /app
 COPY requirements.txt /app/
 
-RUN --mount=type=cache,target=/root/.cache \
-    pip install -r requirements.txt
+RUN pip install -r requirements.txt
 
 COPY . /app/
 
