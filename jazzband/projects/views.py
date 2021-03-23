@@ -62,14 +62,14 @@ DEFAULT_ORDER = "desc"
 @projects.route("")
 @templated()
 def index():
-    sorter = request.args.get("sorter", None)
-    if sorter is None or sorter not in SORTERS:
-        valid_sorter = "random"
+    requested_sorter = request.args.get("sorter", None)
+    if requested_sorter is None or requested_sorter not in SORTERS:
+        sorter = "random"
         initial_sorting = True
     else:
-        valid_sorter = sorter
+        sorter = requested_sorter
         initial_sorting = False
-    criterion = SORTERS.get(valid_sorter, DEFAULT_SORTER)
+    criterion = SORTERS.get(sorter, DEFAULT_SORTER)
 
     order = request.args.get("order", None)
     if order == DEFAULT_ORDER:
@@ -80,7 +80,7 @@ def index():
     )
     return {
         "projects": projects,
-        "sorter": valid_sorter,
+        "sorter": sorter,
         "initial_sorting": initial_sorting,
         "order": order,
         "DEFAULT_ORDER": DEFAULT_ORDER,
