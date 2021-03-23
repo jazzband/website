@@ -47,7 +47,7 @@ MAX_SIGSIZE = 8 * 1024  # 8K
 SIGNATURE_START = b"-----BEGIN PGP SIGNATURE-----"
 PATH_HASHER = "sha256"
 DEFAULT_SORTER = func.random()
-SORTER = {
+SORTERS = {
     "uploads": Project.uploads_count,
     "watchers": Project.subscribers_count,
     "stargazers": Project.stargazers_count,
@@ -63,13 +63,15 @@ DEFAULT_ORDER = "desc"
 @templated()
 def index():
     sorter = request.args.get("sorter", None)
-    if sorter is None:
-        sorter = "random"
+    if sorter is None or sorter not in SORTERS:
+        valid_sorter = "random"
         initial_sorting = True
     else:
+        valid_sorter = sorter
         initial_sorting = False
+    criterion = SORTERS.get(valid_sorter, DEFAULT_SORTER)
+
     order = request.args.get("order", None)
-    criterion = SORTER.get(sorter, DEFAULT_SORTER)
     if order == DEFAULT_ORDER:
         criterion = desc(criterion)
 
@@ -78,7 +80,7 @@ def index():
     )
     return {
         "projects": projects,
-        "sorter": sorter,
+        "sorter": valid_sorter,
         "initial_sorting": initial_sorting,
         "order": order,
         "DEFAULT_ORDER": DEFAULT_ORDER,
