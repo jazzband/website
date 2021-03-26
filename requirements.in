@@ -82,7 +82,7 @@ sentry-sdk[flask]
 simplekv
 six
 spinach
-sqlalchemy<1.4
+sqlalchemy<1.5
 sqlalchemy-utils
 tqdm
 twine
