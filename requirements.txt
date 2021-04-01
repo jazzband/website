@@ -721,9 +721,9 @@ six==1.15.0 \
     #   python-dateutil
     #   readme-renderer
     #   sqlalchemy-utils
-spinach==0.0.11 \
-    --hash=sha256:20e6b802cd2c7855173009aabbcf5d2a48bdbf93c2a13d3e78a777b5300b128f \
-    --hash=sha256:d1f639d91773069e6dcf588e208027ba44e6f9f26a3dafd3f2385a6911101a40
+spinach==0.0.13 \
+    --hash=sha256:99ad6eacda28329f53f7396911f798db5a92bae93f44ce059e6ab3cd620d13c1 \
+    --hash=sha256:faf83954f6217b24eadadd8384483e80e54663ff836a6a6e1f77cae9d7bf34f2
     # via -r requirements.in
 sqlalchemy-utils==0.36.8 \
     --hash=sha256:fb66e9956e41340011b70b80f898fde6064ec1817af77199ee21ace71d7d6ab0
