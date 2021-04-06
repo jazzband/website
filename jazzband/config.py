@@ -19,7 +19,7 @@ HOSTNAMES = config("HOSTNAMES", "localhost:5000,0.0.0.0:5000", cast=Csv())
 REDIS_URL = config("REDIS_URL", "redis://redis:6379/0")
 QUEUE_URL = config("QUEUE_URL", REDIS_URL)
 CACHE_REDIS_URL = config("CACHE_REDIS_URL", REDIS_URL)
-CACHE_TYPE = "redis"
+CACHE_TYPE = "flask_caching.backends.RedisCache"
 CACHE_KEY_PREFIX = "cache"
 CACHE_DEFAULT_TIMEOUT = 60 * 5
 
