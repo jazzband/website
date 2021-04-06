@@ -1,4 +1,5 @@
 import logging
+
 from flask import current_app, flash
 from flask_dance.consumer import OAuth2ConsumerBlueprint, oauth_error
 from flask_dance.consumer.requests import BaseOAuth2Session, OAuth2Session
