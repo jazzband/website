@@ -22,7 +22,7 @@ def sync_projects():
 @click_log.simple_verbosity_option(logger)
 @with_appcontext
 def sync_project_members():
-    "Syncs projects"
+    "Syncs project members"
     tasks.sync_project_members()
 
 

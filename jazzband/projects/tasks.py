@@ -141,8 +141,8 @@ def update_upload_ordering(project_id):
 def sync_project_members():
     """
     Periodically fetch all team members from GitHub and persist
-    project memberships in the database and mark any users as left
-    for those that aren't in GitHub anymore.
+    project memberships in the database and delete any that aren't
+    in GitHub anymore.
     """
     with redis.lock("sync_project_members", ttl=ONE_MINUTE * 14):
 
