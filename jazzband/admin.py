@@ -74,7 +74,8 @@ class ProjectUploadAdmin(JazzbandModelView):
 
 
 class ProjectMembershipAdmin(JazzbandModelView):
-    can_delete = False
+    column_filters = ("is_lead", "user_id", "project_id", "joined_at")
+    column_searchable_list = ("project_id", "user_id")
 
 
 def init_app(app):
