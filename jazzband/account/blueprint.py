@@ -126,7 +126,6 @@ class GitHubBlueprint(OAuth2ConsumerBlueprint):
                 "members_team_slug": "GITHUB_MEMBERS_TEAM_SLUG",
                 "roadies_team_slug": "GITHUB_ROADIES_TEAM_SLUG",
                 "admin_access_token": "GITHUB_ADMIN_TOKEN",
-                "org_id": "GITHUB_ORG_ID",
                 "org_name": "GITHUB_ORG_NAME",
             }
         )
