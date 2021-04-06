@@ -6,8 +6,6 @@ from ..account.views import default_url
 
 
 def member_required(next_url=None, message=None):
-    if next_url is None:
-        next_url = default_url()
     if message is None:
         message = "Sorry but you're not a member of Jazzband at the moment."
 
@@ -20,6 +18,8 @@ def member_required(next_url=None, message=None):
         :param func: The view function to decorate.
         :type func: function
         """
+        if next_url is None:
+            next_url = default_url()
         if (
             not current_user.is_member
             or current_user.is_banned
