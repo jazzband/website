@@ -18,6 +18,7 @@ def member_required(next_url=None, message=None):
         :param func: The view function to decorate.
         :type func: function
         """
+        nonlocal next_url
         if next_url is None:
             next_url = default_url()
         if (
