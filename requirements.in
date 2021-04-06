@@ -48,7 +48,6 @@ markupsafe
 mock
 more-itertools
 oauthlib
-ordereddict
 packaging
 pexpect
 pip>=20.0

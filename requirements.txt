@@ -445,9 +445,6 @@ oauthlib==3.1.0 \
     #   -r requirements.in
     #   flask-dance
     #   requests-oauthlib
-ordereddict==1.1 \
-    --hash=sha256:1c35b4ac206cef2d24816c89f89cf289dd3d38cf7c449bb3fab7bf6d43f01b1f
-    # via -r requirements.in
 packaging==20.9 \
     --hash=sha256:5b327ac1320dc863dca72f4514ecc086f31186744b84a230374cc1fd776feae5 \
     --hash=sha256:67714da7f7bc052e064859c05c595155bd1ee9f69f76557e21f051443c20947a
