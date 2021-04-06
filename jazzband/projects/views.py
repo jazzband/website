@@ -6,8 +6,6 @@ import shutil
 import tempfile
 from datetime import datetime
 
-from pkg_resources import safe_name
-
 import delegator
 import requests
 from flask import (
@@ -26,6 +24,7 @@ from flask import (
 from flask.views import MethodView
 from flask_login import current_user, login_required
 from packaging.version import parse as parse_version
+from pkg_resources import safe_name
 from requests.exceptions import HTTPError
 from sqlalchemy import desc, nullslast
 from sqlalchemy.sql.expression import func
@@ -51,7 +50,7 @@ MAX_SIGSIZE = 8 * 1024  # 8K
 SIGNATURE_START = b"-----BEGIN PGP SIGNATURE-----"
 PATH_HASHER = "sha256"
 DEFAULT_SORTER = func.random()
-SORTER = {
+SORTERS = {
     "uploads": Project.uploads_count,
     "members": Project.membership_count,
     "watchers": Project.subscribers_count,
@@ -67,14 +66,16 @@ DEFAULT_ORDER = "desc"
 @projects.route("")
 @templated()
 def index():
-    sorter = request.args.get("sorter", None)
-    if sorter is None:
+    requested_sorter = request.args.get("sorter", None)
+    if requested_sorter is None or requested_sorter not in SORTERS:
         sorter = "random"
         initial_sorting = True
     else:
+        sorter = requested_sorter
         initial_sorting = False
+    criterion = SORTERS.get(sorter, DEFAULT_SORTER)
+
     order = request.args.get("order", None)
-    criterion = SORTER.get(sorter, DEFAULT_SORTER)
     if order == DEFAULT_ORDER:
         criterion = desc(criterion)
 

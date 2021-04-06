@@ -1,0 +1,70 @@
+name: Test & Deploy
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+  workflow_dispatch:
+  release:
+    types:
+      - published
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.4.0
+        with:
+          access_token: ${{ github.token }}
+
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "15"
+          check-latest: true
+
+      - run: make envvar
+
+      - run: make pull
+
+      - run: make image
+
+      - run: make test
+
+  deploy:
+    if: github.event.action == 'published' && github.repository == 'jazzband-roadies/website'
+
+    runs-on: ubuntu-latest
+
+    needs: [test]
+
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.4.0
+        with:
+          access_token: ${{ github.token }}
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Push
+        uses: dokku/github-action@v1.0.2
+        # enable verbose ssh output
+        with:
+          git_push_flags: "--force"
+          git_remote_url: ${{ secrets.SSH_REMOTE_URL }}
+          ssh_private_key: ${{ secrets.PRIVATE_KEY }}
+
+      - name: Create Sentry release
+        uses: getsentry/action-release@v1
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+        with:
+          environment: production

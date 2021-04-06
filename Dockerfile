@@ -11,7 +11,6 @@ COPY . /tmp/
 RUN npm run build
 
 # -----------------------------------------------------------------------------
-
 FROM python:3.9-slim-buster
 
 ENV PYTHONPATH=/app/ \
