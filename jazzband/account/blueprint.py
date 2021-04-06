@@ -1,3 +1,4 @@
+import logging
 from flask import current_app, flash
 from flask_dance.consumer import OAuth2ConsumerBlueprint, oauth_error
 from flask_dance.consumer.requests import BaseOAuth2Session, OAuth2Session
@@ -11,6 +12,8 @@ from ..cache import cache
 from ..db import postgres as db
 from ..exceptions import RateLimit
 from .models import OAuth
+
+logger = logging.getLogger(__name__)
 
 
 @oauth_error.connect
@@ -120,7 +123,6 @@ class GitHubBlueprint(OAuth2ConsumerBlueprint):
                 "client_id": "GITHUB_OAUTH_CLIENT_ID",
                 "client_secret": "GITHUB_OAUTH_CLIENT_SECRET",
                 "scope": "GITHUB_SCOPE",
-                "members_team_id": "GITHUB_MEMBERS_TEAM_ID",
                 "members_team_slug": "GITHUB_MEMBERS_TEAM_SLUG",
                 "roadies_team_slug": "GITHUB_ROADIES_TEAM_SLUG",
                 "admin_access_token": "GITHUB_ADMIN_TOKEN",
@@ -176,13 +178,23 @@ class GitHubBlueprint(OAuth2ConsumerBlueprint):
 
         Docs: https://docs.github.com/en/rest/reference/teams#create-a-team
         """
+        response = self.admin_session.get(
+            f"orgs/{self.org_name}/teams/{self.members_team_slug}"
+        )
+        response.raise_for_status()
+        member_team_data = response.json()
+        members_team_id = member_team_data.get("id")
+        if not members_team_id:
+            logger.error("Couldn't load member team details!", extra={"name": name})
+            return
+
         return self.admin_session.post(
             f"orgs/{self.org_name}/teams",
             json={
                 "name": name,
                 "description": f"Team for {name}",
                 "repo_names": [f"{self.org_name}/{name}"],
-                "parent_team_id": self.members_team_id,
+                "parent_team_id": members_team_id,
                 "privacy": "closed",  # meaning that all org members can see it
             },
             headers={"Accept": "application/vnd.github.v3+json"},
