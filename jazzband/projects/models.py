@@ -126,11 +126,12 @@ class Project(db.Model, Syncable):
             self.save()
 
     def create_team(self):
-        team_response = github.create_project_team(self.name).json()
+        team_response = github.create_project_team(self.name)
         if team_response and team_response.status_code == 201:
             team_data = team_response.json()
             self.team_slug = team_data.get("slug")
             self.save()
+            return team_response
 
 
 @generic_repr("id", "project_id", "is_active", "key")

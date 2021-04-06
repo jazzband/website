@@ -9,6 +9,7 @@ from .projects.commands import (
     send_new_upload_notifications,
     sync_projects,
     sync_project_members,
+    sync_project_team,
 )
 
 
@@ -57,4 +58,5 @@ def init_app(app):
     sync.add_command(sync_members)
     sync.add_command(sync_projects)
     sync.add_command(sync_project_members)
+    sync.add_command(sync_project_team)
     sync.add_command(sync_email_addresses)

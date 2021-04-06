@@ -184,7 +184,7 @@ def remove_user_from_team(user_id, project_id):
             # this was a success
             return
     logger.error(
-        "Error while removing a user from a project team",
+        f"Error while removing a user from a project team: {response.json()}",
         extra={
             "user_id": user_id,
             "project_id": project_id,
@@ -199,7 +199,7 @@ def delete_project_membership(mapper, connection, target):
     When a project membership is deleted we want to remove the user from
     the GitHub team as well.
     """
-    remove_user_from_team.schedule(target.user_id, target.project_id)
+    tasks.schedule(remove_user_from_team, target.user_id, target.project_id)
 
 
 @tasks.task(name="add_user_to_team")
@@ -212,7 +212,7 @@ def add_user_to_team(user_id, project_id):
             # this was a success
             return
     logger.error(
-        "Error while adding a user to a project team",
+        f"Error while adding a user to a project team: {response.json()}",
         extra={
             "user_id": user_id,
             "project_id": project_id,
@@ -227,4 +227,4 @@ def insert_project_membership(mapper, connection, target):
     When a project membership is added we want to add the user from
     the GitHub team as well.
     """
-    add_user_to_team.schedule(target.user_id, target.project_id)
+    tasks.schedule(add_user_to_team, target.user_id, target.project_id)
