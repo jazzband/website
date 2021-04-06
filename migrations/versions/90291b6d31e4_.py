@@ -15,13 +15,9 @@ down_revision = "a74099e498a6"
 
 def upgrade():
     op.add_column(
-        "project_memberships", sa.Column("left_at", sa.DateTime(), nullable=True)
-    )
-    op.add_column(
         "projects", sa.Column("team_slug", sa.String(length=255), nullable=True)
     )
 
 
 def downgrade():
     op.drop_column("projects", "team_slug")
-    op.drop_column("project_memberships", "left_at")
