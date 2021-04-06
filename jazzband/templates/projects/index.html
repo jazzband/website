@@ -25,6 +25,9 @@
           {{ sorter_link('random', sorter, order, 'fas fa-random') }}
         </th>
         <th class="numbers">
+          {{ sorter_link('members', sorter, order, 'fas fa-user-friends') }}
+        </th>
+        <th class="numbers">
           {{ sorter_link('uploads', sorter, order, 'fas fa-archive') }}
         </th>
         <th class="numbers">
@@ -46,7 +49,8 @@
       <tr>
         <td><a href="{{ url_for('projects.detail', name=project.normalized_name) }}">{{ project.name }}</a></td>
         <td class="numbers"></td>
-        <td class="numbers">{{ project.uploads_count or '' }}</td>
+        <td class="numbers">{{ project.membership_count or 0 }}</td>
+        <td class="numbers">{{ project.uploads_count or 0 }}</td>
         <td class="numbers">{{ project.subscribers_count }}</td>
         <td class="numbers">{{ project.stargazers_count }}</td>
         <td class="numbers">{{ project.forks_count }}</td>

@@ -73,6 +73,10 @@ class ProjectUploadAdmin(JazzbandModelView):
     column_filters = ("uploaded_at", "released_at")
 
 
+class ProjectMembershipAdmin(JazzbandModelView):
+    can_delete = False
+
+
 def init_app(app):
     admin = Admin(
         app,
@@ -86,7 +90,7 @@ def init_app(app):
         (OAuth, OAuthAdmin),
         (EmailAddress, EmailAddressAdmin),
         (Project, ProjectAdmin),
-        (ProjectMembership, JazzbandModelView),
+        (ProjectMembership, ProjectMembershipAdmin),
         (ProjectUpload, ProjectUploadAdmin),
         (ProjectCredential, JazzbandModelView),
     ]

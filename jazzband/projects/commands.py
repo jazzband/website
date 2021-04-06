@@ -18,6 +18,14 @@ def sync_projects():
     tasks.sync_projects()
 
 
+@click.command("project_members")
+@click_log.simple_verbosity_option(logger)
+@with_appcontext
+def sync_project_members():
+    "Syncs projects"
+    tasks.sync_project_members()
+
+
 @click.command("new_upload_notifications")
 @click_log.simple_verbosity_option(logger)
 @with_appcontext

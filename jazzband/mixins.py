@@ -15,10 +15,11 @@ class Syncable:
         results = []
         for item in data:
             defaults = sub_dict(item, fields)
+            if not isinstance(key, list):
+                key = [key]
+            kwargs = {k: item[k] for k in key}
             results.append(
-                cls.update_or_create(
-                    defaults=defaults, commit=False, **{key: item[key]}
-                )
+                cls.update_or_create(defaults=defaults, commit=False, **kwargs)
             )
         postgres.session.commit()
         return results

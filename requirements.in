@@ -92,5 +92,6 @@ wcwidth
 webencodings
 werkzeug
 whitenoise[brotli]
+wrapt
 wtforms
 zipp

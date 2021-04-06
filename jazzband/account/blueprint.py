@@ -121,9 +121,11 @@ class GitHubBlueprint(OAuth2ConsumerBlueprint):
                 "client_secret": "GITHUB_OAUTH_CLIENT_SECRET",
                 "scope": "GITHUB_SCOPE",
                 "members_team_id": "GITHUB_MEMBERS_TEAM_ID",
-                "roadies_team_id": "GITHUB_ROADIES_TEAM_ID",
+                "members_team_slug": "GITHUB_MEMBERS_TEAM_SLUG",
+                "roadies_team_slug": "GITHUB_ROADIES_TEAM_SLUG",
                 "admin_access_token": "GITHUB_ADMIN_TOKEN",
                 "org_id": "GITHUB_ORG_ID",
+                "org_name": "GITHUB_ORG_NAME",
             }
         )
 
@@ -154,69 +156,97 @@ class GitHubBlueprint(OAuth2ConsumerBlueprint):
 
     def join_organization(self, user_login):
         """
-        Adds the GitHub user with the given login to the org.
+        Adds the GitHub user with the given login to the members team.
         """
-        return self.join_team(self.members_team_id, user_login)
+        return self.join_team(self.members_team_slug, user_login)
 
     def leave_organization(self, user_login):
         """
         Remove the GitHub user with the given login from the org.
+
+        https://docs.github.com/en/rest/reference/orgs#remove-an-organization-member
         """
-        return self.admin_session.delete(f"orgs/{self.org_id}/memberships/{user_login}")
+        return self.admin_session.delete(
+            f"orgs/{self.org_name}/memberships/{user_login}"
+        )
 
     def create_project_team(self, name):
         """
         Create a project team in the members team with the given name.
+
+        Docs: https://docs.github.com/en/rest/reference/teams#create-a-team
         """
         return self.admin_session.post(
-            f"orgs/{self.org_id}/teams",
-            json={"name": name, "parent_team_id": self.members_team_id},
-            headers={"Accept": "application/vnd.github.hellcat-preview+json"},
+            f"orgs/{self.org_name}/teams",
+            json={
+                "name": name,
+                "description": f"Team for {name}",
+                "repo_names": [f"{self.org_name}/{name}"],
+                "parent_team_id": self.members_team_id,
+                "privacy": "closed",  # meaning that all org members can see it
+            },
+            headers={"Accept": "application/vnd.github.v3+json"},
         )
 
-    def join_team(self, team_id, user_login):
+    def join_team(self, team_slug, username):
         """
-        Join the GitHub user with the given login to the given team id.
-        """
-        return self.admin_session.put(f"teams/{team_id}/memberships/{user_login}")
+        Add the GitHub user with the given login to the given team slug.
 
-    def leave_team(self, team_id, user_login):
+        https://docs.github.com/en/rest/reference/teams#add-or-update-team-membership-for-a-user
         """
-        Remove the GitHub user with the given login from the given team id.
+        return self.admin_session.put(
+            f"orgs/{self.org_name}/teams/{team_slug}/memberships/{username}",
+            headers={"Accept": "application/vnd.github.v3+json"},
+        )
+
+    def leave_team(self, team_slug, username):
         """
-        return self.admin_session.delete(f"teams/{team_id}/memberships/{user_login}")
+        Remove the GitHub user with the given login from the given team slug.
+
+        https://docs.github.com/en/rest/reference/teams#remove-team-membership-for-a-user
+        """
+        return self.admin_session.delete(
+            f"orgs/{self.org_name}/teams/{team_slug}/memberships/{username}",
+            headers={"Accept": "application/vnd.github.v3+json"},
+        )
 
     def get_projects(self):
+        # https://docs.github.com/en/rest/reference/repos#list-organization-repositories
         projects = self.admin_session.get(
-            f"orgs/{self.org_id}/repos?type=public", all_pages=True
+            f"orgs/{self.org_name}/repos?type=public", all_pages=True
         )
         projects_with_subscribers = []
         for project in projects:
             project_name = project["name"]
+            # https://docs.github.com/en/rest/reference/activity#list-watchers
             watchers = self.admin_session.get(
-                f"repos/jazzband/{project_name}/subscribers", all_pages=True
+                f"repos/{self.org_name}/{project_name}/subscribers", all_pages=True
             )
             project["subscribers_count"] = len(watchers)
             projects_with_subscribers.append(project)
         return projects_with_subscribers
 
     def get_teams(self):
+        # https://docs.github.com/en/rest/reference/teams#list-child-teams
         return self.admin_session.get(
-            f"teams/{self.members_team_id}/teams",
+            f"orgs/{self.org_name}/teams/{self.members_team_slug}/teams",
             all_pages=True,
             headers={"Accept": "application/vnd.github.hellcat-preview+json"},
         )
 
     def get_roadies(self):
         return self.admin_session.get(
-            f"teams/{self.roadies_team_id}/members", all_pages=True
+            f"orgs/{self.org_name}/teams/{self.roadies_team_slug}/members",
+            all_pages=True,
         )
 
-    def get_members(self):
-        without_2fa_ids = set(user["id"] for user in self.get_without_2fa())
-        roadies_ids = set(roadie["id"] for roadie in self.get_roadies())
+    def get_members(self, team_slug=None):
+        if team_slug is None:
+            team_slug = self.members_team_slug
+        without_2fa_ids = {user["id"] for user in self.get_without_2fa()}
+        roadies_ids = {roadie["id"] for roadie in self.get_roadies()}
         all_members = self.admin_session.get(
-            f"teams/{self.members_team_id}/members", all_pages=True
+            f"orgs/{self.org_name}/teams/{team_slug}/members", all_pages=True
         )
         members = []
         for member in all_members:
@@ -225,12 +255,6 @@ class GitHubBlueprint(OAuth2ConsumerBlueprint):
             member["has_2fa"] = member["id"] not in without_2fa_ids
             members.append(member)
         return members
-
-    def publicize_membership(self, user_login):
-        """
-        Publicizes the membership of the GitHub user with the given login.
-        """
-        self.admin_session.put(f"orgs/{self.org_id}/public_members/{user_login}")
 
     def get_emails(self, user):
         """
@@ -245,21 +269,23 @@ class GitHubBlueprint(OAuth2ConsumerBlueprint):
         Gets the organization members without Two Factor Auth enabled.
         """
         return self.admin_session.get(
-            f"orgs/{self.org_id}/members?filter=2fa_disabled", all_pages=True
+            f"orgs/{self.org_name}/members?filter=2fa_disabled", all_pages=True
         )
 
-    def is_member(self, user_login):
+    def is_member(self, username):
         """
         Checks if the GitHub user with the given login is member of the org.
         """
         try:
-            self.admin_session.get(f"orgs/{self.org_id}/members/{user_login}")
-            return True
+            response = self.admin_session.get(
+                f"orgs/{self.org_name}/members/{username}"
+            )
+            return response.status_code == 204
         except Exception:
             return False
 
     def new_roadies_issue(self, data):
-        return self.new_project_issue(org="jazzband-roadies", project="help", data=data)
+        return self.new_project_issue(repo="help", org="jazzband-roadies", data=data)
 
-    def new_project_issue(self, project, data, org="jazzband"):
-        return self.admin_session.post(f"repos/{org}/{project}/issues", json=data)
+    def new_project_issue(self, repo, data, org="jazzband"):
+        return self.admin_session.post(f"repos/{org}/{repo}/issues", json=data)

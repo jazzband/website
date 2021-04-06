@@ -12,7 +12,7 @@ RUN npm run build
 
 # -----------------------------------------------------------------------------
 
-FROM python:3.8-slim-buster
+FROM python:3.9-slim-buster
 
 ENV PYTHONPATH=/app/ \
     PYTHONHASHSEED=random \

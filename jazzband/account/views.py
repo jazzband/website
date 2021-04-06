@@ -190,13 +190,14 @@ def join():
 
     membership = None
     if has_verified_emails:
-        membership = github.join_organization(current_user.login)
-        if membership:
-            flash("To join please accept the invitation from GitHub.")
+        github.join_organization(current_user.login)
+        flash(
+            "Please accept the invitation sent via email from GitHub to finalize joining."
+        )
 
     return {
         "membership": membership,
-        "org_id": github.org_id,
+        "org_name": github.org_name,
         "has_verified_emails": has_verified_emails,
     }
 
@@ -213,7 +214,7 @@ def leave():
     form = LeaveForm()
     if form.validate_on_submit():
         response = github.leave_organization(current_user.login)
-        if response is None:
+        if response is None or response.status_code != 204:
             flash(
                 "Leaving the organization failed. "
                 "Please try again or open a ticket for the roadies."

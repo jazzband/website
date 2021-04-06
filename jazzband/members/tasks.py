@@ -22,8 +22,8 @@ def sync_members():
         members_data = github.get_members()
         User.sync(members_data)
 
-        stored_ids = set(user.id for user in User.query.all())
-        fetched_ids = set(m["id"] for m in members_data)
+        stored_ids = {user.id for user in User.query.all()}
+        fetched_ids = {m["id"] for m in members_data}
         stale_ids = stored_ids - fetched_ids
         if stale_ids:
             User.query.filter(User.id.in_(stale_ids)).update(
@@ -56,20 +56,3 @@ def sync_email_addresses(user_id):
     EmailAddress.sync(email_addresses, key="email")
 
     return email_addresses
-
-
-# FIXME do we really need periodical task?
-@tasks.task(name="sync_teams", periodicity=timedelta(minutes=15), max_retries=3)
-def sync_teams():
-    with redis.lock("sync_teams", ttl=ONE_MINUTE * 14):
-        teams_data = github.get_teams()
-        team_slugs = [team["slug"] for team in teams_data]
-
-        projects = Project.query.filter(Project.name.notin_(team_slugs))
-        for project in projects:
-            github.create_project_team(project.name)
-            # TODO 1) save team_id to the project, don't rely on names
-            # project.team_id = project_team_data["id"]
-            # project.save()
-
-            # TODO 2) sync team members

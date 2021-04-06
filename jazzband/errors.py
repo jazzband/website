@@ -29,7 +29,7 @@ def init_app(app):
                 event_level=logging.ERROR,  # Send errors as events
             ),
             FlaskIntegration(),
-            SpinachIntegration(),
+            SpinachIntegration(send_retries=False),
             SqlalchemyIntegration(),
             RedisIntegration(),
         ],

@@ -3,12 +3,13 @@ import time
 from datetime import datetime
 from uuid import uuid4
 
-from flask import current_app, safe_join
+from flask import current_app, render_template, safe_join
 from flask_login import current_user
 from sqlalchemy import func, orm
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy_utils import aggregated, generic_repr
 
+from ..account import github
 from ..auth import current_user_is_roadie
 from ..db import postgres as db
 from ..members.models import User
@@ -19,6 +20,7 @@ from ..mixins import Syncable
 class Project(db.Model, Syncable):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text, nullable=False, index=True)
+    team_slug = db.Column(db.String(255))
     normalized_name = orm.column_property(func.normalize_pep426_name(name))
     description = db.Column(db.Text)
     html_url = db.Column(db.String(255))
@@ -57,6 +59,10 @@ class Project(db.Model, Syncable):
     def uploads_count(self):
         return db.func.count("1")
 
+    @aggregated("membership", db.Column(db.SmallInteger))
+    def membership_count(self):
+        return db.func.count("1")
+
     @property
     def current_user_is_member(self):
         if not current_user:
@@ -66,28 +72,65 @@ class Project(db.Model, Syncable):
         elif current_user_is_roadie():
             return True
         else:
-            return current_user.id in self.member_ids
+            return self.user_is_member(current_user)
 
     @property
-    def member_ids(self):
-        return [member.user.id for member in self.membership.all()]
+    def current_user_is_lead(self):
+        if not current_user:
+            return False
+        elif not current_user.is_authenticated:
+            return False
+        elif current_user_is_roadie():
+            return True
+        else:
+            return current_user.id in [user.id for user in self.leads]
+
+    def user_is_member(self, user):
+        return user.id in [member.id for member in self.members]
+
+    @property
+    def members(self):
+        return (
+            User.active_members()
+            .join(User.projects_memberships)
+            .filter(ProjectMembership.project_id == self.id)
+        )
 
     @property
     def leads(self):
-        leads = self.membership.filter(
-            ProjectMembership.is_lead.is_(True),
-            ProjectMembership.user_id.in_(
-                User.active_members().options(orm.load_only("id"))
-            ),
-        )
-        return [member.user for member in leads]
+        return self.members.filter(ProjectMembership.is_lead.is_(True))
 
     @property
     def pypi_json_url(self):
-        # using a timestamp here to work-around the
-        # CDN cache of the projects JSON response
-        timestamp = int(time.time())
-        return f"https://pypi.org/pypi/{self.normalized_name}/json?time={timestamp}"
+        """
+        The URL to fetch JSON data from PyPI, using a timestamp to work-around
+        the PyPI CDN cache.
+        """
+        return (
+            f"https://pypi.org/pypi/{self.normalized_name}/json?time={int(time.time())}"
+        )
+
+    def create_transfer_issue(self, assignees, **data):
+        issue_response = github.new_project_issue(
+            repo=self.name,
+            data={
+                "title": render_template("hooks/project-title.txt", **data),
+                "body": render_template("hooks/project-body.txt", **data),
+                "assignees": assignees,
+            },
+        )
+        issue_data = issue_response.json()
+        issue_url = issue_data.get("html_url")
+        if issue_url.startswith(f"https://github.com/jazzband/{self.name}"):
+            self.transfer_issue_url = issue_url
+            self.save()
+
+    def create_team(self):
+        team_response = github.create_project_team(self.name).json()
+        if team_response and team_response.status_code == 201:
+            team_data = team_response.json()
+            self.team_slug = team_data.get("slug")
+            self.save()
 
 
 @generic_repr("id", "project_id", "is_active", "key")
@@ -105,7 +148,7 @@ class ProjectCredential(db.Model):
 
 
 @generic_repr("id", "user_id", "project_id", "is_lead")
-class ProjectMembership(db.Model):
+class ProjectMembership(db.Model, Syncable):
     id = db.Column("id", db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     project_id = db.Column(db.Integer, db.ForeignKey("projects.id"))

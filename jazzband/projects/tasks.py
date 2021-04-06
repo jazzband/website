@@ -37,40 +37,31 @@ def update_project_by_hook(hook_id):
     # then sync the project so it definitely exists
     Project.sync([hook_data["repository"]])
 
-    # create a team for the project
-    project_name = hook_data["repository"]["name"]
-    github.create_project_team(project_name)
-
     # get the project again from the database
+    project_name = hook_data["repository"]["name"]
     project = Project.query.filter(Project.name == project_name).first()
-
-    # if there already was an issue created, just stop here
-    if project.transfer_issue_url:
-        return
 
     # use a lock to make sure we don't run this multiple times
     with redis.lock(f"project-update-by-hook-{project_name}", ttl=ONE_MINUTE):
-        # get list of roadies and set them as the default assignees
-        roadies = User.query.filter_by(is_member=True, is_banned=False, is_roadie=True)
-        # we'll auto-assign all the roadies, huh huh huh
-        assignees = [roadie.login for roadie in roadies]
-        # add sender of the hook as well if given
-        if "sender" in hook_data:
-            assignees.append(hook_data["sender"]["login"])
 
-        # create a new issue, finally
-        issue_data = github.new_project_issue(
-            project=project_name,
-            data={
-                "title": render_template("hooks/project-title.txt", **hook_data),
-                "body": render_template("hooks/project-body.txt", **hook_data),
-                "assignees": assignees,
-            },
-        )
-        issue_url = issue_data.json().get("html_url")
-        if issue_url.startswith(f"https://github.com/jazzband/{project_name}"):
-            project.transfer_issue_url = issue_url
-            project.save()
+        # if there already was an issue created, just stop here
+        if not project.transfer_issue_url:
+            # get list of roadies and set them as the default assignees
+            roadies = User.query.filter_by(
+                is_member=True, is_banned=False, is_roadie=True
+            )
+            # we'll auto-assign all the roadies, huh huh huh
+            assignees = [roadie.login for roadie in roadies]
+            # add sender of the hook as well if given
+            if "sender" in hook_data:
+                assignees.append(hook_data["sender"]["login"])
+
+            # create a new issue, finally
+            project.create_transfer_issue(assignees, **hook_data)
+
+        if not project.team_slug:
+            # create a team for the project
+            project.create_team()
 
 
 @tasks.task(name="send_new_upload_notifications")
@@ -142,3 +133,98 @@ def update_upload_ordering(project_id):
         for index, upload in enumerate(sorted(uploads, key=version_sorter)):
             upload.ordering = index
         postgres.session.commit()
+
+
+@tasks.task(
+    name="sync_project_members", periodicity=timedelta(minutes=15), max_retries=3
+)
+def sync_project_members():
+    """
+    Periodically fetch all team members from GitHub and persist
+    project memberships in the database and mark any users as left
+    for those that aren't in GitHub anymore.
+    """
+    with redis.lock("sync_project_members", ttl=ONE_MINUTE * 14):
+
+        teams = github.get_teams()
+
+        for team in teams:
+            project = Project.query.filter(Project.team_slug == team["slug"]).first()
+            if project is None:
+                continue
+
+            team_members = github.get_members(team["slug"])
+            sync_data = [
+                {
+                    "user_id": team_member["id"],
+                    "project_id": project.id,
+                }
+                for team_member in team_members
+            ]
+
+            ProjectMembership.sync(sync_data, key=["user_id", "project_id"])
+
+            stored_ids = {membership.user_id for membership in project.membership.all()}
+            fetched_ids = {m["id"] for m in team_members}
+            stale_ids = stored_ids - fetched_ids
+            if stale_ids:
+                ProjectMembership.query.filter(
+                    ProjectMembership.id.in_(stale_ids)
+                ).delete()
+                postgres.session.commit()
+
+
+@tasks.task(name="remove_user_from_team")
+def remove_user_from_team(user_id, project_id):
+    user = User.query.get(user_id)
+    project = Project.query.get(project_id)
+    if user and project:
+        response = github.leave_team(project.team_slug, user.login)
+        if response and response.status_code == 204:
+            # this was a success
+            return
+    logger.error(
+        "Error while removing a user from a project team",
+        extra={
+            "user_id": user_id,
+            "project_id": project_id,
+            "response": response.json(),
+        },
+    )
+
+
+@postgres.event.listens_for(ProjectMembership, "after_delete")
+def delete_project_membership(mapper, connection, target):
+    """
+    When a project membership is deleted we want to remove the user from
+    the GitHub team as well.
+    """
+    remove_user_from_team.schedule(target.user_id, target.project_id)
+
+
+@tasks.task(name="add_user_to_team")
+def add_user_to_team(user_id, project_id):
+    user = User.query.get(user_id)
+    project = Project.query.get(project_id)
+    if user and project:
+        response = github.join_team(project.team_slug, user.login)
+        if response and response.status_code == 200:
+            # this was a success
+            return
+    logger.error(
+        "Error while adding a user to a project team",
+        extra={
+            "user_id": user_id,
+            "project_id": project_id,
+            "response": response.json(),
+        },
+    )
+
+
+@postgres.event.listens_for(ProjectMembership, "after_insert")
+def insert_project_membership(mapper, connection, target):
+    """
+    When a project membership is added we want to add the user from
+    the GitHub team as well.
+    """
+    add_user_to_team.schedule(target.user_id, target.project_id)

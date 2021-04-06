@@ -56,10 +56,12 @@ FLATPAGES_NEWS_ROOT = "../docs/news"
 # Set these values in the .env file or env vars
 GITHUB_OAUTH_CLIENT_ID = config("GITHUB_CLIENT_ID", "")
 GITHUB_OAUTH_CLIENT_SECRET = config("GITHUB_CLIENT_SECRET", "")
-GITHUB_ORG_ID = config("GITHUB_ORG_ID", "jazzband")
+GITHUB_ORG_NAME = config("GITHUB_ORG_NAME", "jazzband")
+GITHUB_ORG_ID = config("GITHUB_ORG_ID", 15129049)
 GITHUB_SCOPE = config("GITHUB_SCOPE", "read:org,user:email")
 GITHUB_MEMBERS_TEAM_ID = config("GITHUB_MEMBERS_TEAM_ID", 0, cast=int)
-GITHUB_ROADIES_TEAM_ID = config("GITHUB_ROADIES_TEAM_ID", 0, cast=int)
+GITHUB_MEMBERS_TEAM_SLUG = config("GITHUB_MEMBERS_TEAM_SLUG", "members")
+GITHUB_ROADIES_TEAM_SLUG = config("GITHUB_ROADIES_TEAM_SLUG", "roadies")
 GITHUB_ADMIN_TOKEN = config("GITHUB_ADMIN_TOKEN", "")
 GITHUB_WEBHOOKS_KEY = config("GITHUB_WEBHOOKS_KEY", "")
 

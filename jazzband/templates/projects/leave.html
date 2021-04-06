@@ -1,0 +1,20 @@
+{% extends "layouts/default.html" %}
+
+{% import 'macros.html' as macros %}
+
+{% block content %}
+<div class="c4">
+  <h2>Sorry to see you go</h2>
+  <p>
+      If you really want to leave the {{ project.name }} team, please confirm with your GitHub login below.
+  </p>
+  <form action="" method="post">
+    {{ leave_form.hidden_tag() }}
+    <dl>
+      {{ macros.render_field(leave_form.login) }}
+    </dl>
+    <button type="submit">Leave</button>
+    <a href="{{ url_for('.detail', name=project.name) }}">back to the Project</a>
+  </form>
+</div>
+{% endblock %}
