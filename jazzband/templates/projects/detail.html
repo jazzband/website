@@ -60,7 +60,7 @@
   </table>
 
   <h3>Leads</h3>
-  {% with leads = project.leads %}
+  {% with leads = project.leads.all() %}
   {% if leads %}
   <div class="grid">
     {% for lead in leads %}
@@ -84,21 +84,21 @@
 
   <h3>Members</h3>
   <div class="admonition">
-    {% if project.current_user_is_member and not current_user.is_roadie %}
+    {% if not project.current_user_is_member %}
     <p class="admonition-title">Thank you for being a project member!</p>
     <p>
-      For your interest: you can always <a href="{{ url_for('projects.leave', name=project.name) }}">leave the project again</a>.
+      You can of course always <a href="{{ url_for('projects.leave', name=project.name) }}">leave the project again</a>.
     </p>
     {% else %}
     <p class="admonition-title">Interested in becoming a project member?</p>
     <p>
       To use some of the project specific features on GitHub such as receiving
-      notifications for code reviews and participate in discussions, feel free
+      notifications for code reviews and participate in project discussions, feel free
       to <a href="{{ url_for('projects.join', name=project.name) }}">join the project team</a>!
     </p>
     {% endif %}
   </div>
-  {% with members = project.members %}
+  {% with members = project.members.all() %}
   {% if members %}
   <div class="grid">
     {% for member in members %}
