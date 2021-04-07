@@ -178,18 +178,24 @@ class GitHubBlueprint(OAuth2ConsumerBlueprint):
         """
         return self.admin_session.get(f"orgs/{self.org_name}/teams/{slug}")
 
-    def create_project_team(self, name):
+    def get_members_team_id(self):
         """
-        Create a project team in the members team with the given name.
-
-        Docs: https://docs.github.com/en/rest/reference/teams#create-a-team
+        Fetches the GitHub team id of the Members team.
         """
         member_team_response = self.admin_session.get(
             f"orgs/{self.org_name}/teams/{self.members_team_slug}"
         )
         member_team_response.raise_for_status()
         member_team_data = member_team_response.json()
-        members_team_id = member_team_data.get("id")
+        return member_team_data.get("id")
+
+    def create_project_team(self, name):
+        """
+        Create a project team in the members team with the given name.
+
+        Docs: https://docs.github.com/en/rest/reference/teams#create-a-team
+        """
+        members_team_id = self.get_members_team_id()
         if not members_team_id:
             logger.error("Couldn't load member team details!", extra={"name": name})
             return
