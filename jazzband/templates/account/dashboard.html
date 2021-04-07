@@ -55,19 +55,6 @@
   {% endif %}
   </p>
 #}
-  {% set email_addresses = current_user.email_addresses.all() %}
-  {% if email_addresses %}
-  <h4>Email addresses</h4>
-  <p>
-    Here are the email addresses we fetched using the GitHub API to make sure
-    you have verified at least one:
-    <ul>
-    {% for email in email_addresses %}
-      <li>{{ email.email }}{% if email.primary %} (primary){% endif %}</li>
-    {% endfor %}
-  </ul>
-  </p>
-  {% endif %}
   <h4>What's next?</h4>
   <p>
     You may be wondering what you can do as a member of the Jazzband.
@@ -90,6 +77,42 @@
     <a href="{{ url_for('content.about', path='contact') }}">reach out</a>
     to fellow Jazzband members if needed.
   </p>
+  {% set projects_memberships = current_user.projects_memberships.all() %}
+  <h4>Your projects</h4>
+  {% if projects_memberships %}
+  <p>
+    Here are the projects teams that you're a member of:
+    <dl>
+    {% for projects_membership in projects_memberships %}
+      <dt>
+        <a href="{{ url_for('projects.detail', name=projects_membership.project.name) }}">
+          {{ projects_membership.project.name }}
+        </a>{% if projects_membership.lead %} (lead){% endif %}
+      </dt>
+      <dd>{{ projects_membership.project.description }}</dd>
+    {% endfor %}
+  </dl>
+  </p>
+  {% else %}
+  <p>
+    You haven't joined a project team yet, would you like to do that now?
+    Head over to the <a href="{{ url_for('projects.index') }}">project index</a>
+    and select one of the projects you're interested in.
+  {% endif %}
+
+  {% set email_addresses = current_user.email_addresses.all() %}
+  {% if email_addresses %}
+  <h4>Email addresses</h4>
+  <p>
+    Here are the email addresses we fetched using the GitHub API to make sure
+    you have verified at least one:
+    <ul>
+    {% for email in email_addresses %}
+      <li>{{ email.email }}{% if email.primary %} (primary){% endif %}</li>
+    {% endfor %}
+  </ul>
+  </p>
+  {% endif %}
   <h4>Other things to do here</h4>
   <p>
   {% if current_user.is_member %}
