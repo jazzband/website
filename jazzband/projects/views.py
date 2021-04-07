@@ -168,7 +168,7 @@ class LeaveView(ProjectMixin, MethodView):
     decorators = [login_required, member_required(), templated()]
 
     def get(self, name):
-        if self.project.user_is_member(current_user):
+        if not self.project.user_is_member(current_user):
             flash(f"You're not a member of {self.project.name} at the moment.")
             return self.redirect_to_project()
 
@@ -178,7 +178,7 @@ class LeaveView(ProjectMixin, MethodView):
         }
 
     def post(self, name):
-        if self.project.user_is_member(current_user):
+        if not self.project.user_is_member(current_user):
             flash(f"You're not a member of {self.project.name} at the moment.")
             return self.redirect_to_project()
 
