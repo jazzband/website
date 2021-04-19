@@ -55,7 +55,7 @@ def sync_project_team(name):
     team_response.raise_for_status()
     if team_response:
         team_data = team_response.json()
-        for lead in project.leads.all():
+        for lead in project.lead_members.all():
             logging.info(f"Adding @{lead.login} to project team {name}")
             member_response = github.join_team(team_data["slug"], lead.login)
             member_response.raise_for_status()

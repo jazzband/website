@@ -60,7 +60,7 @@
   </table>
 
   <h3>Leads</h3>
-  {% with leads = project.leads.all() %}
+  {% with leads = project.lead_members.all() %}
   {% if leads %}
   <div class="grid">
     {% for lead in leads %}
@@ -98,7 +98,7 @@
     </p>
     {% endif %}
   </div>
-  {% with members = project.members.all() %}
+  {% with members = project.nonlead_members.all() %}
   {% if members %}
   <div class="grid">
     {% for member in members %}
