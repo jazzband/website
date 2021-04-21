@@ -189,8 +189,8 @@ docutils==0.16 \
 feedgen==0.9.0 \
     --hash=sha256:8e811bdbbed6570034950db23a4388453628a70e689a6e8303ccec430f5a804a
     # via -r requirements.in
-flask-admin==1.5.7 \
-    --hash=sha256:145f59407d78319925e20f7c3021f60c71f0cacc98e916e52000845dc4c63621
+flask-admin==1.5.8 \
+    --hash=sha256:eb06a1f31b98881dee53a55c64faebd1990d6aac38826364b280df0b2679ff74
     # via -r requirements.in
 flask-caching==1.10.1 \
     --hash=sha256:bcda8acbc7508e31e50f63e9b1ab83185b446f6b6318bd9dd1d45626fba2e903 \
@@ -721,8 +721,8 @@ spinach==0.0.13 \
     --hash=sha256:99ad6eacda28329f53f7396911f798db5a92bae93f44ce059e6ab3cd620d13c1 \
     --hash=sha256:faf83954f6217b24eadadd8384483e80e54663ff836a6a6e1f77cae9d7bf34f2
     # via -r requirements.in
-sqlalchemy-utils==0.36.8 \
-    --hash=sha256:fb66e9956e41340011b70b80f898fde6064ec1817af77199ee21ace71d7d6ab0
+sqlalchemy-utils==0.37.0 \
+    --hash=sha256:c7bec2c982b31ec6133ba519f73f07653bbb7e7b3c23836bb8d9133045386b68
     # via
     #   -r requirements.in
     #   flask-dance
@@ -827,6 +827,7 @@ whitenoise[brotli]==5.2.0 \
     # via -r requirements.in
 wrapt==1.12.1 \
     --hash=sha256:b62ffa81fb85f4332a4f609cab4ac40709470da05643a082ec1eb88e6d9b97d7
+    # via -r requirements.in
 wtforms==2.3.3 \
     --hash=sha256:7b504fc724d0d1d4d5d5c114e778ec88c37ea53144683e084215eed5155ada4c \
     --hash=sha256:81195de0ac94fbc8368abbaf9197b88c4f3ffd6c2719b5bf5fc9da744f3d829c
