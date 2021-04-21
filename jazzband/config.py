@@ -70,7 +70,7 @@ SESSION_REFRESH_EACH_REQUEST = False
 PERMANENT_SESSION_LIFETIME = timedelta(days=14)
 USE_SESSION_FOR_NEXT = True
 
-SQLALCHEMY_DATABASE_URI = config("DATABASE_URL", "postgres://postgres@db/postgres")
+SQLALCHEMY_DATABASE_URI = config("DATABASE_URL", "postgresql://postgres@db/postgres")
 if IS_PRODUCTION:
     SQLALCHEMY_DATABASE_URI += "?sslmode=require"
     VALIDATE_IP = config("GITHUB_VALIDATE_IP", True, cast=bool)
