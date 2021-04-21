@@ -169,15 +169,6 @@ def sync_project_members():
 
             ProjectMembership.sync(sync_data, key=["user_id", "project_id"])
 
-            stored_ids = {membership.user_id for membership in project.membership.all()}
-            fetched_ids = {m["id"] for m in team_members}
-            stale_ids = stored_ids - fetched_ids
-            if stale_ids:
-                ProjectMembership.query.filter(
-                    ProjectMembership.user_id.in_(stale_ids)
-                ).delete()
-                postgres.session.commit()
-
 
 @tasks.task(name="remove_user_from_team")
 def remove_user_from_team(user_id, project_id):
@@ -193,7 +184,7 @@ def remove_user_from_team(user_id, project_id):
         extra={
             "user_id": user_id,
             "project_id": project_id,
-            "response": response.json(),
+            "response": response.json() if response else None,
         },
     )
 
