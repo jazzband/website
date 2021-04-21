@@ -200,9 +200,9 @@ flask-compress==1.9.0 \
     --hash=sha256:6dc80e18b0304ff3155461fb4b155eb8be3e929e6f7bbdd90c723e1c554e2368 \
     --hash=sha256:d93edd8fc02ae74b73c3df10a8e7ee26dee489c65dedce0b3a1d2ce05ac3d1be
     # via -r requirements.in
-flask-dance[sqla]==3.3.1 \
-    --hash=sha256:6a570e051fe40148698080c65b815704641bf05091fbb9becae549b8d8e1e33b \
-    --hash=sha256:cd2955a46cf3b72ff9b0b5a6521df5aed05dd5189eb312a5d27a9e2e4983ce29
+flask-dance[sqla]==4.0.0 \
+    --hash=sha256:17e5114db33d9b23a0d26fdf4e904b274e32f63f4f781a14831cd3c6740c8b23 \
+    --hash=sha256:d1dfe440272cdb2bbeea9c4703b30e0b24b8c0e1d3672c2d5a8741ebfa99dac7
     # via -r requirements.in
 flask-flatpages==0.7.3 \
     --hash=sha256:18b6305e367a3423c9b12a4dbca0900d18ed401c2f301e983790b4d023767d6f \
@@ -710,7 +710,6 @@ six==1.15.0 \
     # via
     #   -r requirements.in
     #   bleach
-    #   flask-dance
     #   flask-flatpages
     #   flask-kvsession
     #   flask-talisman
@@ -724,9 +723,7 @@ spinach==0.0.13 \
     # via -r requirements.in
 sqlalchemy-utils==0.36.8 \
     --hash=sha256:fb66e9956e41340011b70b80f898fde6064ec1817af77199ee21ace71d7d6ab0
-    # via
-    #   -r requirements.in
-    #   flask-dance
+    # via -r requirements.in
 sqlalchemy==1.3.23 \
     --hash=sha256:040bdfc1d76a9074717a3f43455685f781c581f94472b010cd6c4754754e1862 \
     --hash=sha256:1fe5d8d39118c2b018c215c37b73fd6893c3e1d4895be745ca8ff6eb83333ed3 \
