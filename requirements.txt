@@ -204,9 +204,9 @@ flask-dance[sqla]==3.3.1 \
     --hash=sha256:6a570e051fe40148698080c65b815704641bf05091fbb9becae549b8d8e1e33b \
     --hash=sha256:cd2955a46cf3b72ff9b0b5a6521df5aed05dd5189eb312a5d27a9e2e4983ce29
     # via -r requirements.in
-flask-flatpages==0.7.2 \
-    --hash=sha256:591506153c66e6b1d2286b5c757b652fb14d6b9ec8e55bd4e58d1799a0bea278 \
-    --hash=sha256:67401f57fc3b2746cfac6ca6750cd199bdfce446fba5bda48a645d7938367317
+flask-flatpages==0.7.3 \
+    --hash=sha256:18b6305e367a3423c9b12a4dbca0900d18ed401c2f301e983790b4d023767d6f \
+    --hash=sha256:b8d7a88b6e75ea11ce4ada3b7d1ec723ba5b5ddc26458e82925e66f43e9dbe3f
     # via -r requirements.in
 flask-hookserver==1.1.0 \
     --hash=sha256:6ace808bbbf62936293bcf791ee26ba1d4a8360d18b65fedecb1f51dff07dee6 \
@@ -268,9 +268,8 @@ funcsigs==1.0.2 \
     --hash=sha256:330cc27ccbf7f1e992e69fef78261dc7c6569012cf397db8d3de0234e6c937ca \
     --hash=sha256:a7bb0f2cf3a3fd1ab2732cb49eba4252c2af4240442415b4abce3b87022a8f50
     # via -r requirements.in
-gunicorn==20.0.4 \
-    --hash=sha256:1904bb2b8a43658807108d59c3f3d56c2b6121a701161de0ddf9ad140073c626 \
-    --hash=sha256:cd4a810dd51bf497552cf3f863b575dabd73d6ad6a91075b65936b151cbf4f9c
+gunicorn==20.1.0 \
+    --hash=sha256:e0a968b5ba15f8a328fdfd7ab1fcb5af4470c28aaf7e55df02a99bc13138e6e8
     # via -r requirements.in
 honcho==1.0.1 \
     --hash=sha256:af5806bf13e3b20acdcb9ff8c0beb91eee6fe07393c3448dfad89667e6ac7576 \
@@ -712,6 +711,7 @@ six==1.15.0 \
     #   -r requirements.in
     #   bleach
     #   flask-dance
+    #   flask-flatpages
     #   flask-kvsession
     #   flask-talisman
     #   pyopenssl
@@ -778,9 +778,9 @@ toml==0.10.2 \
     # via
     #   pep517
     #   pytest
-tqdm==4.59.0 \
-    --hash=sha256:9fdf349068d047d4cfbe24862c425883af1db29bcddf4b0eeb2524f6fbdb23c7 \
-    --hash=sha256:d666ae29164da3e517fcf125e41d4fe96e5bb375cd87ff9763f6b38b5592fe33
+tqdm==4.60.0 \
+    --hash=sha256:daec693491c52e9498632dfbe9ccfc4882a557f5fa08982db1b4d3adbe0887c3 \
+    --hash=sha256:ebdebdb95e3477ceea267decfc0784859aa3df3e27e22d23b83e9b272bf157ae
     # via
     #   -r requirements.in
     #   twine
@@ -828,6 +828,7 @@ whitenoise[brotli]==5.2.0 \
     # via -r requirements.in
 wrapt==1.12.1 \
     --hash=sha256:b62ffa81fb85f4332a4f609cab4ac40709470da05643a082ec1eb88e6d9b97d7
+    # via -r requirements.in
 wtforms==2.3.3 \
     --hash=sha256:7b504fc724d0d1d4d5d5c114e778ec88c37ea53144683e084215eed5155ada4c \
     --hash=sha256:81195de0ac94fbc8368abbaf9197b88c4f3ffd6c2719b5bf5fc9da744f3d829c
