@@ -97,15 +97,15 @@ class Project(db.Model, Syncable):
 
     @property
     def nonlead_members(self):
-        return self.all_members().filter(ProjectMembership.is_lead.is_(False))
+        return self.all_members.filter(ProjectMembership.is_lead.is_(False))
 
     @property
     def lead_members(self):
-        return self.all_members().filter(ProjectMembership.is_lead.is_(True))
+        return self.all_members.filter(ProjectMembership.is_lead.is_(True))
 
     def user_is_member(self, user):
         return user.id in [
-            member.id for member in self.all_members().options(orm.load_only("id"))
+            member.id for member in self.all_members.options(orm.load_only("id"))
         ]
 
     @property
