@@ -1,6 +1,7 @@
 import json
 import uuid
 
+from flask import current_app
 from flask_hookserver import Hooks
 
 from .db import redis
@@ -22,6 +23,10 @@ def membership(data, guid):
         return
     member = User.query.filter_by(id=data["member"]["id"]).first()
     if member is None:
+        return
+    # only remove the user if they are member of the main members team
+    # not if they are removed from project teams
+    if data["team"]["slug"] != current_app.config["GITHUB_MEMBERS_TEAM_SLUG"]:
         return
     if data["action"] == "added":
         member.is_member = True
