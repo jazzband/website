@@ -4,7 +4,7 @@
   <dd>{{ field }} {{ field.label }}</td>
 {% else %}
   <dt>{{ field.label }}</dt>
-  <dd>{{ field(autofocus='autofocus', **kwargs)|safe }}
+  <dd>{{ field(autofocus='autofocus', autocomplete="off", **kwargs)|safe }}
 {% endif %} {% if field.errors %}
     <ul class="errors">
         {% for error in field.errors %}
