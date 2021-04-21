@@ -1,5 +1,5 @@
-WAIT=30
+WAIT=10
 TIMEOUT=60
 ATTEMPTS=10
 
-/  Jazzband
+https://jazzband.co/  Jazzband
