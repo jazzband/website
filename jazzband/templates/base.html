@@ -49,6 +49,7 @@
           <li>{{ macros.navigation_link(url_for('content.about', path=page.path), page.meta.navigation or page.title or page.path) }}</li>
           {% endfor %}
           {% if current_user.is_authenticated %}
+          <li>{{ macros.navigation_link(url_for('account.dashboard'), 'Account') }}</li>
           {% if current_user.is_roadie %}
           <li>{{ macros.navigation_link(url_for('admin.index'), 'Admin') }}</li>
           {% endif %}
