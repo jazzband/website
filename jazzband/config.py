@@ -115,6 +115,7 @@ if "GIT_REV" in os.environ:
 UPLOAD_ROOT = "/app/uploads"
 UPLOAD_ENABLED = config("UPLOAD_ENABLED", True, cast=bool)
 RELEASE_ENABLED = config("RELEASE_ENABLED", True, cast=bool)
+INTERNAL_PROJECTS = config("INTERNAL_PROJECTS", "website,help,.github", cast=Csv())
 
 MAX_CONTENT_LENGTH = 60 * 1024 * 1024  # 60M
 

@@ -2,7 +2,7 @@ import json
 import logging
 from datetime import datetime, timedelta
 
-from flask import render_template
+from flask import current_app, render_template
 from flask_mail import Message
 from packaging.version import parse as parse_version
 from spinach import Tasks
@@ -34,11 +34,14 @@ def update_project_by_hook(hook_id):
         return
     hook_data = json.loads(hook_data)
 
+    project_name = hook_data["repository"]["name"]
+    if project_name in current_app.config["INTERNAL_PROJECTS"]:
+        logger.info(f"Skipping project {project_name} since it's internal")
+        return
+
     # then sync the project so it definitely exists
     Project.sync([hook_data["repository"]])
-
     # get the project again from the database
-    project_name = hook_data["repository"]["name"]
     project = Project.query.filter(Project.name == project_name).first()
 
     # use a lock to make sure we don't run this multiple times
@@ -58,10 +61,12 @@ def update_project_by_hook(hook_id):
 
             # create a new issue, finally
             project.create_transfer_issue(assignees, **hook_data)
+            logger.info(f"Created new transfer issue for project {project.name}")
 
         if not project.team_slug:
             # create a team for the project
             project.create_team()
+            logger.info(f"Created team for project {project.name}")
 
 
 @tasks.task(name="send_new_upload_notifications")
