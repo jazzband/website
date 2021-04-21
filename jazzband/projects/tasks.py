@@ -174,7 +174,7 @@ def sync_project_members():
             stale_ids = stored_ids - fetched_ids
             if stale_ids:
                 ProjectMembership.query.filter(
-                    ProjectMembership.id.in_(stale_ids)
+                    ProjectMembership.user_id.in_(stale_ids)
                 ).delete()
                 postgres.session.commit()
 
