@@ -148,13 +148,14 @@
   </p>
   {% for upload in uploads %} {% if loop.changed(upload.version) %}
   <h4 id="{{ upload.version }}">{{ upload.version }} <a class="headerlink" href="#{{ upload.version }}" title="Permanent link">¶</a></h4>
-  {% set version_upload_count= uploads.filter_by(version=upload.version).count() %}
+  {% with version_upload_count= uploads.filter_by(version=upload.version).count() %}
   {% if version_upload_count > 1 and upload.project.current_user_is_lead %}
   <div class="admonition">
     <p class="admonition-title">Multiple uploads for version {{ upload.version }} found!</p>
     <p>Please make sure you <b>release all uploads individually</b> below.</p>
   </div>
   {% endif %}
+  {% endwith %}
   {% endif %}
   <dl class="upload-info">
     {{ macros.upload_info(upload) }}

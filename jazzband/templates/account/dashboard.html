@@ -77,7 +77,7 @@
     <a href="{{ url_for('content.about', path='contact') }}">reach out</a>
     to fellow Jazzband members if needed.
   </p>
-  {% set projects_memberships = current_user.projects_memberships.all() %}
+  {% with projects_memberships = current_user.projects_memberships.all() %}
   <h4>Your projects</h4>
   {% if projects_memberships %}
   <p>
@@ -99,8 +99,9 @@
     Head over to the <a href="{{ url_for('projects.index') }}">project index</a>
     and select one of the projects you're interested in.
   {% endif %}
+  {% endwith %}
 
-  {% set email_addresses = current_user.email_addresses.all() %}
+  {% with email_addresses = current_user.email_addresses.all() %}
   {% if email_addresses %}
   <h4>Email addresses</h4>
   <p>
@@ -113,6 +114,7 @@
   </ul>
   </p>
   {% endif %}
+  {% endwith %}
   <h4>Other things to do here</h4>
   <p>
   {% if current_user.is_member %}
