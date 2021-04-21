@@ -115,14 +115,16 @@
   <h3>Uploads</h3>
   <p>
     There are currently
-    <b>{{ uploads.count() }} uploads</b> for {{ project.name }}, with
+    <b>{{ uploads.count() }} project uploads</b> for {{ project.name }}, with
     <b>{{ uploads.filter_by(released_at=None).count() }} unreleased</b>.
   </p>
+  {% if project.current_user_is_lead %}
   <p>
     Please see the uploads overview below for more details and the
     ability to either delete or release them to
     <a href="https://pypi.org/">PyPI</a>.
   </p>
+  {% endif %}
   <div class="admonition">
     <p class="admonition-title">How do releases work?</p>
     <p>
