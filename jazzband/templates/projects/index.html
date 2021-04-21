@@ -2,6 +2,8 @@
 
 {% set this_url = url_for('projects.index') %}
 
+{% block page_title %}Projects{% endblock %}
+
 {%- macro sorter_link(sorter, current_sorter, current_order, icon) -%}
 <a href="{{ this_url }}?sorter={{ sorter }}{% if current_order != DEFAULT_ORDER and sorter != 'random' and not initial_sorting and sorter == current_sorter %}&order={{ DEFAULT_ORDER }}{% endif %}" title="Sort by {{ sorter }}"{% if sorter == current_sorter %} class="red"{% endif %}><i class="{{ icon }}"></i></a>
 {%- endmacro -%}

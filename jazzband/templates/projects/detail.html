@@ -2,6 +2,8 @@
 
 {% import "macros.html" as macros %}
 
+{% block page_title %}Projects - {{ project.name }}{% endblock %}
+
 {% block content %}
 <div class="c4">
   <h2><a href="{{ url_for('.index') }}" title="Projects">Projects</a> » {{ project.name }}</h2>
