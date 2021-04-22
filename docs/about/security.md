@@ -13,7 +13,7 @@ the Jazzband organization. A member of the roadies will respond to
 you acknowledging your initial email and then, depending on the
 action to be taken, further followup emails afterwards.
 
-If you would like to optionally encrypt the email to [security@jazzband.co]sec(mailto:security@jazzband.co)
+If you would like to optionally encrypt the email to [security@jazzband.co](mailto:security@jazzband.co)
 please use the PGP key with the fingerprint:
 
 ```
