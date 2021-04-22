@@ -37,7 +37,7 @@ def join():
 
 @content.route("/security")
 def security():
-    return redirect("/about/contact#security")
+    return redirect("/about/security")
 
 
 @content.route("/docs", defaults={"path": "index"})

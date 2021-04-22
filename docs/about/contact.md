@@ -2,12 +2,13 @@ title: Contact
 
 ### Security
 
-Simply send an email to `security@jazzband.co`.
-
 !!! warn "No public issues!"
 
     Don't open GitHub issues or pull requests about security related
     questions publicly.
+
+Please refer to the [security section][/security] about how to
+report security issues.
 
 ### News
 
