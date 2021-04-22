@@ -1,4 +1,5 @@
 title: Security Policy
+navigation: Security
 
 In case you have found a security issue with ANY Jazzband project
 please **do NOT open public GitHub issues, pull requests or anything
