@@ -309,7 +309,7 @@ class GitHubBlueprint(OAuth2ConsumerBlueprint):
             return False
 
     def new_roadies_issue(self, data):
-        return self.new_project_issue(repo="help", org="jazzband-roadies", data=data)
+        return self.new_project_issue(repo="help", org="jazzband", data=data)
 
     def new_project_issue(self, repo, data, org="jazzband"):
         return self.admin_session.post(f"repos/{org}/{repo}/issues", json=data)

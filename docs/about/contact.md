@@ -26,7 +26,7 @@ Direct link to channel via [IRCCloud](https://www.irccloud.com/): [![#jazzband](
 ### Issues
 
 You can also reach the [roadies](/roadies) via
-[GitHub issues](https://github.com/jazzband-roadies/help/issues) or email
+[GitHub issues](https://github.com/jazzband/help/issues) or email
 at `roadies@jazzband.co`.
 
 !!! warn "Project specific issues"

@@ -9,7 +9,7 @@ To initiate the transfer to Jazzband, you should use
 [Github's Transfer Feature](https://help.github.com/en/github/administering-a-repository/transferring-a-repository)
 to transfer the repository to the Jazzband organization. The Jazzband bot will
 then open an issue in the
-[Roadies help repo](https://github.com/jazzband-roadies/help/issues/38)
+[Roadies help repo](https://github.com/jazzband/help/issues/38)
 with a TODO list that you can work through to complete the transfer, which
 is mainly to ensure the below guidelines are being followed. Please do read
 the guidelines in full before initiating a transfer.

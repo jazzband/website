@@ -1,7 +1,7 @@
 This app renders https://jazzband.co.
 
 [![Jazzband](https://jazzband.co/static/img/badge.svg)](https://jazzband.co/)
-[![GitHub CI status](https://github.com/jazzband-roadies/website/workflows/Deploy/badge.svg)](https://github.com/jazzband-roadies/website)
+[![GitHub CI status](https://github.com/jazzband/website/workflows/Deploy/badge.svg)](https://github.com/jazzband/website)
 [![Calver](https://img.shields.io/badge/calver-YY.MM.PATCH-22bfda.svg)](https://calver.org/)
 
 ## Installation

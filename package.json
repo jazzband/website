@@ -16,14 +16,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jazzband-roadies/website.git"
+    "url": "git+https://github.com/jazzband/website.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jazzband-roadies/website/issues"
+    "url": "https://github.com/jazzband/website/issues"
   },
-  "homepage": "https://github.com/jazzband-roadies/website#readme",
+  "homepage": "https://github.com/jazzband/website#readme",
   "private": true,
   "scripts": {
     "build": "parcel build jazzband/static/css/styles.scss --public-url=/static/dist/ --dist-dir jazzband/static/dist/ --no-cache && parcel build jazzband/static/js/app.js --public-url=/static/dist/ --dist-dir jazzband/static/dist/ --no-cache "

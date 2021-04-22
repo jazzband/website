@@ -35,7 +35,7 @@ jobs:
       - run: make test
 
   deploy:
-    if: github.event.action == 'published' && github.repository == 'jazzband-roadies/website'
+    if: github.event.action == 'published' && github.repository == 'jazzband/website'
 
     runs-on: ubuntu-latest
 
