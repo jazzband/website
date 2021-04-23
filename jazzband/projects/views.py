@@ -165,7 +165,7 @@ class LeaveView(ProjectMixin, MethodView):
     """
 
     methods = ["GET", "POST"]
-    decorators = [login_required, member_required(), templated()]
+    decorators = [member_required(), login_required, templated()]
 
     def get(self, name):
         if not self.project.user_is_member(current_user):

@@ -92,18 +92,20 @@
 
   <h3>Members</h3>
   <div class="admonition">
-    {% if project.current_user_is_member %}
-    <p class="admonition-title">Thank you for being a project member!</p>
-    <p>
-      You can of course always <a href="{{ url_for('projects.leave', name=project.name) }}">leave the project again</a>.
-    </p>
-    {% else %}
-    <p class="admonition-title">Interested in becoming a project member?</p>
-    <p>
-      To use some of the project specific features on GitHub such as receiving
-      notifications for code reviews and participate in project discussions, feel free
-      to <a href="{{ url_for('projects.join', name=project.name) }}">join the project team</a>!
-    </p>
+    {% if current_user.is_authenticated %}
+      {% if project.current_user_is_member %}
+      <p class="admonition-title">Thank you for being a project member!</p>
+      <p>
+        You can of course always <a href="{{ url_for('projects.leave', name=project.name) }}">leave the project again</a>.
+      </p>
+      {% else %}
+      <p class="admonition-title">Interested in becoming a project member?</p>
+      <p>
+        To use some of the project specific features on GitHub such as receiving
+        notifications for code reviews and participate in project discussions, feel free
+        to <a href="{{ url_for('projects.join', name=project.name) }}">join the project team</a>!
+      </p>
+      {% endif %}
     {% endif %}
   </div>
   {% with members = project.nonlead_members.all() %}
