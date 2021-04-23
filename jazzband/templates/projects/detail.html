@@ -12,18 +12,25 @@
     {{ project.description }}
   </p>
   {% endif %}
-  {% if project.html_url %}
-  <p>
-    More info: <a href="{{ project.html_url }}">{{ project.html_url }}</a>
-  </p>
+  {% if project.html_url or project.team_slug or project.transfer_issue_url %}
+  <h3>Links</h3>
+    {% if project.html_url %}
+    <p>
+      Repo: <a href="{{ project.html_url }}">{{ project.html_url }}</a>
+    </p>
+    {% endif %}
+    {% if project.transfer_issue_url %}
+    <p>
+      Transfer issue: <a href="{{ project.transfer_issue_url }}">{{ transfer_issue_url }}</a>.
+    </p>
+    {% endif %}
+    {% if project.team_slug %}
+    <p>
+      Discussions: <a href="https://github.com/orgs/jazzband/teams/{{ project.team_slug }}">https://github.com/orgs/jazzband/teams/{{ project.team_slug }}</a>
+    </p>
+    {% endif %}
   {% endif %}
-  {% if project.transfer_issue_url %}
-  <p>
-    The original GitHub issue documenting the repository transfer from the
-    previous maintainer can be found
-    <a href="{{ project.transfer_issue_url }}">here</a>.
-  </p>
-  {% endif %}
+  <h3>Stats</h3>
   <table class="projects-detail">
     {% if project.membership_count %}
     <tr>
@@ -60,7 +67,6 @@
     </tr>
     {% endif %}
   </table>
-
   <h3>Leads</h3>
   {% with leads = project.lead_members.all() %}
   {% if leads %}
