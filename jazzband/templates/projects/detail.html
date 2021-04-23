@@ -16,17 +16,17 @@
   <h3>Links</h3>
     {% if project.html_url %}
     <p>
-      Repo: <a href="{{ project.html_url }}">{{ project.html_url }}</a>
+      Code repository: <a href="{{ project.html_url }}">{{ project.html_url }}</a>
     </p>
     {% endif %}
     {% if project.transfer_issue_url %}
     <p>
-      Transfer issue: <a href="{{ project.transfer_issue_url }}">{{ transfer_issue_url }}</a>.
+      Transfer issue: <a href="{{ project.transfer_issue_url }}">{{ project.transfer_issue_url }}</a>
     </p>
     {% endif %}
     {% if project.team_slug %}
     <p>
-      Discussions: <a href="https://github.com/orgs/jazzband/teams/{{ project.team_slug }}">https://github.com/orgs/jazzband/teams/{{ project.team_slug }}</a>
+      Team discussions: <a href="https://github.com/orgs/jazzband/teams/{{ project.team_slug }}">https://github.com/orgs/jazzband/teams/{{ project.team_slug }}</a>
     </p>
     {% endif %}
   {% endif %}
