@@ -17,6 +17,10 @@ with receiving commit access to a project by spreading it to a bigger group.
 open source software development, including dreaming big, acting positively
 and failing sometimes. It'll be okay since we're not alone.
 
+### How do I report a security incident?
+
+See the [security policy page](/about/security).
+
 ### How do I join the Jazzband?
 
 First [login with GitHub](/account/login) and then follow the instructions
@@ -39,10 +43,6 @@ breach of conduct.
 
 Write an email to `roadies@jazzband.co` – especially if it's a breach of
 conduct following our [code of conduct](/about/conduct).
-
-### How do I report a security incident?
-
-See the [contact page](/about/contact#security).
 
 ### Are you processing or storing any personal data on the Jazzband website?
 
