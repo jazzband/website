@@ -137,8 +137,8 @@ class JoinView(ProjectMixin, MethodView):
 
     methods = ["GET"]
     decorators = [
-        login_required,
         member_required(message="You currently can't join this project"),
+        login_required,
     ]
 
     def get(self, name):
