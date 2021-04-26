@@ -1,5 +1,6 @@
 import json
 import uuid
+from datetime import datetime
 
 from flask import current_app
 from flask_hookserver import Hooks
@@ -20,21 +21,29 @@ def ping(data, guid):
 @hooks.hook("membership")
 def membership(data, guid):
     if data["scope"] != "team":
-        return
-    member = User.query.filter_by(id=data["member"]["id"]).first()
+        return "Scope wasn't team."
+
+    member_id = data["member"]["id"]
+    member = User.query.filter_by(id=member_id).first()
     if member is None:
-        return
+        return f"No member found with id {member_id}."
+
     # only remove the user if they are member of the main members team
     # not if they are removed from project teams
     if data["team"]["slug"] != current_app.config["GITHUB_MEMBERS_TEAM_SLUG"]:
-        return
+        return "User not a Members team member."
+
     if data["action"] == "added":
         member.is_member = True
         member.save()
+        return "User {member} is a member now."
     elif data["action"] == "removed":
+        member.left_at = datetime.utcnow()
         member.is_member = False
         member.save()
-    return "Thanks"
+        return "User {member} is not a member anymore."
+    else:
+        return "Thanks."
 
 
 @hooks.hook("repository")
@@ -49,5 +58,6 @@ def repository(data, guid):
             json.dumps(data),
         )
         spinach.schedule(update_project_by_hook, hook_id)
-        return hook_id
-    return "Thanks"
+        return "Started updating the project using hook id {hook_id}."
+    else:
+        return "No action needed."
