@@ -56,6 +56,7 @@ jobs:
         uses: dokku/github-action@v1.0.2
         # enable verbose ssh output
         with:
+          branch: "main"
           git_push_flags: "--force"
           git_remote_url: ${{ secrets.SSH_REMOTE_URL }}
           ssh_private_key: ${{ secrets.PRIVATE_KEY }}
