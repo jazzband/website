@@ -58,6 +58,6 @@ def repository(data, guid):
             json.dumps(data),
         )
         spinach.schedule(update_project_by_hook, hook_id)
-        return "Started updating the project using hook id {hook_id}."
+        return f"Started updating the project using hook id {hook_id}."
     else:
         return "No action needed."
