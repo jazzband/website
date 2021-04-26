@@ -148,12 +148,12 @@ def _is_safe_url(url, allowed_hosts, require_https=False):
     )
 
 
-def get_redirect_target(endpoint="content.index"):
+def get_redirect_target(default="content.index"):
     targets = (
-        session.get("next_url"),
+        session.get("next"),
         request.args.get("next"),
         request.referrer,
-        url_for(endpoint),
+        url_for(default),
     )
     for target in targets:
         if not target:

@@ -45,11 +45,6 @@ def login():
     return redirect(url_for("github.login"))
 
 
-@oauth_before_login.connect
-def before_login(blueprint, url):
-    session["next_url"] = get_redirect_target("account.dashboard")
-
-
 @account.before_app_request
 def redirect_to_consent():
     consent_url = url_for("account.consent")
@@ -67,7 +62,7 @@ def redirect_to_consent():
 def consent():
     # redirect to next url when current user has already consented
     if current_user.has_consented:
-        return redirect(session.pop("next_url", default_url()))
+        return redirect(session.pop("next", default_url()))
     form = ConsentForm()
 
     if form.validate_on_submit():
@@ -77,7 +72,7 @@ def consent():
         current_user.cookies_consent = True
         current_user.age_consent = True
         current_user.save()
-        next_url = session.pop("next_url", default_url())
+        next_url = session.pop("next", default_url())
         return redirect(next_url)
 
     return {"form": form}
