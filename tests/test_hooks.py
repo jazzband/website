@@ -27,4 +27,4 @@ def test_repo_transferred_hook(client, datadir, mocker):
     assert response.data
     response_string = response.data.decode("utf-8")
     assert response_string.startswith("Started updating the project using hook id repo-added-")
-    mocked_schedule.assert_called_once_with(update_project_by_hook, response_string)
+    mocked_schedule.assert_called_once()
