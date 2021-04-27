@@ -1,0 +1,15 @@
+version: 2
+cli:
+  server: https://app.fossa.com
+  fetcher: custom
+  project: git+github.com/jazzband/website
+analyze:
+  modules:
+  - name: assets
+    type: npm
+  - name: base
+    type: pip
+    target: .
+    path: .
+    options:
+      requirements: ./requirements.txt
