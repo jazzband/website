@@ -4,9 +4,8 @@
 #
 #    pip-compile --allow-unsafe --generate-hashes
 #
-alembic==1.5.8 \
-    --hash=sha256:8a259f0a4c8b350b03579d77ce9e810b19c65bf0af05f84efb69af13ad50801e \
-    --hash=sha256:e27fd67732c97a1c370c33169ef4578cf96436fa0e7dcfaeeef4a917d0737d56
+alembic==1.6.2 \
+    --hash=sha256:fb9a39a7c68e55490be962fb5f70463d384d340e6563d6e3911447778e3b4576
     # via
     #   -r requirements.in
     #   flask-migrate
