@@ -680,9 +680,9 @@ spinach==0.0.14 \
     --hash=sha256:072a10c8ee882b855a3c353701521384af9cf00f7b956114cdf4a94d13579d21 \
     --hash=sha256:ae5be29b3ebe91afa1cefbc2e575ecf73891cd45460fea4c8680604d8672ab14
     # via -r requirements.in
-sqlalchemy-utils==0.37.1 \
-    --hash=sha256:24bedfac11d789e34b8aad9c5c64212263964e2d1c5a61e3ec0f361205661cd7 \
-    --hash=sha256:d27202f70ab0ac8707b8ab6a5a5bfa36014190bd30246f27bf1d7fc6f8175277
+sqlalchemy-utils==0.37.2 \
+    --hash=sha256:042e08454ee7b822b1e2f2b7c20f76fe7b8255de10354718a11e68ced1a64643 \
+    --hash=sha256:c60b8b43c9ef809d147b0bc571cfbfe0992f854ec242bc01ab7a562f76113743
     # via -r requirements.in
 sqlalchemy==1.4.14 \
     --hash=sha256:10176150fb4f7bef87e58b496e11ec8c09a06d7aaddec858aa3afe68ecf44be1 \
