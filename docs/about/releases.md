@@ -78,7 +78,7 @@ project is using [tox] (which is also recommended).
 
 Steps needed:
 
-- Set up the `github/workflows/test.yml` file following the  [GitHub Actions docs][gha-python].
+- Set up the `.github/workflows/test.yml` file following the  [GitHub Actions docs][gha-python] and examples found in other [Jazzband projects](/projects).
 - Create a `tox.ini` which takes [tox-gh-actions] into account.
 - [Open a PyPI Release issue](/roadies/issue) for the
   roadies to enable the auto-release mechanism via the Jazzband.
