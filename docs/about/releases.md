@@ -6,7 +6,7 @@ transfered projects to add the `jazzband` PyPI user as a maintainer role
 on [PyPI].
 
 Once that's done, the [roadies] are able to set up the recommended
-continuous testing solution [Travis CI] to automatically do releases
+continuous testing solution [GitHub Actions] to automatically do releases
 to a private and secure package index where Jazzband members can
 review the uploaded files and release them to [PyPI] on their own.
 
@@ -44,7 +44,7 @@ Jazzband project to be semi-automatically released to PyPI whenever
 a new Git tag is pushed to its repository.
 
 [PyPI]: https://pypi.org/
-[Travis CI]: https://travis-ci.org/
+[GitHub Actions]: https://github.com/features/actions
 [roadies]: /roadies
 [Code of Conduct]: /about/conduct
 
@@ -63,23 +63,23 @@ version manually in the `setup.py` works just the same.
 [PyPUG]: https://packaging.python.org/en/latest/
 [setuptools_scm]: https://pypi.org/project/setuptools_scm/
 
-### Continuous Integration  
+### Continuous Integration
 
-Next you will want to set up the project to use Travis CI for
-continous testing. Please refer to the [Python specific
-documentation][travis-python] for how to accomplish that.
+Next you will want to set up the project to use GitHub Actions
+for continuous testing. Please refer to the [Python specific
+documentation][gha-python] for how to accomplish that.
 
-In addition we strongly recommend using [tox-travis] if the
+In addition we strongly recommend using [tox-gh-actions] if the
 project is using [tox] (which is also recommended).
 
-[travis-python]: https://docs.travis-ci.com/user/languages/python/
-[tox-travis]: https://tox-travis.readthedocs.io/
+[gha-python]: https://docs.github.com/en/actions/guides/building-and-testing-python
+[tox-gh-actions]: https://github.com/ymyzk/tox-gh-actions
 [tox]: https://tox.readthedocs.io/
 
 Steps needed:
 
-- Set up the `.travis.yml` file following the  [Travis CI docs][travis-python].
-- Create a `tox.ini` which takes [tox-travis] into account.
+- Set up the `github/workflows/test.yml` file following the  [GitHub Actions docs][gha-python].
+- Create a `tox.ini` which takes [tox-gh-actions] into account.
 - [Open a PyPI Release issue](/roadies/issue) for the
   roadies to enable the auto-release mechanism via the Jazzband.
 
@@ -97,8 +97,8 @@ release pull-request, tag it with `git tag` and push the code to
 GitHub with `git push --tags`. Aternatively, you can use the GitHub UI
 to create a GitHub release that will create the tag for you.
 
-If all goes according to plan, Travis CI will run the test suite for the
-pushed tag, create release files, uploads it to the Jazzband site, for
+If all goes according to plan, GitHub Actions will run the test suite for
+the pushed tag, create release files, uploads it to the Jazzband site, for
 the lead members or roadies to review. They will be able to confirm the
 uploads and release them to PyPI individually.
 
@@ -128,7 +128,6 @@ Yes:
 > Happy to announce the "Cello" release (1.4) of our Useful Software!
 
 [semver]: http://blog.versioneye.com/2014/01/16/semantic-versioning/
-[travis-cli]: https://github.com/travis-ci/travis.rb#installation
 
 !!! note "How to decide for the version number?"
 

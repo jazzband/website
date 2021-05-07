@@ -42,9 +42,9 @@ Document as much as possible and don't rely on autodoc alone. Write like you're
 ### Tests
 
 Projects must have tests that are easy to run. Automatic testing based on
-contributions (e.g. Travis CI) is also strongly encouraged. The test coverage
-requirement follows the "perfect is the enemy of the good" motto -- it's enough
-if the tests cover the core API of the project.
+contributions (e.g. GitHub Actions) is also strongly encouraged. The test
+coverage requirement follows the "perfect is the enemy of the good" motto
+-- it's enough if the tests cover the core API of the project.
 
 Test as much as needed to make maintenance a breeze. Don't be dogmatic.
 

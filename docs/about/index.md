@@ -31,7 +31,7 @@ After that, you can go ahead and do things like...
 
 - move repos that follow the [guidelines](/about/guidelines) into the Jazzband organization
 - start working on an already existing Jazzband [project](/projects)
-- do [[releases]] on PyPI automatically via Travis CI
+- do [[releases]] on PyPI automatically via GitHub Actions
 
 You can [login here](/account/login) to join Jazzband.
 
