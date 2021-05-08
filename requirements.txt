@@ -542,9 +542,9 @@ pytest-flask==1.2.0 \
     --hash=sha256:46fde652f77777bf02dc91205aec4ce20cdf2acbbbd66a918ab91f5c14693d3d \
     --hash=sha256:fe25b39ad0db09c3d1fe728edecf97ced85e774c775db259a6d25f0270a4e7c9
     # via -r requirements.in
-pytest-mock==3.6.0 \
-    --hash=sha256:952139a535b5b48ac0bb2f90b5dd36b67c7e1ba92601f3a8012678c4bd7f0bcc \
-    --hash=sha256:f7c3d42d6287f4e45846c8231c31902b6fa2bea98735af413a43da4cf5b727f1
+pytest-mock==3.6.1 \
+    --hash=sha256:30c2f2cc9759e76eee674b81ea28c9f0b94f8f0445a1b87762cadf774f0df7e3 \
+    --hash=sha256:40217a058c52a63f1042f0784f62009e976ba824c418cced42e88d5f40ab0e62
     # via -r requirements.in
 pytest==6.2.4 \
     --hash=sha256:50bcad0a0b9c5a72c8e4e7c9855a3ad496ca6a881a3641b4260605450772c54b \
@@ -653,9 +653,9 @@ secretstorage==3.3.1 \
     --hash=sha256:422d82c36172d88d6a0ed5afdec956514b189ddbfb72fefab0c8a1cee4eaf71f \
     --hash=sha256:fd666c51a6bf200643495a04abb261f83229dcb6fd8472ec393df7ffc8b6f195
     # via keyring
-sentry-sdk[flask]==1.0.0 \
-    --hash=sha256:71de00c9711926816f750bc0f57ef2abbcb1bfbdf5378c601df7ec978f44857a \
-    --hash=sha256:9221e985f425913204989d0e0e1cbb719e8b7fa10540f1bc509f660c06a34e66
+sentry-sdk[flask]==1.1.0 \
+    --hash=sha256:c1227d38dca315ba35182373f129c3e2722e8ed999e52584e6aca7d287870739 \
+    --hash=sha256:c7d380a21281e15be3d9f67a3c4fbb4f800c481d88ff8d8931f39486dd7b4ada
     # via -r requirements.in
 simplekv==0.14.1 \
     --hash=sha256:8953a36cb3741ea821c9de1962b5313bf6fe1b927f6ced2a55266eb8ce2cd0f6 \
@@ -676,13 +676,13 @@ six==1.15.0 \
     #   python-dateutil
     #   readme-renderer
     #   sqlalchemy-utils
-spinach==0.0.13 \
-    --hash=sha256:99ad6eacda28329f53f7396911f798db5a92bae93f44ce059e6ab3cd620d13c1 \
-    --hash=sha256:faf83954f6217b24eadadd8384483e80e54663ff836a6a6e1f77cae9d7bf34f2
+spinach==0.0.14 \
+    --hash=sha256:072a10c8ee882b855a3c353701521384af9cf00f7b956114cdf4a94d13579d21 \
+    --hash=sha256:ae5be29b3ebe91afa1cefbc2e575ecf73891cd45460fea4c8680604d8672ab14
     # via -r requirements.in
-sqlalchemy-utils==0.37.1 \
-    --hash=sha256:24bedfac11d789e34b8aad9c5c64212263964e2d1c5a61e3ec0f361205661cd7 \
-    --hash=sha256:d27202f70ab0ac8707b8ab6a5a5bfa36014190bd30246f27bf1d7fc6f8175277
+sqlalchemy-utils==0.37.2 \
+    --hash=sha256:042e08454ee7b822b1e2f2b7c20f76fe7b8255de10354718a11e68ced1a64643 \
+    --hash=sha256:c60b8b43c9ef809d147b0bc571cfbfe0992f854ec242bc01ab7a562f76113743
     # via -r requirements.in
 sqlalchemy==1.4.14 \
     --hash=sha256:10176150fb4f7bef87e58b496e11ec8c09a06d7aaddec858aa3afe68ecf44be1 \
