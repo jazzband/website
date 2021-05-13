@@ -25,10 +25,14 @@ the guidelines in full before initiating a transfer.
 
 There is no place in the Jazzband for proofs of concept or projects that
 exist as one-off toys. The Jazzband expects projects to cover non-trivial
-functionalities and is not a code snippet hoster.
+functionality and is not a code snippet hoster.
 
 Established projects with a history of outside contributions that seek more
 maintainers are best suited for transfer to the Jazzband.
+
+Projects should have an orderly hand-over to Jazzband with agreement
+from the previous maintainer(s). For example, forking a project to transfer
+it to Jazzband is frowned upon.
 
 ### Documentation
 
@@ -37,7 +41,7 @@ Inline code documentation is considered an indicator for a high quality of
 code and is also strongly recommended.
 
 Document as much as possible and don't rely on autodoc alone. Write like you're
- addressing yourself in a few years.
+addressing yourself in a few years.
 
 ### Tests
 
