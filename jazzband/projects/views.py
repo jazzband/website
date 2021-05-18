@@ -26,7 +26,7 @@ from flask_login import current_user, login_required
 from packaging.version import parse as parse_version
 from pkg_resources import safe_name
 from requests.exceptions import HTTPError
-from sqlalchemy import desc, nullslast
+from sqlalchemy import desc, nullsfirst, nullslast
 from sqlalchemy.sql.expression import func
 from werkzeug.utils import secure_filename
 
@@ -77,10 +77,12 @@ def index():
 
     order = request.args.get("order", None)
     if order == DEFAULT_ORDER:
-        criterion = desc(criterion)
+        criterion = nullslast(desc(criterion))
+    else:
+        criterion = nullsfirst(criterion)
 
     projects = Project.query.filter(Project.is_active.is_(True)).order_by(
-        nullslast(criterion)
+        criterion
     )
     return {
         "projects": projects,
