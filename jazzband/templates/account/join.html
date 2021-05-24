@@ -5,9 +5,10 @@
 {% block content %}
 <div class="c4">
   {% if has_verified_emails %}
-    {% if membership %}
-      <h2>Almost done</h2>
-      <p>GitHub just sent you an email to your primary email address. Please follow the instructions in it to join the Jazzband GitHub organization.</p>
+    {% if invited %}
+      <h2>Almost done!</h2>
+      <p>GitHub just sent you an invitation email to your primary email address.</p>
+      <p>Please follow the instructions to join the Jazzband GitHub organization.</p>
       <p>Alternatively you can also accept the invitation by visiting the organization page directly at <a href="https://github.com/{{ org_name }}">https://github.com/{{ org_name }}</a>.</p>
     {% else %}
       <h2>Uh uh, something went wrong</h2>
