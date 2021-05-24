@@ -51,6 +51,7 @@ def redirect_to_consent():
     if (
         current_user.is_authenticated
         and not current_user.has_consented
+        and not request.path.startswith("/static")
         and not request.path.startswith("/account")
     ):
         return redirect(consent_url)
@@ -183,15 +184,17 @@ def join():
         sync_email_addresses(current_user.id)
     has_verified_emails = current_user.has_verified_emails
 
-    membership = None
+    invited = False
     if has_verified_emails:
-        github.join_organization(current_user.login)
-        flash(
-            "Please accept the invitation sent via email from GitHub to finalize joining."
-        )
+        invitation = github.join_organization(current_user.login)
+        invited = invitation and invitation.status_code == 200
+        if invited:
+            flash(
+                "To finish joining, please accept the invitation GitHub sent you via email!"
+            )
 
     return {
-        "membership": membership,
+        "invited": invited,
         "org_name": github.org_name,
         "has_verified_emails": has_verified_emails,
     }
