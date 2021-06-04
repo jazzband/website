@@ -36,6 +36,3 @@ under the MIT license.
 
 [add-to-org]: https://github.com/benbalter/add-to-org
 [Attribution-NonCommercial-ShareAlike 4.0 International]: https://creativecommons.org/licenses/by-nc-sa/4.0/
-
-
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fjazzband%2Fwebsite.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fjazzband%2Fwebsite?ref=badge_large)
