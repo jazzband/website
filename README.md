@@ -1,9 +1,8 @@
 This app renders https://jazzband.co.
 
 [![Jazzband](https://jazzband.co/static/img/badge.svg)](https://jazzband.co/)
-[![GitHub CI status](https://github.com/jazzband/website/workflows/Deploy/badge.svg)](https://github.com/jazzband/website)
+[![Test & Deploy](https://github.com/jazzband/website/actions/workflows/test-and-deploy.yml/badge.svg)](https://github.com/jazzband/website/actions/workflows/test-and-deploy.yml)
 [![Calver](https://img.shields.io/badge/calver-YY.MM.PATCH-22bfda.svg)](https://calver.org/)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fjazzband%2Fwebsite.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fjazzband%2Fwebsite?ref=badge_shield)
 
 ## Installation
 
