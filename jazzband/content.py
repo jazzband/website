@@ -40,6 +40,11 @@ def security():
     return redirect("/about/security")
 
 
+@content.route("/donate")
+def donate():
+    return redirect("https://psfmember.org/civicrm/contribute/transact?reset=1&id=34")
+
+
 @content.route("/docs", defaults={"path": "index"})
 @content.route("/docs/<path:path>")
 def docs(path):
