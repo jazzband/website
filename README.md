@@ -25,7 +25,7 @@ them by running `make cert`.
 ## Running
 
 Run `make run` to run the development server and worker. The website will be available
-at localhost:5000.
+at https://localhost:5000.
 
 ## License
 
