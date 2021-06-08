@@ -45,6 +45,7 @@
           <li>{{ macros.navigation_link(url_for('members.roadies'), 'Roadies') }}</li>
           <li>{{ macros.navigation_link(url_for('content.news'), 'News') }}</li>
           <li>{{ macros.navigation_link(url_for('content.about'), 'About') }}</li>
+          <li>{{ macros.navigation_link(url_for('content.donate'), 'Donate') }}</li>
           {% for page in about|sort(attribute='path') if page.path != 'index' %}
           <li>{{ macros.navigation_link(url_for('content.about', path=page.path), page.meta.navigation or page.title or page.path) }}</li>
           {% endfor %}
