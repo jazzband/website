@@ -21,7 +21,7 @@
  {% for new in news if new.path != 'index' %}
   <li>
   <a href="{{ url_for('content.news', path=new.path) }}">{{ new.title }}</a>
-  {{ new.meta.date }}
+  <i>{{ new.meta.published_date|format_datetime }}</i>
   <p>
    {% if new.meta.summary %}
     {{ new.meta.summary }}

@@ -20,9 +20,9 @@ Feel free to follow [Jazzband on Twitter](https://twitter.com/jazzbandco), too.
 ### IRC
 
 Jazzband members and interested folk may want to join the discussion in the IRC
-channel on Freenode (`irc.freenode.net`): `#jazzband`
+channel on Libera.Chat (`irc.libera.chat`): `#jazzband`
 
-Direct link to channel via [IRCCloud](https://www.irccloud.com/): [![#jazzband](https://www.irccloud.com/invite-svg?channel=%23jazzband&amp;hostname=irc.freenode.net&amp;port=6697&amp;ssl=1)](https://www.irccloud.com/invite?channel=%23jazzband&amp;hostname=irc.freenode.net&amp;port=6697&amp;ssl=1)
+Direct link to channel via [IRCCloud](https://www.irccloud.com/): [![#jazzband](https://www.irccloud.com/invite-svg?channel=%23jazzband&amp;hostname=irc.libera.chat&amp;port=6697&amp;ssl=1)](https://www.irccloud.com/invite?channel=%23jazzband&amp;hostname=irc.libera.chat&amp;port=6697&amp;ssl=1)
 
 ### Issues
 
