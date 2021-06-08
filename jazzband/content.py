@@ -22,7 +22,26 @@ from .utils import full_url
 
 content = Blueprint("content", __name__)
 about_pages = FlatPages(name="about")
-news_pages = FlatPages(name="news")
+
+
+class NewsFlatPages(FlatPages):
+
+    def __iter__(self):
+        pages = super().__iter__()
+        # Articles are pages with a publication date
+        articles = (p for p in pages if 'published' in p.meta)
+        # Show the 10 most recent articles, most recent first.
+        latest = sorted(articles, reverse=True,
+                        key=lambda page: page.meta['published'])
+        for page in latest:
+            published = page.meta.get("published", None)
+            if published and published.tzinfo is None:
+                published = pytz.utc.localize(published)
+            page.meta['published_date'] = published
+            yield page
+
+
+news_pages = NewsFlatPages(name="news")
 
 
 @content.app_template_filter()
@@ -38,6 +57,11 @@ def join():
 @content.route("/security")
 def security():
     return redirect("/about/security")
+
+
+@content.route("/donate")
+def donate():
+    return redirect("https://psfmember.org/civicrm/contribute/transact?reset=1&id=34")
 
 
 @content.route("/docs", defaults={"path": "index"})

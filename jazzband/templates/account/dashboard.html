@@ -11,21 +11,26 @@
   {% if not current_user.is_member %}
   <div class="admonition">
     <p class="admonition-title">
-      One more step needed to become a full Jazzband member:
+      One more step to become a full Jazzband member:
     </p>
     <p>
       You've successfully logged in using GitHub but haven't become
       a member of the
       <a href="https://github.com/jazzband">Jazzband GitHub organization</a>
-      just yet.
+      just yet!
     </p>
     <p>
-      Please allow us first to send you an invitation via email to join our
-      GitHub organization and then – as a security precaution – follow the
-      instructions in the email from GitHub to accept the invitation.
+      As the next step, GitHub needs to send you an invitation via email to
+      join our GitHub organization. That's a <i>security precaution</i>,
+      please follow the instructions in the email and accept the invitation
+      to proceed.
     </p>
     <p>
-      <a href="{{ url_for('account.join') }}">Send invitation to join now</a>
+       Click here: <a href="{{ url_for('account.join') }}">Send invitation now</a>
+    </p>
+    <p>
+      In case you've already sent the invitation, please double-check the
+      spam folder of your email account.
     </p>
   </div>
   {% endif %}
