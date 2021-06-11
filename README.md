@@ -1,8 +1,8 @@
-This app renders https://jazzband.co.
-
 [![Jazzband](https://jazzband.co/static/img/badge.svg)](https://jazzband.co/)
 [![Test & Deploy](https://github.com/jazzband/website/actions/workflows/test-and-deploy.yml/badge.svg)](https://github.com/jazzband/website/actions/workflows/test-and-deploy.yml)
 [![Calver](https://img.shields.io/badge/calver-YY.MM.PATCH-22bfda.svg)](https://calver.org/)
+
+The code that renders https://jazzband.co.
 
 ## Installation
 
