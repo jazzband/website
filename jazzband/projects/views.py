@@ -81,9 +81,7 @@ def index():
     else:
         criterion = nullsfirst(criterion)
 
-    projects = Project.query.filter(Project.is_active.is_(True)).order_by(
-        criterion
-    )
+    projects = Project.query.filter(Project.is_active.is_(True)).order_by(criterion)
     return {
         "projects": projects,
         "sorter": sorter,

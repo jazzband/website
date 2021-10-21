@@ -9,7 +9,7 @@ click-log
 cryptography
 delegator.py
 feedgen
-flask
+flask<2.0.0
 flask-admin
 flask-caching
 flask-compress
@@ -27,6 +27,7 @@ flask-wtf
 gunicorn
 honcho
 itsdangerous
+jeepney
 jinja2
 lxml
 markdown
@@ -45,6 +46,7 @@ redis
 requests[security]
 requests-oauthlib
 requests-toolbelt
+SecretStorage
 sentry-sdk[flask]
 simplekv
 spinach
