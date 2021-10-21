@@ -1,6 +1,5 @@
 import json
 
-from jazzband.projects.tasks import update_project_by_hook
 from jazzband.tasks import JazzbandSpinach
 
 
