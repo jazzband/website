@@ -9,7 +9,7 @@ click-log
 cryptography
 delegator.py
 feedgen
-flask<2.0.0
+flask
 flask-admin
 flask-caching
 flask-compress
