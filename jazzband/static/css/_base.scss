@@ -415,6 +415,10 @@ table.projects-detail {
             width: 15%;
         }
     }
+    @media (max-width: 575px) {
+        display: block;
+        overflow-x: auto;
+    }
 }
 td.numbers,
 th.numbers {
