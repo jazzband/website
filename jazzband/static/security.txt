@@ -1,0 +1,35 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+# This is the Jazzband security.txt file.
+# More infos about the standard: https://securitytxt.org
+
+# Our security address
+Contact: mailto:security@jazzband.co
+# Our OpenPGP key
+Encryption: openpgp4fpr:02DE8F842900411ADD70B1374D87558AF652A00F
+# Our security policy
+Policy: https://jazzband.co/security
+# Canonical URIs
+Canonical: https://jazzband.co/.well-known/security.txt
+# Our preferred languages
+Preferred-Languages: en
+
+Expires: 2022-09-30T10:00:00.000Z
+# This file was clear-signed with: make security.txt
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEAt6PhCkAQRrdcLE3TYdVivZSoA8FAmFx140ACgkQTYdVivZS
+oA+EhhAAoOtzcoDVlcc9NbgbFx3XUBleVAq4I4NPF3dvspYataS+xYbfzwVfsA2p
+8wcGicFRyBHQ5m/93tdf6uidUtuz0GthbtkMR8QZIPvDIstFq3PVlkUzYSIIqiAo
+Q6ZS+F8sWR+sBH9tBlS5n/rG3Y+gAcAtPM4TdLxPIUMx6xV1Seedo3XDPzu33DLI
+SV4N31zRQvjRxcFXZdfi153rcz/UJ8t7o0/SCR0poU3Oo8KwhY/qcWIJz9wxcz9Q
+CKGww21jvvPIwJhwlWfh3Dhex2ZHs47lS/iMQ2n0zuf/IrUT6yTSvXWgWJ1G5hRh
+pHsyU5bu3suNWM4BgKRxvyAH2JVBp3l8pOKiAybyu1LDAri1yOjASCkadimSZ1z7
+LJMWUkyDNlCVfHKijJgkCoSGxd8Xt76P5Gh+DV9cMeywmXqPeecA3nPeeBbAcU7Q
+2rgCbwQwf7klBaEd4ERAxodQKxWQVG39NdCCBhY20Z/uFD0SEEk2eLlK8xiILTaM
+MO7r9/+Zqa50gJeljzR3soyxj7MJYF4/w/tfZotdFaG1R4iaPOHdfmTWuRBQh+/b
+U3ZLoN7Exs1rWo+LYL6cbWP/klDBc7w4TyZq9ZbHzPbUxP/zUuKtWlWEwQowOHm/
+7CW+ECSvpgpgvCdbkL8MlB+YnGsOFVw8Lt/j7M+WQpeJAyNS+Ok=
+=Orh+
+-----END PGP SIGNATURE-----
