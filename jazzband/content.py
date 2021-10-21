@@ -25,19 +25,17 @@ about_pages = FlatPages(name="about")
 
 
 class NewsFlatPages(FlatPages):
-
     def __iter__(self):
         pages = super().__iter__()
         # Articles are pages with a publication date
-        articles = (p for p in pages if 'published' in p.meta)
+        articles = (p for p in pages if "published" in p.meta)
         # Show the 10 most recent articles, most recent first.
-        latest = sorted(articles, reverse=True,
-                        key=lambda page: page.meta['published'])
+        latest = sorted(articles, reverse=True, key=lambda page: page.meta["published"])
         for page in latest:
             published = page.meta.get("published", None)
             if published and published.tzinfo is None:
                 published = pytz.utc.localize(published)
-            page.meta['published_date'] = published
+            page.meta["published_date"] = published
             yield page
 
 

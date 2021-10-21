@@ -3,7 +3,7 @@ from datetime import datetime
 
 import sentry_sdk
 from flask import Blueprint, flash, redirect, request, session, url_for
-from flask_dance.consumer import oauth_authorized, oauth_before_login
+from flask_dance.consumer import oauth_authorized
 from flask_login import current_user, login_required, login_user, logout_user
 from sqlalchemy.orm.exc import NoResultFound
 
