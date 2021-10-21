@@ -103,7 +103,8 @@ class AdminGitHubSession(GitHubSessionMixin, BaseOAuth2Session):
 
 
 class GitHubBlueprint(OAuth2ConsumerBlueprint):
-    """A custom OAuth2 blueprint that implements some of our
+    """
+    A custom OAuth2 blueprint that implements some of our
     specific GitHub API functions.
     """
 
@@ -131,12 +132,14 @@ class GitHubBlueprint(OAuth2ConsumerBlueprint):
             }
         )
 
-    def register(self, app, options, first_registration=False):
+    def make_setup_state(self, app, options, first_registration=False):
         # load config when the blueprint is registered
         if first_registration:
             with app.app_context():
                 self.load_config()
-        return super().register(app, options, first_registration=first_registration)
+        return super().make_setup_state(
+            app, options, first_registration=first_registration
+        )
 
     @cached_property
     def admin_session(self):
