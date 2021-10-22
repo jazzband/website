@@ -57,6 +57,23 @@ def security():
     return redirect("/about/security")
 
 
+@content.route("/security.txt")
+def securitytxt_redirect():
+    return redirect(url_for("content.securitytxt_file"))
+
+
+@content.route("/.well-known/security.txt")
+def securitytxt_file():
+    filename = "security.txt"
+    return send_from_directory(
+        current_app.static_folder,
+        filename,
+        as_attachment=False,
+        mimetype="text/plain",
+        max_age=current_app.get_send_file_max_age(filename),
+    )
+
+
 @content.route("/donate")
 def donate():
     return redirect("https://psfmember.org/civicrm/contribute/transact?reset=1&id=34")
@@ -73,7 +90,8 @@ def docs(path):
 @content.route("/about/<path:path>")
 def about(path):
     page = about_pages.get_or_404(path)
-    template = "layouts/%s.html" % page.meta.get("layout", "about")
+    layout = page.meta.get("layout", "about")
+    template = f"layouts/{layout}.html"
     return render_template(template, page=page)
 
 
@@ -134,7 +152,8 @@ def news_feed():
 @content.route("/news/<path:path>")
 def news(path):
     page = news_pages.get_or_404(path)
-    template = "layouts/%s.html" % page.meta.get("layout", "news_detail")
+    layout = page.meta.get("layout", "news_detail")
+    template = f"layouts/{layout}.html"
     return render_template(template, page=page)
 
 

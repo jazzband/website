@@ -1,5 +1,3 @@
-.PHONY: bash npm-build npm-install build clean db-migrate db-upgrade redis-cli run shell start stop update test pytest image envvar ci cert trust pull
-
 bash:
 	docker-compose run --rm  web bash
 
@@ -62,3 +60,12 @@ trust:
 
 cert: trust
 	cd certs && mkcert jazzband.local "*.jazzband.local" jazzband.local localhost 127.0.0.1 ::1 && cd ..
+
+generate-securitytxt:
+	rm jazzband/static/security.txt
+	gpg --clearsign -u 02DE8F842900411ADD70B1374D87558AF652A00F -o jazzband/static/security.txt jazzband/static/security.txt.tpl
+
+verify-securitytxt:
+	gpg --verify jazzband/static/security.txt
+
+.PHONY: $(MAKECMDGOALS)
