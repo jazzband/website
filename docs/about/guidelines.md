@@ -84,7 +84,7 @@ A `CONTRIBUTING.rst` ([reStructuredText]) file needs to contain this header:
 This is a `Jazzband <https://jazzband.co>`_ project. By contributing you agree to abide by the `Contributor Code of Conduct <https://jazzband.co/about/conduct>`_ and follow the `guidelines <https://jazzband.co/about/guidelines>`_.
 ```
 
-See this website's [contributing guideline] for how it'd look like.
+See the default [contributing guideline] file for how it'd look like.
 Feel free to add a similar paragraph to your `README` file.
 
 Of course extending the contributing document with your project's contributing
@@ -92,7 +92,7 @@ guide is highly encouraged, too. See GitHub's documentation on [contributing
 guidelines] for more information.
 
 [contributing guidelines]: https://help.github.com/articles/setting-guidelines-for-repository-contributors/
-[contributing guideline]: https://github.com/jazzband/website/blob/master/CONTRIBUTING.md
+[contributing guideline]: https://github.com/jazzband/.github/blob/main/CONTRIBUTING.md
 [reStructuredText]: http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html
 [Markdown]: https://daringfireball.net/projects/markdown/syntax
 
