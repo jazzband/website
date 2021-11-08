@@ -8,7 +8,7 @@ from .utils import patch_http_cache_headers
 
 def templated(template=None):
     """
-    Taken from http://flask.pocoo.org/docs/0.10/patterns/viewdecorators/
+    Taken from https://flask.palletsprojects.com/en/0.12.x/patterns/viewdecorators/
     """
 
     def decorator(f):
