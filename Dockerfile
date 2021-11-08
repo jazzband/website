@@ -4,7 +4,7 @@ WORKDIR /tmp
 
 COPY package.json package-lock.json /tmp/
 
-RUN npm install
+RUN npm update -g npm && npm install
 
 COPY . /tmp/
 
