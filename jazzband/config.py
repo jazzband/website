@@ -85,10 +85,10 @@ CSP_REPORT_URI = config("CSP_REPORT_URI", None)
 CSP_REPORT_ONLY = config("CSP_REPORT_ONLY", False, cast=bool)
 CSP_RULES = {
     "default-src": "'self'",
-    "font-src": "'self' data:",
+    "font-src": "'self' data: https://use.fontawesome.com",
     "frame-src": "'self'",
     "script-src": "'self'",
-    "style-src": "'self' 'unsafe-inline'",
+    "style-src": "'self' 'unsafe-inline' https://use.fontawesome.com",
     "img-src": "* data:",
     "object-src": "'none'",
 }

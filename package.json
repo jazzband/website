@@ -1,17 +1,16 @@
 {
   "name": "jazzband",
-  "version": "2019.3.0",
+  "version": "2021.11.1",
   "description": "Code for the Jazzband website",
   "directories": {
     "doc": "docs"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.3",
     "loading-attribute-polyfill": "^1.5.4"
   },
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.0.0-beta.3.1",
-    "parcel": "^2.0.0-beta.3.1",
+    "@parcel/transformer-sass": "^2.0.1",
+    "parcel": "^2.0.1",
     "sass": "^1.32.8"
   },
   "repository": {
@@ -26,6 +25,6 @@
   "homepage": "https://github.com/jazzband/website#readme",
   "private": true,
   "scripts": {
-    "build": "parcel build jazzband/static/css/styles.scss --public-url=/static/dist/ --dist-dir jazzband/static/dist/ --no-cache && parcel build jazzband/static/js/app.js --public-url=/static/dist/ --dist-dir jazzband/static/dist/ --no-cache "
+    "build": "parcel build jazzband/static/css/styles.scss --public-url=/static/dist/ --dist-dir jazzband/static/dist/ --no-cache && parcel build jazzband/static/js/app.js --public-url=/static/dist/ --dist-dir jazzband/static/dist/ --no-cache"
   }
 }

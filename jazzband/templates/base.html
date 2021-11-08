@@ -9,6 +9,9 @@
         <title>Jazzband - {% block page_title %}We are all part of this{% endblock %}</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/v4-shims.css">
+
         <link href="{{ url_for('static', filename='dist/styles.css') }}" media="screen, projection" rel="stylesheet" type="text/css" />
         {% include "includes/favicons.html" %}
         <link rel="alternate" type="application/atom+xml" href="{{ url_for('content.news_feed', _external=True) }}" />
