@@ -35,7 +35,7 @@ issue with the outstanding tasks to complete the transfer.
 ### Does the Jazzband have a code of conduct?
 
 Yes, the Jazzband follows a [Contributor Code of Conduct](/about/conduct)
-that was adopted from the [Contributor Covenant](http://contributor-covenant.org).
+that was adopted from the [Contributor Covenant](https://contributor-covenant.org).
 Please refer to the conduct page for more information for how to report a
 breach of conduct.
 
