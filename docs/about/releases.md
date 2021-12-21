@@ -127,7 +127,7 @@ Yes:
 
 > Happy to announce the "Cello" release (1.4) of our Useful Software!
 
-[semver]: http://blog.versioneye.com/2014/01/16/semantic-versioning/
+[semver]: https://blog.versioneye.com/2014/01/16/semantic-versioning/
 
 !!! note "How to decide for the version number?"
 
