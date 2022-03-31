@@ -188,7 +188,7 @@ cryptography==35.0.0 \
     # via
     #   -r requirements.in
     #   secretstorage
-delegator.py==0.1.1 \
+delegator-py==0.1.1 \
     --hash=sha256:814657d96b98a244c479e3d5f6e9e850ac333e85f807d6bc846e72bbb2537806 \
     --hash=sha256:e6cc9cedab9ae59b169ee0422e17231adedadb144e63c0b5a60e6ff8adf8521b
     # via -r requirements.in
@@ -270,9 +270,9 @@ flask-talisman==0.8.1 \
     --hash=sha256:08a25360c771f7a79d6d4db2abfa71f7422e62a714418b671d69d6a201764d05 \
     --hash=sha256:5d502ec0c51bf1755a797b8cffbe4e94f8684af712ba0b56f3d80b79277ef285
     # via -r requirements.in
-flask-wtf==0.15.1 \
-    --hash=sha256:6ff7af73458f182180906a37a783e290bdc8a3817fe4ad17227563137ca285bf \
-    --hash=sha256:ff177185f891302dc253437fe63081e7a46a4e99aca61dfe086fb23e54fff2dc
+flask-wtf==1.0.1 \
+    --hash=sha256:34fe5c6fee0f69b50e30f81a3b7ea16aa1492a771fe9ad0974d164610c09a6c9 \
+    --hash=sha256:9d733658c80be551ce7d5bc13c7a7ac0d80df509be1e23827c847d9520f4359a
     # via -r requirements.in
 greenlet==1.1.2 \
     --hash=sha256:00e44c8afdbe5467e4f7b5851be223be68adb4272f44696ee71fe46b7036a711 \
@@ -526,7 +526,7 @@ pep517==0.12.0 \
 pexpect==4.8.0 \
     --hash=sha256:0b48a55dcb3c05f3329815901ea4fc1537514d6ba867a152b581d69ae3710937 \
     --hash=sha256:fc65a43959d153d0114afe13997d439c22823a27cefceb5ff35c2178c6784c0c
-    # via delegator.py
+    # via delegator-py
 pip-tools==6.4.0 \
     --hash=sha256:65553a15b1ba34be5e43889345062e38fb9b219ffa23b084ca0d4c4039b6f53b \
     --hash=sha256:bb2c3272bc229b4a6d25230ebe255823aba1aa466a0d698c48ab7eb5ab7efdc9
