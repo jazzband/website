@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 tasks = Tasks()
 
 
-@tasks.task(name="sync_projects", periodicity=timedelta(minutes=15), max_retries=3)
+@tasks.task(name="sync_projects", periodicity=timedelta(minutes=30), max_retries=3)
 def sync_projects():
     with redis.lock("sync_projects", ttl=ONE_MINUTE * 14):
         projects_data = github.get_projects()
@@ -141,7 +141,7 @@ def update_upload_ordering(project_id):
 
 
 @tasks.task(
-    name="sync_project_members", periodicity=timedelta(minutes=15), max_retries=3
+    name="sync_project_members", periodicity=timedelta(minutes=30), max_retries=3
 )
 def sync_project_members():
     """
