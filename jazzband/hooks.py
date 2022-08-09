@@ -3,9 +3,9 @@ import json
 import uuid
 from datetime import datetime
 
+import werkzeug.security
 from flask import current_app
 from flask_hookserver import Hooks
-import werkzeug.security
 
 from .db import redis
 from .members.models import User
