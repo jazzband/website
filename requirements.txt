@@ -270,9 +270,9 @@ flask-talisman==0.8.1 \
     --hash=sha256:08a25360c771f7a79d6d4db2abfa71f7422e62a714418b671d69d6a201764d05 \
     --hash=sha256:5d502ec0c51bf1755a797b8cffbe4e94f8684af712ba0b56f3d80b79277ef285
     # via -r requirements.in
-flask-wtf==0.15.1 \
-    --hash=sha256:6ff7af73458f182180906a37a783e290bdc8a3817fe4ad17227563137ca285bf \
-    --hash=sha256:ff177185f891302dc253437fe63081e7a46a4e99aca61dfe086fb23e54fff2dc
+flask-wtf==1.0.1 \
+    --hash=sha256:34fe5c6fee0f69b50e30f81a3b7ea16aa1492a771fe9ad0974d164610c09a6c9 \
+    --hash=sha256:9d733658c80be551ce7d5bc13c7a7ac0d80df509be1e23827c847d9520f4359a
     # via -r requirements.in
 greenlet==1.1.2 \
     --hash=sha256:00e44c8afdbe5467e4f7b5851be223be68adb4272f44696ee71fe46b7036a711 \
