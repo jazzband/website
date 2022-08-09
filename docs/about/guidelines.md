@@ -93,7 +93,7 @@ guidelines] for more information.
 
 [contributing guidelines]: https://help.github.com/articles/setting-guidelines-for-repository-contributors/
 [contributing guideline]: https://github.com/jazzband/.github/blob/main/CONTRIBUTING.md
-[reStructuredText]: http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html
+[reStructuredText]: https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html
 [Markdown]: https://daringfireball.net/projects/markdown/syntax
 
 ### Badges
