@@ -1,9 +1,11 @@
+import hmac
 import json
 import uuid
 from datetime import datetime
 
 from flask import current_app
 from flask_hookserver import Hooks
+import werkzeug.security
 
 from .db import redis
 from .members.models import User
@@ -11,6 +13,26 @@ from .projects.tasks import update_project_by_hook
 from .tasks import spinach
 
 hooks = Hooks()
+
+
+def safe_str_cmp(a: str, b: str) -> bool:
+    """This function compares strings in somewhat constant time. This
+    requires that the length of at least one string is known in advance.
+
+    Returns `True` if the two strings are equal, or `False` if they are not.
+    """
+
+    if isinstance(a, str):
+        a = a.encode("utf-8")  # type: ignore
+
+    if isinstance(b, str):
+        b = b.encode("utf-8")  # type: ignore
+
+    return hmac.compare_digest(a, b)
+
+
+# Monkeypatch hookserver to fix werkzeug compatibility.
+werkzeug.security.safe_str_cmp = safe_str_cmp
 
 
 @hooks.hook("ping")
