@@ -41,6 +41,9 @@ start:
 stop:
 	docker-compose stop
 
+compile-update:
+	docker-compose run --rm web pip-compile -U --allow-unsafe --generate-hashes
+
 update:
 	docker-compose run --rm web pip install -r requirements.txt
 
