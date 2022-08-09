@@ -3,11 +3,12 @@ import time
 from datetime import datetime
 from uuid import uuid4
 
-from flask import current_app, render_template, safe_join
+from flask import current_app, render_template
 from flask_login import current_user
 from sqlalchemy import func, orm
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy_utils import aggregated, generic_repr
+from werkzeug.security import safe_join
 
 from ..account import github
 from ..auth import current_user_is_roadie

@@ -17,7 +17,6 @@ from flask import (
     make_response,
     redirect,
     request,
-    safe_join,
     send_from_directory,
     url_for,
 )
@@ -28,6 +27,7 @@ from pkg_resources import safe_name
 from requests.exceptions import HTTPError
 from sqlalchemy import desc, nullsfirst, nullslast
 from sqlalchemy.sql.expression import func
+from werkzeug.security import safe_join
 from werkzeug.utils import secure_filename
 
 from ..account import github

@@ -10,12 +10,12 @@ from flask import (
     redirect,
     render_template,
     request,
-    safe_join,
     send_from_directory,
     url_for,
 )
 from flask_flatpages import FlatPages
 from flask_login import current_user
+from werkzeug.security import safe_join
 
 from .decorators import templated
 from .utils import full_url
