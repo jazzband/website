@@ -53,7 +53,7 @@ jobs:
           fetch-depth: 0
 
       - name: Push
-        uses: dokku/github-action@v1
+        uses: dokku/github-action@v1.1.2
         # enable verbose ssh output
         with:
           branch: "main"
@@ -62,7 +62,7 @@ jobs:
           ssh_private_key: ${{ secrets.PRIVATE_KEY }}
 
       - name: Create Sentry release
-        uses: getsentry/action-release@v1.1.2
+        uses: getsentry/action-release@v1
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
