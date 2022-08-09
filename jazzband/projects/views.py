@@ -409,15 +409,15 @@ class UploadDownloadView(UploadMembersActionView):
     methods = ["GET"]
 
     def get(self, name, upload_id):
-        cache_timeout = current_app.get_send_file_max_age(self.upload.full_path)
+        max_age = current_app.get_send_file_max_age(self.upload.full_path)
         path, filename = os.path.split(self.upload.full_path)
         return send_from_directory(
             path,
             filename,
-            cache_timeout=cache_timeout,
+            max_age=max_age,
             as_attachment=True,
-            attachment_filename=self.upload.filename,
-            add_etags=False,
+            download_name=self.upload.filename,
+            etag=False,
             conditional=True,
         )
 

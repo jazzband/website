@@ -10,3 +10,4 @@ node_modules
 /uploads/
 .local/
 .parcel-cache
+.vscode

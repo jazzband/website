@@ -64,13 +64,11 @@ def securitytxt_redirect():
 
 @content.route("/.well-known/security.txt")
 def securitytxt_file():
-    filename = "security.txt"
     return send_from_directory(
         current_app.static_folder,
-        filename,
+        "security.txt",
         as_attachment=False,
         mimetype="text/plain",
-        max_age=current_app.get_send_file_max_age(filename),
     )
 
 
@@ -167,12 +165,8 @@ def index():
 
 @content.route("/favicon.ico")
 def favicon():
-    filename = "favicon.ico"
-    cache_timeout = current_app.get_send_file_max_age(filename)
-    favicon_path = safe_join(current_app.static_folder, "favicons")
     return send_from_directory(
-        favicon_path,
-        filename,
+        safe_join(current_app.static_folder, "favicons"),
+        "favicon.ico",
         mimetype="image/vnd.microsoft.icon",
-        cache_timeout=cache_timeout,
     )
