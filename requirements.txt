@@ -803,9 +803,9 @@ tqdm==4.62.3 \
     --hash=sha256:8dd278a422499cd6b727e6ae4061c40b48fce8b76d1ccbf5d34fca9b7f925b0c \
     --hash=sha256:d359de7217506c9851b7869f3708d8ee53ed70a1b8edbba4dbcb47442592920d
     # via twine
-twine==3.4.2 \
-    --hash=sha256:087328e9bb405e7ce18527a2dca4042a84c7918658f951110b38bc135acab218 \
-    --hash=sha256:4caec0f1ed78dc4c9b83ad537e453d03ce485725f2aea57f1bb3fdde78dae936
+twine==3.5.0 \
+    --hash=sha256:218c42324121d4417cbcbbda59c623b8acc4becfce3daa545e6b6dd48bd21385 \
+    --hash=sha256:3725b79a6f1cfe84a134544ae1894706e60719ab28547cb6c6de781b9f72706d
     # via -r requirements.in
 urllib3==1.26.7 \
     --hash=sha256:4987c65554f7a2dbf30c18fd48778ef124af6fab771a377103da0585e2336ece \
