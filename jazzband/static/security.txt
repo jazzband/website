@@ -15,21 +15,21 @@ Canonical: https://jazzband.co/.well-known/security.txt
 # Our preferred languages
 Preferred-Languages: en
 
-Expires: 2022-09-30T10:00:00.000Z
+Expires: 2023-09-30T10:00:00.000Z
 # This file was clear-signed with: make generate-securitytxt
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEAt6PhCkAQRrdcLE3TYdVivZSoA8FAmFx2CMACgkQTYdVivZS
-oA+afQ/8C22qJeEOUY8eaNMJwo5SvoLw2sFPmhOjmTjtuULYHbZ/UWWUJhejdvVY
-TACzcUS+J6YM7yFjlwAFOPMTyuWqk5QimRWvXQhwRAMGwLGdFeza6wHcHH6TsOpd
-oiRvhYCFp/jwBzQAruG6z37LuNxP241rQvx/HJrKqHfN9UBPu3jkLB9WZVvoARGM
-bpFOshdn7BH3f19xC6Nd2+xQrenEJIRV5fJurB7UY2X3auTMA7GZZjVsaApJSzrv
-6QURag6E5KTW7kx+SNAh4xUINFI1YNHB8DGVKzab/se3qPMorLoNMFNzG0m+Ekfq
-8q9E8WGRBhXOXDjIeXP3gSLq5XYcMKHXsdYFFF+KQe8UmAizKjWs0z4IgBBbAZv5
-0iaZHa6htT+wF4WxbV/pgx5ECgkhy+CtUuxvXbdWsODZ7U7+qtY83cHGD6tlEGCS
-aV0GNIBvVM05fyaQLqUoeSwXvIrS7vU9P8YZ+KaubTmptsJIrShumLxE9fErU5uq
-ziMFAo0fAC0Xb8xGIfx/BN3GbzXIyQYbYEHZbGqug0mwhwqINdsVpfCleOCsZNxc
-mAhf9NZ19qH2L9l4P8N71w39bfH4BluGCWB3iPiRGqsidDag1205a9JeIKrqaM32
-FF7FSwNwnjmdrVYXuFsGYBiD5SnO1A+emPZ+PxjuFHSRvm37fpI=
-=U4DN
+iQIzBAEBCgAdFiEEAt6PhCkAQRrdcLE3TYdVivZSoA8FAmLylqEACgkQTYdVivZS
+oA/+yw//Tq/BYepby6Mdt1s49pKCod+S35YG85TD4tqhKQTV2/VH0JXLtqCGwgs5
+Elg4F4xLzpRznKzpOZsHYWpw8diIiMassGjfs7m8+aZu4uCuafEIl4TK4AcueRXR
+huWDLmVUjga6FjavucWu1RpLApZqWfn2/2Kt6gEAjuK/6qbjBR3rH2vgwUuEZaAC
+TovGxcP4G8AL/Fsyt98KkuGXUv81poQc1RjdR9G+owNeYws6Scu/e7M+myxZarNM
+ljcZejdsxAW8IfFYYVuMWo01jBcjGwthJw+T1Li26tMU+77Z1zl81p8rlFpAfFr5
+jimAurOzL/Z2EU1SW43YxtB2bI4ojxbmgZr0Ky7tD9sOqKnEcDaYKakoBxeQCdnU
+5Vqp6jzY8LTPLl8C0nhxfieLEOUtvowmohfUA7dsih65bE31CbOE6psNjl9t8ECZ
+j7QAV9aO6B2RSCQYYTHtsW1q/hM4u8wmM9X9f8UbOCqn8Sc/BuAjG/usWZTzzRtt
+cZd6SALfO6d49o7Cg2Pr5avA8XKchTLwORwZw4ph05xdZSUBlG7rLexswJqz+gpZ
+spn8uU3gvQobfcpCpzl/Mqh6tOChnnRN31cAbIOCCI6OLU1UEqLHqQE38u7i5hh8
+4Ltwux+8R3EWyh2fJxNHeq9ct0K+M/yMyKsESCjgnsUX5lIqc5I=
+=gl5v
 -----END PGP SIGNATURE-----

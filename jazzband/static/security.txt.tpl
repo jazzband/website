@@ -12,5 +12,5 @@ Canonical: https://jazzband.co/.well-known/security.txt
 # Our preferred languages
 Preferred-Languages: en
 
-Expires: 2022-09-30T10:00:00.000Z
+Expires: 2023-09-30T10:00:00.000Z
 # This file was clear-signed with: make generate-securitytxt
