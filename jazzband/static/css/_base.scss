@@ -389,6 +389,10 @@ th {
     font-weight: $semi-bold;
 }
 table.projects-index {
+    thead {
+        position: sticky;
+        top: 0;
+    }
     td,
     th {
         &:first-child {
