@@ -394,11 +394,7 @@ idna==3.3 \
 importlib-metadata==4.12.0 \
     --hash=sha256:637245b8bab2b6502fcbc752cc4b7a6f6243bb02b31c5c26156ad103d3d45670 \
     --hash=sha256:7401a975809ea1fdc658c3aa4f78cc2195a0e019c5cbc4c06122884e9ae80c23
-    # via
-    #   flask
-    #   keyring
-    #   markdown
-    #   twine
+    # via twine
 iniconfig==1.1.1 \
     --hash=sha256:011e24c64b7f47f6ebd835bb12a743f2fbe9a26d4cecaa7f53bc4f35ee9da8b3 \
     --hash=sha256:bc3af051d7d14b2ee5ef9969666def0cd1a000e121eaea580d4a313df4b37f32
@@ -799,9 +795,9 @@ secretstorage==3.3.2 \
     # via
     #   -r requirements.in
     #   keyring
-sentry-sdk[flask]==1.9.3 \
-    --hash=sha256:75643a8c656ffd61ea0a37bf4b0b9463825d6043d4fbfd7c80872ab66e4fa06e \
-    --hash=sha256:baac8e9426b7927f95792b1f38c83ae743a62471e92b72fa3ec2d5987609abeb
+sentry-sdk[flask]==1.9.6 \
+    --hash=sha256:630faec958e09b1151d88b8655bb749274c6b1acd19baa6f7a5ec3106276f752 \
+    --hash=sha256:f713f33ff7f82658c30e7e8cdec72c432218e6dd41b0f004905733793bd9719b
     # via -r requirements.in
 simplekv==0.14.1 \
     --hash=sha256:8953a36cb3741ea821c9de1962b5313bf6fe1b927f6ced2a55266eb8ce2cd0f6 \
