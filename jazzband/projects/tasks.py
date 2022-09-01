@@ -87,7 +87,7 @@ def send_new_upload_notifications(project_id=None):
         )
         lead_members = [membership.user for membership in lead_memberships]
 
-        recipients = []
+        recipients = set()
 
         for lead_member in lead_members + list(User.roadies()):
 
@@ -98,11 +98,11 @@ def send_new_upload_notifications(project_id=None):
             if not primary_email:
                 continue
 
-            recipients.append(primary_email.email)
+            recipients.add(primary_email.email)
 
         message = Message(
             subject=f"Project {upload.project.name} received a new upload",
-            recipients=recipients,
+            recipients=list(recipients),
             body=render_template(
                 "projects/mails/new_upload_notification.txt",
                 project=upload.project,
