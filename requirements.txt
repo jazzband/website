@@ -109,9 +109,9 @@ cachelib==0.9.0 \
     --hash=sha256:38222cc7c1b79a23606de5c2607f4925779e37cdcea1c2ad21b8bae94b5425a5 \
     --hash=sha256:811ceeb1209d2fe51cd2b62810bd1eccf70feba5c52641532498be5c675493b3
     # via flask-caching
-certifi==2022.6.15.1 \
-    --hash=sha256:43dadad18a7f168740e66944e4fa82c6611848ff9056ad910f8f7a3e46ab89e0 \
-    --hash=sha256:cffdcd380919da6137f76633531a5817e3a9f268575c128249fb637e4f9e73fb
+certifi==2022.9.24 \
+    --hash=sha256:0d9c601124e5a6ba9712dbc60d9c53c21e34f5f641fe83002317394311bdce14 \
+    --hash=sha256:90c1a32f1d68f940488354e36370f6cca89f0f106db09518524c88d6ed83f382
     # via
     #   -r requirements.in
     #   requests
@@ -694,9 +694,9 @@ pytest-flask==1.2.0 \
     --hash=sha256:46fde652f77777bf02dc91205aec4ce20cdf2acbbbd66a918ab91f5c14693d3d \
     --hash=sha256:fe25b39ad0db09c3d1fe728edecf97ced85e774c775db259a6d25f0270a4e7c9
     # via -r requirements.in
-pytest-mock==3.8.2 \
-    --hash=sha256:77f03f4554392558700295e05aed0b1096a20d4a60a4f3ddcde58b0c31c8fca2 \
-    --hash=sha256:8a9e226d6c0ef09fcf20c94eb3405c388af438a90f3e39687f84166da82d5948
+pytest-mock==3.9.0 \
+    --hash=sha256:1a1b9264224d026932d6685a0f9cef3b61d91563c3e74af9fe5afb2767e13812 \
+    --hash=sha256:c899a0dcc8a5f22930acd020b500abd5f956911f326864a3b979e4866e14da82
     # via -r requirements.in
 python-dateutil==2.8.2 \
     --hash=sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86 \
