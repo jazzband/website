@@ -877,10 +877,7 @@ sqlalchemy-utils==0.38.3 \
 tomli==2.0.1 \
     --hash=sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc \
     --hash=sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f
-    # via
-    #   build
-    #   pep517
-    #   pytest
+    # via pytest
 twine==4.0.1 \
     --hash=sha256:42026c18e394eac3e06693ee52010baa5313e4811d5a11050e7d48436cf41b9e \
     --hash=sha256:96b1cf12f7ae611a4a40b6ae8e9570215daff0611828f5fe1f37a16255ab24a0
@@ -1010,9 +1007,9 @@ pip==22.2.2 \
     # via
     #   -r requirements.in
     #   pip-tools
-setuptools==63.4.2 \
-    --hash=sha256:73bfae4791da7c1c56882ab17577d00f7a37a0347162aeb9360058de0dc25083 \
-    --hash=sha256:abcb76aa4decd7a17cbe0e4b31bdf549d106ba7f668e87e0860f5f7b84b9b3fe
+setuptools==65.5.1 \
+    --hash=sha256:d0b9a8433464d5800cbe05094acf5c6d52a91bfac9b52bcfc4d41382be5d5d31 \
+    --hash=sha256:e197a19aa8ec9722928f2206f8de752def0e4c9fc6953527360d1c36d94ddb2f
     # via
     #   gunicorn
     #   pip-tools
