@@ -46,7 +46,6 @@ def update_project_by_hook(hook_id):
 
     # use a lock to make sure we don't run this multiple times
     with redis.lock(f"project-update-by-hook-{project_name}", ttl=ONE_MINUTE):
-
         # if there already was an issue created, just stop here
         if not project.transfer_issue_url:
             # get list of roadies and set them as the default assignees
@@ -90,7 +89,6 @@ def send_new_upload_notifications(project_id=None):
         recipients = set()
 
         for lead_member in lead_members + list(User.roadies()):
-
             primary_email = lead_member.email_addresses.filter(
                 EmailAddress.primary.is_(True), EmailAddress.verified.is_(True)
             ).first()
@@ -150,7 +148,6 @@ def sync_project_members():
     in GitHub anymore.
     """
     with redis.lock("sync_project_members", ttl=ONE_MINUTE * 14):
-
         teams = github.get_teams()
 
         for team in teams:
