@@ -8,6 +8,7 @@ click
 click-log
 cryptography
 delegator.py
+exceptiongroup
 feedgen
 flask
 flask-admin
@@ -24,6 +25,7 @@ flask-redis
 flask-sqlalchemy
 flask-talisman
 flask-wtf
+greenlet
 gunicorn
 honcho
 itsdangerous
@@ -52,6 +54,7 @@ simplekv
 spinach
 sqlalchemy
 sqlalchemy-utils
+tomli
 twine
 URLObject
 walrus
