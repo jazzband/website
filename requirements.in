@@ -52,7 +52,7 @@ SecretStorage
 sentry-sdk[flask]
 simplekv
 spinach
-sqlalchemy
+sqlalchemy<2.0
 sqlalchemy-utils
 tomli
 twine
