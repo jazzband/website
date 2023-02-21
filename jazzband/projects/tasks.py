@@ -116,12 +116,12 @@ def send_new_upload_notifications(project_id=None):
 
     with mail.connect() as smtp:
         for upload, message in messages:
-            with postgres.transaction():
+            with postgres.session.begin():
                 try:
                     smtp.send(message)
                 finally:
                     upload.notified_at = datetime.utcnow()
-                    upload.save()
+                    upload.save(commit=False)
                     logger.info(f"Send notification for upload {upload}.")
 
 
@@ -132,10 +132,10 @@ def update_upload_ordering(project_id):
     def version_sorter(upload):
         return parse_version(upload.version)
 
-    with postgres.transaction():
+    with postgres.session.begin():
         for index, upload in enumerate(sorted(uploads, key=version_sorter)):
             upload.ordering = index
-        postgres.session.commit()
+            upload.save(commit=False)
 
 
 @tasks.task(
