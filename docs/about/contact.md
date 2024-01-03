@@ -17,12 +17,31 @@ news items from the roadies and members.
 
 Feel free to follow [Jazzband on Twitter](https://twitter.com/jazzbandco), too.
 
+### Matrix
+
+Jazzband members and interested folk may want to join the discussion in the
+Matrix Space: `#jazzband:matrix.org`. This is especially convenient for people
+who don't want to figure out how to use [IRC](#irc) these days.
+
+<center>
+
+  [![Matrix Badge]][Matrix Space]
+
+</center>
+
+[Matrix Badge]:
+https://img.shields.io/matrix/jazzband:matrix.org?label=Discuss%20on%20Matrix%20at%20%23jazzband%3Amatrix.org&logo=matrix&server_fqdn=matrix.org&style=for-the-badge
+[Matrix Space]: https://matrix.to/#/%23jazzband:matrix.org
+
 ### IRC
 
 Jazzband members and interested folk may want to join the discussion in the IRC
 channel on Libera.Chat (`irc.libera.chat`): `#jazzband`
 
 Direct link to channel via [IRCCloud](https://www.irccloud.com/): [![#jazzband](https://www.irccloud.com/invite-svg?channel=%23jazzband&amp;hostname=irc.libera.chat&amp;port=6697&amp;ssl=1)](https://www.irccloud.com/invite?channel=%23jazzband&amp;hostname=irc.libera.chat&amp;port=6697&amp;ssl=1)
+
+Note that it is also possible to connect to this channel through a built-in
+[Matrix](#matrix) bridge, via `#jazzband:libera.chat`.
 
 ### Issues
 
