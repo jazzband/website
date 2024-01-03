@@ -257,7 +257,6 @@ flask==2.2.2 \
     #   flask-compress
     #   flask-dance
     #   flask-flatpages
-    #   flask-hookserver
     #   flask-kvsession
     #   flask-login
     #   flask-mail
@@ -285,10 +284,6 @@ flask-dance[sqla]==6.1.1 \
 flask-flatpages==0.8.1 \
     --hash=sha256:d6626b4fafd3dbe48e40fa91ac5c0e8aced1dcb7f7b77beb5fa583a995b64abf \
     --hash=sha256:ee6b389a93558f66ae626cebc86ff99f299f6b972d2cdd8db9fb9b8a3deed1aa
-    # via -r requirements.in
-flask-hookserver==1.1.0 \
-    --hash=sha256:6ace808bbbf62936293bcf791ee26ba1d4a8360d18b65fedecb1f51dff07dee6 \
-    --hash=sha256:dcb41c3cafb053419ec60aee574d4f90c28c6fd3cab7131c7e2b86c6f87da9f2
     # via -r requirements.in
 flask-kvsession==0.6.2 \
     --hash=sha256:9c0ee93fae089c45baeda0a3fd3ae32a96ee81c34996017749f8b3fd06df936c
@@ -765,7 +760,6 @@ requests[security]==2.28.1 \
     # via
     #   -r requirements.in
     #   flask-dance
-    #   flask-hookserver
     #   requests-oauthlib
     #   requests-toolbelt
     #   twine
@@ -902,7 +896,6 @@ werkzeug==2.2.2 \
     #   -r requirements.in
     #   flask
     #   flask-dance
-    #   flask-hookserver
     #   flask-kvsession
     #   flask-login
     #   pytest-flask

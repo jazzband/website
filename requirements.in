@@ -15,7 +15,6 @@ flask-caching
 flask-compress
 Flask-Dance[sqla]
 flask-flatpages
-flask-hookserver
 flask-kvsession
 flask-login
 flask-mail
