@@ -384,9 +384,7 @@ flask-compress==1.13 \
 flask-dance[sqla]==7.0.0 \
     --hash=sha256:935f5806d587eed94b53cf356ee921466bb32ba83405ed5a4e8ac8ea859620dc \
     --hash=sha256:a37dec5c3a21f13966178285d5c10691cd72203dcef8a01db802fef6287e716d
-    # via
-    #   -r requirements.in
-    #   flask-dance
+    # via -r requirements.in
 flask-flatpages==0.8.1 \
     --hash=sha256:d6626b4fafd3dbe48e40fa91ac5c0e8aced1dcb7f7b77beb5fa583a995b64abf \
     --hash=sha256:ee6b389a93558f66ae626cebc86ff99f299f6b972d2cdd8db9fb9b8a3deed1aa
@@ -1020,9 +1018,9 @@ sqlalchemy==1.4.46 \
     #   flask-dance
     #   flask-sqlalchemy
     #   sqlalchemy-utils
-sqlalchemy-utils==0.40.0 \
-    --hash=sha256:4c7098d4857d5cad1248bf7cd940727aecb75b596a5574b86a93b37079929520 \
-    --hash=sha256:af803089a7929803faeb6173b90f29d1a67ad02f1d1e732f40b054a8eb3c7370
+sqlalchemy-utils==0.41.1 \
+    --hash=sha256:6c96b0768ea3f15c0dc56b363d386138c562752b84f647fb8d31a2223aaab801 \
+    --hash=sha256:a2181bff01eeb84479e38571d2c0718eb52042f9afd8c194d0d02877e84b7d74
     # via -r requirements.in
 tomli==2.0.1 \
     --hash=sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc \
