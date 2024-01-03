@@ -6,7 +6,7 @@
     "doc": "docs"
   },
   "dependencies": {
-    "loading-attribute-polyfill": "^1.5.4"
+    "loading-attribute-polyfill": "^2.1.1"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.7.0",
