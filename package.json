@@ -9,8 +9,8 @@
     "loading-attribute-polyfill": "^2.1.1"
   },
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.7.0",
-    "parcel": "^2.7.0",
+    "@parcel/transformer-sass": "^2.10.3",
+    "parcel": "^2.10.3",
     "sass": "^1.69.7"
   },
   "repository": {
