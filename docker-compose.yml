@@ -11,6 +11,7 @@ services:
     image: redis:latest
 
   web: &app
+    platform: linux/amd64
     build: .
     volumes:
       - .:/app

@@ -17,7 +17,6 @@ tasks = Tasks()
 def sync_members():
     # use a lock to make sure we don't run this multiple times
     with redis.lock("sync_members", ttl=ONE_MINUTE * 14):
-
         members_data = github.get_members()
         User.sync(members_data)
 

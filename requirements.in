@@ -8,6 +8,7 @@ click
 click-log
 cryptography
 delegator.py
+exceptiongroup
 feedgen
 flask
 flask-admin
@@ -23,6 +24,7 @@ flask-redis
 flask-sqlalchemy
 flask-talisman
 flask-wtf
+greenlet
 gunicorn
 honcho
 itsdangerous
@@ -49,8 +51,9 @@ SecretStorage
 sentry-sdk[flask]
 simplekv
 spinach
-sqlalchemy
+sqlalchemy<2.0
 sqlalchemy-utils
+tomli
 twine
 URLObject
 walrus

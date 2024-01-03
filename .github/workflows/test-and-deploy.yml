@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.10.0
+        uses: styfle/cancel-workflow-action@0.11.0
         with:
           access_token: ${{ github.token }}
 
@@ -43,7 +43,7 @@ jobs:
 
     steps:
       - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.10.0
+        uses: styfle/cancel-workflow-action@0.11.0
         with:
           access_token: ${{ github.token }}
 
@@ -53,7 +53,7 @@ jobs:
           fetch-depth: 0
 
       - name: Push
-        uses: dokku/github-action@v1.1.3
+        uses: dokku/github-action@v1.3.0
         # enable verbose ssh output
         with:
           branch: "main"

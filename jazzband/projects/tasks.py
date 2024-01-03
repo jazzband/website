@@ -46,7 +46,6 @@ def update_project_by_hook(hook_id):
 
     # use a lock to make sure we don't run this multiple times
     with redis.lock(f"project-update-by-hook-{project_name}", ttl=ONE_MINUTE):
-
         # if there already was an issue created, just stop here
         if not project.transfer_issue_url:
             # get list of roadies and set them as the default assignees
@@ -90,7 +89,6 @@ def send_new_upload_notifications(project_id=None):
         recipients = set()
 
         for lead_member in lead_members + list(User.roadies()):
-
             primary_email = lead_member.email_addresses.filter(
                 EmailAddress.primary.is_(True), EmailAddress.verified.is_(True)
             ).first()
@@ -118,13 +116,13 @@ def send_new_upload_notifications(project_id=None):
 
     with mail.connect() as smtp:
         for upload, message in messages:
-            with postgres.transaction():
-                try:
-                    smtp.send(message)
-                finally:
-                    upload.notified_at = datetime.utcnow()
-                    upload.save()
-                    logger.info(f"Send notification for upload {upload}.")
+            try:
+                smtp.send(message)
+            finally:
+                upload.notified_at = datetime.utcnow()
+                upload.save(commit=False)
+                logger.info(f"Send notification for upload {upload}.")
+        postgres.session.commit()
 
 
 @tasks.task(name="update_upload_ordering", max_retries=10)
@@ -134,10 +132,10 @@ def update_upload_ordering(project_id):
     def version_sorter(upload):
         return parse_version(upload.version)
 
-    with postgres.transaction():
-        for index, upload in enumerate(sorted(uploads, key=version_sorter)):
-            upload.ordering = index
-        postgres.session.commit()
+    for index, upload in enumerate(sorted(uploads, key=version_sorter)):
+        upload.ordering = index
+        upload.save(commit=False)
+    postgres.session.commit()
 
 
 @tasks.task(
@@ -150,7 +148,6 @@ def sync_project_members():
     in GitHub anymore.
     """
     with redis.lock("sync_project_members", ttl=ONE_MINUTE * 14):
-
         teams = github.get_teams()
 
         for team in teams:
