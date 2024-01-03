@@ -384,9 +384,7 @@ flask-compress==1.13 \
 flask-dance[sqla]==7.0.0 \
     --hash=sha256:935f5806d587eed94b53cf356ee921466bb32ba83405ed5a4e8ac8ea859620dc \
     --hash=sha256:a37dec5c3a21f13966178285d5c10691cd72203dcef8a01db802fef6287e716d
-    # via
-    #   -r requirements.in
-    #   flask-dance
+    # via -r requirements.in
 flask-flatpages==0.8.1 \
     --hash=sha256:d6626b4fafd3dbe48e40fa91ac5c0e8aced1dcb7f7b77beb5fa583a995b64abf \
     --hash=sha256:ee6b389a93558f66ae626cebc86ff99f299f6b972d2cdd8db9fb9b8a3deed1aa
@@ -394,9 +392,9 @@ flask-flatpages==0.8.1 \
 flask-kvsession==0.6.2 \
     --hash=sha256:9c0ee93fae089c45baeda0a3fd3ae32a96ee81c34996017749f8b3fd06df936c
     # via -r requirements.in
-flask-login==0.6.2 \
-    --hash=sha256:1ef79843f5eddd0f143c2cd994c1b05ac83c0401dc6234c143495af9a939613f \
-    --hash=sha256:c0a7baa9fdc448cdd3dd6f0939df72eec5177b2f7abe6cb82fc934d29caac9c3
+flask-login==0.6.3 \
+    --hash=sha256:5e23d14a607ef12806c699590b89d0f0e0d67baeec599d75947bf9c147330333 \
+    --hash=sha256:849b25b82a436bf830a054e74214074af59097171562ab10bfa999e6b78aae5d
     # via -r requirements.in
 flask-mail==0.9.1 \
     --hash=sha256:22e5eb9a940bf407bcf30410ecc3708f3c56cc44b29c34e1726fe85006935f41
