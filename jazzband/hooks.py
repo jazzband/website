@@ -5,9 +5,9 @@ from datetime import datetime
 
 import werkzeug.security
 from flask import current_app
-from flask_hookserver import Hooks
 
 from .db import redis
+from .hookserver import Hooks
 from .members.models import User
 from .projects.tasks import update_project_by_hook
 from .tasks import spinach
