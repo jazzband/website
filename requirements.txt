@@ -384,9 +384,7 @@ flask-compress==1.13 \
 flask-dance[sqla]==7.0.0 \
     --hash=sha256:935f5806d587eed94b53cf356ee921466bb32ba83405ed5a4e8ac8ea859620dc \
     --hash=sha256:a37dec5c3a21f13966178285d5c10691cd72203dcef8a01db802fef6287e716d
-    # via
-    #   -r requirements.in
-    #   flask-dance
+    # via -r requirements.in
 flask-flatpages==0.8.1 \
     --hash=sha256:d6626b4fafd3dbe48e40fa91ac5c0e8aced1dcb7f7b77beb5fa583a995b64abf \
     --hash=sha256:ee6b389a93558f66ae626cebc86ff99f299f6b972d2cdd8db9fb9b8a3deed1aa
@@ -1055,9 +1053,9 @@ webencodings==0.5.1 \
     --hash=sha256:a0af1213f3c2226497a97e2b3aa01a7e4bee4f403f95be16fc9acd2947514a78 \
     --hash=sha256:b36a1c245f2d304965eb4e0a82848379241dc04b865afcc4aab16748587e1923
     # via bleach
-werkzeug==2.3.8 \
-    --hash=sha256:554b257c74bbeb7a0d254160a4f8ffe185243f52a52035060b761ca62d977f03 \
-    --hash=sha256:bba1f19f8ec89d4d607a3bd62f1904bd2e609472d93cd85e9d4e178f472c3748
+werkzeug==3.0.1 \
+    --hash=sha256:507e811ecea72b18a404947aded4b3390e1db8f826b494d76550ef45bb3b1dcc \
+    --hash=sha256:90a285dc0e42ad56b34e696398b8122ee4c681833fb35b8334a095d82c56da10
     # via
     #   -r requirements.in
     #   flask
