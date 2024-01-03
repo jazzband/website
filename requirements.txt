@@ -369,8 +369,9 @@ flask==2.2.3 \
     #   flask-wtf
     #   pytest-flask
     #   sentry-sdk
-flask-admin==1.6.0 \
-    --hash=sha256:424ffc79b7b0dfff051555686ea12e86e48dffacac14beaa319fb4502ac40988
+flask-admin==1.6.1 \
+    --hash=sha256:24cae2af832b6a611a01d7dc35f42d266c1d6c75a426b869d8cb241b78233369 \
+    --hash=sha256:fd8190f1ec3355913a22739c46ed3623f1d82b8112cde324c60a6fc9b21c9406
     # via -r requirements.in
 flask-caching==2.0.2 \
     --hash=sha256:19571f2570e9b8dd9dd9d2f49d7cbee69c14ebe8cc001100b1eb98c379dd80ad \
