@@ -6,7 +6,7 @@ The code that renders https://jazzband.co.
 
 ## Installation
 
-Copy `.end-dist` to `.env`.
+Copy `.env-dist` to `.env`.
 
 Install Docker, docker-compose and NPM.
 
