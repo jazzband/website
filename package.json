@@ -11,7 +11,7 @@
   "devDependencies": {
     "@parcel/transformer-sass": "^2.10.3",
     "parcel": "^2.10.3",
-    "sass": "^1.69.7"
+    "sass": "^1.71.1"
   },
   "repository": {
     "type": "git",
