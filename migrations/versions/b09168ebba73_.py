@@ -5,6 +5,7 @@ Revision ID: b09168ebba73
 Revises: 1b61e2aecb30
 Create Date: 2019-04-13 20:31:39.824633
 """
+
 from alembic import op
 
 # revision identifiers, used by Alembic.
