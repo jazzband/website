@@ -4,6 +4,7 @@ Revision ID: 1b61e2aecb30
 Revises: e40889bed1ba
 Create Date: 2019-04-13 20:03:55.206723
 """
+
 import sqlalchemy as sa
 from alembic import op
 from sqlalchemy_utils import JSONType
