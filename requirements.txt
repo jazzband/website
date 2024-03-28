@@ -684,6 +684,7 @@ markupsafe==2.1.2 \
     # via
     #   jinja2
     #   mako
+    #   sentry-sdk
     #   werkzeug
     #   wtforms
 mdurl==0.1.2 \
@@ -945,9 +946,9 @@ secretstorage==3.3.3 \
     # via
     #   -r requirements.in
     #   keyring
-sentry-sdk[flask]==1.15.0 \
-    --hash=sha256:69ecbb2e1ff4db02a06c4f20f6f69cb5dfe3ebfbc06d023e40d77cf78e9c37e7 \
-    --hash=sha256:7ad4d37dd093f4a7cb5ad804c6efe9e8fab8873f7ffc06042dc3f3fd700a93ec
+sentry-sdk[flask]==1.44.0 \
+    --hash=sha256:eb65289da013ca92fad2694851ad2f086aa3825e808dc285bd7dcaf63602bb18 \
+    --hash=sha256:f7125a9235795811962d52ff796dc032cd1d0dd98b59beaced8380371cd9c13c
     # via -r requirements.in
 simplekv==0.14.1 \
     --hash=sha256:8953a36cb3741ea821c9de1962b5313bf6fe1b927f6ced2a55266eb8ce2cd0f6 \
