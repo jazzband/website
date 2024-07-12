@@ -1,10 +1,10 @@
 import os
 from datetime import timedelta
 
+import redis
 from decouple import Csv, config
 from markdown.extensions.toc import TocExtension
 from markdown.extensions.wikilinks import WikiLinkExtension
-import redis
 
 from .renderer import smart_pygmented_markdown
 

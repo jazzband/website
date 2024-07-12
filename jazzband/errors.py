@@ -6,7 +6,6 @@ from sentry_sdk.integrations.flask import FlaskIntegration
 from sentry_sdk.integrations.logging import LoggingIntegration
 from sentry_sdk.integrations.redis import RedisIntegration
 from sentry_sdk.integrations.sqlalchemy import SqlalchemyIntegration
-from spinach.contrib.sentry_sdk_spinach import SpinachIntegration
 
 
 def init_app(app):

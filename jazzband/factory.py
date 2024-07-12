@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_compress import Compress
-from flask_session import Session
 from flask_migrate import Migrate
+from flask_session import Session
 from werkzeug.middleware.proxy_fix import ProxyFix
 from whitenoise import WhiteNoise
 
