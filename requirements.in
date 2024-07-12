@@ -16,11 +16,11 @@ flask-caching
 flask-compress
 Flask-Dance[sqla]
 flask-flatpages
-flask-kvsession
 flask-login
 flask-mail
 flask-migrate
 flask-redis
+flask-session
 flask-sqlalchemy
 flask-talisman
 flask-wtf
@@ -49,7 +49,6 @@ requests-oauthlib
 requests-toolbelt
 SecretStorage
 sentry-sdk[flask]
-simplekv
 spinach
 sqlalchemy<2.0
 sqlalchemy-utils
