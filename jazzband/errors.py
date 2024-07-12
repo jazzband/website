@@ -29,10 +29,10 @@ def init_app(app):
                 event_level=logging.ERROR,  # Send errors as events
             ),
             FlaskIntegration(),
-            SpinachIntegration(send_retries=False),
+            # SpinachIntegration(send_retries=False),
             SqlalchemyIntegration(),
             RedisIntegration(),
         ],
-        request_bodies="always",
-        with_locals=True,
+        max_request_body_size="always",
+        include_local_variables=True,
     )
