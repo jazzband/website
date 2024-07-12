@@ -1,5 +1,6 @@
 from flask_redis import FlaskRedis
-from flask_sqlalchemy import Model, SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy.model import Model
 from walrus import Walrus
 
 
