@@ -33,7 +33,7 @@ jinja2
 lxml
 markdown
 pip>=20.0
-pip-tools
+pip-tools>6.13.0
 psycopg2-binary
 pygments
 pytest
