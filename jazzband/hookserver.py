@@ -23,7 +23,6 @@ __license__ = "MIT"
 
 
 class Hooks(object):
-
     """The Hooks object registers handlers to GitHub webhooks events.
 
     :param app: the optional :class:`~flask.Flask` instance to register
@@ -108,7 +107,6 @@ class Hooks(object):
 
 
 class _timed_memoize(object):
-
     """Decorator that caches the value of function.
 
     Does not care about arguments to the function, will still only cache
