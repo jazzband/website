@@ -1,6 +1,6 @@
 {
   "name": "jazzband",
-  "version": "2021.11.1",
+  "version": "2024.7.0",
   "description": "Code for the Jazzband website",
   "directories": {
     "doc": "docs"
@@ -25,6 +25,6 @@
   "homepage": "https://github.com/jazzband/website#readme",
   "private": true,
   "scripts": {
-    "build": "parcel build jazzband/static/css/styles.scss --public-url=/static/dist/ --dist-dir jazzband/static/dist/ --no-cache && parcel build jazzband/static/js/app.js --public-url=/static/dist/ --dist-dir jazzband/static/dist/ --no-cache"
+    "build": "npm exec -- parcel build jazzband/static/css/styles.scss --public-url=/static/dist/ --dist-dir jazzband/static/dist/ --no-cache && npm exec -- parcel build jazzband/static/js/app.js --public-url=/static/dist/ --dist-dir jazzband/static/dist/ --no-cache"
   }
 }
