@@ -54,7 +54,7 @@ jobs:
           fetch-depth: 0
 
       - name: Push
-        uses: dokku/github-action@v1.3.0
+        uses: dokku/github-action@v1.5.0
         # enable verbose ssh output
         with:
           branch: "main"
