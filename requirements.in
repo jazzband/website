@@ -50,7 +50,7 @@ requests-toolbelt
 SecretStorage
 sentry-sdk[flask]
 spinach
-sqlalchemy<2.0
+sqlalchemy<3.0
 sqlalchemy-utils
 tomli
 twine
