@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "parcel": "^2.12.0",
-    "sass": "^1.69.7"
+    "sass": "^1.78.0"
   },
   "repository": {
     "type": "git",
