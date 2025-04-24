@@ -8,7 +8,7 @@ The code that renders https://jazzband.co.
 
 Copy `.env-dist` to `.env`.
 
-Install Docker, docker-compose and NPM.
+Install Docker and NPM.
 
 Run `make build`. This will create a set of Docker containers with all backends
 and dependencies.
