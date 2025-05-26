@@ -497,7 +497,7 @@ class UploadReleaseView(UploadLeadsActionView):
                             logger.error(error, extra={"stack": True})
 
             else:
-                error = f"No released files found for upload " f"{self.upload.filename}"
+                error = f"No released files found for upload {self.upload.filename}"
                 errors.append(error)
                 logger.error(error, extra={"stack": True})
         return errors

@@ -1,5 +1,6 @@
 alembic
 babel
+backports.tarfile
 blinker
 brotli
 certifi
@@ -11,7 +12,7 @@ delegator.py
 exceptiongroup
 feedgen
 flask
-flask-admin
+flask-admin==2.0.0a4
 flask-caching
 flask-compress
 Flask-Dance[sqla]
@@ -27,7 +28,9 @@ flask-wtf
 greenlet
 gunicorn
 honcho
+importlib_metadata
 itsdangerous
+jaraco-context
 jeepney
 jinja2
 lxml
@@ -50,7 +53,7 @@ requests-toolbelt
 SecretStorage
 sentry-sdk[flask]
 spinach
-sqlalchemy<2.0
+sqlalchemy<3.0
 sqlalchemy-utils
 tomli
 twine
