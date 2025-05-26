@@ -316,3 +316,16 @@ class GitHubBlueprint(OAuth2ConsumerBlueprint):
 
     def new_project_issue(self, repo, data, org="jazzband"):
         return self.admin_session.post(f"repos/{org}/{repo}/issues", json=data)
+
+    def enable_issues(self, repo, org=None):
+        """
+        Aktiviert das Issue-Feature für ein Repository.
+        https://docs.github.com/en/rest/repos/repos#update-a-repository
+        """
+        if org is None:
+            org = self.org_name
+        return self.admin_session.patch(
+            f"repos/{org}/{repo}",
+            json={"has_issues": True},
+            headers={"Accept": "application/vnd.github.v3+json"},
+        )
