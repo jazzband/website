@@ -71,7 +71,9 @@ def update_project_by_hook(hook_id):
                             f"Attempt {attempt}: Could not enable issues for {project_name}! Status: {getattr(response, 'status_code', None)} | Response: {getattr(response, 'text', None)}"
                         )
                 except Exception as exc:
-                    logger.exception(f"Attempt {attempt}: Error enabling issues for {project_name}: {exc}")
+                    logger.exception(
+                        f"Attempt {attempt}: Error enabling issues for {project_name}: {exc}"
+                    )
                 if attempt < max_retries:
                     time.sleep(2)  # Wait 2 seconds before retrying
                 else:
