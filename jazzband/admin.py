@@ -50,7 +50,11 @@ class UserAdmin(JazzbandModelView):
         "cookies_consent",
         "age_consent",
     )
-    inline_models = [(OAuth, {'form_columns': ['provider', 'token']}), EmailAddress, ProjectMembership]
+    inline_models = [
+        (OAuth, {"form_columns": ["provider", "token"]}),
+        EmailAddress,
+        ProjectMembership,
+    ]
 
 
 class OAuthAdmin(JazzbandModelView):
