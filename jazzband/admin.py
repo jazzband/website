@@ -51,13 +51,13 @@ class UserAdmin(JazzbandModelView):
         "cookies_consent",
         "age_consent",
     )
-    
-    
     # Explicitly exclude problematic columns from forms
     form_excluded_columns = ['oauths', 'email_addresses', 'projects_memberships']
-    
-    
-    inline_models = [(OAuth, {'form_columns': ['provider', 'token']}), EmailAddress, ProjectMembership]
+    inline_models = [
+        (OAuth, {"form_columns": ["provider", "token"]}),
+        EmailAddress,
+        ProjectMembership,
+    ]
 
 
 class OAuthAdmin(JazzbandModelView):
