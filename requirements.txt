@@ -428,9 +428,9 @@ flask==3.1.1 \
     #   flask-wtf
     #   pytest-flask
     #   sentry-sdk
-flask-admin==1.6.1 \
-    --hash=sha256:24cae2af832b6a611a01d7dc35f42d266c1d6c75a426b869d8cb241b78233369 \
-    --hash=sha256:fd8190f1ec3355913a22739c46ed3623f1d82b8112cde324c60a6fc9b21c9406
+flask-admin==2.0.0a4 \
+    --hash=sha256:141cf19de079d26db6d2d674b9a470449d6561a2ba1252eff61e597d981b72c7 \
+    --hash=sha256:dbe430eec1ad8918d130d522265910db7e9f49a5d4c12438175e0f61eb02c2a3
     # via -r requirements.in
 flask-caching==2.3.1 \
     --hash=sha256:65d7fd1b4eebf810f844de7de6258254b3248296ee429bdcb3f741bcbf7b98c9 \
@@ -596,6 +596,7 @@ jinja2==3.1.6 \
     # via
     #   -r requirements.in
     #   flask
+    #   flask-admin
     #   flask-flatpages
 keyring==25.6.0 \
     --hash=sha256:0b39998aa941431eb3d9b0d4b2460bc773b9df6fed7621c2dfb291a7e0187a66 \
@@ -815,6 +816,7 @@ markupsafe==3.0.2 \
     --hash=sha256:fcabf5ff6eea076f859677f5f0b6b5c1a51e70a376b0579e0eadef8db48c6b50
     # via
     #   flask
+    #   flask-admin
     #   jinja2
     #   mako
     #   sentry-sdk
@@ -1300,6 +1302,7 @@ werkzeug==3.1.3 \
     # via
     #   -r requirements.in
     #   flask
+    #   flask-admin
     #   flask-dance
     #   flask-login
     #   pytest-flask

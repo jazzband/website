@@ -23,6 +23,7 @@ class JazzbandModelView(sqla.ModelView):
         # redirect to login page if user doesn't have access
         session["next"] = request.url
         return redirect(url_for("github.login"))
+    
 
 
 class JazzbandAdminIndexView(AdminIndexView):
@@ -50,6 +51,12 @@ class UserAdmin(JazzbandModelView):
         "cookies_consent",
         "age_consent",
     )
+    
+    
+    # Explicitly exclude problematic columns from forms
+    form_excluded_columns = ['oauths', 'email_addresses', 'projects_memberships']
+    
+    
     inline_models = [(OAuth, {'form_columns': ['provider', 'token']}), EmailAddress, ProjectMembership]
 
 
@@ -66,7 +73,8 @@ class EmailAddressAdmin(JazzbandModelView):
 class ProjectAdmin(JazzbandModelView):
     column_searchable_list = ("name", "description")
     column_filters = ("is_active", "created_at", "updated_at", "pushed_at")
-    inline_models = (ProjectCredential, ProjectUpload, ProjectMembership)
+    
+    inline_models = [ProjectCredential, ProjectUpload, ProjectMembership]
 
 
 class ProjectUploadAdmin(JazzbandModelView):
@@ -83,7 +91,6 @@ def init_app(app):
     admin = Admin(
         app,
         name="jazzband",
-        template_mode="bootstrap4",
         index_view=JazzbandAdminIndexView(),
     )
 
