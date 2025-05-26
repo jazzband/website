@@ -1,5 +1,5 @@
 bash:
-	docker-compose run --rm  web bash
+	docker compose run --rm  web bash
 
 npm-install:
 	npm install
@@ -8,47 +8,47 @@ npm-build:
 	npm run build
 
 pull:
-	docker-compose pull
+	docker compose pull
 
 image:
-	docker-compose build --pull
+	docker compose build --pull
 
 build: npm-install npm-build image
 
 clean: stop
-	docker-compose rm -f
+	docker compose rm -f
 	find . -name "*.pyc" -delete
 	rm -rf jazzband/static/dist
 
 db-migrate:
-	docker-compose run --rm web flask db migrate
+	docker compose run --rm web flask db migrate
 
 db-upgrade:
-	docker-compose run --rm web flask db upgrade
+	docker compose run --rm web flask db upgrade
 
 redis-cli:
-	docker-compose run --rm redis redis-cli -h redis
+	docker compose run --rm redis redis-cli -h redis
 
 run:
-	docker-compose up
+	docker compose up
 
 shell:
-	docker-compose run --rm web flask shell
+	docker compose run --rm web flask shell
 
 start:
-	docker-compose up -d
+	docker compose up -d
 
 stop:
-	docker-compose stop
+	docker compose stop
 
 compile-update:
-	docker-compose run --rm web pip-compile -U --allow-unsafe --generate-hashes
+	docker compose run --rm web pip-compile -U --allow-unsafe --generate-hashes
 
 update:
-	docker-compose run --rm web pip install -r requirements.txt
+	docker compose run --rm web pip install -r requirements.txt
 
 pytest:
-	docker-compose run --rm web pytest tests/
+	docker compose run --rm web pytest tests/
 
 test: pytest
 
