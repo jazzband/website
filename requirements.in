@@ -1,5 +1,6 @@
 alembic
 babel
+backports.tarfile
 blinker
 brotli
 certifi
@@ -27,7 +28,9 @@ flask-wtf
 greenlet
 gunicorn
 honcho
+importlib_metadata
 itsdangerous
+jaraco-context
 jeepney
 jinja2
 lxml

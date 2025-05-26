@@ -57,13 +57,6 @@ envvar:
 
 ci: envvar test
 
-trust:
-	@command -v mkcert || (echo "mkcert command not found. Please install first, see https://github.com/FiloSottile/mkcert" && exit 1)
-	mkcert -install
-
-cert: trust
-	cd certs && mkcert jazzband.local "*.jazzband.local" jazzband.local localhost 127.0.0.1 ::1 && cd ..
-
 generate-securitytxt:
 	rm jazzband/static/security.txt
 	gpg --clearsign -u 02DE8F842900411ADD70B1374D87558AF652A00F -o jazzband/static/security.txt jazzband/static/security.txt.tpl
