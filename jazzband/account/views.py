@@ -102,8 +102,7 @@ def callback(blueprint, token):
         user_response = blueprint.session.get("/user")
     except RateLimit:
         flash(
-            "Access to the GitHub API has been rate-limited, "
-            "please try again later.",
+            "Access to the GitHub API has been rate-limited, please try again later.",
             category="error",
         )
         return False

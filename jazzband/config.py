@@ -16,7 +16,9 @@ SECRET_KEY = config("SECRET_KEY", "dev key")
 DEBUG = config("DEBUG", True, cast=bool)
 SERVER_NAME = config("SERVER_NAME", "jazzband.local")
 
-HOSTNAMES = config("HOSTNAMES", "localhost:5000,0.0.0.0:5000,jazzband.local", cast=Csv())
+HOSTNAMES = config(
+    "HOSTNAMES", "localhost:5000,0.0.0.0:5000,jazzband.local", cast=Csv()
+)
 REDIS_URL = config("REDIS_URL", "redis://redis:6379/0")
 QUEUE_URL = config("QUEUE_URL", REDIS_URL)
 CACHE_REDIS_URL = config("CACHE_REDIS_URL", REDIS_URL)
