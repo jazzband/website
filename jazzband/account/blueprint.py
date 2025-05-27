@@ -14,7 +14,6 @@ from ..db import postgres as db
 from ..exceptions import RateLimit
 from .models import OAuth
 
-
 logger = logging.getLogger(__name__)
 
 
