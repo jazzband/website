@@ -5,16 +5,16 @@ These tests verify that the Flask-Hookserver correctly handles different types o
 including connection issues, rate limiting, and malformed payloads.
 """
 
-import hmac
 import hashlib
-import pytest
-import requests
+import hmac
 from unittest.mock import MagicMock
 
+import pytest
+import requests
 from flask import Flask
 from werkzeug.exceptions import ServiceUnavailable
 
-from jazzband.hookserver import Hooks, check_signature, _load_github_hooks
+from jazzband.hookserver import Hooks, _load_github_hooks, check_signature
 
 
 @pytest.fixture

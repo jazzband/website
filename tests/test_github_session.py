@@ -5,14 +5,14 @@ These tests focus on the GitHubSessionMixin, GitHubSession, and AdminGitHubSessi
 classes to ensure proper API interaction, rate limit handling, and pagination.
 """
 
+from unittest.mock import MagicMock, patch
+
 import pytest
 import requests
-from unittest.mock import MagicMock, patch
 from requests_oauthlib import OAuth2Session
 
-from jazzband.account.blueprint import GitHubSessionMixin, GitHubSession
+from jazzband.account.blueprint import GitHubSession, GitHubSessionMixin
 from jazzband.exceptions import RateLimit
-
 
 # Use pytest fixtures for sharing test resources
 
