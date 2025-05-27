@@ -157,8 +157,8 @@ def _load_github_hooks(github_url="https://api.github.com"):
                 )
             else:
                 raise ServiceUnavailable("Error reaching GitHub")
-    except (KeyError, ValueError, requests.exceptions.ConnectionError):
-        raise ServiceUnavailable("Error reaching GitHub")
+    except (KeyError, ValueError, requests.exceptions.ConnectionError) as err:
+        raise ServiceUnavailable("Error reaching GitHub") from err
 
 
 # So we don't get rate limited
