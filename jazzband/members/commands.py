@@ -6,6 +6,7 @@ from flask.cli import with_appcontext
 
 from . import models, tasks
 
+
 logger = logging.getLogger(__name__)
 click_log.basic_config(logger)
 

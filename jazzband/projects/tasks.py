@@ -1,7 +1,7 @@
+from datetime import datetime, timedelta
 import json
 import logging
 import time
-from datetime import datetime, timedelta
 
 from flask import current_app, render_template
 from flask_mail import Message
@@ -14,6 +14,7 @@ from ..db import postgres, redis
 from ..email import mail
 from ..members.models import EmailAddress, User
 from .models import Project, ProjectMembership, ProjectUpload
+
 
 logger = logging.getLogger(__name__)
 

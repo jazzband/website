@@ -7,8 +7,12 @@ from .account.models import OAuth
 from .auth import current_user_is_roadie
 from .db import postgres
 from .members.models import EmailAddress, User
-from .projects.models import (Project, ProjectCredential, ProjectMembership,
-                              ProjectUpload)
+from .projects.models import (
+    Project,
+    ProjectCredential,
+    ProjectMembership,
+    ProjectUpload,
+)
 
 
 class JazzbandModelView(sqla.ModelView):

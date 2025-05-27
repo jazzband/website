@@ -1,9 +1,7 @@
 import json
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
 
 import pytest
-from flask import Flask
-from requests.exceptions import HTTPError
 
 from jazzband.account.blueprint import GitHubBlueprint, GitHubSession
 from jazzband.db import redis

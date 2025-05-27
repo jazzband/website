@@ -5,9 +5,12 @@ from flask.cli import with_appcontext
 
 from .db import postgres, redis
 from .members.commands import sync_email_addresses, sync_members
-from .projects.commands import (send_new_upload_notifications,
-                                sync_project_members, sync_project_team,
-                                sync_projects)
+from .projects.commands import (
+    send_new_upload_notifications,
+    sync_project_members,
+    sync_project_team,
+    sync_projects,
+)
 
 
 @click.command("db")

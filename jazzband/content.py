@@ -1,16 +1,25 @@
 import datetime
 
 import babel.dates
-import pytz
 from feedgen.feed import FeedGenerator
-from flask import (Blueprint, Response, current_app, redirect, render_template,
-                   request, send_from_directory, url_for)
+from flask import (
+    Blueprint,
+    Response,
+    current_app,
+    redirect,
+    render_template,
+    request,
+    send_from_directory,
+    url_for,
+)
 from flask_flatpages import FlatPages
 from flask_login import current_user
+import pytz
 from werkzeug.security import safe_join
 
 from .decorators import templated
 from .utils import full_url
+
 
 content = Blueprint("content", __name__)
 about_pages = FlatPages(name="about")
