@@ -8,11 +8,9 @@ These tests cover the member-related methods in GitHubBlueprint, including:
 - Getting member lists with different filters
 """
 
-import json
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
 
 import pytest
-from flask import Flask
 
 from jazzband.account.blueprint import GitHubBlueprint
 

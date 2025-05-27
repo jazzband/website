@@ -1,16 +1,17 @@
+from datetime import datetime
 import hmac
 import json
 import uuid
-from datetime import datetime
 
-import werkzeug.security
 from flask import current_app
+import werkzeug.security
 
 from .db import redis
 from .hookserver import Hooks
 from .members.models import User
 from .projects.tasks import update_project_by_hook
 from .tasks import spinach
+
 
 hooks = Hooks()
 

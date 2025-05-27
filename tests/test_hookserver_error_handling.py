@@ -9,9 +9,9 @@ import hashlib
 import hmac
 from unittest.mock import MagicMock
 
+from flask import Flask
 import pytest
 import requests
-from flask import Flask
 from werkzeug.exceptions import ServiceUnavailable
 
 from jazzband.hookserver import Hooks, _load_github_hooks, check_signature

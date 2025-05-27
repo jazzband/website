@@ -1,5 +1,6 @@
 from jazzband.account.blueprint import GitHubBlueprint
 
+
 # Using the shared mock_github_blueprint fixture from conftest.py
 
 

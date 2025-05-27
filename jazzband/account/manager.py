@@ -2,6 +2,7 @@ from flask_login import LoginManager
 
 from ..members.models import User
 
+
 login_manager = LoginManager()
 login_manager.login_view = "github.login"
 

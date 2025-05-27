@@ -5,12 +5,9 @@ These tests verify that the GitHubBlueprint correctly handles
 email retrieval and verification for users.
 """
 
-import json
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
 
 import pytest
-from flask import Flask
-from flask_login import current_user
 
 from jazzband.account.blueprint import GitHubBlueprint
 

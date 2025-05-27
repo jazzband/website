@@ -1,5 +1,6 @@
 from flask import Blueprint
 
+
 matrix = Blueprint("matrix", __name__)
 
 

@@ -14,6 +14,7 @@ from requests_oauthlib import OAuth2Session
 from jazzband.account.blueprint import GitHubSession, GitHubSessionMixin
 from jazzband.exceptions import RateLimit
 
+
 # Use pytest fixtures for sharing test resources
 
 
