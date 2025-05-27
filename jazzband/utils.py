@@ -1,5 +1,5 @@
-import unicodedata
 from time import time
+import unicodedata
 from urllib.parse import (
     ParseResult,
     SplitResult,

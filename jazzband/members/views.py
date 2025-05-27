@@ -4,6 +4,7 @@ from sqlalchemy.sql.expression import func
 from ..decorators import templated
 from .models import User
 
+
 members = Blueprint("members", __name__)
 
 

@@ -6,16 +6,17 @@ Flask-Hookserver: GitHub webhooks using Flask.
 :license: MIT, see LICENSE for more details.
 """
 
+from functools import wraps
 import hashlib
 import hmac
 import ipaddress
 import time
-from functools import wraps
 
-import requests
-import werkzeug.security
 from flask import request
+import requests
 from werkzeug.exceptions import BadRequest, Forbidden, ServiceUnavailable
+import werkzeug.security
+
 
 __author__ = "Nick Frost"
 __version__ = "1.1.0"
@@ -157,8 +158,8 @@ def _load_github_hooks(github_url="https://api.github.com"):
                 )
             else:
                 raise ServiceUnavailable("Error reaching GitHub")
-    except (KeyError, ValueError, requests.exceptions.ConnectionError):
-        raise ServiceUnavailable("Error reaching GitHub")
+    except (KeyError, ValueError, requests.exceptions.ConnectionError) as err:
+        raise ServiceUnavailable("Error reaching GitHub") from err
 
 
 # So we don't get rate limited

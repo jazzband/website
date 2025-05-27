@@ -4,6 +4,7 @@ from .matrix.views import matrix
 from .members.views import members
 from .projects.views import projects
 
+
 blueprints = [account, content, github_bp, matrix, members, projects]
 
 

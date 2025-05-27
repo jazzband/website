@@ -1,5 +1,5 @@
-import logging
 from datetime import timedelta
+import logging
 
 from spinach import Tasks
 
@@ -7,6 +7,7 @@ from ..account import github
 from ..config import ONE_MINUTE
 from ..db import postgres, redis
 from .models import EmailAddress, User
+
 
 logger = logging.getLogger(__name__)
 

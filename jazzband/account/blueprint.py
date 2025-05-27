@@ -14,6 +14,7 @@ from ..db import postgres as db
 from ..exceptions import RateLimit
 from .models import OAuth
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -81,9 +82,13 @@ class AdminGitHubSession(GitHubSessionMixin, BaseOAuth2Session):
     admin access token.
     """
 
-    def __init__(self, blueprint=None, base_url=None, *args, **kwargs):
+    def __init__(self, blueprint=None, base_url=None, **kwargs):
+        # Create token from blueprint admin access token
         token = {"access_token": blueprint.admin_access_token}
-        super().__init__(token=token, *args, **kwargs)
+        # Pass token through kwargs to avoid star-arg unpacking issues
+        kwargs["token"] = token
+        # Initialize parent class without using *args
+        super().__init__(**kwargs)
         self.blueprint = blueprint
         self.base_url = URLObject(base_url)
 
@@ -91,15 +96,18 @@ class AdminGitHubSession(GitHubSessionMixin, BaseOAuth2Session):
         if self.base_url:
             url = self.base_url.relative(url)
 
-        return super().request(
-            method=method,
-            url=url,
-            data=data,
-            headers=headers,
-            client_id=self.blueprint.client_id,
-            client_secret=self.blueprint.client_secret,
-            **kwargs,
+        # Add client_id and client_secret to kwargs to avoid star-arg unpacking after keyword args
+        kwargs.update(
+            {
+                "method": method,
+                "url": url,
+                "data": data,
+                "headers": headers,
+                "client_id": self.blueprint.client_id,
+                "client_secret": self.blueprint.client_secret,
+            }
         )
+        return super().request(**kwargs)
 
 
 class GitHubBlueprint(OAuth2ConsumerBlueprint):
@@ -109,17 +117,20 @@ class GitHubBlueprint(OAuth2ConsumerBlueprint):
     """
 
     def __init__(self, *args, **kwargs):
-        super().__init__(
-            base_url="https://api.github.com/",
-            authorization_url="https://github.com/login/oauth/authorize",
-            token_url="https://github.com/login/oauth/access_token",
-            session_class=GitHubSession,
-            storage=SQLAlchemyStorage(
+        # Define default keyword arguments for GitHub OAuth blueprint
+        default_kwargs = {
+            "base_url": "https://api.github.com/",
+            "authorization_url": "https://github.com/login/oauth/authorize",
+            "token_url": "https://github.com/login/oauth/access_token",
+            "session_class": GitHubSession,
+            "storage": SQLAlchemyStorage(
                 OAuth, db.session, user=current_user, user_required=False, cache=cache
             ),
-            *args,
-            **kwargs,
-        )
+        }
+        # Update defaults with any provided kwargs
+        default_kwargs.update(kwargs)
+        # Call parent init with args and merged kwargs
+        super().__init__(*args, **default_kwargs)
         self.from_config.update(
             {
                 "client_id": "GITHUB_OAUTH_CLIENT_ID",
@@ -316,3 +327,14 @@ class GitHubBlueprint(OAuth2ConsumerBlueprint):
 
     def new_project_issue(self, repo, data, org="jazzband"):
         return self.admin_session.post(f"repos/{org}/{repo}/issues", json=data)
+
+    def enable_issues(self, project_name):
+        """
+        Enables the issue feature for a repository.
+        https://docs.github.com/en/rest/repos/repos#update-a-repository
+        """
+        return self.admin_session.patch(
+            f"repos/{self.org_name}/{project_name}",
+            json={"has_issues": True},
+            headers={"Accept": "application/vnd.github.v3+json"},
+        )

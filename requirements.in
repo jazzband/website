@@ -40,10 +40,12 @@ pip-tools>6.13.0
 psycopg2-binary
 pygments
 pytest
+pytest-cov
 pytest-datadir
 pytest-dotenv
 pytest-flask
 pytest-mock
+codecov
 python-decouple
 pytz
 redis

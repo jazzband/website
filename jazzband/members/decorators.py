@@ -1,6 +1,6 @@
-import wrapt
 from flask import flash, redirect
 from flask_login import current_user
+import wrapt
 
 from ..account.views import default_url
 

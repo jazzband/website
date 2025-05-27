@@ -11,3 +11,5 @@ node_modules
 .local/
 .parcel-cache
 .vscode
+.coverage
+coverage.xml
