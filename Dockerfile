@@ -1,4 +1,4 @@
-FROM node as npm
+FROM node AS npm
 
 WORKDIR /tmp
 
