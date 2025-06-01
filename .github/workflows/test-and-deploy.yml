@@ -131,8 +131,8 @@ jobs:
       - name: Run tests
         env:
           JAZZBAND_IMAGE: jazzband-website:latest
-          COVERAGE_FILE: /tmp/.coverage
-          COVERAGE_XML: /tmp/coverage.xml
+          COVERAGE_FILE: /app/.coverage
+          COVERAGE_XML: /app/coverage.xml
         run: |
           # Create coverage output directory
           mkdir -p $PWD/coverage-data
@@ -142,12 +142,12 @@ jobs:
           docker compose run --rm \
             -e COVERAGE_FILE \
             -e COVERAGE_XML \
-            -v $PWD/coverage-data:/tmp/coverage-data \
+            -v $PWD/coverage-data:/app/coverage-data \
             -u root \
             web sh -c "
               pytest tests/ --cov=jazzband --cov-report=xml --cov-report=term
-              cp /tmp/coverage.xml /tmp/coverage-data/coverage.xml
-              chmod 644 /tmp/coverage-data/coverage.xml
+              cp /app/coverage.xml /app/coverage-data/coverage.xml
+              chmod 644 /app/coverage-data/coverage.xml
             "
 
       # Copy coverage XML from mounted volume
