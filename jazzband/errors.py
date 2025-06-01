@@ -34,4 +34,7 @@ def init_app(app):
         ],
         max_request_body_size="always",
         include_local_variables=True,
+        # Set traces_sample_rate to 1.0 to capture 100%
+        # of transactions for tracing.
+        traces_sample_rate=1.0,
     )
