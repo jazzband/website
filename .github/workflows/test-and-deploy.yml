@@ -1,4 +1,9 @@
 name: Test & Deploy
+
+permissions:
+  contents: read
+  packages: write
+
 on:
   push:
     branches:
