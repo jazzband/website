@@ -48,9 +48,10 @@ lines-after-imports = 2
 [tool.coverage.run]
 source = ["jazzband"]
 omit = ["*/tests/*", "*/migrations/*"]
+data_file = "/app/.coverage"
 
 [tool.coverage.xml]
-output = "/tmp/coverage.xml"
+output = "/app/coverage.xml"
 
 [tool.coverage.report]
 exclude_lines = [

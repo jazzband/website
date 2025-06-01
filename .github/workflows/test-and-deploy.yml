@@ -33,24 +33,19 @@ jobs:
 
       - run: make image
 
-      # Create a volume for coverage files
-      - name: Create volume for coverage files
-        run: mkdir -p /tmp/coverage
-
       - name: Run tests
         run: make ci
-        env:
-          COVERAGE_FILE: /tmp/coverage/.coverage
-          COVERAGE_XML: /tmp/coverage/coverage.xml
 
-      # Use the coverage XML file directly from the volume
-      - name: Check coverage file
-        run: ls -la /tmp/coverage/
+      # Copy coverage XML from Docker container to host
+      - name: Copy coverage XML from container
+        run: |
+          # The coverage files are in the project directory inside the container
+          docker cp jazzband-website-web-1:/app/coverage.xml ./coverage.xml || echo "Failed to copy coverage.xml"
 
       - name: Upload coverage reports to Codecov with GitHub Action
         uses: codecov/codecov-action@v5
         with:
-          file: /tmp/coverage/coverage.xml
+          file: ./coverage.xml
 
   deploy:
     if: github.event.action == 'published' && github.repository == 'jazzband/website'

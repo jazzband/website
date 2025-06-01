@@ -44,12 +44,6 @@ redis-cli:
 run: # Run application in foreground
 	docker compose up
 
-pull: # Pull Docker images
-	docker compose pull
-
-image: # Build Docker image
-	docker compose build
-
 shell: # Run Flask shell for REPL interaction
 	$(DOCKER_RUN) web flask shell
 
@@ -82,7 +76,7 @@ envvar: # Create .env file from template
 
 # CI/CD
 ci: envvar # Run CI tasks (environment setup and tests)
-	$(MAKE) test TEST_ENV="-e COVERAGE_FILE -e COVERAGE_XML -v /tmp/coverage:/tmp/coverage"
+	$(MAKE) test TEST_ENV="-e COVERAGE_FILE -e COVERAGE_XML"
 
 # Security
 generate-securitytxt: # Generate security.txt with GPG signature
