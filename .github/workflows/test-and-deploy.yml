@@ -106,6 +106,9 @@ jobs:
           COVERAGE_FILE: /tmp/.coverage
           COVERAGE_XML: /tmp/coverage.xml
 
+      - name: Upload coverage reports to Codecov with GitHub Action
+        uses: codecov/codecov-action@v5
+
   deploy:
     if: github.event.action == 'published' && github.repository == 'jazzband/website'
 
