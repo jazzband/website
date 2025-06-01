@@ -34,9 +34,10 @@ jobs:
       - run: make image
 
       - name: Run tests
-        run: make ci-test
+        run: make ci
         env:
           COVERAGE_FILE: /tmp/.coverage
+          COVERAGE_XML: /tmp/coverage.xml
 
   deploy:
     if: github.event.action == 'published' && github.repository == 'jazzband/website'

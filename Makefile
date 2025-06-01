@@ -1,6 +1,10 @@
+# Common variables
+DOCKER_RUN = docker compose run --rm
+RUFF_DOCKER = docker run --rm -v $(PWD):/app -w /app ghcr.io/astral-sh/ruff:0.11.12
+
 # Development shell - access bash in the web container
 bash:
-	docker compose run --rm web bash
+	$(DOCKER_RUN) web bash
 
 # Frontend asset management
 npm-install: # Install npm dependencies
@@ -27,21 +31,21 @@ clean: stop
 
 # Database management
 db-migrate: # Generate database migrations
-	docker compose run --rm web flask db migrate
+	$(DOCKER_RUN) web flask db migrate
 
 db-upgrade: # Apply database migrations
-	docker compose run --rm web flask db upgrade
+	$(DOCKER_RUN) web flask db upgrade
 
 # Redis CLI access
 redis-cli:
-	docker compose run --rm redis redis-cli -h redis
+	$(DOCKER_RUN) redis redis-cli -h redis
 
 # Application management
 run: # Run application in foreground
 	docker compose up
 
 shell: # Run Flask shell for REPL interaction
-	docker compose run --rm web flask shell
+	$(DOCKER_RUN) web flask shell
 
 start: # Start application in background
 	docker compose up -d
@@ -51,32 +55,28 @@ stop: # Stop application
 
 # Dependency management
 compile-update: # Update dependencies and compile requirements.txt
-	docker compose run --rm web pip-compile -U --allow-unsafe --generate-hashes
+	$(DOCKER_RUN) web pip-compile -U --allow-unsafe --generate-hashes
 
 update: # Install dependencies from requirements.txt
-	docker compose run --rm web pip install -r requirements.txt
+	$(DOCKER_RUN) web pip install -r requirements.txt
 
 # Testing
-pytest: # Run pytest
-	docker compose run --rm web pytest tests/
-
-test: pytest # Alias for pytest
-
-ci-test: # Run tests in CI environment
-	docker compose run --rm -e COVERAGE_FILE=/tmp/.coverage web pytest tests/
+test: # Run tests (accepts optional environment variables via make target)
+	$(DOCKER_RUN) $(TEST_ENV) web pytest tests/
 
 lint: # Run linters using the official Ruff Docker image
-	docker run --rm -v $(PWD):/app -w /app ghcr.io/astral-sh/ruff:0.11.12 check
+	$(RUFF_DOCKER) check
 
 format: # Format code using the official Ruff Docker image
-	docker run --rm -v $(PWD):/app -w /app ghcr.io/astral-sh/ruff:0.11.12 format
+	$(RUFF_DOCKER) format
 
 # Environment setup
 envvar: # Create .env file from template
 	cp .env-dist .env
 
 # CI/CD
-ci: envvar ci-test
+ci: envvar # Run CI tasks (environment setup and tests)
+	$(MAKE) test TEST_ENV="-e COVERAGE_FILE -e COVERAGE_XML"
 
 # Security
 generate-securitytxt: # Generate security.txt with GPG signature
