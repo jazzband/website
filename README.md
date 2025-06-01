@@ -1,5 +1,5 @@
 [![Jazzband](https://jazzband.co/static/img/badge.svg)](https://jazzband.co/)
-[![Test & Deploy](https://github.com/jazzband/website/actions/workflows/test-and-deploy.yml/badge.svg)](https://github.com/jazzband/website/actions/workflows/test-and-deploy.yml)
+[![Test](https://github.com/jazzband/website/actions/workflows/test.yml/badge.svg)](https://github.com/jazzband/website/actions/workflows/test.yml)
 [![codecov](https://codecov.io/gh/jazzband/website/branch/main/graph/badge.svg)](https://codecov.io/gh/jazzband/website)
 [![Calver](https://img.shields.io/badge/calver-YY.MM.PATCH-22bfda.svg)](https://calver.org/)
 

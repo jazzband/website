@@ -1,4 +1,4 @@
-name: Test & Deploy
+name: Test
 
 permissions:
   contents: read
@@ -159,40 +159,3 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           files: ./coverage.xml
-
-  deploy:
-    if: github.event.action == 'published' && github.repository == 'jazzband/website'
-
-    runs-on: ubuntu-latest
-
-    needs: [test]
-
-    steps:
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.12.1
-        with:
-          access_token: ${{ github.token }}
-
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Push
-        uses: dokku/github-action@v1.7.0
-        # enable verbose ssh output
-        with:
-          branch: "main"
-          git_push_flags: "--force"
-          git_remote_url: ${{ secrets.SSH_REMOTE_URL }}
-          ssh_private_key: ${{ secrets.PRIVATE_KEY }}
-
-      - name: Create Sentry release
-        uses: getsentry/action-release@v3
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
-        with:
-          environment: production
-          version: ${{ github.ref }}
