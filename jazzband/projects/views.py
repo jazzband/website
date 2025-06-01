@@ -436,74 +436,158 @@ class UploadReleaseView(UploadLeadsActionView):
     methods = ["GET", "POST"]
     decorators = UploadLeadsActionView.decorators + [templated()]
 
-    def validate_upload(self):
+    def validate_upload(self, timeout=10):
+        """
+        Validate upload against PyPI API.
+        Returns (success, errors, warnings) tuple.
+
+        Strategy: Treat CDN propagation delays and temporary network issues as
+        warnings rather than blocking errors, while still catching real problems.
+        """
         errors = []
+        warnings = []
+
         try:
-            # check pypi if file was added, check sha256 digest, size and
-            # filename
-            pypi_response = requests.get(self.upload.project.pypi_json_url)
+            # Add timeout to prevent hanging on slow CDN responses
+            pypi_response = requests.get(
+                self.upload.project.pypi_json_url, timeout=timeout
+            )
             pypi_response.raise_for_status()
             data = pypi_response.json()
-        except HTTPError:
-            # in case there was a network issue with getting the JSON
-            # data from PyPI
-            error = "Error while validating upload"
-            logger.error(error, exc_info=True)
-            errors.append(error)
+
+        except requests.exceptions.Timeout:
+            # CDN or network timeout - don't block release
+            warning = (
+                f"Validation timed out after {timeout}s. This might be due to CDN "
+                f"propagation delays. The upload may still be successful."
+            )
+            logger.warning(warning)
+            warnings.append(warning)
+            return True, [], warnings
+
+        except requests.exceptions.HTTPError as e:
+            if e.response.status_code == 404:
+                # File not yet available - likely CDN delay
+                warning = (
+                    f"File not yet visible on PyPI API. This is likely due to CDN "
+                    f"propagation delays and should resolve shortly."
+                )
+                logger.warning(warning)
+                warnings.append(warning)
+                return True, [], warnings
+            else:
+                # Other HTTP errors are more serious
+                error = f"HTTP error {e.response.status_code} while validating upload"
+                logger.error(error, exc_info=True)
+                errors.append(error)
+                return False, errors, warnings
+
+        except requests.exceptions.RequestException:
+            # Network issues - don't block release
+            warning = (
+                "Network error during validation. The upload may still be successful. "
+                "Please verify manually on PyPI if needed."
+            )
+            logger.warning(warning)
+            warnings.append(warning)
+            return True, [], warnings
+
         except ValueError:
-            # or something was wrong about the returned JSON data
+            # JSON parsing error - this is a real problem
             error = "Error while parsing response from PyPI during validation"
             logger.error(error, exc_info=True)
             errors.append(error)
-        except Exception:
-            error = "Unknown error"
-            logger.error(error, exc_info=True)
-            errors.append(error)
-        else:
-            # next check the data for what we're looking for
-            releases = data.get("releases", {})
-            release_files = releases.get(self.upload.version, [])
+            return False, errors, warnings
 
-            if release_files:
-                for release_file in release_files:
-                    release_filename = release_file.get("filename", None)
-                    if release_filename is None:
-                        error = "No file found in PyPI validation response."
+        except Exception:
+            # Unknown errors - don't block release but warn
+            warning = (
+                "Unknown error during validation. The upload may still be successful. "
+                "Please verify manually on PyPI if needed."
+            )
+            logger.warning(warning, exc_info=True)
+            warnings.append(warning)
+            return True, [], warnings
+
+        # Validation request successful - check the data
+        success, validation_errors, validation_warnings = self._validate_upload_data(
+            data
+        )
+        errors.extend(validation_errors)
+        warnings.extend(validation_warnings)
+
+        # Return success if no real errors (only allow blocking on hash mismatches)
+        return len(errors) == 0, errors, warnings
+
+    def _validate_upload_data(self, data):
+        """
+        Validate the actual upload data from PyPI.
+        Returns (success, errors, warnings) tuple.
+        """
+        errors = []
+        warnings = []
+
+        releases = data.get("releases", {})
+        release_files = releases.get(self.upload.version, [])
+
+        if not release_files:
+            # No files found - likely CDN delay, treat as warning
+            warning = (
+                f"No released files found for version {self.upload.version}. "
+                f"This might be due to CDN propagation delays."
+            )
+            warnings.append(warning)
+            logger.warning(warning)
+            return True, [], warnings
+
+        # Look for our specific file
+        found_file = False
+        for release_file in release_files:
+            release_filename = release_file.get("filename", None)
+            if release_filename is None:
+                continue
+
+            if release_filename == self.upload.filename:
+                found_file = True
+                # Validate file hashes - these are REAL errors if they don't match
+                digests = release_file.get("digests", {})
+                if digests:
+                    md5_digest = digests.get("md5", None)
+                    if md5_digest and md5_digest != self.upload.md5_digest:
+                        error = (
+                            f"MD5 hash of {self.upload.filename} does "
+                            f"not match hash returned by PyPI."
+                        )
+                        errors.append(error)
                         logger.error(error, extra={"stack": True})
 
-                    if release_filename == self.upload.filename:
-                        digests = release_file.get("digests", {})
-                        if digests:
-                            md5_digest = digests.get("md5", None)
-                            if md5_digest and md5_digest != self.upload.md5_digest:
-                                error = (
-                                    f"MD5 hash of {self.upload.filename} does "
-                                    f"not match hash returned by PyPI."
-                                )
-                                errors.append(error)
-                                logger.error(error, extra={"stack": True})
+                    sha256_digest = digests.get("sha256", None)
+                    if sha256_digest and sha256_digest != self.upload.sha256_digest:
+                        error = (
+                            f"SHA256 hash of {self.upload.filename} "
+                            f"does not match hash returned by PyPI."
+                        )
+                        errors.append(error)
+                        logger.error(error, extra={"stack": True})
+                else:
+                    # No digests available - warn but don't block
+                    warning = f"No digests available for file {self.upload.filename}"
+                    warnings.append(warning)
+                    logger.warning(warning)
+                break
 
-                            sha256_digest = digests.get("sha256", None)
-                            if (
-                                sha256_digest
-                                and sha256_digest != self.upload.sha256_digest
-                            ):
-                                error = (
-                                    f"SHA256 hash of {self.upload.filename} "
-                                    f"does not match hash returned by PyPI."
-                                )
-                                errors.append(error)
-                                logger.error(error, extra={"stack": True})
-                        else:
-                            error = f"No digests for file {self.upload.filename}"
-                            errors.append(error)
-                            logger.error(error, extra={"stack": True})
+        if not found_file:
+            # File not visible yet - likely CDN delay, treat as warning
+            warning = (
+                f"File {self.upload.filename} not yet visible in PyPI API. "
+                f"This is likely due to CDN propagation delays."
+            )
+            warnings.append(warning)
+            logger.warning(warning)
+            return True, [], warnings
 
-            else:
-                error = f"No released files found for upload {self.upload.filename}"
-                errors.append(error)
-                logger.error(error, extra={"stack": True})
-        return errors
+        # If we found the file and no hash errors, validation passed
+        return len(errors) == 0, errors, warnings
 
     def post(self, name, upload_id):
         if not current_app.config["RELEASE_ENABLED"]:
@@ -536,15 +620,33 @@ class UploadReleaseView(UploadLeadsActionView):
                 twine_run = delegator.run(f"twine upload {upload_path}")
 
             if twine_run.return_code == 0:
-                errors = self.validate_upload()
-                release_form.add_global_error(*errors)
+                # Validate upload but don't block on warnings
+                validation_success, errors, warnings = self.validate_upload()
+
+                # Add errors to form (these will block release)
+                if errors:
+                    release_form.add_global_error(*errors)
+
+                # Show warnings as flash messages (these won't block)
+                for warning in warnings:
+                    flash(warning, category="warning")
+
+                # Proceed with release if no blocking errors
                 if not errors:
                     # create ProjectRelease object with reference to project
                     self.upload.released_at = datetime.utcnow()
                     # write to database
                     self.upload.save()
-                    message = f"You've successfully released {self.upload} to PyPI."
-                    flash(message)
+
+                    if warnings:
+                        message = (
+                            f"You've successfully released {self.upload} to PyPI. "
+                            f"Note: Some validation warnings were encountered (see above)."
+                        )
+                    else:
+                        message = f"You've successfully released {self.upload} to PyPI."
+
+                    flash(message, category="success")
                     logger.info(message)
                     return self.redirect_to_project()
             else:
