@@ -53,7 +53,7 @@ class UserAdmin(JazzbandModelView):
     # Explicitly exclude problematic columns from forms
     form_excluded_columns = ["oauths", "email_addresses", "projects_memberships"]
     inline_models = [
-        (OAuth, {"form_columns": ["provider", "token"]}),
+        (OAuth, {"form_columns": ["id", "provider", "token"]}),
         EmailAddress,
         ProjectMembership,
     ]
