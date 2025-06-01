@@ -49,6 +49,9 @@ lines-after-imports = 2
 source = ["jazzband"]
 omit = ["*/tests/*", "*/migrations/*"]
 
+[tool.coverage.xml]
+output = "/tmp/coverage.xml"
+
 [tool.coverage.report]
 exclude_lines = [
     "pragma: no cover",
