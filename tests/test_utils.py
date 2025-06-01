@@ -101,7 +101,7 @@ def test_patch_http_cache_headers_uses_config_timeout(app, mocker):
         response.cache_control = mocker.MagicMock()
 
         mocker.patch("jazzband.utils.time.time", return_value=2000)
-        result = patch_http_cache_headers(response)
+        patch_http_cache_headers(response)
 
         assert response.cache_control.public is True
         assert response.cache_control.max_age == 1800
