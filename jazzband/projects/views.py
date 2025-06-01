@@ -26,7 +26,6 @@ from flask_login import current_user, login_required
 from packaging.utils import canonicalize_name as safe_name
 from packaging.version import parse as parse_version
 import requests
-from requests.exceptions import HTTPError
 from sqlalchemy import desc, nullsfirst, nullslast
 from sqlalchemy.sql.expression import func
 from werkzeug.security import safe_join
@@ -39,7 +38,7 @@ from ..decorators import templated
 from ..exceptions import eject
 from ..members.decorators import member_required
 from ..tasks import spinach
-from .forms import DeleteForm, ReleaseForm, UploadForm
+from .forms import BulkReleaseForm, DeleteForm, ReleaseForm, UploadForm
 from .models import Project, ProjectMembership, ProjectUpload
 from .tasks import send_new_upload_notifications, update_upload_ordering
 
@@ -469,8 +468,8 @@ class UploadReleaseView(UploadLeadsActionView):
             if e.response.status_code == 404:
                 # File not yet available - likely CDN delay
                 warning = (
-                    f"File not yet visible on PyPI API. This is likely due to CDN "
-                    f"propagation delays and should resolve shortly."
+                    "File not yet visible on PyPI API. This is likely due to CDN "
+                    "propagation delays and should resolve shortly."
                 )
                 logger.warning(warning)
                 warnings.append(warning)
@@ -724,6 +723,184 @@ class UploadDeleteView(UploadLeadsActionView):
             return context
 
 
+class BulkReleaseView(ProjectMixin, MethodView):
+    """
+    A view to release all uploads of a given version at once.
+    """
+
+    methods = ["GET", "POST"]
+    decorators = [login_required, templated()]
+
+    def project_query(self, name):
+        """Override to include authorization logic for project leads."""
+        projects = super().project_query(name)
+        if current_user_is_roadie():
+            return projects
+        return projects.filter(
+            Project.membership.any(user=current_user, is_lead=True),
+        )
+
+    def get_unreleased_uploads_for_version(self, version):
+        """Get all unreleased uploads for a specific version."""
+        return self.project.uploads.filter_by(version=version, released_at=None).all()
+
+    def validate_uploads_bulk(self, uploads, timeout=10):
+        """
+        Validate multiple uploads at once.
+        Returns (overall_success, all_errors, all_warnings) tuple.
+        """
+        all_errors = []
+        all_warnings = []
+
+        for upload in uploads:
+            # Create a temporary UploadReleaseView to use its validation logic
+            temp_view = UploadReleaseView()
+            temp_view.upload = upload
+            temp_view.project = self.project
+
+            success, errors, warnings = temp_view.validate_upload(timeout)
+
+            # Prefix errors/warnings with filename for clarity
+            for error in errors:
+                all_errors.append(f"{upload.filename}: {error}")
+            for warning in warnings:
+                all_warnings.append(f"{upload.filename}: {warning}")
+
+        # Overall success if no blocking errors
+        return len(all_errors) == 0, all_errors, all_warnings
+
+    def release_uploads_bulk(self, uploads):
+        """
+        Release multiple uploads using twine.
+        Returns (success, twine_outputs) tuple.
+        """
+        twine_outputs = []
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            # Copy all files to temp directory
+            upload_paths = []
+            for upload in uploads:
+                upload_path = os.path.join(tmpdir, upload.filename)
+                shutil.copy(upload.full_path, upload_path)
+                upload_paths.append(upload_path)
+
+            # Run twine upload on all files at once
+            files_arg = " ".join(f'"{path}"' for path in upload_paths)
+            twine_run = delegator.run(f"twine upload {files_arg}")
+            twine_outputs.append(twine_run)
+
+        return twine_run.return_code == 0, twine_outputs
+
+    def get(self, name, version):
+        if not current_app.config["RELEASE_ENABLED"]:
+            message = "Releasing is currently out of service"
+            flash(message)
+            return self.redirect_to_project()
+
+        uploads = self.get_unreleased_uploads_for_version(version)
+
+        if not uploads:
+            flash(f"No unreleased uploads found for version {version}")
+            return self.redirect_to_project()
+
+        # Check if any uploads are already released
+        released_uploads = (
+            self.project.uploads.filter_by(version=version)
+            .filter(ProjectUpload.released_at.isnot(None))
+            .all()
+        )
+
+        bulk_release_form = BulkReleaseForm(project_name=self.project.name)
+
+        return {
+            "project": self.project,
+            "version": version,
+            "uploads": uploads,
+            "released_uploads": released_uploads,
+            "bulk_release_form": bulk_release_form,
+        }
+
+    def post(self, name, version):
+        if not current_app.config["RELEASE_ENABLED"]:
+            message = "Releasing is currently out of service"
+            flash(message)
+            return self.redirect_to_project()
+
+        uploads = self.get_unreleased_uploads_for_version(version)
+
+        if not uploads:
+            flash(f"No unreleased uploads found for version {version}")
+            return self.redirect_to_project()
+
+        bulk_release_form = BulkReleaseForm(project_name=self.project.name)
+
+        context = {
+            "project": self.project,
+            "version": version,
+            "uploads": uploads,
+            "bulk_release_form": bulk_release_form,
+        }
+
+        if bulk_release_form.validate_on_submit():
+            # Validate all uploads first
+            validation_success, all_errors, all_warnings = self.validate_uploads_bulk(
+                uploads
+            )
+
+            # Add validation errors to form (these will block release)
+            if all_errors:
+                bulk_release_form.add_global_error(*all_errors)
+
+            # Show warnings as flash messages (these won't block)
+            for warning in all_warnings:
+                flash(warning, category="warning")
+
+            # Proceed with bulk release if no blocking errors
+            if not all_errors:
+                # Release all uploads at once
+                release_success, twine_outputs = self.release_uploads_bulk(uploads)
+
+                if release_success:
+                    # Mark all uploads as released
+                    release_time = datetime.utcnow()
+                    released_count = 0
+
+                    for upload in uploads:
+                        upload.released_at = release_time
+                        upload.save()
+                        released_count += 1
+
+                    if all_warnings:
+                        message = (
+                            f"Successfully released {released_count} uploads for version {version} to PyPI. "
+                            f"Note: Some validation warnings were encountered (see above)."
+                        )
+                    else:
+                        message = f"Successfully released {released_count} uploads for version {version} to PyPI."
+
+                    flash(message, category="success")
+                    logger.info(
+                        f"Bulk release successful: {released_count} uploads for {self.project.name} v{version}"
+                    )
+                    return self.redirect_to_project()
+                else:
+                    error = f"Bulk release of version {version} failed."
+                    bulk_release_form.add_global_error(error)
+                    logger.error(
+                        error,
+                        extra={
+                            "data": {
+                                "twine_outputs": [
+                                    output.out for output in twine_outputs
+                                ]
+                            }
+                        },
+                    )
+                    context.update({"twine_outputs": twine_outputs})
+
+        return context
+
+
 # /projects/test-project/1/delete
 projects.add_url_rule(
     "/<name>/upload/<upload_id>/delete", view_func=UploadDeleteView.as_view("delete")
@@ -741,6 +918,10 @@ projects.add_url_rule(
 # /projects/test-project/1/release
 projects.add_url_rule(
     "/<name>/upload/<upload_id>/release", view_func=UploadReleaseView.as_view("release")
+)
+# /projects/test-project/release/1.0.0
+projects.add_url_rule(
+    "/<name>/release/<version>", view_func=BulkReleaseView.as_view("bulk_release")
 )
 # /projects/test-project/join
 projects.add_url_rule("/<name>/join", view_func=JoinView.as_view("join"))
