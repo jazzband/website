@@ -2,6 +2,10 @@
 DOCKER_RUN = docker compose run --rm
 RUFF_DOCKER = docker run --rm -v $(PWD):/app -w /app ghcr.io/astral-sh/ruff:0.11.12
 
+# Docker image variables
+REGISTRY = ghcr.io
+BASE_IMAGE_NAME = $(shell echo "$$(git config --get remote.origin.url | sed 's/.*github.com[:/]\([^.]*\).*/\1/')/base" | tr '[:upper:]' '[:lower:]')
+
 # Development shell - access bash in the web container
 bash:
 	$(DOCKER_RUN) web bash
@@ -20,8 +24,41 @@ pull: # Pull latest Docker images
 image: # Build Docker image
 	docker compose build --pull
 
+# Docker caching tasks
+build-base: # Build base image with current dependencies
+	$(eval DEPS_HASH := $(shell cat requirements.txt package.json package-lock.json | sha256sum | cut -d' ' -f1))
+	@echo "Building base image with dependencies hash: $(DEPS_HASH)"
+	docker build -f Dockerfile.base \
+		--build-arg DEPS_HASH=$(DEPS_HASH) \
+		-t $(REGISTRY)/$(BASE_IMAGE_NAME):deps-$(DEPS_HASH) \
+		-t $(REGISTRY)/$(BASE_IMAGE_NAME):latest \
+		.
+
+build-app: # Build application image using cached base
+	$(eval DEPS_HASH := $(shell cat requirements.txt package.json package-lock.json | sha256sum | cut -d' ' -f1))
+	$(eval BASE_IMG := $(if $(BASE_IMAGE),$(BASE_IMAGE),$(REGISTRY)/$(BASE_IMAGE_NAME):deps-$(DEPS_HASH)))
+	@echo "Building app image using base: $(BASE_IMG)"
+	docker build -f Dockerfile.app \
+		--build-arg BASE_IMAGE=$(BASE_IMG) \
+		-t jazzband-website:latest \
+		.
+
+check-base: # Check for cached base image
+	$(eval DEPS_HASH := $(shell cat requirements.txt package.json package-lock.json | sha256sum | cut -d' ' -f1))
+	@echo "Checking for base image with hash: $(DEPS_HASH)"
+	@if ! docker image inspect $(REGISTRY)/$(BASE_IMAGE_NAME):deps-$(DEPS_HASH) >/dev/null 2>&1; then \
+		echo "Base image not found locally, attempting to pull..."; \
+		docker pull $(REGISTRY)/$(BASE_IMAGE_NAME):deps-$(DEPS_HASH) || \
+		(echo "Base image not available, building locally..." && $(MAKE) build-base); \
+	else \
+		echo "Base image found locally"; \
+	fi
+
 # Complete build process including frontend and Docker
 build: npm-install npm-build image
+
+# Optimized build using cached base
+build-cached: check-base build-app # Build with dependency caching
 
 # Cleanup resources
 clean: stop
