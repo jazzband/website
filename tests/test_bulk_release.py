@@ -7,8 +7,8 @@ as requested in GitHub issue #20.
 
 from datetime import datetime
 
-import pytest
 from flask.views import MethodView
+import pytest
 
 from jazzband.projects.views import BulkReleaseView, ProjectMixin
 
@@ -46,6 +46,7 @@ def bulk_release_view():
 @pytest.fixture
 def mock_uploads():
     """Create mock uploads for testing."""
+
     class MockUpload:
         def __init__(self, filename, version="1.0.0"):
             self.filename = filename
@@ -66,7 +67,9 @@ def test_get_unreleased_uploads_for_version(bulk_release_view, mock_uploads, moc
     # Mock the filter_by chain to return our uploads
     mock_result = mocker.MagicMock()
     mock_result.all.return_value = mock_uploads
-    mocker.patch.object(bulk_release_view.project.uploads, "filter_by", return_value=mock_result)
+    mocker.patch.object(
+        bulk_release_view.project.uploads, "filter_by", return_value=mock_result
+    )
 
     result = bulk_release_view.get_unreleased_uploads_for_version("1.0.0")
     assert result == mock_uploads
@@ -130,15 +133,24 @@ def test_validate_uploads_bulk_with_errors(bulk_release_view, mock_uploads, mock
     assert len(warnings) == 2  # Warnings from other uploads
 
 
-def test_release_uploads_bulk_success(bulk_release_view, mock_uploads, mocker, tmp_path):
+def test_release_uploads_bulk_success(
+    bulk_release_view, mock_uploads, mocker, tmp_path
+):
     """Test successful bulk release using twine."""
     # Mock successful twine command
     mock_twine_result = mocker.MagicMock()
     mock_twine_result.return_code = 0
-    mock_delegator_run = mocker.patch("jazzband.projects.views.delegator.run", return_value=mock_twine_result)
+    mock_delegator_run = mocker.patch(
+        "jazzband.projects.views.delegator.run", return_value=mock_twine_result
+    )
 
     # Use tmp_path fixture for real temporary directory
-    mocker.patch("jazzband.projects.views.tempfile.TemporaryDirectory", return_value=mocker.MagicMock(__enter__=mocker.MagicMock(return_value=str(tmp_path))))
+    mocker.patch(
+        "jazzband.projects.views.tempfile.TemporaryDirectory",
+        return_value=mocker.MagicMock(
+            __enter__=mocker.MagicMock(return_value=str(tmp_path))
+        ),
+    )
     mock_shutil_copy = mocker.patch("jazzband.projects.views.shutil.copy")
 
     success, twine_outputs = bulk_release_view.release_uploads_bulk(mock_uploads)
@@ -150,15 +162,24 @@ def test_release_uploads_bulk_success(bulk_release_view, mock_uploads, mocker, t
     assert mock_shutil_copy.call_count == len(mock_uploads)
 
 
-def test_release_uploads_bulk_failure(bulk_release_view, mock_uploads, mocker, tmp_path):
+def test_release_uploads_bulk_failure(
+    bulk_release_view, mock_uploads, mocker, tmp_path
+):
     """Test failed bulk release."""
     # Mock failed twine command
     mock_twine_result = mocker.MagicMock()
     mock_twine_result.return_code = 1
-    mocker.patch("jazzband.projects.views.delegator.run", return_value=mock_twine_result)
+    mocker.patch(
+        "jazzband.projects.views.delegator.run", return_value=mock_twine_result
+    )
 
     # Use tmp_path fixture for real temporary directory
-    mocker.patch("jazzband.projects.views.tempfile.TemporaryDirectory", return_value=mocker.MagicMock(__enter__=mocker.MagicMock(return_value=str(tmp_path))))
+    mocker.patch(
+        "jazzband.projects.views.tempfile.TemporaryDirectory",
+        return_value=mocker.MagicMock(
+            __enter__=mocker.MagicMock(return_value=str(tmp_path))
+        ),
+    )
     mocker.patch("jazzband.projects.views.shutil.copy")
 
     success, twine_outputs = bulk_release_view.release_uploads_bulk(mock_uploads)
@@ -179,7 +200,7 @@ def test_get_method_no_uploads_basic(bulk_release_view, mocker):
     # Simulate the get method logic
     uploads = bulk_release_view.get_unreleased_uploads_for_version("1.0.0")
     if not uploads:
-        mock_flash(f"No unreleased uploads found for version 1.0.0")
+        mock_flash("No unreleased uploads found for version 1.0.0")
         result = bulk_release_view.redirect_to_project()
     else:
         result = None
@@ -188,7 +209,9 @@ def test_get_method_no_uploads_basic(bulk_release_view, mocker):
     mock_flash.assert_called_once_with("No unreleased uploads found for version 1.0.0")
 
 
-def test_bulk_release_preserves_individual_validation_logic(bulk_release_view, mock_uploads, mocker):
+def test_bulk_release_preserves_individual_validation_logic(
+    bulk_release_view, mock_uploads, mocker
+):
     """Test that bulk release uses the same validation logic as individual releases."""
     mock_view_class = mocker.patch("jazzband.projects.views.UploadReleaseView")
     mock_instance = mock_view_class.return_value
@@ -214,7 +237,12 @@ def test_twine_command_construction(bulk_release_view, mock_uploads, mocker, tmp
         return mock_result
 
     mocker.patch("jazzband.projects.views.delegator.run", side_effect=capture_command)
-    mocker.patch("jazzband.projects.views.tempfile.TemporaryDirectory", return_value=mocker.MagicMock(__enter__=mocker.MagicMock(return_value=str(tmp_path))))
+    mocker.patch(
+        "jazzband.projects.views.tempfile.TemporaryDirectory",
+        return_value=mocker.MagicMock(
+            __enter__=mocker.MagicMock(return_value=str(tmp_path))
+        ),
+    )
     mocker.patch("jazzband.projects.views.shutil.copy")
 
     bulk_release_view.release_uploads_bulk(mock_uploads)
@@ -244,7 +272,9 @@ def test_permission_check_logic(bulk_release_view):
 
 def test_roadie_permission_bypass(bulk_release_view, mocker):
     """Test that roadies can access bulk release even if not project lead."""
-    mock_method_dispatch = mocker.patch("jazzband.projects.views.MethodView.dispatch_request", return_value="success")
+    mock_method_dispatch = mocker.patch(
+        "jazzband.projects.views.MethodView.dispatch_request", return_value="success"
+    )
 
     # Mock required methods
     bulk_release_view.project_name = lambda *args, **kwargs: "test-project"
@@ -303,7 +333,10 @@ def test_bulk_release_form_integration(bulk_release_view, mock_uploads, mocker, 
     # Mock the view methods
     bulk_release_view.get_unreleased_uploads_for_version = lambda v: mock_uploads
     bulk_release_view.validate_uploads_bulk = lambda uploads, timeout=10: (True, [], [])
-    bulk_release_view.release_uploads_bulk = lambda uploads: (True, [mocker.MagicMock()])
+    bulk_release_view.release_uploads_bulk = lambda uploads: (
+        True,
+        [mocker.MagicMock()],
+    )
     bulk_release_view.redirect_to_project = lambda: "redirect"
 
     # Test the basic logic directly
@@ -315,10 +348,14 @@ def test_bulk_release_form_integration(bulk_release_view, mock_uploads, mocker, 
 
         bulk_release_form = mock_form
         if bulk_release_form.validate_on_submit():
-            validation_success, all_errors, all_warnings = bulk_release_view.validate_uploads_bulk(uploads)
+            validation_success, all_errors, all_warnings = (
+                bulk_release_view.validate_uploads_bulk(uploads)
+            )
 
             if not all_errors:
-                release_success, twine_outputs = bulk_release_view.release_uploads_bulk(uploads)
+                release_success, twine_outputs = bulk_release_view.release_uploads_bulk(
+                    uploads
+                )
 
                 if release_success:
                     release_time = datetime.utcnow()
@@ -335,7 +372,11 @@ def test_bulk_release_form_integration(bulk_release_view, mock_uploads, mocker, 
                     )
                     return bulk_release_view.redirect_to_project()
 
-        return {"project": bulk_release_view.project, "uploads": uploads, "bulk_release_form": bulk_release_form}
+        return {
+            "project": bulk_release_view.project,
+            "uploads": uploads,
+            "bulk_release_form": bulk_release_form,
+        }
 
     result = simulate_post_method("test-project", "1.0.0")
 
@@ -346,6 +387,10 @@ def test_bulk_release_form_integration(bulk_release_view, mock_uploads, mocker, 
         assert upload.released_at is not None
 
     # Verify flash was called with success message
-    success_calls = [call for call in mock_flash.call_args_list if call[1].get('category') == 'success']
+    success_calls = [
+        call
+        for call in mock_flash.call_args_list
+        if call[1].get("category") == "success"
+    ]
     assert len(success_calls) == 1
     assert "Successfully released 3 uploads" in success_calls[0][0][0]
