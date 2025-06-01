@@ -1,3 +1,6 @@
+@use "sass:color";
+@use "variables" as *;
+
 * {
     box-sizing: border-box;
     padding: 0;
@@ -80,17 +83,17 @@ ul {
                 &.blue {
                     color: $blue;
                     &:hover {
-                        color: lighten($blue, 10%);
+                        color: color.adjust($blue, $lightness: 10%);
                     }
                 }
                 &.red {
                   color: $red;
                     &:hover {
-                        color: lighten($red, 10%);
+                        color: color.adjust($red, $lightness: 10%);
                     }
                 }
                 &:hover {
-                    color: lighten($black, 20%);
+                    color: color.adjust($black, $lightness: 20%);
                 }
             }
         }
@@ -110,7 +113,7 @@ ul {
             margin: 0.4em 1em 0.4em 0.5em;
             column-count: 2;
             column-gap: 1.4em;
-            color: lighten($black, 30%);
+            color: color.adjust($black, $lightness: 30%);
             font-size: 0.85em;
             font-weight: $semi-bold;
             li {
@@ -122,11 +125,11 @@ ul {
                     &.red {
                         color: $red;
                         &:hover {
-                            color: lighten($red, 10%);
+                            color: color.adjust($red, $lightness: 10%);
                         }
                     }
                     &:hover {
-                        color: lighten($black, 20%);
+                        color: color.adjust($black, $lightness: 20%);
                     }
                 }
             }
@@ -178,7 +181,7 @@ h2 {
         color: $red;
         text-decoration: none;
         &:hover {
-            color: lighten($red, 10%);
+            color: color.adjust($red, $lightness: 10%);
         }
     }
 }
@@ -245,7 +248,7 @@ a {
     text-decoration: none;
     font-weight: $regular;
     &.headerlink {
-        color: lighten($black, 40%);
+        color: color.adjust($black, $lightness: 40%);
         text-decoration: none;
         font-weight: $light;
         &::before {
@@ -256,7 +259,7 @@ a {
         }
     }
     &:hover {
-        color: lighten($blue, 10%);
+        color: color.adjust($blue, $lightness: 10%);
     }
     &.github {
         text-decoration: none;
@@ -405,7 +408,7 @@ table.projects-index {
         a {
             &.red {
                 &:hover {
-                    color: lighten($red, 10%);
+                    color: color.adjust($red, $lightness: 10%);
                 }
             }
         }
