@@ -85,7 +85,7 @@ class Project(db.Model, Syncable):
             return True
         else:
             return current_user.id in [
-                user.id for user in self.lead_members.options(orm.load_only("id"))
+                user.id for user in self.lead_members.options(orm.load_only(User.id))
             ]
 
     @property
@@ -106,7 +106,7 @@ class Project(db.Model, Syncable):
 
     def user_is_member(self, user):
         return user.id in [
-            member.id for member in self.all_members.options(orm.load_only("id"))
+            member.id for member in self.all_members.options(orm.load_only(User.id))
         ]
 
     @property
