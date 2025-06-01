@@ -20,7 +20,7 @@ env:
   BASE_IMAGE_NAME: ${{ github.repository }}/base
 
 jobs:
-  build-base-image:
+  build:
     runs-on: ubuntu-latest
     outputs:
       image-tag: ${{ steps.meta.outputs.tags }}
@@ -94,7 +94,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    needs: build-base-image
+    needs: build
 
     steps:
       - name: Cancel Previous Runs
@@ -121,11 +121,11 @@ jobs:
 
       - name: Pull base image
         run: |
-          docker pull ${{ env.REGISTRY }}/${{ env.BASE_IMAGE_NAME }}:deps-${{ needs.build-base-image.outputs.deps-hash }}
+          docker pull ${{ env.REGISTRY }}/${{ env.BASE_IMAGE_NAME }}:deps-${{ needs.build.outputs.deps-hash }}
 
       - name: Build application image
         env:
-          BASE_IMAGE: ${{ env.REGISTRY }}/${{ env.BASE_IMAGE_NAME }}:deps-${{ needs.build-base-image.outputs.deps-hash }}
+          BASE_IMAGE: ${{ env.REGISTRY }}/${{ env.BASE_IMAGE_NAME }}:deps-${{ needs.build.outputs.deps-hash }}
         run: make build-app
 
       - name: Run tests
