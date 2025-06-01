@@ -5,8 +5,9 @@ These tests cover static page routing, redirects, news feeds,
 and other content-related functionality.
 """
 
-from flask import url_for
 from datetime import datetime
+
+from flask import url_for
 import pytz
 
 from jazzband.content import format_datetime

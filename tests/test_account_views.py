@@ -5,10 +5,9 @@ These tests cover login flows, consent handling, joining/leaving organization,
 and OAuth callback functionality.
 """
 
-from datetime import datetime
-from flask import url_for, session, get_flashed_messages
+from flask import url_for
 
-from jazzband.account.views import fail_callback, default_url
+from jazzband.account.views import default_url, fail_callback
 
 
 def test_default_url(app):

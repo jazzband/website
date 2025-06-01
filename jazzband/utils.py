@@ -1,7 +1,7 @@
+from collections.abc import Iterable, Mapping
 import time
 import unicodedata
 from urllib.parse import urljoin, urlparse
-from collections.abc import Mapping, Iterable
 
 from flask import current_app, request, session, url_for
 

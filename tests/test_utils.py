@@ -5,16 +5,15 @@ These tests cover URL safety validation, redirect target handling,
 cache header patching, and other utility functions.
 """
 
-from flask import url_for, session, request
-from time import time
+from flask import session, url_for
 
 from jazzband.utils import (
-    sub_dict,
-    patch_http_cache_headers,
-    full_url,
-    is_safe_url,
-    get_redirect_target,
     _is_safe_url,
+    full_url,
+    get_redirect_target,
+    is_safe_url,
+    patch_http_cache_headers,
+    sub_dict,
 )
 
 
