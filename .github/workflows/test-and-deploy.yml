@@ -39,6 +39,8 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+          # Alternative: Use a Personal Access Token if GITHUB_TOKEN doesn't work
+          # password: ${{ secrets.GHCR_TOKEN }}
 
       - name: Generate dependency hash
         id: deps-hash
@@ -69,6 +71,9 @@ jobs:
             type=ref,event=branch
             type=ref,event=pr
             type=sha
+          labels: |
+            org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
+            org.opencontainers.image.description=Base image with dependencies for Jazzband website
 
       - name: Build and push base image
         if: steps.cache-check.outputs.cache-hit != 'true'
