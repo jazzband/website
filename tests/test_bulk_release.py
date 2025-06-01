@@ -8,8 +8,9 @@ as requested in GitHub issue #20.
 from datetime import datetime
 
 import pytest
+from flask.views import MethodView
 
-from jazzband.projects.views import BulkReleaseView
+from jazzband.projects.views import BulkReleaseView, ProjectMixin
 
 
 @pytest.fixture
@@ -228,16 +229,15 @@ def test_twine_command_construction(bulk_release_view, mock_uploads, mocker, tmp
 
 
 def test_permission_check_logic(bulk_release_view):
-    """Test that BulkReleaseView properly inherits from UploadLeadsActionView."""
-    from jazzband.projects.views import UploadLeadsActionView
+    """Test that BulkReleaseView properly inherits from ProjectMixin and MethodView."""
+    # Verify inheritance - BulkReleaseView now inherits directly from ProjectMixin and MethodView
+    assert isinstance(bulk_release_view, ProjectMixin)
+    assert isinstance(bulk_release_view, MethodView)
 
-    # Verify inheritance
-    assert isinstance(bulk_release_view, UploadLeadsActionView)
+    # Verify that BulkReleaseView has the correct decorators (login_required and templated)
+    assert len(bulk_release_view.decorators) == 2
 
-    # Verify that BulkReleaseView has the correct decorators
-    assert len(bulk_release_view.decorators) >= len(UploadLeadsActionView.decorators)
-
-    # Verify that the project_query method exists (inherited from UploadLeadsActionView)
+    # Verify that the project_query method exists (should be overridden for permission checking)
     assert hasattr(bulk_release_view, "project_query")
     assert callable(bulk_release_view.project_query)
 
