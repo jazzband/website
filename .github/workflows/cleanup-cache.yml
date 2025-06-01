@@ -14,7 +14,7 @@ jobs:
   cleanup:
     runs-on: ubuntu-latest
     if: github.repository_owner == 'jazzband'
-    
+
     steps:
       - name: Log in to Container Registry
         uses: docker/login-action@v3
@@ -27,13 +27,13 @@ jobs:
         run: |
           # Get all image versions
           PACKAGE_NAME=$(echo "${{ env.BASE_IMAGE_NAME }}" | cut -d'/' -f2-)
-          
+
           # Get all versions of the base image package
           VERSIONS=$(gh api \
             -H "Accept: application/vnd.github.v3+json" \
             "/orgs/${{ github.repository_owner }}/packages/container/$PACKAGE_NAME/versions" \
             --jq '.[].id' | head -n -5)  # Keep the 5 most recent versions
-          
+
           # Delete old versions (keep the latest 5)
           for version_id in $VERSIONS; do
             echo "Deleting version ID: $version_id"
@@ -43,4 +43,4 @@ jobs:
               "/orgs/${{ github.repository_owner }}/packages/container/$PACKAGE_NAME/versions/$version_id" || true
           done
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

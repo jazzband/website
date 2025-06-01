@@ -137,7 +137,7 @@ jobs:
           # Create coverage output directory
           mkdir -p $PWD/coverage-data
           chmod 777 $PWD/coverage-data
-          
+
           # Run tests with volume mount for coverage output
           docker compose run --rm \
             -e COVERAGE_FILE \

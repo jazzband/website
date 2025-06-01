@@ -13,7 +13,7 @@ services:
     platform: linux/amd64
     # Use JAZZBAND_IMAGE if set (for CI), otherwise build locally
     image: ${JAZZBAND_IMAGE:-}
-    build: 
+    build:
       context: .
       dockerfile: ${DOCKERFILE:-Dockerfile}
     volumes:

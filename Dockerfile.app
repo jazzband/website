@@ -35,4 +35,4 @@ USER 10001
 
 EXPOSE 5000
 
-ENTRYPOINT ["/app/docker-entrypoint.sh", "--"] 
+ENTRYPOINT ["/app/docker-entrypoint.sh", "--"]
