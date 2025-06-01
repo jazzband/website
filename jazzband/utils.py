@@ -37,23 +37,25 @@ def full_url(url: str) -> str:
     return urljoin(request.url_root, url)
 
 
-def is_safe_url(url: str, allowed_hosts: set[str] | None = None, require_https: bool = False) -> bool:
+def is_safe_url(
+    url: str, allowed_hosts: set[str] | None = None, require_https: bool = False
+) -> bool:
     """
     Return True if the url is a safe redirection.
-    
+
     A safe URL doesn't point to a different host and uses a safe scheme.
     Always returns False on an empty url.
-    
+
     If require_https is True, only 'https' will be considered a valid scheme.
-    
+
     Uses Python's standard library urlparse which is reliable and well-tested.
     """
     if not url or not (url := url.strip()):
         return False
-    
+
     if allowed_hosts is None:
         allowed_hosts = set()
-    
+
     # Chrome treats \ completely as / in paths but it could be part of some
     # basic auth credentials so we need to check both URLs.
     return _is_safe_url(
@@ -63,37 +65,39 @@ def is_safe_url(url: str, allowed_hosts: set[str] | None = None, require_https: 
     )
 
 
-def _is_safe_url(url: str, allowed_hosts: set[str], require_https: bool = False) -> bool:
+def _is_safe_url(
+    url: str, allowed_hosts: set[str], require_https: bool = False
+) -> bool:
     """Internal helper for is_safe_url using urllib.parse.urlparse."""
     # Chrome considers any URL with more than two slashes to be absolute, but
     # urlparse is not so flexible. Treat any url with three slashes as unsafe.
     if url.startswith("///"):
         return False
-    
+
     try:
         # Use standard library urlparse which handles edge cases well
         url_info = urlparse(url)
     except ValueError:  # e.g. invalid IPv6 addresses
         return False
-    
+
     # Forbid URLs like http:///example.com - with a scheme, but without a hostname.
     # In that URL, example.com is not the hostname but a path component. However,
     # Chrome will still consider example.com to be the hostname, so we must not
     # allow this syntax.
     if not url_info.netloc and url_info.scheme:
         return False
-    
+
     # Forbid URLs that start with control characters. Some browsers (like
     # Chrome) ignore quite a few control characters at the start of a
     # URL and might consider the URL as scheme relative.
     if unicodedata.category(url[0])[0] == "C":
         return False
-    
+
     scheme = url_info.scheme
     # Consider URLs without a scheme (e.g. //example.com/p) to be http.
     if not url_info.scheme and url_info.netloc:
         scheme = "http"
-    
+
     valid_schemes = {"https"} if require_https else {"http", "https"}
     return (not url_info.netloc or url_info.netloc in allowed_hosts) and (
         not scheme or scheme in valid_schemes
@@ -103,7 +107,7 @@ def _is_safe_url(url: str, allowed_hosts: set[str], require_https: bool = False)
 def get_redirect_target(default: str = "content.index") -> str:
     """
     Get a safe redirect target from various sources.
-    
+
     Checks session, request args, referrer, and falls back to default.
     Only returns URLs that pass the safety check.
     """
@@ -113,10 +117,10 @@ def get_redirect_target(default: str = "content.index") -> str:
         request.referrer,
         url_for(default),
     )
-    
+
     for target in targets:
         if target and is_safe_url(target, allowed_hosts=None):
             return target
-    
+
     # Fallback - this should always work
     return url_for(default)

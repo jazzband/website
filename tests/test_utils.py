@@ -65,7 +65,7 @@ def test_patch_http_cache_headers_with_timeout(app, mocker):
         response.cache_control = mocker.MagicMock()
         timeout = 3600
 
-        mocker.patch('jazzband.utils.time.time', return_value=1000)
+        mocker.patch("jazzband.utils.time.time", return_value=1000)
         result = patch_http_cache_headers(response, timeout)
 
         assert result == response
@@ -101,7 +101,7 @@ def test_patch_http_cache_headers_uses_config_timeout(app, mocker):
         response = mocker.MagicMock()
         response.cache_control = mocker.MagicMock()
 
-        mocker.patch('jazzband.utils.time.time', return_value=2000)
+        mocker.patch("jazzband.utils.time.time", return_value=2000)
         result = patch_http_cache_headers(response)
 
         assert response.cache_control.public is True
