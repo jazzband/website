@@ -5,8 +5,6 @@ These tests cover template decorators and other function decorators
 used throughout the application.
 """
 
-from flask import render_template_string
-
 
 def test_templated_decorator_with_dict_return(app, mocker):
     """Test templated decorator with function returning dict."""
@@ -70,8 +68,9 @@ def test_templated_decorator_with_empty_dict_return(app, mocker):
 
 def test_templated_decorator_with_response_return(app):
     """Test templated decorator with function returning Response object."""
-    from jazzband.decorators import templated
     from flask import Response
+
+    from jazzband.decorators import templated
 
     @templated("test_template.html")
     def test_view():
@@ -86,8 +85,9 @@ def test_templated_decorator_with_response_return(app):
 
 def test_templated_decorator_with_redirect_return(app):
     """Test templated decorator with function returning redirect."""
-    from jazzband.decorators import templated
     from flask import redirect, url_for
+
+    from jazzband.decorators import templated
 
     @templated("test_template.html")
     def test_view():
@@ -187,6 +187,7 @@ def test_templated_decorator_with_function_arguments(app, mocker):
 def test_templated_decorator_with_exception_in_view(app):
     """Test templated decorator handles exceptions from wrapped function."""
     import pytest
+
     from jazzband.decorators import templated
 
     @templated("test_template.html")

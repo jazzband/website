@@ -5,16 +5,15 @@ These tests cover URL safety validation, redirect target handling,
 cache header patching, and other utility functions.
 """
 
-from flask import url_for, session, request
-from time import time
+from flask import session, url_for
 
 from jazzband.utils import (
-    sub_dict,
-    patch_http_cache_headers,
-    full_url,
-    is_safe_url,
-    get_redirect_target,
     _is_safe_url,
+    full_url,
+    get_redirect_target,
+    is_safe_url,
+    patch_http_cache_headers,
+    sub_dict,
 )
 
 
@@ -65,7 +64,7 @@ def test_patch_http_cache_headers_with_timeout(app, mocker):
         response.cache_control = mocker.MagicMock()
         timeout = 3600
 
-        mocker.patch('jazzband.utils.time.time', return_value=1000)
+        mocker.patch("jazzband.utils.time.time", return_value=1000)
         result = patch_http_cache_headers(response, timeout)
 
         assert result == response
@@ -101,7 +100,7 @@ def test_patch_http_cache_headers_uses_config_timeout(app, mocker):
         response = mocker.MagicMock()
         response.cache_control = mocker.MagicMock()
 
-        mocker.patch('jazzband.utils.time.time', return_value=2000)
+        mocker.patch("jazzband.utils.time.time", return_value=2000)
         result = patch_http_cache_headers(response)
 
         assert response.cache_control.public is True
