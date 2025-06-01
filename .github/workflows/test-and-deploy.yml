@@ -106,8 +106,14 @@ jobs:
           COVERAGE_FILE: /tmp/.coverage
           COVERAGE_XML: /tmp/coverage.xml
 
+      # Copy coverage XML from Docker container to host
+      - name: Copy coverage XML from container
+        run: docker cp $(docker ps -aqf "name=jazzband-website-web"):/tmp/coverage.xml ./coverage.xml
+
       - name: Upload coverage reports to Codecov with GitHub Action
         uses: codecov/codecov-action@v5
+        with:
+          files: ./coverage.xml
 
   deploy:
     if: github.event.action == 'published' && github.repository == 'jazzband/website'
