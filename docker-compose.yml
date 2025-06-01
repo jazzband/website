@@ -11,7 +11,11 @@ services:
 
   web: &app
     platform: linux/amd64
-    build: .
+    # Use JAZZBAND_IMAGE if set (for CI), otherwise build locally
+    image: ${JAZZBAND_IMAGE:-}
+    build: 
+      context: .
+      dockerfile: ${DOCKERFILE:-Dockerfile}
     volumes:
       - .:/app
       - cache:/app/.cache:delegated

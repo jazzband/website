@@ -1,2 +1,64 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [tool.dephell.main]
 from = {format = "piplock", path = "requirements.txt"}
+
+[tool.pytest.ini_options]
+markers = [
+    "unit: Unit tests that test individual functions/methods in isolation",
+    "integration: Integration tests that test the interaction between components",
+    "business: Tests that verify business requirements and outcomes",
+    "github_api: Tests that interact with the GitHub API",
+    "error_handling: Tests that verify error handling and edge cases",
+    "auth: Tests related to authentication and authorization",
+]
+# Environmental variables are now set directly in the app fixture in tests/conftest.py
+addopts = "--cov=jazzband --cov-report=xml --cov-report=term"
+python_files = "test_*.py"
+
+# isort configuration is now handled by Ruff
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+extend-exclude = ["migrations", ".git", "__pycache__", "venv", "env", "node_modules"]
+# Settings migrated from isort configuration
+respect-gitignore = true
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "C4"]
+# From .flake8: ignore = E203,E501,E712,W503,W504,W605
+# Note: W503 and W504 are handled differently in Ruff
+ignore = ["E203", "E501", "E712", "W605"]
+
+[tool.ruff.lint.isort]
+# isort settings matching profile=black
+force-single-line = false
+force-sort-within-sections = true
+combine-as-imports = false
+lines-after-imports = 2
+
+[tool.coverage.run]
+source = ["jazzband"]
+omit = ["*/tests/*", "*/migrations/*"]
+data_file = "/app/.coverage"
+
+[tool.coverage.xml]
+output = "/app/coverage.xml"
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "pass",
+    "raise ImportError",
+]

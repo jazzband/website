@@ -1,13 +1,12 @@
+from datetime import datetime
 import hashlib
 import hmac
 import logging
 import os
 import shutil
 import tempfile
-from datetime import datetime
 
 import delegator
-import requests
 from flask import (
     Blueprint,
     abort,
@@ -22,8 +21,11 @@ from flask import (
 )
 from flask.views import MethodView
 from flask_login import current_user, login_required
+
+# Use packaging.utils instead of deprecated pkg_resources
+from packaging.utils import canonicalize_name as safe_name
 from packaging.version import parse as parse_version
-from pkg_resources import safe_name
+import requests
 from requests.exceptions import HTTPError
 from sqlalchemy import desc, nullsfirst, nullslast
 from sqlalchemy.sql.expression import func
@@ -40,6 +42,7 @@ from ..tasks import spinach
 from .forms import DeleteForm, ReleaseForm, UploadForm
 from .models import Project, ProjectMembership, ProjectUpload
 from .tasks import send_new_upload_notifications, update_upload_ordering
+
 
 projects = Blueprint("projects", __name__, url_prefix="/projects")
 

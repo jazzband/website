@@ -1,6 +1,7 @@
+from datetime import datetime, timedelta
 import json
 import logging
-from datetime import datetime, timedelta
+import time
 
 from flask import current_app, render_template
 from flask_mail import Message
@@ -13,6 +14,7 @@ from ..db import postgres, redis
 from ..email import mail
 from ..members.models import EmailAddress, User
 from .models import Project, ProjectMembership, ProjectUpload
+
 
 logger = logging.getLogger(__name__)
 
@@ -58,6 +60,25 @@ def update_project_by_hook(hook_id):
             if "sender" in hook_data:
                 assignees.append(hook_data["sender"]["login"])
 
+            # enable issues before creating the transfer issue, with retry logic
+            max_retries = 3
+            for attempt in range(1, max_retries + 1):
+                try:
+                    response = github.enable_issues(project_name)
+                    if response and response.status_code in (200, 201):
+                        break  # Success
+                    else:
+                        logger.error(
+                            f"Attempt {attempt}: Could not enable issues for {project_name}! Status: {getattr(response, 'status_code', None)} | Response: {getattr(response, 'text', None)}"
+                        )
+                except Exception as exc:
+                    logger.exception(
+                        f"Attempt {attempt}: Error enabling issues for {project_name}: {exc}"
+                    )
+                if attempt < max_retries:
+                    time.sleep(2)  # Wait 2 seconds before retrying
+                else:
+                    return  # Abort if all attempts failed
             # create a new issue, finally
             project.create_transfer_issue(assignees, **hook_data)
             logger.info(f"Created new transfer issue for project {project.name}")

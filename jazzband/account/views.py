@@ -1,10 +1,10 @@
-import logging
 from datetime import datetime
+import logging
 
-import sentry_sdk
 from flask import Blueprint, flash, redirect, request, session, url_for
 from flask_dance.consumer import oauth_authorized
 from flask_login import current_user, login_required, login_user, logout_user
+import sentry_sdk
 from sqlalchemy.orm.exc import NoResultFound
 
 from ..db import postgres as db
@@ -18,6 +18,7 @@ from . import github
 from .blueprint import GitHubBlueprint
 from .forms import ConsentForm, LeaveForm
 from .models import OAuth
+
 
 account = Blueprint("account", __name__, url_prefix="/account")
 

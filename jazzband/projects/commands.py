@@ -8,6 +8,7 @@ from ..account import github
 from . import tasks
 from .models import Project
 
+
 logger = logging.getLogger(__name__)
 click_log.basic_config(logger)
 
