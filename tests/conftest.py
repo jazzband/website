@@ -313,10 +313,91 @@ def mock_github_api(
 
 @pytest.fixture
 def mock_redis_hook(mocker, mock_redis_client, mock_hook_data):
-    """Set up Redis to return webhook data."""
-    hook_id = "hook-123"
-
-    # Make redis.get return our hook data
+    """Mock Redis connection with prepared hook data."""
+    # Mock the get operation to return our test data
     mock_redis_client.get.return_value = json.dumps(mock_hook_data)
+    return mock_redis_client
 
-    return hook_id
+
+# Simplified fixtures for testing specific modules
+@pytest.fixture
+def talisman(app):
+    """Create a JazzbandTalisman instance initialized with the test app."""
+    from jazzband.headers import JazzbandTalisman
+
+    return JazzbandTalisman(app)
+
+
+@pytest.fixture
+def csp_test_setup():
+    """Provide common CSP test setup: headers and options."""
+    return {"headers": {}, "options": {"content_security_policy": "default-src self"}}
+
+
+@pytest.fixture
+def mock_page():
+    """Create a mock page object for renderer testing."""
+
+    class MockPage:
+        def __init__(self):
+            self.md = None
+            self.pages = None
+
+    return MockPage()
+
+
+@pytest.fixture
+def mock_flatpages():
+    """Create a factory for mock flatpages objects with configurable extensions."""
+
+    def create_flatpages(extensions=None):
+        class MockFlatpages:
+            def __init__(self):
+                self._extensions = extensions or ["codehilite", "toc"]
+
+            def config(self, key):
+                if key == "markdown_extensions":
+                    return self._extensions
+                return None
+
+        return MockFlatpages()
+
+    return create_flatpages
+
+
+@pytest.fixture
+def mock_target():
+    """Create a mock target object for database sync testing."""
+
+    class MockTarget:
+        def __init__(self):
+            self.synced_at = None
+
+    return MockTarget()
+
+
+@pytest.fixture
+def mock_response():
+    """Create a simple mock response for exception testing."""
+
+    class MockResponse:
+        def __init__(
+            self, json_data=None, json_error=False, content=None, has_content=True
+        ):
+            self._json_data = json_data
+            self._json_error = json_error
+            self._content = content
+            self._has_content = has_content
+
+        def json(self):
+            if self._json_error:
+                raise Exception("Not JSON")
+            return self._json_data
+
+        @property
+        def content(self):
+            if not self._has_content:
+                raise AttributeError("'MockResponse' object has no attribute 'content'")
+            return self._content
+
+    return MockResponse
