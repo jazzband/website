@@ -62,18 +62,21 @@ pytest: # Run pytest
 
 test: pytest # Alias for pytest
 
-lint: # Run linters
-	docker compose run --rm web ruff check
+ci-test: # Run tests in CI environment
+	docker compose run --rm -e COVERAGE_FILE=/tmp/.coverage web pytest tests/
 
-format: # Format code with ruff
-	docker compose run --rm web ruff format
+lint: # Run linters using the official Ruff Docker image
+	docker run --rm -v $(PWD):/app -w /app ghcr.io/astral-sh/ruff:0.11.12 check
+
+format: # Format code using the official Ruff Docker image
+	docker run --rm -v $(PWD):/app -w /app ghcr.io/astral-sh/ruff:0.11.12 format
 
 # Environment setup
 envvar: # Create .env file from template
 	cp .env-dist .env
 
 # CI/CD
-ci: envvar test
+ci: envvar ci-test
 
 # Security
 generate-securitytxt: # Generate security.txt with GPG signature

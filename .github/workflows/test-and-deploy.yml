@@ -34,7 +34,7 @@ jobs:
       - run: make image
 
       - name: Run tests
-        run: make test
+        run: make ci-test
         env:
           COVERAGE_FILE: /tmp/.coverage
 
