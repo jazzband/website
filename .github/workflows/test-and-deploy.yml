@@ -134,18 +134,26 @@ jobs:
           COVERAGE_FILE: /tmp/.coverage
           COVERAGE_XML: /tmp/coverage.xml
         run: |
+          # Create coverage output directory
+          mkdir -p $PWD/coverage-data
+          chmod 777 $PWD/coverage-data
+          
+          # Run tests with volume mount for coverage output
           docker compose run --rm \
             -e COVERAGE_FILE \
             -e COVERAGE_XML \
-            web pytest tests/ --cov=jazzband --cov-report=xml --cov-report=term
+            -v $PWD/coverage-data:/tmp/coverage-data \
+            -u root \
+            web sh -c "
+              pytest tests/ --cov=jazzband --cov-report=xml --cov-report=term
+              cp /tmp/coverage.xml /tmp/coverage-data/coverage.xml
+              chmod 644 /tmp/coverage-data/coverage.xml
+            "
 
-      # Copy coverage XML from container
+      # Copy coverage XML from mounted volume
       - name: Copy coverage XML from container
         run: |
-          # Start a temporary container to copy files
-          CONTAINER_ID=$(docker create jazzband-website:latest)
-          docker cp $CONTAINER_ID:/tmp/coverage.xml ./coverage.xml || echo "Failed to copy coverage.xml"
-          docker rm $CONTAINER_ID
+          cp coverage-data/coverage.xml ./coverage.xml || echo "Failed to copy coverage.xml"
 
       - name: Upload coverage reports to Codecov with GitHub Action
         uses: codecov/codecov-action@v5
