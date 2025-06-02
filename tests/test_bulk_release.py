@@ -47,6 +47,7 @@ def bulk_release_view():
 @pytest.fixture
 def mock_uploads():
     """Create mock uploads for testing."""
+
     class MockUpload:
         def __init__(self, filename, version="1.0.0"):
             self.filename = filename
@@ -264,7 +265,7 @@ def test_permission_check_logic(test_app_context, bulk_release_view):
 
     # Verify that BulkReleaseView has the correct decorators (login_required and templated)
     # Need to check if the decorators attribute exists before accessing it
-    if hasattr(bulk_release_view, 'decorators'):
+    if hasattr(bulk_release_view, "decorators"):
         assert len(bulk_release_view.decorators) == 2
 
     # Verify that the project_query method exists (should be overridden for permission checking)
@@ -280,31 +281,31 @@ def test_roadie_permission_bypass(test_app_context, bulk_release_view, mocker):
     mock_user.is_roadie = True
     mock_user.is_member = True
     mocker.patch("jazzband.auth.current_user", mock_user)
-    
+
     # Test the roadie permission logic directly rather than dispatch_request
     from jazzband.auth import current_user_is_roadie
-    
+
     # Test that our mocked user is considered a roadie
     is_roadie = current_user_is_roadie()
     assert is_roadie is True
-    
+
     # Test that the view has proper roadie access in its project_query method
     mock_project = mocker.MagicMock()
     mock_project.name = "test-project"
-    
+
     # Mock the membership query to simulate roadie access
     mock_membership = mocker.MagicMock()
     mock_membership.is_lead = False  # User is not a project lead
     mock_project.membership = mock_membership
-    
+
     mock_query = mocker.MagicMock()
     mock_query.first_or_404.return_value = mock_project
-    
+
     # Test that project_query method exists and can be called
     # (This tests the authorization logic without full request dispatch)
-    project_query_result = bulk_release_view.project_query("test-project")
+    bulk_release_view.project_query("test-project")
     assert callable(bulk_release_view.project_query)
-    
+
     # Verify that roadie permissions would allow access
     # (The actual permission checking happens in the decorators and middleware)
     assert mock_user.is_roadie is True
@@ -338,18 +339,20 @@ def test_bulk_validation_error_aggregation(bulk_release_view, mock_uploads, mock
     assert "test-package-1.0.0-py3-none-any.whl: File 2 warning" in warnings[1]
 
 
-def test_bulk_release_form_integration(test_app_context, bulk_release_view, mock_uploads, mocker):
+def test_bulk_release_form_integration(
+    test_app_context, bulk_release_view, mock_uploads, mocker
+):
     """Test Flask form integration with app context."""
     # Mock the form creation and validation
     from jazzband.projects.forms import BulkReleaseForm
-    
+
     mock_form_class = mocker.patch("jazzband.projects.views.BulkReleaseForm")
     mock_form = mocker.MagicMock(spec=BulkReleaseForm)
     mock_form.validate_on_submit.return_value = True
     mock_form_class.return_value = mock_form
-    
+
     # Mock flash and datetime
-    mock_flash = mocker.patch("jazzband.projects.views.flash")
+    mocker.patch("jazzband.projects.views.flash")
     mock_datetime = mocker.patch("jazzband.projects.views.datetime")
     mock_datetime.utcnow.return_value = datetime.now()
 
@@ -366,14 +369,14 @@ def test_bulk_release_form_integration(test_app_context, bulk_release_view, mock
     # This tests the actual Flask form instantiation
     form_instance = mock_form_class()
     assert form_instance is not None
-    
+
     # Verify form validation can be called
     is_valid = form_instance.validate_on_submit()
     assert is_valid is True
-    
+
     # Test that the complete flow works with real form objects
     result = bulk_release_view.post("test-project", "1.0.0")
-    
+
     assert result == "redirect"
     # Verify form was created with Flask context
     mock_form_class.assert_called()
