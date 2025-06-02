@@ -6,7 +6,6 @@ delays as warnings rather than blocking errors.
 """
 
 import pytest
-import requests
 from requests.exceptions import HTTPError, RequestException, Timeout
 
 from jazzband.projects.views import UploadReleaseView
@@ -97,7 +96,9 @@ def test_validate_upload_404_warning(upload_view, mocker):
     """Test that 404 errors are treated as CDN delay warnings."""
     response = mocker.MagicMock()
     response.status_code = 404
-    mocker.patch("requests.get", side_effect=HTTPError("404 Not Found", response=response))
+    mocker.patch(
+        "requests.get", side_effect=HTTPError("404 Not Found", response=response)
+    )
 
     success, errors, warnings = upload_view.validate_upload()
 
@@ -112,7 +113,10 @@ def test_validate_upload_other_http_error(upload_view, mocker):
     """Test that non-404 HTTP errors are treated as real errors."""
     response = mocker.MagicMock()
     response.status_code = 500
-    mocker.patch("requests.get", side_effect=HTTPError("500 Internal Server Error", response=response))
+    mocker.patch(
+        "requests.get",
+        side_effect=HTTPError("500 Internal Server Error", response=response),
+    )
 
     success, errors, warnings = upload_view.validate_upload()
 
@@ -361,12 +365,8 @@ def test_validate_upload_integration_with_post_method(app, mocker):
         flash_calls.append((message, category))
 
     mocker.patch("jazzband.projects.views.flash", mock_flash)
-    mocker.patch(
-        "jazzband.projects.views.ReleaseForm", lambda **kwargs: mock_form
-    )
-    mocker.patch(
-        "jazzband.projects.views.delegator.run", lambda cmd: mock_twine_run
-    )
+    mocker.patch("jazzband.projects.views.ReleaseForm", lambda **kwargs: mock_form)
+    mocker.patch("jazzband.projects.views.delegator.run", lambda cmd: mock_twine_run)
     mocker.patch(
         "jazzband.projects.views.tempfile.TemporaryDirectory",
         lambda: mocker.MagicMock().__enter__(),
@@ -414,12 +414,8 @@ def test_validate_upload_blocks_on_hash_mismatch_error(app, mocker):
     mock_twine_run.return_code = 0
 
     # Mock dependencies
-    mocker.patch(
-        "jazzband.projects.views.ReleaseForm", lambda **kwargs: mock_form
-    )
-    mocker.patch(
-        "jazzband.projects.views.delegator.run", lambda cmd: mock_twine_run
-    )
+    mocker.patch("jazzband.projects.views.ReleaseForm", lambda **kwargs: mock_form)
+    mocker.patch("jazzband.projects.views.delegator.run", lambda cmd: mock_twine_run)
     mocker.patch(
         "jazzband.projects.views.tempfile.TemporaryDirectory",
         lambda: mocker.MagicMock().__enter__(),
