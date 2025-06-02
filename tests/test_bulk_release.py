@@ -281,7 +281,7 @@ def test_roadie_permission_bypass(test_app_context, bulk_release_view, mocker):
     mock_user.is_roadie = True
     mock_user.is_member = True
     mocker.patch("jazzband.auth.current_user", mock_user)
-    mock_method_dispatch = mocker.patch(
+    mocker.patch(
         "jazzband.projects.views.MethodView.dispatch_request", return_value="success"
     )
 
@@ -348,12 +348,12 @@ def test_bulk_release_form_integration(
     """Test Flask form integration with app context."""
     # Mock the form creation and validation
     from jazzband.projects.forms import BulkReleaseForm
-    
+
     mock_form_class = mocker.patch("jazzband.projects.views.BulkReleaseForm")
     mock_form = mocker.MagicMock(spec=BulkReleaseForm)
     mock_form.validate_on_submit.return_value = True
     mock_form_class.return_value = mock_form
-    
+
     # Mock flash and datetime
     mocker.patch("jazzband.projects.views.flash")
     mock_datetime = mocker.patch("jazzband.projects.views.datetime")
@@ -372,14 +372,14 @@ def test_bulk_release_form_integration(
     # This tests the actual Flask form instantiation
     form_instance = mock_form_class()
     assert form_instance is not None
-    
+
     # Verify form validation can be called
     is_valid = form_instance.validate_on_submit()
     assert is_valid is True
-    
+
     # Test that the complete flow works with real form objects
     result = bulk_release_view.post("test-project", "1.0.0")
-    
+
     assert result == "redirect"
     # Verify form was created with Flask context
     mock_form_class.assert_called()
