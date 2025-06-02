@@ -1,5 +1,4 @@
 import json
-from unittest.mock import MagicMock
 
 import pytest
 
@@ -150,9 +149,9 @@ def github_blueprint(mocker, github_org_name):
 
 
 @pytest.fixture
-def mock_user():
+def mock_user(mocker):
     """Create a mock user for testing."""
-    user = MagicMock()
+    user = mocker.MagicMock()
     user.id = 123
     user.login = "test-user"
     user.email = "test@example.com"

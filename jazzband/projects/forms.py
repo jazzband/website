@@ -145,5 +145,16 @@ class ReleaseForm(TwoFactorAuthValidation, ProjectNameForm):
         self.global_errors.extend(messages)
 
 
+class BulkReleaseForm(TwoFactorAuthValidation, ProjectNameForm):
+    submit = SubmitField("Bulk Release")
+
+    def __init__(self, *args, **kwargs):
+        self.global_errors = []
+        super().__init__(*args, **kwargs)
+
+    def add_global_error(self, *messages):
+        self.global_errors.extend(messages)
+
+
 class DeleteForm(TwoFactorAuthValidation, ProjectNameForm):
     submit = SubmitField("Delete")

@@ -1,4 +1,4 @@
-@import "fonts";
-@import "variables";
-@import "base";
-@import "pygments";
+@use "variables" as *;
+@use "fonts";
+@use "base";
+@use "pygments";

@@ -156,14 +156,25 @@
     <a href="#{{ version }}">{{ version }}</a>{% if not loop.last %}, {% endif %}
     {% endfor %}
   </p>
-  {% for upload in uploads %} {% if loop.changed(upload.version) %}
+  {% for upload in uploads %}
+  {% if loop.changed(upload.version) %}
   <h4 id="{{ upload.version }}">{{ upload.version }} <a class="headerlink" href="#{{ upload.version }}" title="Permanent link">¶</a></h4>
   {% with version_upload_count= uploads.filter_by(version=upload.version).count() %}
   {% if version_upload_count > 1 and upload.project.current_user_is_lead %}
+  {% with unreleased_uploads_count = uploads.filter_by(version=upload.version, released_at=None).count() %}
   <div class="admonition">
     <p class="admonition-title">Multiple uploads for version {{ upload.version }} found!</p>
-    <p>Please make sure you <b>release all uploads individually</b> below.</p>
+    {% if unreleased_uploads_count > 1 %}
+    <p>
+      <a href="{{ url_for('projects.bulk_release', name=upload.project.name, version=upload.version) }}" title="Release to PyPI"><i class="fas fa-cloud-upload-alt"></i> Release the {{ unreleased_uploads_count }} unreleased uploads</a>
+    </p>
+    {% elif unreleased_uploads_count == 1 %}
+    <p>There is 1 unreleased upload for this version. You can release it individually below.</p>
+    {% else %}
+    <p>All uploads for this version have already been released.</p>
+    {% endif %}
   </div>
+  {% endwith %}
   {% endif %}
   {% endwith %}
   {% endif %}

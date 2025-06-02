@@ -60,4 +60,4 @@ LABEL deps_hash=$DEPS_HASH
 
 RUN chown -R 10001:10001 /app
 
-USER 10001 
+USER 10001

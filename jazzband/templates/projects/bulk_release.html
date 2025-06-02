@@ -1,0 +1,114 @@
+{% extends "layouts/default.html" %}
+
+{% import "macros.html" as macros %}
+
+{% block page_title %}Projects - {{ project.name }} - {{ version }} - Bulk Release{% endblock %}
+
+{% block content %}
+<div class="c4">
+  <h2>
+    <a href="{{ url_for('.index') }}" title="Projects">Projects</a> »
+    <a href="{{ url_for('.detail', name=project.name) }}">{{ project.name }}</a> »
+    {{ version }} »
+    Bulk Release
+  </h2>
+  <p>
+    {{ project.description }}
+  </p>
+  {% if project.html_url %}
+  <p>
+    More info:
+    <a href="{{ project.html_url }}">{{ project.html_url }}</a>
+  </p>
+  {% endif %}
+
+  {% if project.current_user_is_lead and uploads %}
+    <h3>Release ({{ uploads|length }})</h3>
+
+    {% if released_uploads %}
+    <h4>Already Released</h4>
+    <div class="admonition">
+      <p class="admonition-title">Some uploads for this version are already released</p>
+      <p>The following {{ released_uploads|length }} upload(s) are already released and will be skipped:</p>
+      <ul>
+        {% for upload in released_uploads %}
+        <li><code>{{ upload.filename }}</code> (released {{ upload.released_at }})</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    {% for upload in uploads %}
+    <details class="upload-details">
+      <summary><code>{{ upload.filename }}</code> ({{ upload.size|filesizeformat }})</summary>
+      <dl class="upload-info">
+        {{ macros.upload_info(upload) }}
+      </dl>
+    </details>
+    {% endfor %}
+
+    {% if bulk_release_form.global_errors %}
+    <ul class="errors">
+      {% for error in bulk_release_form.global_errors %}
+      <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if twine_outputs %}
+    {% for twine_output in twine_outputs %}
+    <div class="admonition">
+      <p class="admonition-title">Twine Output</p>
+      <p><strong>Standard output:</strong><br>{{ twine_output.out }}</p>
+      <p><strong>Standard error:</strong><br>{{ twine_output.err }}</p>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <div class="admonition">
+      <p class="admonition-title">
+        A note about bulk releasing to PyPI
+      </p>
+      <p>
+        You are about to release <strong>{{ uploads|length }} uploads</strong> for version <code>{{ version }}</code> to
+        <a href="https://pypi.org/">PyPI</a> all at once.
+      </p>
+      <p>
+        Please make sure that you've confirmed the contents of all files
+        with all due skill, care and diligence before releasing them to the
+        public.
+      </p>
+      <p class="red">
+        <b>Bulk releasing uploads can only be reverted by the roadies!</b>
+      </p>
+    </div>
+
+    <p>
+      Please confirm releasing <b>all {{ uploads|length }} uploads for version {{ version }}</b> to
+      PyPI by entering the project name below.
+    </p>
+
+    <form action="" method="POST">
+      {{ bulk_release_form.csrf_token }}
+      <dl>
+        {{ macros.render_field(bulk_release_form.project_name) }}
+      </dl>
+      {% if bulk_release_form.submit.errors %}
+      <ul class="errors">
+        {% for error in bulk_release_form.submit.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      {{ bulk_release_form.submit }}
+      <a href="{{ url_for('.detail', name=project.name) }}">back</a>
+    </form>
+  {% else %}
+    <div class="admonition">
+      <p class="admonition-title">No uploads found</p>
+      <p>No unreleased uploads found for version {{ version }}.</p>
+      <p><a href="{{ url_for('.detail', name=project.name) }}">Back to project</a></p>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

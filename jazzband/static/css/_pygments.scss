@@ -1,3 +1,5 @@
+@use "variables" as *;
+
 .codehilite .hll { background-color: #fff }
 .codehilite .c { color: #999; font-style: italic } /* Comment */
 .codehilite .err { color: $red; background-color: $white } /* Error */
