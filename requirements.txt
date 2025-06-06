@@ -1105,9 +1105,9 @@ pytest-cov==6.1.1 \
     --hash=sha256:46935f7aaefba760e716c2ebfbe1c216240b9592966e7da99ea8292d4d3e2a0a \
     --hash=sha256:bddf29ed2d0ab6f4df17b4c55b0a657287db8684af9c42ea546b21b1041b3dde
     # via -r requirements.in
-pytest-datadir==1.7.0 \
-    --hash=sha256:6f4948e50ad0e3c558e58752cf79ec5946334a7b21c86d569a3b94a0b3bb4527 \
-    --hash=sha256:9dfb14e082a9e9c41b178ca35c3553266d54554f80d7941ed926957d8303c3e9
+pytest-datadir==1.7.2 \
+    --hash=sha256:15f5228a35d0a3205e4968e75d3b9cca91762424e1eafc21eb637d380a48443e \
+    --hash=sha256:8392ba0e9eaf37030e663dcd91cc5123dec99c44300f0c5eac44f35f13f0e086
     # via -r requirements.in
 pytest-dotenv==0.5.2 \
     --hash=sha256:2dc6c3ac6d8764c71c6d2804e902d0ff810fa19692e95fe138aefc9b1aa73732 \
