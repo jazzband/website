@@ -177,6 +177,81 @@ def update_all_projects_members_team(permission, dry_run):
         raise
 
 
+@click.command("flatten_project_teams")
+@click.option(
+    "--dry-run", is_flag=True, help="Show what would be done without making changes"
+)
+@click_log.simple_verbosity_option(logger)
+@with_appcontext
+def flatten_project_teams(dry_run):
+    """Remove parent team from all project teams (make them top-level)"""
+    try:
+        from .models import Project
+
+        from ..account import github
+
+        if dry_run:
+            logger.info("DRY RUN: Flattening all project teams")
+            print("[DRY RUN] Flattening all project teams...\n")
+        else:
+            logger.info("Flattening all project teams")
+            print("Flattening all project teams...\n")
+
+        projects = Project.query.filter_by(is_active=True).all()
+        print(f"Found {len(projects)} active projects\n")
+
+        success_count = 0
+        skip_count = 0
+        error_count = 0
+
+        for i, project in enumerate(projects, 1):
+            prefix = "[DRY RUN] " if dry_run else ""
+            print(f"{prefix}[{i}/{len(projects)}] {project.name} team...", end=" ")
+
+            if not project.team_slug:
+                print("(no team)")
+                skip_count += 1
+                continue
+
+            try:
+                if not dry_run:
+                    response = github.remove_team_parent(project.team_slug)
+                    if response and response.status_code == 200:
+                        print("OK: removed parent")
+                        success_count += 1
+                    else:
+                        print(
+                            f"ERROR: {response.status_code if response else 'no response'}"
+                        )
+                        error_count += 1
+                else:
+                    print("OK: would remove parent")
+                    success_count += 1
+
+            except Exception as exc:
+                print(f"ERROR: {exc}")
+                logger.error(f"Failed to flatten team for {project.name}: {exc}")
+                error_count += 1
+
+        print("\n" + "=" * 60)
+        if dry_run:
+            print("DRY RUN Summary:")
+        else:
+            print("Summary:")
+        print(f"  Success: {success_count}")
+        print(f"  Skipped: {skip_count}")
+        print(f"  Errors:  {error_count}")
+        print(f"  Total:   {len(projects)}")
+
+        if error_count > 0:
+            raise Exception(f"Failed to flatten {error_count} project teams")
+
+    except Exception as exc:
+        logger.error(f"Failed to flatten project teams: {exc}")
+        print(f"\nERROR: Failed: {exc}")
+        raise
+
+
 @click.command("setup_all_projects_leads_teams")
 @click.option(
     "--dry-run", is_flag=True, help="Show what would be done without making changes"

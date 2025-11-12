@@ -406,3 +406,15 @@ class GitHubBlueprint(OAuth2ConsumerBlueprint):
             all_pages=True,
             headers={"Accept": "application/vnd.github.v3+json"},
         )
+
+    def remove_team_parent(self, team_slug):
+        """
+        Remove the parent team from a team (make it a top-level team).
+
+        Docs: https://docs.github.com/en/rest/reference/teams#update-a-team
+        """
+        return self.admin_session.patch(
+            f"orgs/{self.org_name}/teams/{team_slug}",
+            json={"parent_team_id": None},
+            headers={"Accept": "application/vnd.github.v3+json"},
+        )
