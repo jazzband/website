@@ -174,6 +174,37 @@ def test_get_team_repos(github_blueprint, github_org_name, mocker):
     assert result[0]["name"] == "repo1"
 
 
+def test_remove_team_parent(github_blueprint, github_org_name, mocker):
+    """Test removing the parent team from a team (flattening)."""
+    blueprint, mock_admin_session = github_blueprint
+    team_slug = "test-team"
+
+    # Mock the PATCH request
+    mock_response = mocker.MagicMock()
+    mock_response.status_code = 200
+    mock_response.json.return_value = {
+        "id": 12345,
+        "slug": team_slug,
+        "name": "test-team",
+        "parent": None,
+    }
+    mock_admin_session.patch.return_value = mock_response
+
+    # Call the remove_team_parent method
+    result = GitHubBlueprint.remove_team_parent(blueprint, team_slug)
+
+    # Verify API was called correctly
+    mock_admin_session.patch.assert_called_once_with(
+        f"orgs/{github_org_name}/teams/{team_slug}",
+        json={"parent_team_id": None},
+        headers={"Accept": "application/vnd.github.v3+json"},
+    )
+
+    # Verify the result
+    assert result.status_code == 200
+    assert result.json()["parent"] is None
+
+
 # Tests for task functions
 
 
@@ -597,16 +628,73 @@ def test_update_all_projects_members_team(mocker, test_app_context):
 
             mock_github.members_team_slug = "members"
 
+            # Mock get_team_repos to return empty list (no existing repos)
+            # This ensures both projects will be added
+            mock_github.get_team_repos = mocker.MagicMock(return_value=[])
+
             # Mock successful responses
             mock_response = mocker.MagicMock()
             mock_response.status_code = 204
             mock_github.add_repo_to_team = mocker.MagicMock(return_value=mock_response)
 
             # Call the task
-            update_all_projects_members_team(permission)
+            update_all_projects_members_team(permission, dry_run=False)
+
+            # Verify get_team_repos was called to check existing repos
+            mock_github.get_team_repos.assert_called_once_with("members")
 
             # Verify both projects were processed
             assert mock_github.add_repo_to_team.call_count == 2
             calls = mock_github.add_repo_to_team.call_args_list
             assert calls[0][0] == ("members", "project1", "push")
             assert calls[1][0] == ("members", "project2", "push")
+
+
+def test_update_all_projects_members_team_skips_existing(mocker, test_app_context):
+    """Test that update skips repos that already have correct permissions."""
+    permission = "push"
+
+    # Create mock projects
+    mock_project1 = mocker.MagicMock()
+    mock_project1.id = 1
+    mock_project1.name = "project1"
+
+    mock_project2 = mocker.MagicMock()
+    mock_project2.id = 2
+    mock_project2.name = "project2"
+
+    with patch("jazzband.projects.tasks.Project") as mock_project_class:
+        with patch("jazzband.projects.tasks.github") as mock_github:
+            # Mock query to return active projects
+            mock_filter_by = mocker.MagicMock()
+            mock_filter_by.all.return_value = [mock_project1, mock_project2]
+            mock_project_class.query.filter_by.return_value = mock_filter_by
+
+            mock_github.members_team_slug = "members"
+
+            # Mock get_team_repos to return project1 with correct permission
+            # project1 should be skipped, only project2 should be added
+            mock_github.get_team_repos = mocker.MagicMock(
+                return_value=[
+                    {
+                        "name": "project1",
+                        "permissions": {"push": True, "pull": True, "admin": False},
+                    }
+                ]
+            )
+
+            # Mock successful responses
+            mock_response = mocker.MagicMock()
+            mock_response.status_code = 204
+            mock_github.add_repo_to_team = mocker.MagicMock(return_value=mock_response)
+
+            # Call the task
+            update_all_projects_members_team(permission, dry_run=False)
+
+            # Verify get_team_repos was called
+            mock_github.get_team_repos.assert_called_once_with("members")
+
+            # Verify only project2 was added (project1 was skipped)
+            mock_github.add_repo_to_team.assert_called_once_with(
+                "members", "project2", "push"
+            )
