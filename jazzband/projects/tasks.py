@@ -405,13 +405,13 @@ def setup_project_leads_team(project_id, dry_run=False):
     """
     Create a leads sub-team for a project, add all lead members to it,
     and grant them maintain permissions to the repository.
-    
+
     Args:
         project_id: The ID of the project
         dry_run: If True, log what would be done without making changes
     """
     log_prefix = "[DRY RUN] " if dry_run else ""
-    
+
     project = Project.query.get(project_id)
     if not project:
         logger.error(f"{log_prefix}Project with id {project_id} not found")
@@ -454,7 +454,7 @@ def setup_project_leads_team(project_id, dry_run=False):
     # Check if leads team exists on GitHub but not in DB (manually created)
     if not leads_team_slug:
         potential_slug = f"{project.name}-leads"
-        
+
         if dry_run:
             logger.info(
                 f"{log_prefix}Would check for existing team {potential_slug} and create if needed"
@@ -482,7 +482,9 @@ def setup_project_leads_team(project_id, dry_run=False):
                             "status_code": leads_response.status_code
                             if leads_response
                             else None,
-                            "response": leads_response.json() if leads_response else None,
+                            "response": leads_response.json()
+                            if leads_response
+                            else None,
                         },
                     )
                     return
@@ -495,7 +497,7 @@ def setup_project_leads_team(project_id, dry_run=False):
     # Add all lead members to the leads team
     for lead in lead_members:
         logger.info(f"{log_prefix}Adding @{lead.login} to leads team {leads_team_slug}")
-        
+
         if not dry_run:
             response = github.join_team(leads_team_slug, lead.login)
             if response and response.status_code == 200:
@@ -515,9 +517,11 @@ def setup_project_leads_team(project_id, dry_run=False):
     logger.info(
         f"{log_prefix}Granting maintain permissions to {leads_team_slug} for repo {project.name}"
     )
-    
+
     if not dry_run:
-        repo_response = github.add_repo_to_team(leads_team_slug, project.name, "maintain")
+        repo_response = github.add_repo_to_team(
+            leads_team_slug, project.name, "maintain"
+        )
         if repo_response and repo_response.status_code == 204:
             logger.info(
                 f"Successfully granted maintain permissions to {leads_team_slug} for {project.name}"
@@ -525,13 +529,13 @@ def setup_project_leads_team(project_id, dry_run=False):
         else:
             logger.error(
                 f"Failed to grant maintain permissions to {leads_team_slug} for {project.name}",
-            extra={
-                "project_name": project.name,
-                "team_slug": leads_team_slug,
-                "status_code": repo_response.status_code if repo_response else None,
-                "response": repo_response.json() if repo_response else None,
-            },
-        )
+                extra={
+                    "project_name": project.name,
+                    "team_slug": leads_team_slug,
+                    "status_code": repo_response.status_code if repo_response else None,
+                    "response": repo_response.json() if repo_response else None,
+                },
+            )
 
 
 @tasks.task(name="add_repo_to_members_team")
@@ -553,7 +557,7 @@ def add_repo_to_members_team(project_name, permission="push", dry_run=False):
     logger.info(
         f"{log_prefix}Adding repo {project_name} to members team {members_team_slug} with {permission} permission"
     )
-    
+
     if not dry_run:
         response = github.add_repo_to_team(members_team_slug, project_name, permission)
 
@@ -569,8 +573,8 @@ def add_repo_to_members_team(project_name, permission="push", dry_run=False):
                     "permission": permission,
                     "status_code": response.status_code if response else None,
                     "response": response.json() if response else None,
-            },
-        )
+                },
+            )
 
 
 @tasks.task(name="update_all_projects_members_team")
@@ -596,7 +600,7 @@ def update_all_projects_members_team(permission="push", dry_run=False):
     # First, get all repos already in the members team to avoid unnecessary API calls
     logger.info(f"{log_prefix}Fetching existing repos in members team...")
     existing_repos = {}
-    
+
     if not dry_run:
         team_repos_response = github.get_team_repos(members_team_slug)
         if team_repos_response and team_repos_response.status_code == 200:
@@ -623,9 +627,11 @@ def update_all_projects_members_team(permission="push", dry_run=False):
                 continue
 
         logger.info(f"{log_prefix}Processing project {project.name} (id: {project.id})")
-        
+
         if not dry_run:
-            response = github.add_repo_to_team(members_team_slug, project.name, permission)
+            response = github.add_repo_to_team(
+                members_team_slug, project.name, permission
+            )
 
             if response and response.status_code == 204:
                 logger.info(

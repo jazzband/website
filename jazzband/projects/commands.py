@@ -68,7 +68,9 @@ def sync_project_team(name):
 
 @click.command("project_leads_team")
 @click.argument("name")
-@click.option("--dry-run", is_flag=True, help="Show what would be done without making changes")
+@click.option(
+    "--dry-run", is_flag=True, help="Show what would be done without making changes"
+)
 @click_log.simple_verbosity_option(logger)
 @with_appcontext
 def setup_project_leads_team(name, dry_run):
@@ -84,10 +86,10 @@ def setup_project_leads_team(name, dry_run):
             print(f"[DRY RUN] Would set up leads team for project {name}...")
         else:
             print(f"Setting up leads team for project {name}...")
-        
+
         logger.info(f"Setting up leads team for project {name} (dry_run={dry_run})")
         tasks.setup_project_leads_team(project.id, dry_run=dry_run)
-        
+
         if dry_run:
             print(f"[DRY RUN] Would have set up leads team for {name}")
         else:
@@ -106,20 +108,26 @@ def setup_project_leads_team(name, dry_run):
     default="push",
     help="Permission level (pull, push, maintain, admin)",
 )
-@click.option("--dry-run", is_flag=True, help="Show what would be done without making changes")
+@click.option(
+    "--dry-run", is_flag=True, help="Show what would be done without making changes"
+)
 @click_log.simple_verbosity_option(logger)
 @with_appcontext
 def add_repo_to_members_team(name, permission, dry_run):
     """Add a repository to the members team with specified permissions"""
     try:
         if dry_run:
-            print(f"[DRY RUN] Would add repo {name} to members team with {permission} permission...")
+            print(
+                f"[DRY RUN] Would add repo {name} to members team with {permission} permission..."
+            )
         else:
             print(f"Adding repo {name} to members team with {permission} permission...")
-        
-        logger.info(f"Adding repo {name} to members team with {permission} permission (dry_run={dry_run})")
+
+        logger.info(
+            f"Adding repo {name} to members team with {permission} permission (dry_run={dry_run})"
+        )
         tasks.add_repo_to_members_team(name, permission, dry_run=dry_run)
-        
+
         if dry_run:
             print(f"[DRY RUN] Would have added {name} to members team")
         else:
@@ -137,22 +145,28 @@ def add_repo_to_members_team(name, permission, dry_run):
     default="push",
     help="Permission level (pull, push, maintain, admin)",
 )
-@click.option("--dry-run", is_flag=True, help="Show what would be done without making changes")
+@click.option(
+    "--dry-run", is_flag=True, help="Show what would be done without making changes"
+)
 @click_log.simple_verbosity_option(logger)
 @with_appcontext
 def update_all_projects_members_team(permission, dry_run):
     """Update all active projects to be assigned to members team with write permissions"""
     try:
         if dry_run:
-            print(f"[DRY RUN] Would update all active projects to members team with {permission} permission...")
+            print(
+                f"[DRY RUN] Would update all active projects to members team with {permission} permission..."
+            )
         else:
-            print(f"Updating all active projects to members team with {permission} permission...")
-        
+            print(
+                f"Updating all active projects to members team with {permission} permission..."
+            )
+
         logger.info(
             f"Updating all projects to members team with {permission} permission (dry_run={dry_run})"
         )
         tasks.update_all_projects_members_team(permission, dry_run=dry_run)
-        
+
         if dry_run:
             print("[DRY RUN] Would have updated all projects")
         else:
@@ -164,7 +178,9 @@ def update_all_projects_members_team(permission, dry_run):
 
 
 @click.command("setup_all_projects_leads_teams")
-@click.option("--dry-run", is_flag=True, help="Show what would be done without making changes")
+@click.option(
+    "--dry-run", is_flag=True, help="Show what would be done without making changes"
+)
 @click_log.simple_verbosity_option(logger)
 @with_appcontext
 def setup_all_projects_leads_teams(dry_run):
