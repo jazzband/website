@@ -136,3 +136,63 @@ def update_all_projects_members_team(permission):
         logger.error(f"Failed to update all projects: {exc}")
         print(f"❌ Failed to update all projects: {exc}")
         raise
+
+
+@click.command("setup_all_projects_leads_teams")
+@click_log.simple_verbosity_option(logger)
+@with_appcontext
+def setup_all_projects_leads_teams():
+    """Set up leads teams for all active projects with lead members"""
+    try:
+        from .models import Project
+
+        logger.info("Setting up leads teams for all active projects")
+        print("Setting up leads teams for all active projects...\n")
+
+        projects = Project.query.filter_by(is_active=True).all()
+        print(f"Found {len(projects)} active projects\n")
+
+        success_count = 0
+        skip_count = 0
+        error_count = 0
+
+        for i, project in enumerate(projects, 1):
+            print(f"[{i}/{len(projects)}] {project.name}...", end=" ")
+            try:
+                # Check if project has leads before processing
+                lead_count = project.lead_members.count()
+                if lead_count == 0:
+                    print("⏭️  (no leads)")
+                    skip_count += 1
+                    continue
+
+                tasks.setup_project_leads_team(project.id)
+
+                # Refresh to get updated leads_team_slug
+                Project.query.session.refresh(project)
+
+                if project.leads_team_slug:
+                    print(f"✅ {project.leads_team_slug}")
+                    success_count += 1
+                else:
+                    print("⏭️  (skipped)")
+                    skip_count += 1
+            except Exception as exc:
+                print(f"❌ {exc}")
+                logger.error(f"Failed to setup leads team for {project.name}: {exc}")
+                error_count += 1
+
+        print("\n" + "=" * 60)
+        print("Summary:")
+        print(f"  ✅ Success: {success_count}")
+        print(f"  ⏭️  Skipped: {skip_count}")
+        print(f"  ❌ Errors:  {error_count}")
+        print(f"  📊 Total:   {len(projects)}")
+
+        if error_count > 0:
+            raise Exception(f"Failed to setup leads teams for {error_count} projects")
+
+    except Exception as exc:
+        logger.error(f"Failed to setup all projects leads teams: {exc}")
+        print(f"\n❌ Failed: {exc}")
+        raise
