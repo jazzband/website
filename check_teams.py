@@ -62,6 +62,15 @@ with app.app_context():
     print(f"  - Read: {read_count}")
     print(f"  - Other: {other_count}")
     
+    # Identify repos with non-push permissions
+    if read_count > 0 or other_count > 0:
+        print(f"\n⚠️  WARNING: Repos without PUSH permission in Members team:")
+        for repo in members_repos:
+            perms = repo.get('permissions', {})
+            if not perms.get('push'):
+                perm_str = "pull" if perms.get('pull') else "admin" if perms.get('admin') else "unknown"
+                print(f"  - {repo['name']}: {perm_str} (should be push)")
+    
     # Sample repos
     print(f"\nSample repos (first 10):")
     for repo in members_repos[:10]:
