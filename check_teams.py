@@ -14,9 +14,19 @@ with app.app_context():
     print("GITHUB TEAM PERMISSION AUDIT")
     print("=" * 80)
     
-    # Get all teams
-    all_teams = github.get_teams()
+    # Get all teams from org (not just children of Members)
+    # Note: github.get_teams() only returns child teams of Members
+    # We need to use the org-level endpoint
+    all_teams = github.admin_session.get(
+        f"orgs/{github.org_name}/teams",
+        all_pages=True,
+        headers={"Accept": "application/vnd.github.v3+json"},
+    )
     print(f"\nFound {len(all_teams)} total teams in GitHub org\n")
+    
+    # Also check child teams of Members (these should be minimal after flattening)
+    members_child_teams = github.get_teams()
+    print(f"Child teams of Members (should be few after flattening): {len(members_child_teams)}\n")
     
     # Get active project team slugs from database
     active_projects = Project.query.filter_by(is_active=True).all()
@@ -66,6 +76,7 @@ with app.app_context():
     
     project_teams = []
     stale_teams = []
+    teams_with_parents = []
     
     for team in all_teams:
         slug = team['slug']
@@ -78,6 +89,10 @@ with app.app_context():
         if slug.endswith('-leads'):
             continue
         
+        # Check if team still has a parent
+        if team.get('parent'):
+            teams_with_parents.append((slug, team['parent'].get('name', 'unknown')))
+        
         # Check if it's an active project team
         if slug in active_team_slugs:
             project_teams.append(team)
@@ -87,6 +102,13 @@ with app.app_context():
     
     print(f"\nActive project teams: {len(project_teams)}")
     print(f"Potentially stale teams: {len(stale_teams)}")
+    
+    if teams_with_parents:
+        print(f"\n⚠️  WARNING: {len(teams_with_parents)} project teams still have parents (should be 0 after flattening):")
+        for slug, parent_name in teams_with_parents[:10]:
+            print(f"  - {slug} → parent: {parent_name}")
+    else:
+        print(f"\n✓ No project teams have parents (correctly flattened)")
     
     # Check repo assignments for active project teams
     print(f"\nChecking repo assignments for active project teams...")
