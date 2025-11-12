@@ -1,7 +1,7 @@
 """Add leads_team_slug to projects
 
 Revision ID: d69ef951e45
-Revises: e40889bed1ba
+Revises: c6604f3c217b
 Create Date: 2025-11-12 00:00:00.000000
 """
 
@@ -10,7 +10,7 @@ from alembic import op
 
 # revision identifiers, used by Alembic.
 revision = "d69ef951e45"
-down_revision = "e40889bed1ba"
+down_revision = "c6604f3c217b"
 
 
 def upgrade():
