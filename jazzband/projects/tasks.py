@@ -593,10 +593,35 @@ def update_all_projects_members_team(permission="push", dry_run=False):
         f"{log_prefix}Updating {len(projects)} active projects to be assigned to members team with {permission} permission"
     )
 
+    # First, get all repos already in the members team to avoid unnecessary API calls
+    logger.info(f"{log_prefix}Fetching existing repos in members team...")
+    existing_repos = {}
+    
+    if not dry_run:
+        team_repos_response = github.get_team_repos(members_team_slug)
+        if team_repos_response and team_repos_response.status_code == 200:
+            for repo in team_repos_response.json():
+                # Store repo name and current permission
+                existing_repos[repo["name"]] = repo.get("permissions", {})
+            logger.info(f"Found {len(existing_repos)} repos already in members team")
+        else:
+            logger.warning("Could not fetch existing team repos, will update all")
+
     success_count = 0
     error_count = 0
+    skip_count = 0
 
     for project in projects:
+        # Check if repo already has correct permissions
+        if project.name in existing_repos and not dry_run:
+            current_perms = existing_repos[project.name]
+            # Check if the desired permission is already set
+            has_permission = current_perms.get(permission, False)
+            if has_permission:
+                logger.info(f"SKIP: {project.name} already has {permission} permission")
+                skip_count += 1
+                continue
+
         logger.info(f"{log_prefix}Processing project {project.name} (id: {project.id})")
         
         if not dry_run:
@@ -620,9 +645,13 @@ def update_all_projects_members_team(permission="push", dry_run=False):
                 )
                 error_count += 1
         else:
-            # In dry-run, just count as success
+            # In dry-run, show if it would skip or update
+            if project.name in existing_repos:
+                logger.info(f"{log_prefix}Would verify/update {project.name}")
+            else:
+                logger.info(f"{log_prefix}Would add {project.name} to members team")
             success_count += 1
 
     logger.info(
-        f"Finished updating projects. Success: {success_count}, Errors: {error_count}"
+        f"Finished updating projects. Success: {success_count}, Skipped: {skip_count}, Errors: {error_count}"
     )
