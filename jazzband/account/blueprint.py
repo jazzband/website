@@ -338,3 +338,71 @@ class GitHubBlueprint(OAuth2ConsumerBlueprint):
             json={"has_issues": True},
             headers={"Accept": "application/vnd.github.v3+json"},
         )
+
+    def create_leads_team(self, project_name, parent_team_slug):
+        """
+        Create a leads sub-team under a project team.
+
+        Docs: https://docs.github.com/en/rest/reference/teams#create-a-team
+        """
+        # First, get the parent team ID
+        parent_team_response = self.get_project_team(parent_team_slug)
+        if parent_team_response.status_code != 200:
+            logger.error(
+                f"Couldn't load parent team details for {parent_team_slug}",
+                extra={
+                    "project_name": project_name,
+                    "parent_team_slug": parent_team_slug,
+                },
+            )
+            return None
+
+        parent_team_data = parent_team_response.json()
+        parent_team_id = parent_team_data.get("id")
+
+        if not parent_team_id:
+            logger.error(
+                f"Parent team {parent_team_slug} has no ID",
+                extra={"project_name": project_name},
+            )
+            return None
+
+        return self.admin_session.post(
+            f"orgs/{self.org_name}/teams",
+            json={
+                "name": f"{project_name}-leads",
+                "description": f"Lead maintainers for {project_name}",
+                "parent_team_id": parent_team_id,
+                "privacy": "closed",
+            },
+            headers={"Accept": "application/vnd.github.v3+json"},
+        )
+
+    def add_repo_to_team(self, team_slug, repo_name, permission="push"):
+        """
+        Add a repository to a team with specific permissions.
+
+        Args:
+            team_slug: The slug of the team
+            repo_name: The name of the repository
+            permission: The permission to grant (pull, push, maintain, admin)
+
+        Docs: https://docs.github.com/en/rest/reference/teams#add-or-update-team-repository-permissions
+        """
+        return self.admin_session.put(
+            f"orgs/{self.org_name}/teams/{team_slug}/repos/{self.org_name}/{repo_name}",
+            json={"permission": permission},
+            headers={"Accept": "application/vnd.github.v3+json"},
+        )
+
+    def get_team_repos(self, team_slug):
+        """
+        Get all repositories for a team.
+
+        Docs: https://docs.github.com/en/rest/reference/teams#list-team-repositories
+        """
+        return self.admin_session.get(
+            f"orgs/{self.org_name}/teams/{team_slug}/repos",
+            all_pages=True,
+            headers={"Accept": "application/vnd.github.v3+json"},
+        )

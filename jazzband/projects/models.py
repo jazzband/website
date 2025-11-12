@@ -22,6 +22,7 @@ class Project(db.Model, Syncable):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text, nullable=False, index=True)
     team_slug = db.Column(db.String(255))
+    leads_team_slug = db.Column(db.String(255))
     normalized_name = orm.column_property(func.normalize_pep426_name(name))
     description = db.Column(db.Text)
     html_url = db.Column(db.String(255))
@@ -141,6 +142,19 @@ class Project(db.Model, Syncable):
             self.team_slug = team_data.get("slug")
             self.save()
             return team_response
+
+    def create_leads_team(self):
+        """Create a leads sub-team under this project's team."""
+        if not self.team_slug:
+            return None
+
+        leads_response = github.create_leads_team(self.name, self.team_slug)
+        if leads_response and leads_response.status_code == 201:
+            leads_data = leads_response.json()
+            self.leads_team_slug = leads_data.get("slug")
+            self.save()
+            return leads_response
+        return None
 
 
 @generic_repr("id", "project_id", "is_active", "key")
