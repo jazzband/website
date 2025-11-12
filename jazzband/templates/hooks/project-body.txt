@@ -13,7 +13,10 @@ Feel free to ping a [Jazzband roadie](https://jazzband.co/roadies) if you have a
 - [ ] Add the [Jazzband contributing guideline](https://jazzband.co/about/guidelines#contributing-guidelines) to the `CONTRIBUTING.md` or `CONTRIBUTING.rst` file
 - [ ] Check if continuous testing works with [GitHub Actions](https://github.com/features/actions)
 - [ ] Check if test coverage is tracked with [Codecov](https://codecov.io)
-- [ ] Add `jazzband` account to [PyPI](https://pypi.org/) project as maintainer role (e.g. URL: https://pypi.org/manage/project/{{ repository.name }}/collaboration/)
+- [ ] Add `jazzband` account to [PyPI](https://pypi.org/) project as `Owner` role (e.g. URL: https://pypi.org/manage/project/{{ repository.name }}/collaboration/).
+      This is required so that we would be able to [set up Trusted
+      Publishing](https://packaging.python.org/en/latest/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/) for automated release
+      process — the `Maintainer` role does not have enough privileges for this.
 - [ ] Add `jazzband-bot` as maintainer to the [Read the Docs](https://readthedocs.org/) project (e.g. URL: https://readthedocs.org/dashboard/{{ repository.name }}/users/)
 - [ ] Add incoming GitHub webhook integration to Read the Docs project (e.g. URL: https://readthedocs.org/dashboard/{{ repository.name }}/integrations/)
 - [ ] Fix project URL in [GitHub project]({{ repository.html_url }}) description

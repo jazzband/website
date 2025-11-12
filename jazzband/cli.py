@@ -6,10 +6,16 @@ from flask.cli import with_appcontext
 from .db import postgres, redis
 from .members.commands import sync_email_addresses, sync_members
 from .projects.commands import (
+    add_repo_to_members_team,
+    flatten_project_teams,
+    flatten_stale_teams,
     send_new_upload_notifications,
+    setup_all_projects_leads_teams,
+    setup_project_leads_team,
     sync_project_members,
     sync_project_team,
     sync_projects,
+    update_all_projects_members_team,
 )
 
 
@@ -60,3 +66,9 @@ def init_app(app):
     sync.add_command(sync_project_members)
     sync.add_command(sync_project_team)
     sync.add_command(sync_email_addresses)
+    sync.add_command(setup_project_leads_team)
+    sync.add_command(setup_all_projects_leads_teams)
+    sync.add_command(add_repo_to_members_team)
+    sync.add_command(update_all_projects_members_team)
+    sync.add_command(flatten_project_teams)
+    sync.add_command(flatten_stale_teams)
