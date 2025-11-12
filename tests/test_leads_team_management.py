@@ -203,7 +203,7 @@ def test_add_user_to_team_regular_member(mocker, test_app_context):
                 # Mock successful response
                 mock_response = mocker.MagicMock()
                 mock_response.status_code = 200
-                mock_github.join_team.return_value = mock_response
+                mock_github.join_team = mocker.MagicMock(return_value=mock_response)
 
                 # Call the task
                 add_user_to_team(user_id, project_id, is_lead)
@@ -240,7 +240,7 @@ def test_add_user_to_team_lead_member(mocker, test_app_context):
                 # Mock successful responses
                 mock_response = mocker.MagicMock()
                 mock_response.status_code = 200
-                mock_github.join_team.return_value = mock_response
+                mock_github.join_team = mocker.MagicMock(return_value=mock_response)
 
                 # Call the task
                 add_user_to_team(user_id, project_id, is_lead)
@@ -274,7 +274,7 @@ def test_add_user_to_team_lead_no_leads_team(mocker, test_app_context):
 
                 mock_response = mocker.MagicMock()
                 mock_response.status_code = 200
-                mock_github.join_team.return_value = mock_response
+                mock_github.join_team = mocker.MagicMock(return_value=mock_response)
 
                 # Call the task
                 add_user_to_team(user_id, project_id, is_lead)
@@ -308,7 +308,7 @@ def test_remove_user_from_team_lead_member(mocker, test_app_context):
                 # Mock successful responses
                 mock_response = mocker.MagicMock()
                 mock_response.status_code = 204
-                mock_github.leave_team.return_value = mock_response
+                mock_github.leave_team = mocker.MagicMock(return_value=mock_response)
 
                 # Call the task
                 remove_user_from_team(user_id, project_id, is_lead)
@@ -340,7 +340,7 @@ def test_add_user_to_leads_team_success(mocker, test_app_context):
 
                 mock_response = mocker.MagicMock()
                 mock_response.status_code = 200
-                mock_github.join_team.return_value = mock_response
+                mock_github.join_team = mocker.MagicMock(return_value=mock_response)
 
                 # Call the task
                 add_user_to_leads_team(user_id, project_id)
@@ -396,7 +396,7 @@ def test_remove_user_from_leads_team_success(mocker, test_app_context):
 
                 mock_response = mocker.MagicMock()
                 mock_response.status_code = 204
-                mock_github.leave_team.return_value = mock_response
+                mock_github.leave_team = mocker.MagicMock(return_value=mock_response)
 
                 # Call the task
                 remove_user_from_leads_team(user_id, project_id)
@@ -428,11 +428,15 @@ def test_setup_project_leads_team_success(mocker, test_app_context):
     mock_leads_query.all.return_value = [mock_lead1, mock_lead2]
     mock_project.lead_members = mock_leads_query
 
-    # Mock create_leads_team response
+    # Mock create_leads_team response with side effect to set leads_team_slug
     mock_leads_response = mocker.MagicMock()
     mock_leads_response.status_code = 201
-    mock_project.create_leads_team.return_value = mock_leads_response
-    mock_project.leads_team_slug = "test-project-leads"  # Set after creation
+
+    def set_leads_team_slug():
+        mock_project.leads_team_slug = "test-project-leads"
+        return mock_leads_response
+
+    mock_project.create_leads_team = mocker.MagicMock(side_effect=set_leads_team_slug)
 
     with patch("jazzband.projects.tasks.Project") as mock_project_class:
         with patch("jazzband.projects.tasks.github") as mock_github:
@@ -441,16 +445,20 @@ def test_setup_project_leads_team_success(mocker, test_app_context):
             # Mock successful responses
             mock_response = mocker.MagicMock()
             mock_response.status_code = 200
-            mock_github.join_team.return_value = mock_response
+            mock_github.join_team = mocker.MagicMock(return_value=mock_response)
 
             mock_repo_response = mocker.MagicMock()
             mock_repo_response.status_code = 204
-            mock_github.add_repo_to_team.return_value = mock_repo_response
+            mock_github.add_repo_to_team = mocker.MagicMock(
+                return_value=mock_repo_response
+            )
 
             # Mock get_project_team to return 404 (team doesn't exist)
             mock_team_response = mocker.MagicMock()
             mock_team_response.status_code = 404
-            mock_github.get_project_team.return_value = mock_team_response
+            mock_github.get_project_team = mocker.MagicMock(
+                return_value=mock_team_response
+            )
 
             # Call the task
             setup_project_leads_team(project_id)
@@ -516,15 +524,19 @@ def test_setup_project_leads_team_finds_existing(mocker, test_app_context):
             # Mock get_project_team to return 200 (manually created team exists)
             mock_team_response = mocker.MagicMock()
             mock_team_response.status_code = 200
-            mock_github.get_project_team.return_value = mock_team_response
+            mock_github.get_project_team = mocker.MagicMock(
+                return_value=mock_team_response
+            )
 
             mock_response = mocker.MagicMock()
             mock_response.status_code = 200
-            mock_github.join_team.return_value = mock_response
+            mock_github.join_team = mocker.MagicMock(return_value=mock_response)
 
             mock_repo_response = mocker.MagicMock()
             mock_repo_response.status_code = 204
-            mock_github.add_repo_to_team.return_value = mock_repo_response
+            mock_github.add_repo_to_team = mocker.MagicMock(
+                return_value=mock_repo_response
+            )
 
             # Mock save to track calls
             mock_project.save = mocker.MagicMock()
@@ -552,7 +564,7 @@ def test_add_repo_to_members_team_success(mocker, test_app_context):
 
         mock_response = mocker.MagicMock()
         mock_response.status_code = 204
-        mock_github.add_repo_to_team.return_value = mock_response
+        mock_github.add_repo_to_team = mocker.MagicMock(return_value=mock_response)
 
         # Call the task
         add_repo_to_members_team(project_name, permission)
@@ -588,7 +600,7 @@ def test_update_all_projects_members_team(mocker, test_app_context):
             # Mock successful responses
             mock_response = mocker.MagicMock()
             mock_response.status_code = 204
-            mock_github.add_repo_to_team.return_value = mock_response
+            mock_github.add_repo_to_team = mocker.MagicMock(return_value=mock_response)
 
             # Call the task
             update_all_projects_members_team(permission)
