@@ -600,7 +600,7 @@ def update_all_projects_members_team(permission="push", dry_run=False):
     # First, get all repos already in the members team to avoid unnecessary API calls
     logger.info(f"{log_prefix}Fetching existing repos in members team...")
     existing_repos = {}
-    
+
     if not dry_run:
         try:
             # get_team_repos uses all_pages=True, so it returns a list directly
@@ -609,11 +609,15 @@ def update_all_projects_members_team(permission="push", dry_run=False):
                 for repo in team_repos:
                     # Store repo name and current permission
                     existing_repos[repo["name"]] = repo.get("permissions", {})
-                logger.info(f"Found {len(existing_repos)} repos already in members team")
+                logger.info(
+                    f"Found {len(existing_repos)} repos already in members team"
+                )
             else:
                 logger.warning("Could not fetch existing team repos, will update all")
         except Exception as exc:
-            logger.warning(f"Error fetching existing team repos: {exc}, will update all")
+            logger.warning(
+                f"Error fetching existing team repos: {exc}, will update all"
+            )
 
     success_count = 0
     error_count = 0

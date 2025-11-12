@@ -258,9 +258,8 @@ def flatten_stale_teams(dry_run):
 def flatten_project_teams(dry_run):
     """Remove parent team from all project teams (make them top-level)"""
     try:
-        from .models import Project
-
         from ..account import github
+        from .models import Project
 
         if dry_run:
             logger.info("DRY RUN: Flattening all project teams")
