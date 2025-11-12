@@ -9,7 +9,7 @@ COPY package.json package-lock.json /tmp/
 RUN npm update -g npm && npm install
 
 # -----------------------------------------------------------------------------
-FROM python:3.11-slim-buster
+FROM python:3.11-slim-bookworm
 
 ENV PYTHONPATH=/app/ \
     PYTHONHASHSEED=random \

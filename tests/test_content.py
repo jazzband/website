@@ -238,15 +238,15 @@ def test_newsflatpages_iteration(mocker):
 
     # Mock the parent __iter__ method
     news_pages = NewsFlatPages()
-    with mocker.patch.object(
+    mocker.patch.object(
         NewsFlatPages.__bases__[0], "__iter__", return_value=[mock_page]
-    ):
-        pages = list(news_pages)
+    )
+    pages = list(news_pages)
 
-        assert len(pages) == 1
-        # Check that published_date was added and is timezone-aware
-        assert "published_date" in pages[0].meta
-        assert pages[0].meta["published_date"].tzinfo is not None
+    assert len(pages) == 1
+    # Check that published_date was added and is timezone-aware
+    assert "published_date" in pages[0].meta
+    assert pages[0].meta["published_date"].tzinfo is not None
 
 
 def test_newsflatpages_sorting(mocker):
@@ -264,14 +264,14 @@ def test_newsflatpages_sorting(mocker):
     no_date_page.meta = {}  # No published date
 
     news_pages = NewsFlatPages()
-    with mocker.patch.object(
+    mocker.patch.object(
         NewsFlatPages.__bases__[0],
         "__iter__",
         return_value=[older_page, newer_page, no_date_page],
-    ):
-        pages = list(news_pages)
+    )
+    pages = list(news_pages)
 
-        # Should only include pages with published dates, newest first
-        assert len(pages) == 2
-        assert pages[0].meta["published"] == datetime(2023, 2, 1)
-        assert pages[1].meta["published"] == datetime(2023, 1, 1)
+    # Should only include pages with published dates, newest first
+    assert len(pages) == 2
+    assert pages[0].meta["published"] == datetime(2023, 2, 1)
+    assert pages[1].meta["published"] == datetime(2023, 1, 1)

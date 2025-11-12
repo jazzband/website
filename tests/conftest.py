@@ -24,7 +24,7 @@ def test_project_name():
 @pytest.fixture(scope="function")
 def app():
     """Flask application fixture."""
-    # Set environment variables needed for OAuth testing
+    # Set environment variables needed for OAuth testing.
     import os
 
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
