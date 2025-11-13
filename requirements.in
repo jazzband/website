@@ -12,7 +12,7 @@ delegator.py
 exceptiongroup
 feedgen
 flask
-flask-admin==2.0.0a4
+flask-admin==2.0.2
 flask-caching
 flask-compress
 Flask-Dance[sqla]
