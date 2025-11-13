@@ -1429,9 +1429,9 @@ sqlalchemy==2.0.41 \
     #   flask-dance
     #   flask-sqlalchemy
     #   sqlalchemy-utils
-sqlalchemy-utils==0.41.2 \
-    --hash=sha256:85cf3842da2bf060760f955f8467b87983fb2e30f1764fd0e24a48307dc8ec6e \
-    --hash=sha256:bc599c8c3b3319e53ce6c5c3c471120bd325d0071fb6f38a10e924e3d07b9990
+sqlalchemy-utils==0.42.0 \
+    --hash=sha256:6d1ecd3eed8b941f0faf8a531f5d5cee7cffa2598fcf8163de8c31c7a417a5e0 \
+    --hash=sha256:c8c0b7f00f4734f6f20e9a4d06b39d79d58c8629cba50924fcaeb20e28eb4f48
     # via -r requirements.in
 tomli==2.2.1 \
     --hash=sha256:023aa114dd824ade0100497eb2318602af309e5a55595f76b626d6d9f3b7b0a6 \
