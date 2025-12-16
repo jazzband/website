@@ -514,9 +514,9 @@ flask==3.1.1 \
     #   flask-wtf
     #   pytest-flask
     #   sentry-sdk
-flask-admin==2.0.0a4 \
-    --hash=sha256:141cf19de079d26db6d2d674b9a470449d6561a2ba1252eff61e597d981b72c7 \
-    --hash=sha256:dbe430eec1ad8918d130d522265910db7e9f49a5d4c12438175e0f61eb02c2a3
+flask-admin==2.0.2 \
+    --hash=sha256:1d06aec7efee957972b43f6b08a0bd08d5f4cf9a337d4ece2f17c98abc2a214e \
+    --hash=sha256:4b3c44068de0fe4630dfcd190cc11231cbbdd7bac315c74c55d1764087b8b273
     # via -r requirements.in
 flask-caching==2.3.1 \
     --hash=sha256:65d7fd1b4eebf810f844de7de6258254b3248296ee429bdcb3f741bcbf7b98c9 \
