@@ -9,9 +9,12 @@ This document provides guidelines for AI agents working on the Jazzband.co codeb
 This project uses **pytest** with the following conventions:
 
 - ✅ **Use pytest-mock's `mocker` fixture** - Available automatically via `pytest-mock` plugin
+- ✅ **Use `mocker.patch()` for patching** - Automatically cleaned up after each test
+- ✅ **Use `monkeypatch` fixture for simple attribute/env changes** - When full mocking isn't needed
 - ✅ **Function-based tests** - Not class-based test methods
 - ❌ **Never import `unittest.mock` or `mock`** - Use `mocker` fixture instead
-- ❌ **No `@patch` decorators** - Use `patch()` as context managers instead
+- ❌ **No `@patch` decorators** - Use `mocker.patch()` instead
+- ❌ **No `with patch()` context managers** - Use `mocker.patch()` instead
 
 ### Test Structure
 
@@ -21,10 +24,10 @@ def test_function_name(fixture1, fixture2, mocker):
     # Arrange - Set up test data and mocks
     mock_obj = mocker.MagicMock()
     mock_obj.method.return_value = expected_value
+    mock_something = mocker.patch("module.path.to.object")
 
     # Act - Call the function under test
-    with patch("module.path.to.object") as mock_something:
-        result = function_under_test(args)
+    result = function_under_test(args)
 
     # Assert - Verify the results
     assert result == expected_value
@@ -62,14 +65,14 @@ def test_with_database_query(mocker):
     mock_user = mocker.MagicMock()
     mock_user.login = "test-user"
 
-    with patch("module.path.User") as mock_user_class:
-        mock_user_class.query.get.return_value = mock_user
+    mock_user_class = mocker.patch("module.path.User")
+    mock_user_class.query.get.return_value = mock_user
 
-        # Your test code here
-        result = function_that_queries_user(user_id=123)
+    # Your test code here
+    result = function_that_queries_user(user_id=123)
 
-        # Verify the query was called
-        mock_user_class.query.get.assert_called_once_with(123)
+    # Verify the query was called
+    mock_user_class.query.get.assert_called_once_with(123)
 ```
 
 #### Mocking GitHub API Calls
@@ -77,19 +80,20 @@ def test_with_database_query(mocker):
 ```python
 def test_github_api_call(mocker, test_app_context):
     """Test function that calls GitHub API."""
-    with patch("jazzband.projects.tasks.github") as mock_github:
-        # Setup mock response
-        mock_response = mocker.MagicMock()
-        mock_response.status_code = 200
-        mock_response.json.return_value = {"success": True}
-        mock_github.some_method.return_value = mock_response
+    mock_github = mocker.patch("jazzband.projects.tasks.github")
 
-        # Call function
-        result = function_that_uses_github_api()
+    # Setup mock response
+    mock_response = mocker.MagicMock()
+    mock_response.status_code = 200
+    mock_response.json.return_value = {"success": True}
+    mock_github.some_method.return_value = mock_response
 
-        # Verify
-        mock_github.some_method.assert_called_once()
-        assert result is not None
+    # Call function
+    result = function_that_uses_github_api()
+
+    # Verify
+    mock_github.some_method.assert_called_once()
+    assert result is not None
 ```
 
 #### Mocking Multiple Related Objects
@@ -105,13 +109,13 @@ def test_with_multiple_mocks(mocker):
     mock_project.team_slug = "test-project"
     mock_project.leads_team_slug = "test-project-leads"
 
-    # Patch multiple classes
-    with patch("module.User") as mock_user_class:
-        with patch("module.Project") as mock_project_class:
-            mock_user_class.query.get.return_value = mock_user
-            mock_project_class.query.get.return_value = mock_project
+    # Patch multiple classes using mocker.patch
+    mock_user_class = mocker.patch("module.User")
+    mock_project_class = mocker.patch("module.Project")
+    mock_user_class.query.get.return_value = mock_user
+    mock_project_class.query.get.return_value = mock_project
 
-            # Test code here
+    # Test code here
 ```
 
 ### Testing GitHub API Methods
@@ -157,23 +161,24 @@ def test_task_function(mocker, test_app_context):
     mock_project = mocker.MagicMock()
     mock_project.name = "test-project"
 
-    # Patch database and GitHub
-    with patch("jazzband.projects.tasks.User") as mock_user_class:
-        with patch("jazzband.projects.tasks.Project") as mock_project_class:
-            with patch("jazzband.projects.tasks.github") as mock_github:
-                # Setup returns
-                mock_user_class.query.get.return_value = mock_user
-                mock_project_class.query.get.return_value = mock_project
+    # Patch database and GitHub using mocker.patch
+    mock_user_class = mocker.patch("jazzband.projects.tasks.User")
+    mock_project_class = mocker.patch("jazzband.projects.tasks.Project")
+    mock_github = mocker.patch("jazzband.projects.tasks.github")
 
-                mock_response = mocker.MagicMock()
-                mock_response.status_code = 200
-                mock_github.some_api_call.return_value = mock_response
+    # Setup returns
+    mock_user_class.query.get.return_value = mock_user
+    mock_project_class.query.get.return_value = mock_project
 
-                # Call the task
-                task_function(user_id, project_id)
+    mock_response = mocker.MagicMock()
+    mock_response.status_code = 200
+    mock_github.some_api_call.return_value = mock_response
 
-                # Verify interactions
-                mock_github.some_api_call.assert_called_once()
+    # Call the task
+    task_function(user_id, project_id)
+
+    # Verify interactions
+    mock_github.some_api_call.assert_called_once()
 ```
 
 ### Assertion Patterns
@@ -263,26 +268,27 @@ def test_add_user_to_team_lead_member(mocker, test_app_context):
     mock_project.team_slug = "test-project"
     mock_project.leads_team_slug = "test-project-leads"
 
-    # Mock User.query.get and Project.query.get
-    with patch("jazzband.projects.tasks.User") as mock_user_class:
-        with patch("jazzband.projects.tasks.Project") as mock_project_class:
-            with patch("jazzband.projects.tasks.github") as mock_github:
-                mock_user_class.query.get.return_value = mock_user
-                mock_project_class.query.get.return_value = mock_project
+    # Mock User.query.get and Project.query.get using mocker.patch
+    mock_user_class = mocker.patch("jazzband.projects.tasks.User")
+    mock_project_class = mocker.patch("jazzband.projects.tasks.Project")
+    mock_github = mocker.patch("jazzband.projects.tasks.github")
 
-                # Mock successful responses
-                mock_response = mocker.MagicMock()
-                mock_response.status_code = 200
-                mock_github.join_team.return_value = mock_response
+    mock_user_class.query.get.return_value = mock_user
+    mock_project_class.query.get.return_value = mock_project
 
-                # Call the task
-                add_user_to_team(user_id, project_id, is_lead)
+    # Mock successful responses
+    mock_response = mocker.MagicMock()
+    mock_response.status_code = 200
+    mock_github.join_team.return_value = mock_response
 
-                # Verify join_team was called twice (main team and leads team)
-                assert mock_github.join_team.call_count == 2
-                calls = mock_github.join_team.call_args_list
-                assert calls[0][0] == ("test-project", "test-lead")
-                assert calls[1][0] == ("test-project-leads", "test-lead")
+    # Call the task
+    add_user_to_team(user_id, project_id, is_lead)
+
+    # Verify join_team was called twice (main team and leads team)
+    assert mock_github.join_team.call_count == 2
+    calls = mock_github.join_team.call_args_list
+    assert calls[0][0] == ("test-project", "test-lead")
+    assert calls[1][0] == ("test-project-leads", "test-lead")
 ```
 
 ## Code Style
@@ -476,6 +482,11 @@ from unittest.mock import Mock, patch
 def test_function(mock_something):
     pass
 
+# Using with patch() context managers
+def test_function():
+    with patch("module.something") as mock_something:
+        pass
+
 # Class-based tests
 class TestSomething:
     def test_method(self):
@@ -485,14 +496,18 @@ class TestSomething:
 ### ✅ Do This Instead
 
 ```python
-# Use mocker fixture
+# Use mocker fixture for mocks
 def test_function(mocker):
     mock_obj = mocker.MagicMock()
 
-# Use patch as context manager
+# Use mocker.patch() for patching
 def test_function(mocker):
-    with patch("module.something") as mock_something:
-        pass
+    mock_something = mocker.patch("module.something")
+
+# Use monkeypatch for simple attribute changes
+def test_function(monkeypatch):
+    monkeypatch.setattr("module.CONSTANT", "new_value")
+    monkeypatch.setenv("ENV_VAR", "test_value")
 
 # Function-based tests
 def test_something(mocker):
