@@ -95,7 +95,16 @@ def index():
 
 class ProjectMixin:
     def project_query(self, name):
-        return Project.query.filter(Project.is_active.is_(True), Project.name == name)
+        """
+        Query for a project by normalized name (case-insensitive).
+
+        Uses the same PEP 426 normalization as PyPI: lowercase and
+        collapse runs of dots, underscores, and hyphens to a single hyphen.
+        """
+        return Project.query.filter(
+            Project.is_active.is_(True),
+            Project.normalized_name == func.normalize_pep426_name(name),
+        )
 
     def project_name(self, *args, **kwargs):
         name = kwargs.get("name")
@@ -109,6 +118,15 @@ class ProjectMixin:
     def dispatch_request(self, *args, **kwargs):
         name = self.project_name(*args, **kwargs)
         self.project = self.project_query(name).first_or_404()
+
+        # Redirect to canonical URL if the name doesn't match exactly
+        # (e.g., /projects/watson -> /projects/Watson)
+        if name != self.project.name:
+            return redirect(
+                url_for(request.endpoint, name=self.project.name),
+                code=301,
+            )
+
         return super().dispatch_request(*args, **kwargs)
 
 
