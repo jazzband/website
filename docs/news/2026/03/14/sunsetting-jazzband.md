@@ -81,9 +81,7 @@ regret prioritizing it, but it meant Jazzband got even less of my time.
 
 Meanwhile, GitHub moved in the opposite direction. Copilot launched in
 2022, trained on open source code that maintainers were burning out
-maintaining for free. GitHub Sponsors participation sits at
-[0.0014%](https://byteiota.com/open-source-maintainer-crisis-60-unpaid-burnout-hits-44/).
-60% of maintainers are still unpaid.
+maintaining for free. [60% of maintainers are still unpaid](https://www.theregister.com/2024/09/18/open_source_maintainers_underpaid).
 
 The [XZ Utils backdoor](https://en.wikipedia.org/wiki/XZ_Utils_backdoor)
 in 2024 showed what happens when a lone maintainer burns out and someone
