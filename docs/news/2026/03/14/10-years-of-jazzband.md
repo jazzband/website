@@ -58,44 +58,52 @@ members and 55 projects. Here's where things stand now:
 ### How Jazzband was actually used
 
 The numbers above only tell part of the story. Here's what's more
-interesting:
+interesting.
 
-**20 active projects never shipped a single release through Jazzband's
-pipeline.** Projects like Watson (2,515 stars), django-rest-knox (1,255),
-and django-admin2 (1,187) used Jazzband as a collaborative home – for
-shared access, triage, and maintenance – not for releases. The release
-pipeline was useful for the projects that used it, but it wasn't what
-made Jazzband work for most people.
+#### Not everyone used the release pipeline
 
-**Some of these projects are ancient.** django-avatar's repo was created
-in 2008 and shipped its most recent Jazzband release in January 2026 –
-a 17-year-old repo still getting releases. django-axes (2009),
-sorl-thumbnail (2010), django-constance (2010), and 18 other projects
-created before 2015 were all still getting releases in 2025 or 2026.
-Jazzband kept old projects alive long after their original authors moved
-on. That was the whole point.
+20 active projects never shipped a single release through it. Projects
+like Watson (2,515 stars), django-rest-knox (1,255), and django-admin2
+(1,187) used Jazzband as a collaborative home – for shared access,
+triage, and maintenance – not for releases. The pipeline was useful
+for the projects that used it, but it wasn't what made Jazzband work
+for most people.
 
-**django-axes had the most active release cadence.** 253 release files
-across 127 versions, peaking at 28 versions in 2019 – roughly one every
-13 days. pip-tools was second at 138 releases / 69 versions.
+#### Old projects stayed alive
 
-**pip-tools was its own community.** With 69 team members it dwarfed
-every other project (the next largest, djangorestframework-simplejwt,
-had 24). It was basically a sub-organization within Jazzband.
+django-avatar's repo was created in 2008 and shipped its most recent
+Jazzband release in January 2026 – a 17-year-old repo still getting
+releases. django-axes (2009), sorl-thumbnail (2010), django-constance
+(2010), and 18 other projects created before 2015 were all still
+getting releases in 2025 or 2026. Jazzband kept old projects alive
+long after their original authors moved on. That was the whole point.
 
-**7 active projects have no team members at all** – django-permission,
-django-mongonaut, and five others. Nobody was actively working on them,
-but they had a home and stayed installable. And two projects joined as
-recently as 2024 (django-tagging, django-summernote) with single-digit
-stars and zero releases – people were still finding value in the model
-right up to the end.
+#### Release cadence varied wildly
 
-**The open access model was genuinely controversial.** When
-django-newsletter
+django-axes had the most active release cadence: 253 release files
+across 127 versions, peaking at 28 versions in 2019 – roughly one
+every 13 days. pip-tools was second at 138 releases / 69 versions.
+
+Meanwhile, 7 active projects have no team members at all –
+django-permission, django-mongonaut, and five others. Nobody was
+actively working on them, but they had a home and stayed installable.
+
+#### pip-tools was its own community
+
+With 69 team members it dwarfed every other project (the next largest,
+djangorestframework-simplejwt, had 24). It was basically a
+sub-organization within Jazzband. And two projects joined as recently
+as 2024 (django-tagging, django-summernote) with single-digit stars
+and zero releases – people were still finding value in the model right
+up to the end.
+
+#### The open access model was genuinely controversial
+
+When django-newsletter
 [transferred in](https://github.com/jazzband/django-newsletter/issues/343),
-its author @dokterbob worried that giving 800 members write access would
-"dissolve the responsibility so much that it might actually reduce
-participation." I wrote a long reply defending the open model.
+its author @dokterbob worried that giving 800 members write access
+would "dissolve the responsibility so much that it might actually
+reduce participation." I wrote a long reply defending the open model.
 
 An earlier project, Collectfast,
 [actually left Jazzband](https://github.com/jazzband/help/issues/72)
@@ -105,14 +113,18 @@ discussions about code review processes, branch protection, and what
 "open access" should actually mean. The tension between openness and
 control was never fully resolved.
 
-**Moderation was another solo job.** Over the years I had to block 10
-accounts from the GitHub organization – first crypto spammers who
-joined just to be in the org, then community conflicts that needed
-real moderation decisions, and finally the AI-driven spam that made
-the open model untenable. None of that is unusual for an organization
-this size, but it all went through one person.
+#### Moderation was another solo job
 
-**Every transferred project got an onboarding checklist** – a webhook
+Over the years I had to block 10 accounts from the GitHub
+organization – first crypto spammers who joined just to be in the
+org, then community conflicts that needed real moderation decisions,
+and finally the AI-driven spam that made the open model untenable.
+None of that is unusual for an organization this size, but it all
+went through one person.
+
+#### The onboarding bottleneck
+
+Every transferred project got an onboarding checklist – a webhook
 automatically opened an "Implement Jazzband guidelines" issue with
 TODOs like fixing links, adding badges, setting up CI, adding
 `jazzband` to PyPI, deciding on a project lead. 41 projects got one
