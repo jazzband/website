@@ -20,20 +20,14 @@ well as finding new avenues of development.
 
 In short, it's cooperative coding.
 
-### Joining
+### Sunsetting
 
-When you join you will be...
+Jazzband is sunsetting after more than 10 years of operation.
+New memberships are no longer available. See the
+[announcement](/news/2026/03/14/sunsetting-jazzband) and
+[wind-down plan](/news/2026/03/14/wind-down-plan) for details.
 
-- automatically added to the Jazzband GitHub organization
-- granted a wide range of privileges, e.g. pushing to repositories
-
-After that, you can go ahead and do things like...
-
-- move repos that follow the [guidelines](/about/guidelines) into the Jazzband organization
-- start working on an already existing Jazzband [project](/projects)
-- do [[releases]] on PyPI automatically via GitHub Actions
-
-You can [login here](/account/login) to join Jazzband.
+Existing members retain access during the transition period.
 
 ### Conduct
 

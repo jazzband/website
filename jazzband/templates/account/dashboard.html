@@ -11,26 +11,13 @@
   {% if not current_user.is_member %}
   <div class="admonition">
     <p class="admonition-title">
-      One more step to become a full Jazzband member:
+      Jazzband is sunsetting
     </p>
     <p>
-      You've successfully logged in using GitHub but haven't become
-      a member of the
-      <a href="https://github.com/jazzband">Jazzband GitHub organization</a>
-      just yet!
-    </p>
-    <p>
-      As the next step, GitHub needs to send you an invitation via email to
-      join our GitHub organization. That's a <i>security precaution</i>,
-      please follow the instructions in the email and accept the invitation
-      to proceed.
-    </p>
-    <p>
-       Click here: <a href="{{ url_for('account.join') }}">Send invitation now</a>
-    </p>
-    <p>
-      In case you've already sent the invitation, please double-check the
-      spam folder of your email account.
+      Jazzband is no longer accepting new members. After more than 10 years,
+      we are winding down operations. See the
+      <a href="{{ url_for('content.news', path='2026/03/14/sunsetting-jazzband') }}">announcement</a>
+      for details.
     </p>
   </div>
   {% endif %}
@@ -126,10 +113,10 @@
   <p>
   {% if current_user.is_member %}
     Do you want to <a href="{{ url_for('.leave') }}">leave the Jazzband</a>?
-  {% else %}
-    Do you want to <a href="{{ url_for('.join') }}">join the Jazzband again</a>?
-  {% endif %}
     Or simply <a href="{{ url_for('.logout') }}">logout</a>?
+  {% else %}
+    <a href="{{ url_for('.logout') }}">Logout</a>
+  {% endif %}
   </p>
 </div>
 {% endblock %}

@@ -156,26 +156,13 @@ class JoinView(ProjectMixin, MethodView):
     """
 
     methods = ["GET"]
-    decorators = [
-        member_required(message="You currently can't join this project"),
-        login_required,
-    ]
+    decorators = [login_required]
 
     def get(self, name):
-        response = github.join_team(self.project.team_slug, current_user.login)
-        if response and response.status_code == 200:
-            membership = self.project.membership.filter(
-                ProjectMembership.user_id == current_user.id,
-            ).first()
-            if not membership:
-                # create a new project membership
-                membership = ProjectMembership(
-                    user_id=current_user.id, project_id=self.project.id
-                )
-                membership.save()
-            flash(f"You have joined the {self.project.name} team.")
-        else:
-            flash(f"Something went wrong while joining the {self.project.name} team.")
+        flash(
+            "Jazzband is sunsetting and project team changes are disabled. "
+            "See the news section for details."
+        )
         return self.redirect_to_project()
 
 

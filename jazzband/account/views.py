@@ -164,40 +164,12 @@ def callback(blueprint, token):
 
 @account.route("/join")
 @login_required
-@templated()
 def join():
-    next_url = default_url()
-
-    if current_user.is_banned:
-        flash("You've been banned from Jazzband")
-        logout_user(current_user)
-        return redirect(next_url)
-    elif current_user.is_restricted:
-        flash("Your account is currently restricted")
-        logout_user(current_user)
-        return redirect(next_url)
-    elif current_user.is_member:
-        flash("You're already a member of Jazzband")
-        return redirect(next_url)
-
-    if not current_user.has_verified_emails:
-        sync_email_addresses(current_user.id)
-    has_verified_emails = current_user.has_verified_emails
-
-    invited = False
-    if has_verified_emails:
-        invitation = github.join_organization(current_user.login)
-        invited = invitation and invitation.status_code == 200
-        if invited:
-            flash(
-                "To finish joining, please accept the invitation GitHub sent you via email!"
-            )
-
-    return {
-        "invited": invited,
-        "org_name": github.org_name,
-        "has_verified_emails": has_verified_emails,
-    }
+    flash(
+        "Jazzband is sunsetting and no longer accepting new members. "
+        "See the news section for details."
+    )
+    return redirect(default_url())
 
 
 @account.route("/leave", methods=["GET", "POST"])
