@@ -6,8 +6,10 @@ author_link: https://github.com/jezdez
 summary: The detailed plan for sunsetting Jazzband, including timeline,
          project transfers, and what happens next.
 
-**TL;DR:** Signups disabled now. Project leads contacted by May.
-Transfers June–December 2026. Org archived early 2027.
+!!! note "TL;DR"
+
+    Signups disabled now. Project leads contacted by May. Transfers
+    June–December 2026. Org archived early 2027.
 
 This post outlines the plan for winding down Jazzband. If you haven't
 read them yet, see the
@@ -99,16 +101,17 @@ donated to the Python Software Foundation's general fund.
 
 ### For project leads
 
-If you're a project lead, here's what to expect:
+!!! note "If you're a project lead, here's what to expect"
 
-1. **You'll receive an email** with details specific to your project(s)
-2. **Decide on a new home** for your project – your personal GitHub
-   account, a new organization, or another collaborative group like
-   [Django Commons](https://django-commons.org/)
-3. **Coordinate the transfer** – we'll handle the GitHub repo transfer
-   and help with PyPI ownership changes
-4. **Update your project** – CI/CD, documentation links, and any
-   Jazzband-specific references
+    1. **You'll receive an email** with details specific to your
+       project(s)
+    2. **Decide on a new home** for your project – your personal GitHub
+       account, a new organization, or another collaborative group like
+       [Django Commons](https://django-commons.org/)
+    3. **Coordinate the transfer** – we'll handle the GitHub repo
+       transfer and help with PyPI ownership changes
+    4. **Update your project** – CI/CD, documentation links, and any
+       Jazzband-specific references
 
 Several projects have already successfully transferred to
 [Django Commons](https://django-commons.org/), including

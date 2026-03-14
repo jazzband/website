@@ -5,11 +5,13 @@ author: Jannis Leidel
 author_link: https://github.com/jezdez
 summary: After more than 10 years, Jazzband is sunsetting.
 
-**TL;DR:** Jazzband is sunsetting. New signups are disabled. Project
-leads will be contacted before PyCon US 2026 to coordinate transfers.
-The [wind-down plan](/news/2026/03/14/wind-down-plan) has the timeline,
-the [retrospective](/news/2026/03/14/10-years-of-jazzband) has the
-full story.
+!!! note "TL;DR"
+
+    Jazzband is sunsetting. New signups are disabled. Project leads will
+    be contacted before PyCon US 2026 to coordinate transfers. The
+    [wind-down plan](/news/2026/03/14/wind-down-plan) has the timeline,
+    the [retrospective](/news/2026/03/14/10-years-of-jazzband) has the
+    full story.
 
 [Over 10 years ago](/news/2015/12/17/launching-jazzband), Jazzband started
 as a cooperative experiment to reduce the stress of maintaining Open Source
@@ -132,11 +134,13 @@ I'm not pulling the plug overnight. There is a
 [detailed wind-down plan](/news/2026/03/14/wind-down-plan) that covers
 the timeline, but the short version:
 
-- **New signups are disabled** as of today
-- **Project leads will be contacted** before PyCon US 2026 to coordinate
-  transferring projects to new homes
-- **The GitHub organization and website** will remain available during
-  the transition period through end of 2026
+!!! note "Timeline"
+
+    - **New signups are disabled** as of today
+    - **Project leads will be contacted** before PyCon US 2026 to
+      coordinate transferring projects to new homes
+    - **The GitHub organization and website** will remain available
+      during the transition period through end of 2026
 
 If you're a project lead, expect an email soon.
 

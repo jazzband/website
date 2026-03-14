@@ -6,9 +6,11 @@ author_link: https://github.com/jezdez
 summary: A retrospective on 10 years of Jazzband – the stats, the stories,
          and what actually happened.
 
-**TL;DR:** 3,135 members, 84 projects, 150M+ PyPI downloads/month,
-1,312 releases. Read on for what worked, what didn't, and what
-actually happened behind the numbers.
+!!! note "TL;DR"
+
+    3,135 members, 84 projects, 150M+ PyPI downloads/month, 1,312
+    releases. Read on for what worked, what didn't, and what actually
+    happened behind the numbers.
 
 Jazzband is [sunsetting](/news/2026/03/14/sunsetting-jazzband). Before
 moving on, here's a look at what 10 years of cooperative coding actually
