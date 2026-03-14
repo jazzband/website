@@ -11,8 +11,6 @@ The [wind-down plan](/news/2026/03/14/wind-down-plan) has the timeline,
 the [retrospective](/news/2026/03/14/10-years-of-jazzband) has the
 full story.
 
----
-
 [Over 10 years ago](/news/2015/12/17/launching-jazzband), Jazzband started
 as a cooperative experiment to reduce the stress of maintaining Open Source
 software projects. The idea was simple – everyone who joins gets access to
