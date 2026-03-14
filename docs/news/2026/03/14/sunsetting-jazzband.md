@@ -55,9 +55,9 @@ volunteers did step up they'd quietly step back after a while. That's
 not a criticism of them, it's just how volunteer work goes when there's
 no structure to support it.
 
-The result was the same though: every release request, every project
-transfer, every lead assignment, every PyPI permission change – it all
-went through me.
+The result was the same though: every project transfer, every lead
+assignment, every PyPI permission change, every infrastructure
+decision – it all went through me.
 
 #### The warnings
 
