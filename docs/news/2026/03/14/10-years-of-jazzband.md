@@ -68,12 +68,13 @@ interesting.
 
 #### Not everyone used the release pipeline
 
-20 active projects never shipped a single release through it. Projects
-like Watson (2,515 stars), django-rest-knox (1,255), and django-admin2
-(1,187) used Jazzband as a collaborative home – for shared access,
-triage, and maintenance – not for releases. The pipeline was useful
-for the projects that used it, but it wasn't what made Jazzband work
-for most people.
+20 active projects never shipped a single release through it. Some,
+like Watson (2,515 stars) and django-admin2 (1,187), didn't release
+at all while under Jazzband. Others, like django-rest-knox,
+django-fsm-log, and django-recurrence, published directly to PyPI
+on their own – bypassing the pipeline entirely. For these projects,
+Jazzband was a collaborative home for shared access and maintenance,
+not a release tool.
 
 #### Old projects stayed alive
 
