@@ -6,6 +6,11 @@ author_link: https://github.com/jezdez
 summary: The detailed plan for sunsetting Jazzband, including timeline,
          project transfers, and what happens next.
 
+**TL;DR:** Signups disabled now. Project leads contacted by May.
+Transfers June–December 2026. Org archived early 2027.
+
+---
+
 This post outlines the plan for winding down Jazzband. If you haven't
 read them yet, see the
 [sunsetting announcement](/news/2026/03/14/sunsetting-jazzband) for
