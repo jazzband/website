@@ -12,49 +12,47 @@ looked like.
 
 ### By the numbers
 
-[Five years in][stats-5-years], we had about 1,350 members and 55
-projects. Here's where things stand now:
-
-[stats-5-years]: /news/2021/06/04/stats-5-years
+[Five years in](/news/2021/06/04/stats-5-years), we had about 1,350
+members and 55 projects. Here's where things stand now:
 
 #### Members
 
-* **3,135 total members** over the years
-* **2,133 members** currently – a **68% retention rate** over 10 years
-* New members every year, peaking at **424 in 2022**
-* Members who left stayed an average of **510 days**
-* Based on GitHub profiles (only ~28% of members list a location),
-  members from at least **56 countries** across every continent but Antarctica – 36% Europe,
-  30% Asia, 22% North America, 7% South America, 3% Africa, 1% Oceania.
-  Real numbers are likely higher. And given how widely Python is used in
-  research, someone on Antarctica has probably pip-installed a Jazzband
-  project at some point
+- **3,135 total members** over the years
+- **2,133 members** currently – a **68% retention rate** over 10 years
+- New members every year, peaking at **424 in 2022**
+- Members who left stayed an average of **510 days**
+- Based on GitHub profiles (only ~28% of members list a location),
+  members from at least **56 countries** across every continent but
+  Antarctica – 36% Europe, 30% Asia, 22% North America, 7% South
+  America, 3% Africa, 1% Oceania. Real numbers are likely higher. And
+  given how widely Python is used in research, someone on Antarctica
+  has probably pip-installed a Jazzband project at some point
 
 #### Projects
 
-* **84 projects** total, **71 still active**
-* **13 projects** left again over the years
-* **~93,000 GitHub stars** across all projects
-* **~16,000 forks**
+- **84 projects** total, **71 still active**
+- **13 projects** left again over the years
+- **~93,000 GitHub stars** across all projects
+- **~16,000 forks**
 
 #### Activity
 
-* **~43,800 commits** across all repositories
-* **~15,600 pull requests**
-* **~12,200 issues**
+- **~43,800 commits** across all repositories
+- **~15,600 pull requests**
+- **~12,200 issues**
 
 #### Releases
 
-* **1,429 package uploads** via Jazzband's release pipeline
-* **1,312 releases to PyPI** across **56 projects** and **390 versions**
-* **281 MB** of release artifacts total
-* First upload in November 2017, most recent in March 2026
+- **1,429 package uploads** via Jazzband's release pipeline
+- **1,312 releases to PyPI** across **56 projects** and **390 versions**
+- **281 MB** of release artifacts total
+- First upload in November 2017, most recent in March 2026
 
 #### Project teams
 
-* **470 project team memberships**
-* **105 lead roles** across **81 project leads**
-* Most prolific leads: aleksihakli, hramezani, claudep, and camilonova
+- **470 project team memberships**
+- **105 lead roles** across **81 project leads**
+- Most prolific leads: aleksihakli, hramezani, claudep, and camilonova
   each maintained 4 projects
 
 ### How Jazzband was actually used
@@ -87,68 +85,66 @@ had 24). It was basically a sub-organization within Jazzband.
 
 **7 active projects have no team members at all** – django-permission,
 django-mongonaut, and five others. Nobody was actively working on them,
-but they had a home and stayed installable. And
-two projects joined as recently as 2024 (django-tagging, django-summernote)
-with single-digit stars and zero releases – people were still finding
-value in the model right up to the end.
+but they had a home and stayed installable. And two projects joined as
+recently as 2024 (django-tagging, django-summernote) with single-digit
+stars and zero releases – people were still finding value in the model
+right up to the end.
 
 **The open access model was genuinely controversial.** When
-django-newsletter [transferred in][newsletter-issue], its author
-@dokterbob worried that giving 800 members write access would "dissolve
-the responsibility so much that it might actually reduce participation."
-I wrote a long reply defending the open model. An earlier project,
-Collectfast, [actually left Jazzband][collectfast-issue] after a
-member pushed directly to master without review – merging commits the
-author had been holding off on. That incident led to real discussions
-about code review processes, branch protection, and what "open access"
-should actually mean. The tension between openness and control was never
-fully resolved.
+django-newsletter
+[transferred in](https://github.com/jazzband/django-newsletter/issues/343),
+its author @dokterbob worried that giving 800 members write access would
+"dissolve the responsibility so much that it might actually reduce
+participation." I wrote a long reply defending the open model.
 
-[newsletter-issue]: https://github.com/jazzband/django-newsletter/issues/343
-[collectfast-issue]: https://github.com/jazzband/help/issues/72
+An earlier project, Collectfast,
+[actually left Jazzband](https://github.com/jazzband/help/issues/72)
+after a member pushed directly to master without review – merging
+commits the author had been holding off on. That incident led to real
+discussions about code review processes, branch protection, and what
+"open access" should actually mean. The tension between openness and
+control was never fully resolved.
 
 **Moderation was another solo job.** Over the years I had to block 10
-accounts from the GitHub organization -- first crypto spammers who
+accounts from the GitHub organization – first crypto spammers who
 joined just to be in the org, then community conflicts that needed
 real moderation decisions, and finally the AI-driven spam that made
 the open model untenable. None of that is unusual for an organization
 this size, but it all went through one person.
 
 **Every transferred project got an onboarding checklist** – a webhook
-automatically opened an "Implement Jazzband guidelines" issue with TODOs
-like fixing links, adding badges, setting up CI, adding `jazzband` to
-PyPI, deciding on a project lead. 41 projects got one of these. 28
-completed it. 13 are still open. The pattern in those 13 is telling:
-contributors would do every item they could, then get stuck on things
-that required admin access – configuring webhooks, fixing CI checks,
-setting up the release pipeline – and wait for me. Sometimes for months.
-django-user-sessions' original author pinged me five times over two
-months about [broken CI checks][user-sessions-issue] only an admin could
-fix. Watson's lead asked twice to [remove legacy CI tools][watson-issue]
-blocking PR merges. The checklist was good. The bottleneck was me.
+automatically opened an "Implement Jazzband guidelines" issue with
+TODOs like fixing links, adding badges, setting up CI, adding
+`jazzband` to PyPI, deciding on a project lead. 41 projects got one
+of these. 28 completed it. 13 are still open.
 
-[user-sessions-issue]: https://github.com/jazzband/django-user-sessions/issues/105
-[watson-issue]: https://github.com/jazzband/Watson/issues/509
+The pattern in those 13 is telling: contributors would do every item
+they could, then get stuck on things that required admin access –
+configuring webhooks, fixing CI checks, setting up the release
+pipeline – and wait for me. Sometimes for months.
+
+django-user-sessions' original author pinged me five times over two
+months about
+[broken CI checks](https://github.com/jazzband/django-user-sessions/issues/105)
+only an admin could fix. Watson's lead asked twice to
+[remove legacy CI tools](https://github.com/jazzband/Watson/issues/509)
+blocking PR merges. The checklist was good. The bottleneck was me.
 
 ### Projects that moved on
 
 One of the earliest and most visible Jazzband projects was
-[django-debug-toolbar][ddt-in], transferred in back in 2016. It grew to
-over 8,000 stars under Jazzband before it [moved to Django
-Commons][ddt-out] in 2024.
+[django-debug-toolbar](https://github.com/jazzband/help/issues/20),
+transferred in back in 2016. It grew to over 8,000 stars under Jazzband
+before it
+[moved to Django Commons](https://github.com/jazzband/help/issues/369)
+in 2024.
 
-[ddt-in]: https://github.com/jazzband/help/issues/20
-[ddt-out]: https://github.com/jazzband/help/issues/369
-
-[django-simple-history][dsh-out], [django-oauth-toolkit][dot-out],
-[PrettyTable][prettytable-out], and [tablib][tablib-out] all moved on
+[django-simple-history](https://github.com/jazzband/help/issues/382),
+[django-oauth-toolkit](https://github.com/jazzband/help/issues/395),
+[PrettyTable](https://github.com/jazzband/help/issues/340), and
+[tablib](https://github.com/jazzband/help/issues/417) all moved on
 too, for similar reasons – they needed more autonomy than Jazzband's
 structure could provide.
-
-[dsh-out]: https://github.com/jazzband/help/issues/382
-[dot-out]: https://github.com/jazzband/help/issues/395
-[prettytable-out]: https://github.com/jazzband/help/issues/340
-[tablib-out]: https://github.com/jazzband/help/issues/417
 
 ### Downloads
 
@@ -182,20 +178,16 @@ downloads a month, and it isn't even a Django package. contextlib2,
 pathlib2, and geojson aren't either. Jazzband ended up being broader
 than the Django ecosystem it started in.
 
-django-debug-toolbar [ranked in the top three most used third-party
-packages][ddt-survey] in the Django Developers Survey and is featured in
-the [official Django tutorial][django-tutorial]. It spent 8 years under
-Jazzband before moving to Django Commons.
-
-[ddt-survey]: https://lp.jetbrains.com/django-developer-survey-2023/
-[django-tutorial]: https://docs.djangoproject.com/en/5.2/intro/tutorial08/
+django-debug-toolbar
+[ranked in the top three most used third-party packages](https://lp.jetbrains.com/django-developer-survey-2023/)
+in the Django Developers Survey and is featured in the
+[official Django tutorial](https://docs.djangoproject.com/en/5.2/intro/tutorial08/).
+It spent 8 years under Jazzband before moving to Django Commons.
 
 If you've come across Jazzband projects before, it was probably through
-the [Django News][django-news] newsletter, Python Weekly, or
-Opensource.com's [2020 piece on how Jazzband worked][opensource-interview].
-
-[django-news]: https://django-news.com/
-[opensource-interview]: https://opensource.com/article/20/2/python-maintained
+the [Django News](https://django-news.com/) newsletter, Python Weekly,
+or Opensource.com's
+[2020 piece on how Jazzband worked](https://opensource.com/article/20/2/python-maintained).
 
 ### Top 10 projects by stars
 
