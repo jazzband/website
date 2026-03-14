@@ -56,8 +56,8 @@ The wind-down will happen in phases over the course of 2026.
 - Remaining repositories archived
 - The Jazzband GitHub organization set to read-only
 - The jazzband.co website archived (with a redirect or static notice)
-- PSF Fiscal Sponsorship status concluded, remaining funds split
-  between the PSF and DSF
+- PSF Fiscal Sponsorship status concluded, remaining funds
+  distributed in coordination with the PSF
 
 ### What happens to...
 
@@ -96,9 +96,8 @@ this announcement and an archive of the project list.
 
 Jazzband's
 [PSF Fiscal Sponsorship](/news/2021/06/04/fiscal-sponsorship)
-status will be formally concluded. Any remaining funds will be
-split between the Python Software Foundation and the Django
-Software Foundation.
+status will be formally concluded. Distribution of any remaining
+funds will be coordinated with the PSF board.
 
 ### For project leads
 
