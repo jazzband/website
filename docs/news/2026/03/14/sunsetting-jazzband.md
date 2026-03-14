@@ -120,7 +120,7 @@ Projects that passed through Jazzband are downloaded over 150 million
 times a month – pip-tools at 23 million, prettytable at 42 million.
 django-debug-toolbar spent 8 years under Jazzband and ended up in the
 official Django tutorial. django-avatar, a repo from 2008, was still
-getting releases in 2026. And django-axes shipped 127 versions – a
+getting releases in 2026. And django-axes shipped 129 versions – a
 release every 13 days in its peak year.
 
 The [full 10-year retrospective](/news/2026/03/14/10-years-of-jazzband)

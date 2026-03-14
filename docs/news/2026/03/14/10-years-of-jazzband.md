@@ -81,15 +81,15 @@ not a release tool.
 django-avatar's repo was created in 2008 and shipped its most recent
 Jazzband release in January 2026 – a 17-year-old repo still getting
 releases. django-axes (2009), sorl-thumbnail (2010), django-constance
-(2010), and 18 other projects created before 2015 were all still
-getting releases in 2025 or 2026. Jazzband kept old projects alive
+(2010), and over 20 other projects created before 2015 were all
+still getting releases in 2025 or 2026. Jazzband kept old projects alive
 long after their original authors moved on. That was the whole point.
 
 #### Release cadence varied wildly
 
-django-axes had the most active release cadence: 253 release files
-across 127 versions, peaking at 28 versions in 2019 – roughly one
-every 13 days. pip-tools was second at 138 releases / 69 versions.
+django-axes had the most active release cadence: 258 release files
+across 129 versions, peaking at 28 versions in 2019 – roughly one
+every 13 days. pip-tools was second at 146 releases / 73 versions.
 
 Meanwhile, 7 active projects have no team members at all –
 django-permission, django-mongonaut, and five others. Nobody was
