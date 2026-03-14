@@ -16,8 +16,6 @@ But it's time to wind things down.
 
 ### What happened
 
-There's a short answer and a long answer.
-
 #### The slopocalypse
 
 GitHub's [slopocalypse](https://www.theregister.com/2026/02/18/godot_maintainers_struggle_with_draining/) –
