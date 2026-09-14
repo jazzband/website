@@ -231,20 +231,20 @@ Group related tests with comments:
 ```python
 # Tests for GitHub API methods
 
-def test_create_team():
-    ...
 
-def test_delete_team():
-    ...
+def test_create_team(): ...
+
+
+def test_delete_team(): ...
 
 
 # Tests for task functions
 
-def test_add_user_task():
-    ...
 
-def test_remove_user_task():
-    ...
+def test_add_user_task(): ...
+
+
+def test_remove_user_task(): ...
 ```
 
 ### Complete Example
@@ -351,6 +351,7 @@ def handle_insert(mapper, connection, target):
     """Called after a new row is inserted."""
     tasks.schedule(background_task, target.id)
 
+
 @postgres.event.listens_for(Model, "after_update")
 def handle_update(mapper, connection, target):
     """Called after a row is updated."""
@@ -359,6 +360,7 @@ def handle_update(mapper, connection, target):
         old_value = history.deleted[0] if history.deleted else None
         new_value = target.field_name
         # Handle the change
+
 
 @postgres.event.listens_for(Model, "after_delete")
 def handle_delete(mapper, connection, target):
@@ -407,7 +409,9 @@ tasks.schedule(task_name, arg1, arg2)
 
 # From view/command
 from ..tasks import spinach
+
 spinach.schedule(task_name, arg1, arg2)
+
 
 # Periodic task
 @tasks.task(name="periodic_task", periodicity=timedelta(minutes=30))
@@ -477,15 +481,18 @@ Examples:
 # Using unittest.mock instead of mocker
 from unittest.mock import Mock, patch
 
+
 # Using @patch decorator
 @patch("module.something")
 def test_function(mock_something):
     pass
 
+
 # Using with patch() context managers
 def test_function():
     with patch("module.something") as mock_something:
         pass
+
 
 # Class-based tests
 class TestSomething:
@@ -500,14 +507,17 @@ class TestSomething:
 def test_function(mocker):
     mock_obj = mocker.MagicMock()
 
+
 # Use mocker.patch() for patching
 def test_function(mocker):
     mock_something = mocker.patch("module.something")
+
 
 # Use monkeypatch for simple attribute changes
 def test_function(monkeypatch):
     monkeypatch.setattr("module.CONSTANT", "new_value")
     monkeypatch.setenv("ENV_VAR", "test_value")
+
 
 # Function-based tests
 def test_something(mocker):
