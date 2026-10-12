@@ -1,4 +1,5 @@
 import datetime
+from pathlib import Path
 
 import babel.dates
 from feedgen.feed import FeedGenerator
@@ -129,7 +130,13 @@ def news_feed():
         entry.id(url)
         entry.title(page.meta["title"])
         entry.summary(summary)
-        entry.content(content=str(page.html), type="html")
+        # A snapshot preserves syndicated text when the article is edited.
+        snapshot = Path(news_pages.root) / f"{page.path}.feed.html"
+        if snapshot.is_file():
+            feed_html = snapshot.read_text(encoding="utf-8")
+        else:
+            feed_html = str(page.html)
+        entry.content(content=feed_html, type="html")
 
         if author is not None:
             author = {"name": author}

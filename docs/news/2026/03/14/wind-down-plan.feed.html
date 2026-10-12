@@ -1,0 +1,100 @@
+<div class="admonition note">
+<p class="admonition-title">TL;DR</p>
+<p>Signups disabled now. Project leads contacted by May. Transfers
+June–December 2026. Org archived early 2027.</p>
+</div>
+<p>This post outlines the plan for winding down Jazzband. If you haven&rsquo;t
+read them yet, see the
+<a href="/news/2026/03/14/sunsetting-jazzband">sunsetting announcement</a> for
+context on why this is happening, and the
+<a href="/news/2026/03/14/10-years-of-jazzband">10-year retrospective</a> for the
+full story.</p>
+<h3>Timeline</h3>
+<p>The wind-down will happen in phases over the course of 2026.</p>
+<h4>Phase 1: Announcement (March 2026)</h4>
+<ul>
+<li>New member signups are <strong>disabled immediately</strong></li>
+<li>This announcement and wind-down plan are published</li>
+<li>Existing members retain access to the GitHub organization and all
+  repositories</li>
+</ul>
+<h4>Phase 2: Outreach (March – May 2026)</h4>
+<ul>
+<li>All <strong>80 project leads</strong> will be contacted via email to discuss
+  transferring their projects</li>
+<li>The goal is to have initial conversations with every lead before
+  <strong>PyCon US 2026</strong> (May 13–19 in Long Beach, CA)</li>
+<li>Leads who don&rsquo;t respond will be followed up with at PyCon US and
+  through other channels</li>
+</ul>
+<h4>Phase 3: Project Transfers (June – December 2026)</h4>
+<ul>
+<li>Projects will be transferred out of the Jazzband GitHub organization
+  to their new homes – whether that&rsquo;s a lead&rsquo;s personal account,
+  a new organization, or another collaborative group</li>
+<li>For each project, the transfer includes:<ul>
+<li><strong>GitHub repository</strong>: transferred to the new owner</li>
+<li><strong>PyPI package ownership</strong>: existing maintainers added, Jazzband
+  credentials removed</li>
+<li><strong>CI/CD configuration</strong>: updated to work outside Jazzband</li>
+</ul>
+</li>
+<li>Projects without an active lead or willing recipient will be
+  <strong>archived</strong> in the Jazzband GitHub organization</li>
+</ul>
+<h4>Phase 4: Wind Down (Early 2027)</h4>
+<ul>
+<li>Remaining repositories archived</li>
+<li>The Jazzband GitHub organization set to read-only</li>
+<li>The jazzband.co website archived (with a redirect or static notice)</li>
+<li>PSF Fiscal Sponsorship status concluded, remaining funds
+  distributed in coordination with the PSF</li>
+</ul>
+<h3>What happens to&hellip;</h3>
+<h4>&hellip;existing members?</h4>
+<p>You remain a member of the GitHub organization until it is archived.
+No action is needed on your part. If you&rsquo;d like to leave earlier,
+you can do so from your <a href="/account">account dashboard</a>.</p>
+<h4>&hellip;projects I contribute to?</h4>
+<p>The projects aren&rsquo;t going away – they&rsquo;re moving. Your contributions,
+issues, and pull requests will transfer with the repository to its
+new home. Git history is preserved.</p>
+<h4>&hellip;PyPI packages?</h4>
+<p>Package ownership on PyPI will be transferred to the project leads
+before the Jazzband release credentials are deactivated. If you&rsquo;re
+a project lead, we&rsquo;ll coordinate this with you directly.</p>
+<h4>&hellip;the Jazzband release pipeline?</h4>
+<p>The Jazzband-specific release pipeline (uploading via Twine to
+jazzband.co, then releasing to PyPI) will remain functional during
+the transition period. After transfer, projects will publish to
+PyPI directly using standard tooling.</p>
+<h4>&hellip;the website?</h4>
+<p>The jazzband.co website will remain online through the transition.
+After wind-down, it will be replaced with a static page linking to
+this announcement and an archive of the project list.</p>
+<h4>&hellip;the PSF Fiscal Sponsorship?</h4>
+<p>Jazzband&rsquo;s
+<a href="/news/2021/06/04/fiscal-sponsorship">PSF Fiscal Sponsorship</a>
+status will be formally concluded. Distribution of any remaining
+funds will be coordinated with the PSF board.</p>
+<h3>For project leads</h3>
+<div class="admonition note">
+<p class="admonition-title">If you&rsquo;re a project lead, here&rsquo;s what to expect</p>
+<ol>
+<li><strong>You&rsquo;ll receive an email</strong> with details specific to your
+   project(s)</li>
+<li><strong>Decide on a new home</strong> for your project – your personal GitHub
+   account, a new organization, or another collaborative group like
+   <a href="https://django-commons.org/">Django Commons</a></li>
+<li><strong>Coordinate the transfer</strong> – we&rsquo;ll handle the GitHub repo
+   transfer and help with PyPI ownership changes</li>
+<li><strong>Update your project</strong> – CI/CD, documentation links, and any
+   Jazzband-specific references</li>
+</ol>
+</div>
+<p>Several projects have already successfully transferred to
+<a href="https://django-commons.org/">Django Commons</a>, including
+django-debug-toolbar and django-simple-history. If you&rsquo;re looking for
+a place with shared maintenance and multiple admins, it&rsquo;s a good option.</p>
+<p>If you have questions or want to start the process early, please
+<a href="/about/contact">contact the roadies</a>.</p>
