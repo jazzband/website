@@ -58,7 +58,7 @@ spinach
 sqlalchemy<3.0
 sqlalchemy-utils
 tomli
-twine
+twine>=7.0.0
 URLObject
 walrus
 werkzeug
