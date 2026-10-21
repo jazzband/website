@@ -35,8 +35,8 @@ jeepney
 jinja2
 lxml
 markdown
-pip>=20.0
-pip-tools>6.13.0
+pip>=26.2.2
+pip-tools>=7.6.2
 psycopg2-binary
 pygments
 pytest
