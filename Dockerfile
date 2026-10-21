@@ -11,7 +11,7 @@ COPY . /tmp/
 RUN npm run build
 
 # -----------------------------------------------------------------------------
-FROM python:3.11-slim-buster
+FROM python:3.11-slim-bookworm
 
 ENV PYTHONPATH=/app/ \
     PYTHONHASHSEED=random \

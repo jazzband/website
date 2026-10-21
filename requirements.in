@@ -3,7 +3,7 @@ babel
 backports.tarfile
 blinker
 brotli
-certifi
+certifi>=2026.10.19
 chardet
 click
 click-log

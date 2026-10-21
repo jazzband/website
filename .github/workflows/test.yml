@@ -2,7 +2,7 @@ name: Test
 
 permissions:
   contents: read
-  packages: write
+  packages: read
 
 on:
   push:
@@ -15,13 +15,21 @@ on:
     types:
       - published
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 env:
   REGISTRY: ghcr.io
   BASE_IMAGE_NAME: ${{ github.repository }}/base
 
 jobs:
   build:
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     outputs:
       image-tag: ${{ steps.meta.outputs.tags }}
       image-digest: ${{ steps.build.outputs.digest }}
@@ -47,17 +55,17 @@ jobs:
         id: deps-hash
         run: |
           DEPS_HASH=$(cat requirements.txt package.json package-lock.json | sha256sum | cut -d' ' -f1)
-          echo "hash=$DEPS_HASH" >> $GITHUB_OUTPUT
+          echo "hash=$DEPS_HASH" >> "$GITHUB_OUTPUT"
 
       - name: Check if base image exists
         id: cache-check
         run: |
           # Check if an image with this dependency hash already exists
           if docker manifest inspect ${{ env.REGISTRY }}/${{ env.BASE_IMAGE_NAME }}:deps-${{ steps.deps-hash.outputs.hash }} > /dev/null 2>&1; then
-            echo "cache-hit=true" >> $GITHUB_OUTPUT
+            echo "cache-hit=true" >> "$GITHUB_OUTPUT"
             echo "Base image cache hit!"
           else
-            echo "cache-hit=false" >> $GITHUB_OUTPUT
+            echo "cache-hit=false" >> "$GITHUB_OUTPUT"
             echo "Base image cache miss, will build new image"
           fi
 
@@ -93,15 +101,11 @@ jobs:
             DEPS_HASH=${{ steps.deps-hash.outputs.hash }}
 
   test:
+    if: ${{ !cancelled() && (needs.build.result == 'success' || needs.build.result == 'skipped') }}
     runs-on: ubuntu-latest
     needs: build
 
     steps:
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.12.1
-        with:
-          access_token: ${{ github.token }}
-
       - uses: actions/checkout@v6
 
       - name: Log in to Container Registry
@@ -119,13 +123,10 @@ jobs:
       - name: Create .env file
         run: make envvar
 
-      - name: Pull base image
-        run: |
-          docker pull ${{ env.REGISTRY }}/${{ env.BASE_IMAGE_NAME }}:deps-${{ needs.build.outputs.deps-hash }}
+      - name: Pull or build base image
+        run: make check-base
 
       - name: Build application image
-        env:
-          BASE_IMAGE: ${{ env.REGISTRY }}/${{ env.BASE_IMAGE_NAME }}:deps-${{ needs.build.outputs.deps-hash }}
         run: make build-app
 
       - name: Run tests
@@ -135,16 +136,17 @@ jobs:
           COVERAGE_XML: /app/coverage.xml
         run: |
           # Create coverage output directory
-          mkdir -p $PWD/coverage-data
-          chmod 777 $PWD/coverage-data
+          mkdir -p "$PWD/coverage-data"
+          chmod 777 "$PWD/coverage-data"
 
           # Run tests with volume mount for coverage output
           docker compose run --rm \
             -e COVERAGE_FILE \
             -e COVERAGE_XML \
-            -v $PWD/coverage-data:/app/coverage-data \
+            -v "$PWD/coverage-data:/app/coverage-data" \
             -u root \
             web sh -c "
+              set -e
               pytest tests/ --cov=jazzband --cov-report=xml --cov-report=term
               cp /app/coverage.xml /app/coverage-data/coverage.xml
               chmod 644 /app/coverage-data/coverage.xml
