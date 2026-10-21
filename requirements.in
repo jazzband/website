@@ -7,7 +7,7 @@ certifi>=2026.10.19
 chardet
 click
 click-log
-cryptography
+cryptography>=50.0.2
 delegator.py
 exceptiongroup
 feedgen
@@ -34,13 +34,13 @@ itsdangerous
 jaraco-context
 jeepney
 jinja2
-lxml
+lxml>=6.1.3
 mako>=1.4.3
-markdown
+markdown>=3.8.2
 pip>=26.2.2
 pip-tools>=7.6.2
 psycopg2-binary
-pygments
+pygments>=2.20.0
 pytest
 pytest-cov
 pytest-datadir
