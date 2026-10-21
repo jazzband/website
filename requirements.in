@@ -35,6 +35,7 @@ jaraco-context
 jeepney
 jinja2
 lxml
+mako>=1.4.3
 markdown
 pip>=26.2.2
 pip-tools>=7.6.2
@@ -48,6 +49,7 @@ pytest-flask
 pytest-mock
 codecov
 python-decouple
+python-dotenv>=1.2.4
 pytz
 redis
 requests[security]>=2.34.2
@@ -63,7 +65,7 @@ twine>=7.0.0
 urllib3>=2.8.0
 URLObject
 walrus
-werkzeug
+werkzeug>=3.1.9
 whitenoise[brotli]
 wrapt
 wtforms
