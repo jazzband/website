@@ -1,0 +1,123 @@
+<div class="admonition note">
+<p class="admonition-title">TL;DR</p>
+<p>Jazzband is sunsetting. New signups are disabled. Project leads will
+be contacted before PyCon US 2026 to coordinate transfers. The
+<a href="/news/2026/03/14/wind-down-plan">wind-down plan</a> has the timeline,
+the <a href="/news/2026/03/14/10-years-of-jazzband">retrospective</a> has the
+full story.</p>
+</div>
+<p><a href="/news/2015/12/17/launching-jazzband">Over 10 years ago</a>, Jazzband started
+as a cooperative experiment to reduce the stress of maintaining Open Source
+software projects. The idea was simple – everyone who joins gets access to
+push code, triage issues, merge pull requests. <em>&ldquo;We are all part of this.&rdquo;</em></p>
+<p>It had a good run. More than 10 years, actually.</p>
+<p>But it&rsquo;s time to wind things down.</p>
+<h3>What happened</h3>
+<h4>The slopocalypse</h4>
+<p>GitHub&rsquo;s <a href="https://www.theregister.com/2026/02/18/godot_maintainers_struggle_with_draining/">slopocalypse</a> –
+the flood of AI-generated spam PRs and issues – has made Jazzband&rsquo;s model
+of open membership and shared push access untenable.</p>
+<p>Jazzband was designed for a world where the worst case was someone
+accidentally merging the wrong PR. In a world where
+<a href="https://www.devclass.com/ai-ml/2026/02/19/github-itself-to-blame-for-ai-slop-prs-say-devs/4091420">only 1 in 10 AI-generated PRs meets project standards</a>,
+where curl had to
+<a href="https://daniel.haxx.se/blog/2026/01/26/the-end-of-the-curl-bug-bounty/">shut down its bug bounty</a>
+because confirmation rates dropped below 5%, and where GitHub&rsquo;s own
+response was a
+<a href="https://www.theregister.com/2026/02/03/github_kill_switch_pull_requests_ai">kill switch to disable pull requests entirely</a> –
+an organization that gives push access to everyone who joins simply
+can&rsquo;t operate safely anymore.</p>
+<h4>The one-roadie problem</h4>
+<p>But honestly, the cracks have been showing for much longer than that.</p>
+<p>Jazzband was always a one-roadie operation. People
+<a href="https://github.com/jazzband/help/issues/196">asked for more roadies</a>
+and
+<a href="https://github.com/jazzband/help/issues/423">offered to help</a>
+over the years, and I tried a number of times to make it work – but it
+never stuck. I dropped the ball on organizing it properly, and when
+volunteers did step up they&rsquo;d quietly step back after a while. That&rsquo;s
+not a criticism of them, it&rsquo;s just how volunteer work goes when there&rsquo;s
+no structure to support it.</p>
+<p>The result was the same though: every project transfer, every lead
+assignment, every PyPI permission change, every infrastructure
+decision – it all went through me.</p>
+<h4>The warnings</h4>
+<p>The <a href="https://github.com/jazzband/help/issues/125">sustainability question</a>
+was raised as early as 2017. I gave a
+<a href="https://www.youtube.com/watch?v=n8EEhdFUl90">keynote at DjangoCon Europe 2021</a>
+about it – five years in. In that talk I said out loud that the &ldquo;social
+coding&rdquo; experiment had failed to create an equitable community, and that
+a sustainable solution didn&rsquo;t exist without serious financial support.</p>
+<p>The roadmap I presented – revamp infrastructure, grow the management
+team, formalize guidelines, reach out for funding – none of that
+happened. The <a href="/news/2021/06/04/fiscal-sponsorship">PSF fiscal sponsorship</a>
+was the one thing that did.</p>
+<p>In the years since, I&rsquo;ve been on the PSF board – which faced its own
+crises – and now serve as PSF chair. That work matters and I don&rsquo;t
+regret prioritizing it, but it meant Jazzband got even less of my time.</p>
+<h4>GitHub went the other way</h4>
+<p>Meanwhile, GitHub moved in the opposite direction. Copilot launched in
+2022, trained on open source code that maintainers were burning out
+maintaining for free. <a href="https://www.theregister.com/2024/09/18/open_source_maintainers_underpaid">60% of maintainers are still unpaid</a>.</p>
+<p>The <a href="https://en.wikipedia.org/wiki/XZ_Utils_backdoor">XZ Utils backdoor</a>
+in 2024 showed what happens when a lone maintainer burns out and someone
+malicious fills the gap. And Jazzband&rsquo;s own infrastructure started
+<a href="https://github.com/jazzband/help/issues/393">getting in the way</a> of
+the projects it was supposed to help – the release pipeline couldn&rsquo;t
+support
+<a href="https://github.com/jazzband/help/issues/384">trusted publishing</a>,
+projects that needed admin access were stuck.</p>
+<p>So projects started leaving. And that&rsquo;s OK – that was always supposed
+to be part of the deal.</p>
+<h4>Django Commons</h4>
+<p>I want to specifically thank <a href="https://django-commons.org/">Django Commons</a>
+and Tim Schilling for picking up where Jazzband fell short. They have
+5 admins, 15 active projects (including django-debug-toolbar,
+django-simple-history, and django-cookie-consent from Jazzband), and
+django-polymorphic is
+<a href="https://github.com/django-commons/membership/issues/445">transferring over right now</a>.
+They solved the governance problem from day one. If you&rsquo;re a Jazzband
+project lead looking for a new home for your Django project, start there.</p>
+<p>For non-Django projects like pip-tools, contextlib2, geojson, or
+tablib – I&rsquo;m not aware of an equivalent. If someone wants to build
+one for the broader Python tooling ecosystem, I&rsquo;d love to see it.</p>
+<h4>By the numbers</h4>
+<p>Over 10 years, Jazzband grew to 3,135 members from every continent
+but Antarctica, maintained 84 projects with ~93,000 GitHub stars,
+and shipped 1,312 releases to PyPI.</p>
+<p>Projects that passed through Jazzband are downloaded over 150 million
+times a month – pip-tools at 23 million, prettytable at 42 million.
+django-debug-toolbar spent 8 years under Jazzband and ended up in the
+official Django tutorial. django-avatar, a repo from 2008, was still
+getting releases in 2026. And django-axes shipped 129 versions – a
+release every 13 days in its peak year.</p>
+<p>The <a href="/news/2026/03/14/10-years-of-jazzband">full 10-year retrospective</a>
+has all the numbers, the stories, and what actually happened.</p>
+<h3>What happens next</h3>
+<p>I&rsquo;m not pulling the plug overnight. There is a
+<a href="/news/2026/03/14/wind-down-plan">detailed wind-down plan</a> that covers
+the timeline, but the short version:</p>
+<div class="admonition note">
+<p class="admonition-title">Timeline</p>
+<ul>
+<li><strong>New signups are disabled</strong> as of today</li>
+<li><strong>Project leads will be contacted</strong> before PyCon US 2026 to
+  coordinate transferring projects to new homes</li>
+<li><strong>The GitHub organization and website</strong> will remain available
+  during the transition period through end of 2026</li>
+</ul>
+</div>
+<p>If you&rsquo;re a project lead, expect an email soon.</p>
+<h3>Thank you</h3>
+<p>None of this would have been possible without the people who showed
+up – strangers on the internet who decided to maintain something
+together. Thanks to the 81 project leads who kept things going despite
+the bottlenecks I created, and to everyone who joined, contributed,
+filed issues, and shipped releases over the years.</p>
+<p>I started Jazzband because maintaining Open Source alone was exhausting.
+The irony of then becoming a single point of failure for 71 projects is
+not lost on me. But the experiment worked in the ways that mattered –
+projects got maintained, releases got shipped, people collaborated.</p>
+<p>Anyways, the projects will move on to new homes, and that&rsquo;s fine. That
+was always the point.</p>
+<p><strong>We are all part of this.</strong></p>

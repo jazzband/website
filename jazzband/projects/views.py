@@ -598,6 +598,7 @@ class UploadReleaseView(UploadLeadsActionView):
             message = "Releasing is currently out of service"
             flash(message)
             logging.info(message)
+            return self.redirect_to_project()
 
         if self.upload.released_at:
             flash(

@@ -1,158 +1,88 @@
-"""
-Tests for the projects index page functionality, including the leads filter.
-"""
+"""Tests for the project list and its sorting controls."""
+
+from html.parser import HTMLParser
+from types import SimpleNamespace
+from urllib.parse import parse_qs, urlsplit
 
 from flask import url_for
+import pytest
 
 
-def test_projects_index_default_shows_all_projects(app, mocker):
-    """Test that projects index shows all projects by default."""
-    with app.test_client() as client:
-        # Mock the project query to return some test projects
-        mock_projects = mocker.MagicMock()
-        mock_projects.count.return_value = 3
-
-        # Use mocker.patch instead of unittest.mock
-        mock_query = mocker.patch("jazzband.projects.views.Project.query")
-        mock_query.filter.return_value.order_by.return_value = mock_projects
-
-        response = client.get(url_for("projects.index"))
-
-        assert response.status_code == 200
-        # Check that the default filter is 'all'
-        assert b"leads=all" not in response.data  # Default should not have filter param
-        assert b"All projects" in response.data
-
-
-def test_projects_index_filter_with_leads(app, mocker):
-    """Test that projects index can filter projects with leads."""
-    with app.test_client() as client:
-        # Mock the project query to return projects with leads
-        mock_projects = mocker.MagicMock()
-        mock_projects.count.return_value = 2
-
-        # Use mocker.patch for proper mocking
-        mock_query = mocker.patch("jazzband.projects.views.Project.query")
-        mock_filter = mocker.MagicMock()
-        mock_join = mocker.MagicMock()
-        mock_group_by = mocker.MagicMock()
-
-        # Setup the mock chain for with_leads filter
-        mock_query.filter.return_value = mock_filter
-        mock_filter.join.return_value = mock_join
-        mock_join.filter.return_value = mock_join
-        mock_join.group_by.return_value = mock_group_by
-        mock_group_by.order_by.return_value = mock_projects
-
-        response = client.get(url_for("projects.index", leads="yes"))
-
-        assert response.status_code == 200
-        assert b"leads=yes" in response.data
-        assert b"With leads" in response.data
-
-
-def test_projects_index_filter_without_leads(app, mocker):
-    """Test that projects index can filter projects without leads."""
-    with app.test_client() as client:
-        # Mock the project query to return projects without leads
-        mock_projects = mocker.MagicMock()
-        mock_projects.count.return_value = 1
-
-        # Use mocker.patch for proper mocking
-        mock_query = mocker.patch("jazzband.projects.views.Project.query")
-        mock_filter = mocker.MagicMock()
-        mock_subquery = mocker.MagicMock()
-        mock_final_filter = mocker.MagicMock()
-
-        # Setup the mock chain for without_leads filter
-        mock_query.filter.return_value = mock_filter
-        mock_query.join.return_value = mock_subquery
-        mock_subquery.filter.return_value = mock_subquery
-        mock_subquery.subquery.return_value = mock_subquery
-        mock_subquery.select.return_value = mock_subquery
-        mock_subquery.with_only_columns.return_value = mock_subquery
-        mock_filter.filter.return_value = mock_final_filter
-        mock_final_filter.order_by.return_value = mock_projects
-
-        response = client.get(url_for("projects.index", leads="no"))
-
-        assert response.status_code == 200
-        assert b"leads=no" in response.data
-        assert b"Without leads" in response.data
-
-
-def test_projects_index_filter_preserves_sorting(app, mocker):
-    """Test that projects index filter preserves existing sorting parameters."""
-    with app.test_client() as client:
-        # Mock the project query
-        mock_projects = mocker.MagicMock()
-        mock_projects.count.return_value = 2
-
-        # Use mocker.patch for proper mocking
-        mock_query = mocker.patch("jazzband.projects.views.Project.query")
-        mock_filter = mocker.MagicMock()
-        mock_join = mocker.MagicMock()
-        mock_group_by = mocker.MagicMock()
-
-        mock_query.filter.return_value = mock_filter
-        mock_filter.join.return_value = mock_join
-        mock_join.filter.return_value = mock_join
-        mock_join.group_by.return_value = mock_group_by
-        mock_group_by.order_by.return_value = mock_projects
-
-        # Test with sorting parameters
-        response = client.get(
-            url_for("projects.index", leads="yes", sorter="members", order="asc")
+@pytest.fixture
+def listed_projects(mocker):
+    projects = [
+        SimpleNamespace(
+            name=name,
+            description=f"Description of {name}",
+            membership_count=2,
+            uploads_count=1,
+            subscribers_count=0,
+            stargazers_count=0,
+            forks_count=0,
+            open_issues_count=0,
         )
+        for name in ["example-project", "another-project"]
+    ]
+    results = mocker.MagicMock()
+    results.count.return_value = len(projects)
+    results.__iter__.return_value = iter(projects)
+    query = mocker.patch("jazzband.projects.views.Project.query")
+    query.filter.return_value.order_by.return_value = results
+    return projects
+
+
+class LinkParser(HTMLParser):
+    def __init__(self, html):
+        super().__init__()
+        self.links = []
+        self.feed(html)
+
+    def handle_starttag(self, tag, attrs):
+        if tag == "a":
+            self.links.append(dict(attrs))
+
+
+def test_projects_index_renders_projects(app, listed_projects):
+    with app.test_client() as client:
+        response = client.get(url_for("projects.index"))
 
         assert response.status_code == 200
-        # Check that the filter links preserve sorting parameters
-        assert b"leads=yes&sorter=members&order=asc" in response.data
+        html = response.get_data(as_text=True)
+        assert "The following 2 Jazzband projects" in html
+        links = {link.get("href") for link in LinkParser(html).links}
+        for project in listed_projects:
+            assert url_for("projects.detail", name=project.name) in links
+            assert f">{project.name}</a>" in html
+            assert project.description in html
 
 
-def test_projects_index_filter_active_states(app, mocker):
-    """Test that projects index shows correct active filter states."""
+@pytest.mark.parametrize(
+    ("query", "selected", "next_order"),
+    [
+        ({}, "random", None),
+        ({"sorter": "name"}, "name", "desc"),
+        ({"sorter": "members", "order": "desc"}, "members", None),
+        ({"sorter": "unknown"}, "random", None),
+    ],
+)
+def test_projects_index_sorting_controls(
+    app, listed_projects, query, selected, next_order
+):
     with app.test_client() as client:
-        # Mock the project query
-        mock_projects = mocker.MagicMock()
-        mock_projects.count.return_value = 3
+        response = client.get(url_for("projects.index", **query))
 
-        # Use mocker.patch for proper mocking
-        mock_query = mocker.patch("jazzband.projects.views.Project.query")
-        mock_query.filter.return_value.order_by.return_value = mock_projects
-
-        # Test default (all projects)
-        response = client.get(url_for("projects.index"))
-        assert (
-            b'class="active"' in response.data
-        )  # All projects should be active by default
-
-        # Test with_leads filter
-        mock_filter = mocker.MagicMock()
-        mock_join = mocker.MagicMock()
-        mock_group_by = mocker.MagicMock()
-
-        mock_query.filter.return_value = mock_filter
-        mock_filter.join.return_value = mock_join
-        mock_join.filter.return_value = mock_join
-        mock_join.group_by.return_value = mock_group_by
-        mock_group_by.order_by.return_value = mock_projects
-
-        response = client.get(url_for("projects.index", leads="yes"))
-        assert b'leads=yes" class="active"' in response.data
-
-        # Test without_leads filter
-        mock_subquery = mocker.MagicMock()
-        mock_final_filter = mocker.MagicMock()
-
-        mock_query.filter.return_value = mock_filter
-        mock_query.join.return_value = mock_subquery
-        mock_subquery.filter.return_value = mock_subquery
-        mock_subquery.subquery.return_value = mock_subquery
-        mock_subquery.select.return_value = mock_subquery
-        mock_subquery.with_only_columns.return_value = mock_subquery
-        mock_filter.filter.return_value = mock_final_filter
-        mock_final_filter.order_by.return_value = mock_projects
-
-        response = client.get(url_for("projects.index", leads="no"))
-        assert b'leads=no" class="active"' in response.data
+    assert response.status_code == 200
+    links = LinkParser(response.get_data(as_text=True)).links
+    selected_links = [
+        link
+        for link in links
+        if link.get("title", "").startswith("Sort by ")
+        and "red" in link.get("class", "").split()
+    ]
+    assert len(selected_links) == 1
+    link = selected_links[0]
+    assert link["title"] == f"Sort by {selected}"
+    expected_query = {"sorter": [selected]}
+    if next_order is not None:
+        expected_query["order"] = [next_order]
+    assert parse_qs(urlsplit(link["href"]).query) == expected_query
