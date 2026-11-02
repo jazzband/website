@@ -37,6 +37,7 @@ from ..auth import current_user_is_roadie
 from ..decorators import templated
 from ..exceptions import eject
 from ..members.decorators import member_required
+from ..members.models import User
 from ..tasks import spinach
 from .forms import BulkReleaseForm, DeleteForm, ReleaseForm, UploadForm
 from .models import Project, ProjectMembership, ProjectUpload
@@ -409,6 +410,7 @@ class UploadLeadsActionView(UploadMembersActionView):
             return projects
         return projects.filter(
             Project.membership.any(user=current_user, is_lead=True),
+            User.active_members().filter(User.id == current_user.id).exists(),
         )
 
 
@@ -744,6 +746,7 @@ class BulkReleaseView(ProjectMixin, MethodView):
             return projects
         return projects.filter(
             Project.membership.any(user=current_user, is_lead=True),
+            User.active_members().filter(User.id == current_user.id).exists(),
         )
 
     def get_unreleased_uploads_for_version(self, version):
