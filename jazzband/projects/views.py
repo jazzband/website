@@ -408,7 +408,7 @@ class UploadLeadsActionView(UploadMembersActionView):
         if current_user_is_roadie():
             return projects
         return projects.filter(
-            Project.membership.any(is_lead=True),
+            Project.membership.any(user=current_user, is_lead=True),
         )
 
 
