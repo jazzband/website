@@ -6,7 +6,7 @@ import time
 from flask import current_app, render_template
 from flask_mail import Message
 from packaging.version import parse as parse_version
-from spinach import Tasks
+from spinach import AbortException, Tasks
 
 from ..account import github
 from ..config import ONE_MINUTE
@@ -26,16 +26,41 @@ def sync_projects():
     with redis.lock("sync_projects", ttl=ONE_MINUTE * 14):
         projects_data = github.get_projects()
         Project.sync(projects_data)
+        for project in projects_data:
+            if not project["archived"]:
+                tasks.schedule(protect_default_branch, project["name"])
 
 
-@tasks.task(name="update_project_by_hook")
-def update_project_by_hook(hook_id):
-    # first load the hook data again
-    hook_data = redis.get(hook_id)
-    if not hook_data:
-        return
-    hook_data = json.loads(hook_data)
+@tasks.task(name="protect_default_branch", max_retries=3)
+def protect_default_branch(project_name):
+    """Retry missed lifecycle events without repeating project onboarding."""
+    with redis.lock(f"protect-default-branch-{project_name}", ttl=ONE_MINUTE * 5):
+        return github.ensure_default_branch_history_protection(project_name)
 
+
+@tasks.task(name="update_project_by_hook", max_retries=3)
+def update_project_by_hook(hook_id, hook_data=None):
+    # Keep already-queued jobs compatible, but new jobs carry their own payload.
+    if hook_data is None:
+        stored_data = redis.get(hook_id)
+        if not stored_data:
+            raise AbortException("Repository onboarding payload unavailable")
+        hook_data = json.loads(stored_data)
+
+    project_name = hook_data["repository"]["name"]
+    if not protect_default_branch(project_name):
+        raise AbortException(
+            "Repository archived before onboarding. "
+            "Unarchive and redeliver the created/transferred webhook to finish setup."
+        )
+    try:
+        _onboard_project(hook_data)
+    except Exception as exc:
+        # Issue/team creation can succeed before its database save fails.
+        raise AbortException("Project onboarding failed after protection") from exc
+
+
+def _onboard_project(hook_data):
     project_name = hook_data["repository"]["name"]
     if project_name in current_app.config["INTERNAL_PROJECTS"]:
         logger.info(f"Skipping project {project_name} since it's internal")

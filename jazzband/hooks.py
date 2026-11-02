@@ -1,15 +1,13 @@
 from datetime import datetime
 import hmac
-import json
 import uuid
 
 from flask import current_app
 import werkzeug.security
 
-from .db import redis
 from .hookserver import Hooks
 from .members.models import User
-from .projects.tasks import update_project_by_hook
+from .projects.tasks import protect_default_branch, update_project_by_hook
 from .tasks import spinach
 
 
@@ -71,16 +69,19 @@ def membership(data, guid):
 
 @hooks.hook("repository")
 def repository(data, guid):
-    # only if the action is to add a member and if there is repo data
-    if data.get("action") in ("transferred", "created") and "repository" in data:
-        hook_id = f"repo-added-{uuid.uuid4()}"
-        redis.setex(
-            # expire the hook hash in 5 minutes
-            hook_id,
-            60 * 5,
-            json.dumps(data),
-        )
-        spinach.schedule(update_project_by_hook, hook_id)
-        return f"Started updating the project using hook id {hook_id}."
-    else:
+    action = data.get("action")
+    repository_data = data.get("repository")
+    if action not in ("transferred", "created", "unarchived") or not repository_data:
         return "No action needed."
+
+    owner = repository_data.get("owner", {}).get("login", "")
+    if owner.casefold() != current_app.config["GITHUB_ORG_NAME"].casefold():
+        return "Repository is not in the configured organization."
+
+    if action == "unarchived":
+        spinach.schedule(protect_default_branch, repository_data["name"])
+        return "Started protecting the default branch."
+
+    hook_id = f"repo-added-{uuid.uuid4()}"
+    spinach.schedule(update_project_by_hook, hook_id, data)
+    return f"Started updating the project using hook id {hook_id}."
