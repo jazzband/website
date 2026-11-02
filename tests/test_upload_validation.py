@@ -333,8 +333,38 @@ def test_validate_upload_multiple_files_in_release(upload_view, valid_pypi_respo
     assert warnings == []
 
 
-def test_validate_upload_integration_with_post_method(app, mocker):
+def test_post_does_not_release_when_disabled(app, upload_view, monkeypatch, mocker):
+    """A valid release request must not publish while releases are disabled."""
+    monkeypatch.setitem(app.config, "RELEASE_ENABLED", False)
+    upload_view.project.name = "test-project"
+    upload_view.upload.released_at = None
+    form_class = mocker.patch("jazzband.projects.views.ReleaseForm")
+    form_class.return_value.validate_on_submit.return_value = True
+    copy_upload = mocker.patch("jazzband.projects.views.shutil.copy")
+    run_twine = mocker.patch("jazzband.projects.views.delegator.run")
+    run_twine.return_value.return_code = 0
+    validate_upload = mocker.patch.object(
+        upload_view, "validate_upload", return_value=(True, [], [])
+    )
+    flash = mocker.patch("jazzband.projects.views.flash")
+
+    with app.test_request_context(method="POST"):
+        response = upload_view.post("test-project", 123)
+
+    run_twine.assert_not_called()
+    copy_upload.assert_not_called()
+    validate_upload.assert_not_called()
+    upload_view.upload.save.assert_not_called()
+    assert upload_view.upload.released_at is None
+    form_class.assert_not_called()
+    flash.assert_called_once_with("Releasing is currently out of service")
+    assert response.status_code == 302
+    assert response.location == "/projects/test-project"
+
+
+def test_validate_upload_integration_with_post_method(app, monkeypatch, mocker):
     """Test integration of validation with the post method."""
+    monkeypatch.setitem(app.config, "RELEASE_ENABLED", True)
     # This test verifies the validation is properly integrated
     # and that warnings don't block releases while errors do
 
@@ -391,8 +421,9 @@ def test_validate_upload_integration_with_post_method(app, mocker):
     view.upload.save.assert_called_once()
 
 
-def test_validate_upload_blocks_on_hash_mismatch_error(app, mocker):
+def test_validate_upload_blocks_on_hash_mismatch_error(app, monkeypatch, mocker):
     """Test that hash mismatch errors properly block the release."""
+    monkeypatch.setitem(app.config, "RELEASE_ENABLED", True)
     view = UploadReleaseView()
     view.upload = mocker.MagicMock()
     view.upload.released_at = None
