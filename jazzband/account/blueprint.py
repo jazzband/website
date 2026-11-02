@@ -1,4 +1,5 @@
 import logging
+from urllib.parse import quote
 
 from flask import current_app, flash
 from flask_dance.consumer import OAuth2ConsumerBlueprint, oauth_error
@@ -247,6 +248,56 @@ class GitHubBlueprint(OAuth2ConsumerBlueprint):
             f"orgs/{self.org_name}/teams/{team_slug}/memberships/{username}",
             headers={"Accept": "application/vnd.github.v3+json"},
         )
+
+    def ensure_default_branch_history_protection(self, repo_name):
+        """Protect the current default branch without changing existing rulesets."""
+        repo_url = f"repos/{self.org_name}/{repo_name}"
+        response = self.admin_session.get(repo_url)
+        response.raise_for_status()
+        repository = response.json()
+        owner = repository.get("owner", {}).get("login", "")
+        if owner.casefold() != self.org_name.casefold():
+            raise RuntimeError("Repository is not in the configured organization")
+        if repository["archived"]:
+            return False
+
+        branch = quote(repository["default_branch"], safe="")
+        rules_url = f"{repo_url}/rules/branches/{branch}?per_page=100"
+        while rules_url:
+            response = self.admin_session.get(rules_url)
+            response.raise_for_status()
+            for rule in response.json():
+                if rule["type"] != "non_fast_forward":
+                    continue
+                ruleset_response = self.admin_session.get(
+                    f"{repo_url}/rulesets/{rule['ruleset_id']}"
+                )
+                ruleset_response.raise_for_status()
+                ruleset = ruleset_response.json()
+                if "bypass_actors" not in ruleset:
+                    raise RuntimeError("Cannot verify ruleset bypass permissions")
+                if (
+                    ruleset["enforcement"] == "active"
+                    and ruleset["bypass_actors"] == []
+                ):
+                    return True
+            rules_url = response.links.get("next", {}).get("url")
+
+        response = self.admin_session.post(
+            f"{repo_url}/rulesets",
+            json={
+                "name": "Protect default branch history",
+                "target": "branch",
+                "enforcement": "active",
+                "bypass_actors": [],
+                "conditions": {
+                    "ref_name": {"include": ["~DEFAULT_BRANCH"], "exclude": []}
+                },
+                "rules": [{"type": "non_fast_forward"}],
+            },
+        )
+        response.raise_for_status()
+        return True
 
     def get_projects(self):
         # https://docs.github.com/en/rest/reference/repos#list-organization-repositories

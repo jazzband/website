@@ -22,7 +22,11 @@ def test_ping(client):
 def test_repo_transferred_hook(client, datadir, mocker):
     contents = (datadir / "repository.json").read_text()
     mocked_schedule = mocker.patch.object(JazzbandSpinach, "schedule")
-    response = post(client, "repository", json.loads(contents))
+    payload = json.loads(contents)
+    payload["repository"]["owner"]["login"] = client.application.config[
+        "GITHUB_ORG_NAME"
+    ]
+    response = post(client, "repository", payload)
     assert response.data
     response_string = response.data.decode("utf-8")
     assert response_string.startswith(
