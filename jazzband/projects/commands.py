@@ -105,7 +105,7 @@ def setup_project_leads_team(name, dry_run):
 @click.option(
     "--permission",
     "-p",
-    default="push",
+    default="pull",
     help="Permission level (pull, push, maintain, admin)",
 )
 @click.option(
@@ -142,7 +142,7 @@ def add_repo_to_members_team(name, permission, dry_run):
 @click.option(
     "--permission",
     "-p",
-    default="push",
+    default="pull",
     help="Permission level (pull, push, maintain, admin)",
 )
 @click.option(
@@ -151,7 +151,7 @@ def add_repo_to_members_team(name, permission, dry_run):
 @click_log.simple_verbosity_option(logger)
 @with_appcontext
 def update_all_projects_members_team(permission, dry_run):
-    """Update all active projects to be assigned to members team with write permissions"""
+    """Update the members team's permissions for all active projects."""
     try:
         if dry_run:
             print(

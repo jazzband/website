@@ -259,7 +259,7 @@ def test_onboarding_does_not_grant_write_without_protection(mocker, protection_r
     github.add_repo_to_team.assert_not_called()
 
 
-def test_onboarding_protects_before_preserving_member_write_grant(
+def test_onboarding_protects_before_granting_members_read_access(
     test_app_context, mocker
 ):
     redis = mocker.patch("jazzband.projects.tasks.redis")
@@ -280,7 +280,7 @@ def test_onboarding_protects_before_preserving_member_write_grant(
 
     assert calls.mock_calls == [
         mocker.call.protect("test-project"),
-        mocker.call.grant("members", "test-project", "push"),
+        mocker.call.grant("members", "test-project", "pull"),
     ]
 
 
@@ -370,7 +370,7 @@ def test_onboarding_retry_keeps_payload_and_resumes_after_protection(
 
     redis.get.assert_not_called()
     assert protection.call_count == 2
-    github.add_repo_to_team.assert_called_once_with("members", "test-project", "push")
+    github.add_repo_to_team.assert_called_once_with("members", "test-project", "pull")
     assert project_tasks.tasks.get("update_project_by_hook").max_retries == 3
 
 

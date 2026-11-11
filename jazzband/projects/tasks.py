@@ -113,14 +113,14 @@ def _onboard_project(hook_data):
             project.create_team()
             logger.info(f"Created team for project {project.name}")
 
-        # Add the repository to the members team with write permissions
+        # Onboarding must not restore broad write access during containment.
         members_team_slug = github.members_team_slug
         if members_team_slug:
             logger.info(
-                f"Adding repo {project.name} to members team {members_team_slug} with push permission"
+                f"Adding repo {project.name} to members team {members_team_slug} with pull permission"
             )
             repo_response = github.add_repo_to_team(
-                members_team_slug, project.name, "push"
+                members_team_slug, project.name, "pull"
             )
             if repo_response and repo_response.status_code == 204:
                 logger.info(f"Successfully added repo {project.name} to members team")
@@ -564,13 +564,13 @@ def setup_project_leads_team(project_id, dry_run=False):
 
 
 @tasks.task(name="add_repo_to_members_team")
-def add_repo_to_members_team(project_name, permission="push", dry_run=False):
+def add_repo_to_members_team(project_name, permission="pull", dry_run=False):
     """
     Add a repository to the members team with the specified permissions.
 
     Args:
         project_name: The name of the project/repository
-        permission: The permission level (pull, push, maintain, admin). Default is 'push' (write).
+        permission: The permission level (pull, push, maintain, admin). Default is 'pull' (read).
         dry_run: If True, log what would be done without making changes
     """
     log_prefix = "[DRY RUN] " if dry_run else ""
@@ -603,12 +603,12 @@ def add_repo_to_members_team(project_name, permission="push", dry_run=False):
 
 
 @tasks.task(name="update_all_projects_members_team")
-def update_all_projects_members_team(permission="push", dry_run=False):
+def update_all_projects_members_team(permission="pull", dry_run=False):
     """
-    Update all active projects to be assigned to the members team with write permissions.
+    Assign the requested members team permission to all active projects.
 
     Args:
-        permission: The permission level (pull, push, maintain, admin). Default is 'push' (write).
+        permission: The permission level (pull, push, maintain, admin). Default is 'pull' (read).
         dry_run: If True, log what would be done without making changes
     """
     log_prefix = "[DRY RUN] " if dry_run else ""
@@ -652,9 +652,16 @@ def update_all_projects_members_team(permission="push", dry_run=False):
         # Check if repo already has correct permissions
         if project.name in existing_repos and not dry_run:
             current_perms = existing_repos[project.name]
-            # Check if the desired permission is already set
-            has_permission = current_perms.get(permission, False)
-            if has_permission:
+            # Higher roles also report lower capabilities such as pull=True.
+            current_permission = next(
+                (
+                    role
+                    for role in ("admin", "maintain", "push", "triage", "pull")
+                    if current_perms.get(role, False)
+                ),
+                None,
+            )
+            if current_permission == permission:
                 logger.info(f"SKIP: {project.name} already has {permission} permission")
                 skip_count += 1
                 continue
