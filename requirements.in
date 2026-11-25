@@ -2,7 +2,7 @@ alembic
 babel
 backports.tarfile
 blinker
-brotli
+brotli>=1.2.1
 certifi>=2026.10.19
 chardet
 click
