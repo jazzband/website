@@ -1083,9 +1083,9 @@ nh3==0.2.21 \
     --hash=sha256:d426d7be1a2f3d896950fe263332ed1662f6c78525b4520c8e9861f8d7f0d243 \
     --hash=sha256:fcff321bd60c6c5c9cb4ddf2554e22772bb41ebd93ad88171bbbb6f271255286
     # via readme-renderer
-oauthlib==3.2.2 \
-    --hash=sha256:8139f29aac13e25d502680e9e19963e83f16838d48a0d71c287fe40e7067fbca \
-    --hash=sha256:9859c40929662bec5d64f34d01c99e093149682a3f38915dc0655d5a633dd918
+oauthlib==4.0.1 \
+    --hash=sha256:3d73febdb6faa00f277c81fb04be7b7586fb96fc3b7f0b9c772dada69a25ede7 \
+    --hash=sha256:498a298876e996301950a5b053d12c31628bb7b895db03666430c69ce182eb61
     # via
     #   flask-dance
     #   requests-oauthlib
@@ -1201,9 +1201,9 @@ pyproject-hooks==1.2.0 \
     # via
     #   build
     #   pip-tools
-pytest==8.4.2 \
-    --hash=sha256:86c0d0b93306b961d58d62a4db4879f27fe25513d4b969df351abdddb3c30e01 \
-    --hash=sha256:872f880de3fc3a5bdc88a11b39c9710c3497a547cfa9320bc3c5e62fbf272e79
+pytest==9.0.3 \
+    --hash=sha256:2c5efc453d45394fdd706ade797c0a81091eccd1d6e4bccfcd476e2b8e0ab5d9 \
+    --hash=sha256:b86ada508af81d19edeb213c681b1d48246c1a91d304c6c81a427674c17eb91c
     # via
     #   -r requirements.in
     #   pytest-cov
