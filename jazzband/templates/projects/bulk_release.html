@@ -90,6 +90,14 @@
 
     <form action="" method="POST">
       {{ bulk_release_form.csrf_token }}
+      {{ bulk_release_form.approval_token }}
+      {% if bulk_release_form.approval_token.errors %}
+      <ul class="errors">
+        {% for error in bulk_release_form.approval_token.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
       <dl>
         {{ macros.render_field(bulk_release_form.project_name) }}
       </dl>
