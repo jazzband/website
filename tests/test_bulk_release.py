@@ -6,8 +6,11 @@ as requested in GitHub issue #20.
 """
 
 from datetime import datetime
-from unittest.mock import MagicMock
+import hashlib
+from pathlib import Path
+import shlex
 
+from flask import current_app
 from flask.views import MethodView
 import pytest
 
@@ -15,13 +18,15 @@ from jazzband.projects.views import BulkReleaseView, ProjectMixin
 
 
 @pytest.fixture
-def bulk_release_view():
+def bulk_release_view(mocker):
     """Create a BulkReleaseView instance with mock project."""
     view = BulkReleaseView()
+    mocker.patch("jazzband.projects.views.current_user", id=7)
 
     # Create mock project using simple objects
     class MockProject:
         def __init__(self):
+            self.id = 1
             self.name = "test-project"
             self.uploads = MockUploads()
             self.membership = MockMembership()
@@ -45,20 +50,26 @@ def bulk_release_view():
 
 
 @pytest.fixture
-def mock_uploads():
+def mock_uploads(mocker, tmp_path):
     """Create mock uploads for testing."""
 
     class MockUpload:
-        def __init__(self, filename, version="1.0.0"):
+        def __init__(self, upload_id, filename, version="1.0.0"):
+            self.id = upload_id
             self.filename = filename
             self.version = version
             self.released_at = None
-            self.full_path = f"/app/uploads/{filename}"
-            self.save = MagicMock()  # Use MagicMock instead of lambda
+            path = tmp_path / filename
+            content = f"distribution {upload_id}".encode()
+            path.write_bytes(content)
+            self.full_path = str(path)
+            self.size = len(content)
+            self.sha256_digest = hashlib.sha256(content).hexdigest()
+            self.save = mocker.MagicMock()
 
-    upload1 = MockUpload("test-package-1.0.0.tar.gz")
-    upload2 = MockUpload("test-package-1.0.0-py3-none-any.whl")
-    upload3 = MockUpload("test-package-1.0.0-py2.py3-none-any.whl")
+    upload1 = MockUpload(1, "test-package-1.0.0.tar.gz")
+    upload2 = MockUpload(2, "test-package-1.0.0-py3-none-any.whl")
+    upload3 = MockUpload(3, "test-package-1.0.0-py2.py3-none-any.whl")
 
     return [upload1, upload2, upload3]
 
@@ -134,60 +145,36 @@ def test_validate_uploads_bulk_with_errors(bulk_release_view, mock_uploads, mock
     assert len(warnings) == 2  # Warnings from other uploads
 
 
-def test_release_uploads_bulk_success(
-    bulk_release_view, mock_uploads, mocker, tmp_path
-):
-    """Test successful bulk release using twine."""
-    # Mock successful twine command
-    mock_twine_result = mocker.MagicMock()
-    mock_twine_result.return_code = 0
-    mock_delegator_run = mocker.patch(
-        "jazzband.projects.views.delegator.run", return_value=mock_twine_result
-    )
+def test_release_uploads_bulk_success(bulk_release_view, mock_uploads, mocker):
+    """Release the verified temporary copies through one Twine command."""
+    copied_contents = []
+    mock_twine_result = mocker.MagicMock(return_code=0)
 
-    # Use tmp_path fixture for real temporary directory
-    mocker.patch(
-        "jazzband.projects.views.tempfile.TemporaryDirectory",
-        return_value=mocker.MagicMock(
-            __enter__=mocker.MagicMock(return_value=str(tmp_path))
-        ),
-    )
-    mock_shutil_copy = mocker.patch("jazzband.projects.views.shutil.copy")
+    def capture_upload(command):
+        paths = shlex.split(command)[2:]
+        copied_contents.extend(Path(path).read_bytes() for path in paths)
+        return mock_twine_result
+
+    mocker.patch("jazzband.projects.views.delegator.run", side_effect=capture_upload)
 
     success, twine_outputs = bulk_release_view.release_uploads_bulk(mock_uploads)
 
     assert success is True
-    assert len(twine_outputs) == 1
-    assert twine_outputs[0].return_code == 0
-    assert mock_delegator_run.called
-    assert mock_shutil_copy.call_count == len(mock_uploads)
+    assert twine_outputs == [mock_twine_result]
+    assert copied_contents == [b"distribution 1", b"distribution 2", b"distribution 3"]
 
 
-def test_release_uploads_bulk_failure(
-    bulk_release_view, mock_uploads, mocker, tmp_path
-):
-    """Test failed bulk release."""
-    # Mock failed twine command
-    mock_twine_result = mocker.MagicMock()
-    mock_twine_result.return_code = 1
+def test_release_uploads_bulk_failure(bulk_release_view, mock_uploads, mocker):
+    """Report a failed Twine command without claiming the files were released."""
+    mock_twine_result = mocker.MagicMock(return_code=1)
     mocker.patch(
         "jazzband.projects.views.delegator.run", return_value=mock_twine_result
     )
 
-    # Use tmp_path fixture for real temporary directory
-    mocker.patch(
-        "jazzband.projects.views.tempfile.TemporaryDirectory",
-        return_value=mocker.MagicMock(
-            __enter__=mocker.MagicMock(return_value=str(tmp_path))
-        ),
-    )
-    mocker.patch("jazzband.projects.views.shutil.copy")
-
     success, twine_outputs = bulk_release_view.release_uploads_bulk(mock_uploads)
 
     assert success is False
-    assert len(twine_outputs) == 1
-    assert twine_outputs[0].return_code == 1
+    assert twine_outputs == [mock_twine_result]
 
 
 def test_get_method_no_uploads_basic(bulk_release_view, mocker):
@@ -227,7 +214,7 @@ def test_bulk_release_preserves_individual_validation_logic(
     assert mock_instance.validate_upload.call_count == len(mock_uploads)
 
 
-def test_twine_command_construction(bulk_release_view, mock_uploads, mocker, tmp_path):
+def test_twine_command_construction(bulk_release_view, mock_uploads, mocker):
     """Test that the twine command is properly constructed for multiple files."""
     commands_run = []
 
@@ -238,13 +225,6 @@ def test_twine_command_construction(bulk_release_view, mock_uploads, mocker, tmp
         return mock_result
 
     mocker.patch("jazzband.projects.views.delegator.run", side_effect=capture_command)
-    mocker.patch(
-        "jazzband.projects.views.tempfile.TemporaryDirectory",
-        return_value=mocker.MagicMock(
-            __enter__=mocker.MagicMock(return_value=str(tmp_path))
-        ),
-    )
-    mocker.patch("jazzband.projects.views.shutil.copy")
 
     bulk_release_view.release_uploads_bulk(mock_uploads)
 
@@ -352,6 +332,9 @@ def test_bulk_release_form_integration(
     mock_form_class = mocker.patch("jazzband.projects.views.BulkReleaseForm")
     mock_form = mocker.MagicMock(spec=BulkReleaseForm)
     mock_form.validate_on_submit.return_value = True
+    mock_form.approval_token.data = bulk_release_view.approval_serializer().dumps(
+        bulk_release_view.approval_snapshot("1.0.0", mock_uploads)
+    )
     mock_form_class.return_value = mock_form
 
     # Mock flash and datetime
@@ -389,9 +372,7 @@ def test_bulk_release_form_integration(
 def test_get_method_release_disabled(test_app_context, bulk_release_view, mocker):
     """Test GET method when RELEASE_ENABLED is False."""
     mock_flash = mocker.patch("jazzband.projects.views.flash")
-    mocker.patch(
-        "jazzband.projects.views.current_app.config", {"RELEASE_ENABLED": False}
-    )
+    mocker.patch.dict(current_app.config, {"RELEASE_ENABLED": False})
 
     bulk_release_view.redirect_to_project = lambda: "redirect_result"
 
@@ -405,9 +386,7 @@ def test_get_method_success_with_released_uploads(
     test_app_context, bulk_release_view, mock_uploads, mocker
 ):
     """Test successful GET method that returns template context with released uploads."""
-    mocker.patch(
-        "jazzband.projects.views.current_app.config", {"RELEASE_ENABLED": True}
-    )
+    mocker.patch.dict(current_app.config, {"RELEASE_ENABLED": True})
 
     # Mock form class
     mock_form_class = mocker.patch("jazzband.projects.views.BulkReleaseForm")
@@ -442,9 +421,7 @@ def test_get_method_success_with_released_uploads(
 def test_post_method_release_disabled(test_app_context, bulk_release_view, mocker):
     """Test POST method when RELEASE_ENABLED is False."""
     mock_flash = mocker.patch("jazzband.projects.views.flash")
-    mocker.patch(
-        "jazzband.projects.views.current_app.config", {"RELEASE_ENABLED": False}
-    )
+    mocker.patch.dict(current_app.config, {"RELEASE_ENABLED": False})
 
     bulk_release_view.redirect_to_project = lambda: "redirect_result"
 
@@ -457,9 +434,7 @@ def test_post_method_release_disabled(test_app_context, bulk_release_view, mocke
 def test_post_method_no_uploads(test_app_context, bulk_release_view, mocker):
     """Test POST method when no unreleased uploads exist."""
     mock_flash = mocker.patch("jazzband.projects.views.flash")
-    mocker.patch(
-        "jazzband.projects.views.current_app.config", {"RELEASE_ENABLED": True}
-    )
+    mocker.patch.dict(current_app.config, {"RELEASE_ENABLED": True})
 
     bulk_release_view.get_unreleased_uploads_for_version = lambda v: []
     bulk_release_view.redirect_to_project = lambda: "redirect_result"
@@ -474,9 +449,7 @@ def test_post_method_form_validation_fails(
     test_app_context, bulk_release_view, mock_uploads, mocker
 ):
     """Test POST method when form validation fails."""
-    mocker.patch(
-        "jazzband.projects.views.current_app.config", {"RELEASE_ENABLED": True}
-    )
+    mocker.patch.dict(current_app.config, {"RELEASE_ENABLED": True})
 
     # Mock form validation failure
     mock_form_class = mocker.patch("jazzband.projects.views.BulkReleaseForm")
@@ -499,14 +472,15 @@ def test_post_method_validation_errors_block_release(
     test_app_context, bulk_release_view, mock_uploads, mocker
 ):
     """Test POST method when validation errors block the release."""
-    mocker.patch(
-        "jazzband.projects.views.current_app.config", {"RELEASE_ENABLED": True}
-    )
+    mocker.patch.dict(current_app.config, {"RELEASE_ENABLED": True})
 
     # Mock form validation success
     mock_form_class = mocker.patch("jazzband.projects.views.BulkReleaseForm")
     mock_form = mocker.MagicMock()
     mock_form.validate_on_submit.return_value = True
+    mock_form.approval_token.data = bulk_release_view.approval_serializer().dumps(
+        bulk_release_view.approval_snapshot("1.0.0", mock_uploads)
+    )
     mock_form_class.return_value = mock_form
 
     bulk_release_view.get_unreleased_uploads_for_version = lambda v: mock_uploads
@@ -532,14 +506,15 @@ def test_post_method_release_failure(
     test_app_context, bulk_release_view, mock_uploads, mocker, caplog
 ):
     """Test POST method when twine upload fails."""
-    mocker.patch(
-        "jazzband.projects.views.current_app.config", {"RELEASE_ENABLED": True}
-    )
+    mocker.patch.dict(current_app.config, {"RELEASE_ENABLED": True})
 
     # Mock form validation success
     mock_form_class = mocker.patch("jazzband.projects.views.BulkReleaseForm")
     mock_form = mocker.MagicMock()
     mock_form.validate_on_submit.return_value = True
+    mock_form.approval_token.data = bulk_release_view.approval_serializer().dumps(
+        bulk_release_view.approval_snapshot("1.0.0", mock_uploads)
+    )
     mock_form_class.return_value = mock_form
 
     # Mock failed twine output
@@ -570,14 +545,15 @@ def test_post_method_success_with_warnings(
     test_app_context, bulk_release_view, mock_uploads, mocker, caplog
 ):
     """Test successful POST method with warnings."""
-    mocker.patch(
-        "jazzband.projects.views.current_app.config", {"RELEASE_ENABLED": True}
-    )
+    mocker.patch.dict(current_app.config, {"RELEASE_ENABLED": True})
 
     # Mock form validation success
     mock_form_class = mocker.patch("jazzband.projects.views.BulkReleaseForm")
     mock_form = mocker.MagicMock()
     mock_form.validate_on_submit.return_value = True
+    mock_form.approval_token.data = bulk_release_view.approval_serializer().dumps(
+        bulk_release_view.approval_snapshot("1.0.0", mock_uploads)
+    )
     mock_form_class.return_value = mock_form
 
     # Mock datetime
@@ -629,14 +605,15 @@ def test_post_method_success_no_warnings(
     test_app_context, bulk_release_view, mock_uploads, mocker
 ):
     """Test successful POST method without warnings."""
-    mocker.patch(
-        "jazzband.projects.views.current_app.config", {"RELEASE_ENABLED": True}
-    )
+    mocker.patch.dict(current_app.config, {"RELEASE_ENABLED": True})
 
     # Mock form validation success
     mock_form_class = mocker.patch("jazzband.projects.views.BulkReleaseForm")
     mock_form = mocker.MagicMock()
     mock_form.validate_on_submit.return_value = True
+    mock_form.approval_token.data = bulk_release_view.approval_serializer().dumps(
+        bulk_release_view.approval_snapshot("1.0.0", mock_uploads)
+    )
     mock_form_class.return_value = mock_form
 
     # Mock datetime

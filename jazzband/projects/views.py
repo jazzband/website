@@ -21,6 +21,7 @@ from flask import (
 )
 from flask.views import MethodView
 from flask_login import current_user, login_required
+from itsdangerous import BadData, URLSafeSerializer
 
 # Use packaging.utils instead of deprecated pkg_resources
 from packaging.utils import canonicalize_name as safe_name
@@ -753,6 +754,26 @@ class BulkReleaseView(ProjectMixin, MethodView):
         """Get all unreleased uploads for a specific version."""
         return self.project.uploads.filter_by(version=version, released_at=None).all()
 
+    def approval_serializer(self):
+        return URLSafeSerializer(current_app.secret_key, salt="bulk-release-approval")
+
+    def approval_snapshot(self, version, uploads):
+        """Bind approval to the reviewer and the exact displayed release files."""
+        return {
+            "project_id": self.project.id,
+            "user_id": current_user.id,
+            "version": version,
+            "uploads": [
+                {
+                    "id": upload.id,
+                    "filename": upload.filename,
+                    "size": upload.size,
+                    "sha256": upload.sha256_digest.lower(),
+                }
+                for upload in sorted(uploads, key=lambda upload: upload.id)
+            ],
+        }
+
     def validate_uploads_bulk(self, uploads, timeout=10):
         """
         Validate multiple uploads at once.
@@ -791,6 +812,21 @@ class BulkReleaseView(ProjectMixin, MethodView):
             for upload in uploads:
                 upload_path = os.path.join(tmpdir, upload.filename)
                 shutil.copy(upload.full_path, upload_path)
+                # Check the private copy that Twine will read, not the source
+                # file, which could change while it is being copied.
+                digest = hashlib.sha256()
+                size = 0
+                with open(upload_path, "rb") as upload_file:
+                    for chunk in iter(lambda: upload_file.read(1024 * 1024), b""):
+                        digest.update(chunk)
+                        size += len(chunk)
+                if size != upload.size or not hmac.compare_digest(
+                    digest.hexdigest(), upload.sha256_digest.lower()
+                ):
+                    raise ValueError(
+                        "A release file no longer matches its recorded size or SHA-256. "
+                        "Check the stored files before releasing."
+                    )
                 upload_paths.append(upload_path)
 
             # Run twine upload on all files at once
@@ -820,6 +856,9 @@ class BulkReleaseView(ProjectMixin, MethodView):
         )
 
         bulk_release_form = BulkReleaseForm(project_name=self.project.name)
+        bulk_release_form.approval_token.data = self.approval_serializer().dumps(
+            self.approval_snapshot(version, uploads)
+        )
 
         return {
             "project": self.project,
@@ -851,6 +890,24 @@ class BulkReleaseView(ProjectMixin, MethodView):
         }
 
         if bulk_release_form.validate_on_submit():
+            try:
+                approved = self.approval_serializer().loads(
+                    bulk_release_form.approval_token.data
+                )
+            except BadData:
+                approved = None
+            if approved != self.approval_snapshot(version, uploads):
+                flash(
+                    "The release confirmation is invalid or the files have changed. "
+                    "Review the files again before releasing.",
+                    category="error",
+                )
+                return redirect(
+                    url_for(
+                        "projects.bulk_release", name=self.project.name, version=version
+                    )
+                )
+
             # Validate all uploads first
             validation_success, all_errors, all_warnings = self.validate_uploads_bulk(
                 uploads
@@ -867,7 +924,15 @@ class BulkReleaseView(ProjectMixin, MethodView):
             # Proceed with bulk release if no blocking errors
             if not all_errors:
                 # Release all uploads at once
-                release_success, twine_outputs = self.release_uploads_bulk(uploads)
+                try:
+                    release_success, twine_outputs = self.release_uploads_bulk(uploads)
+                except (OSError, ValueError):
+                    bulk_release_form.add_global_error(
+                        "The release files could not be read or no longer match "
+                        "their recorded sizes and SHA-256 hashes. "
+                        "Check the stored files before releasing."
+                    )
+                    return context
 
                 if release_success:
                     # Mark all uploads as released
